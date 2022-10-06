@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include <core/window.h>
 #include <core/input/event.h>
 #include <core/layers/layer_collection.h>
@@ -20,6 +21,8 @@ namespace Desdun
 
 		static Game* GetInstance() { return GameInstance; };
 
+		LayerCollection GameLayers = {};
+
 	protected:
 		void PushInputEvent(const InputEvent& inputEvent);
 		void PushWindowEvent(const WindowEvent& windowEvent);
@@ -27,9 +30,7 @@ namespace Desdun
 	private:
 		static Game* GameInstance;
 
-		LayerCollection GameLayers = {};
 		Window* GameWindow = nullptr;
-
 		bool Running = false;
 
 		friend class Window;

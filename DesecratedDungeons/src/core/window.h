@@ -1,10 +1,9 @@
 #pragma once
 
 #include <dependencies/glm/glm.hpp>
-#include <libraries.hpp>
 
-#include <glfw3.h>
 #include <GL/glew.h>
+#include <glfw3.h>
 
 namespace Desdun
 {
@@ -19,12 +18,12 @@ namespace Desdun
 
 		void Update();
 
-		inline GLFWwindow* GetContext() const { return aWindow; };
+		GLFWwindow* GetContext() { return WindowObject; };
 
 		bool IsFocused = true;
 		glm::vec2 Size;
 
 	private:
-		GLFWwindow* aWindow;
+		GLFWwindow* WindowObject;
 	};
 }

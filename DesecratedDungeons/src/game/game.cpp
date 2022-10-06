@@ -1,7 +1,10 @@
 
-#include "game.h"
+#include <GL/glew.h>
+#include <glfw3.h>
 
 #include <core/window.h>
+
+#include "game.h"
 
 namespace Desdun
 {
@@ -75,7 +78,7 @@ namespace Desdun
 
     void Game::PushWindowEvent(const WindowEvent& windowEvent)
     {
-        for (auto Layer : GameLayers)
+        for (auto* Layer : GameLayers)
         {
             Layer->OnWindowEvent(windowEvent);
         }

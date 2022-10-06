@@ -34,14 +34,14 @@ namespace Desdun
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
         // create the new active window
-        aWindow = glfwCreateWindow(aSize.x, aSize.y, AppTitle, NULL, NULL);
-        if (aWindow == nullptr) // if the window couldn't be created, terminate the app
+        WindowObject = glfwCreateWindow(aSize.x, aSize.y, AppTitle, NULL, NULL);
+        if (WindowObject == nullptr) // if the window couldn't be created, terminate the app
         {
             glfwTerminate();
             assert(false);
         }
 
-        glfwMakeContextCurrent(aWindow);
+        glfwMakeContextCurrent(WindowObject);
         if (glewInit() != GLEW_OK)
             assert(false);
 
@@ -50,16 +50,16 @@ namespace Desdun
         // Set up all the input callbacks.
         UserPointerInfo* userPointerInfo = new UserPointerInfo({ Game::GetInstance(), this });
 
-        glfwSetWindowUserPointer(aWindow, (void*)userPointerInfo);
+        glfwSetWindowUserPointer(WindowObject, (void*)userPointerInfo);
 
-        glfwSetWindowCloseCallback(aWindow,
+        glfwSetWindowCloseCallback(WindowObject,
             [](GLFWwindow* window)
             {
                 UserPointerInfo& PointerInfo = *(UserPointerInfo*)glfwGetWindowUserPointer(window);
                 PointerInfo.GameInstance->End();
             });
 
-        glfwSetWindowSizeCallback(aWindow,
+        glfwSetWindowSizeCallback(WindowObject,
             [](GLFWwindow* window, int Width, int Height)
             {
                 UserPointerInfo& PointerInfo = *(UserPointerInfo*)glfwGetWindowUserPointer(window);
@@ -73,7 +73,7 @@ namespace Desdun
                 PointerInfo.GameInstance->PushWindowEvent(NewEvent);
             });
 
-        glfwSetWindowFocusCallback(aWindow,
+        glfwSetWindowFocusCallback(WindowObject,
             [](GLFWwindow* window, int Focused)
             {
                 UserPointerInfo& PointerInfo = *(UserPointerInfo*)glfwGetWindowUserPointer(window);
@@ -86,7 +86,7 @@ namespace Desdun
                 PointerInfo.GameInstance->PushWindowEvent(NewEvent);
             });
 
-        glfwSetScrollCallback(aWindow,
+        glfwSetScrollCallback(WindowObject,
             [](GLFWwindow* window, double xOffset, double yOffset)
             {
                 UserPointerInfo& PointerInfo = *(UserPointerInfo*)glfwGetWindowUserPointer(window);
@@ -101,7 +101,7 @@ namespace Desdun
                 PointerInfo.GameInstance->PushInputEvent(NewEvent);
             });
 
-        glfwSetCursorPosCallback(aWindow,
+        glfwSetCursorPosCallback(WindowObject,
             [](GLFWwindow* window, double xPos, double yPos)
             {
                 UserPointerInfo& PointerInfo = *(UserPointerInfo*)glfwGetWindowUserPointer(window);
@@ -118,7 +118,7 @@ namespace Desdun
                 PointerInfo.GameInstance->PushInputEvent(NewEvent);
             });
 
-        glfwSetMouseButtonCallback(aWindow,
+        glfwSetMouseButtonCallback(WindowObject,
             [](GLFWwindow* window, int button, int action, int mods)
             {
                 UserPointerInfo& PointerInfo = *(UserPointerInfo*)glfwGetWindowUserPointer(window);
@@ -142,7 +142,7 @@ namespace Desdun
                 PointerInfo.GameInstance->PushInputEvent(NewEvent);
             });
 
-        glfwSetKeyCallback(aWindow,
+        glfwSetKeyCallback(WindowObject,
             [](GLFWwindow* window, int key, int scancode, int action, int mods)
             {
                 UserPointerInfo& PointerInfo = *(UserPointerInfo*)glfwGetWindowUserPointer(window);
@@ -164,7 +164,7 @@ namespace Desdun
 
     Window::~Window()
     {
-        glfwDestroyWindow(aWindow);
+        glfwDestroyWindow(WindowObject);
         glfwTerminate();
     }
 
@@ -189,7 +189,7 @@ namespace Desdun
 
     void Window::Update()
     {
-        glfwSwapBuffers(aWindow);
+        glfwSwapBuffers(WindowObject);
         glfwPollEvents();
     }
 }

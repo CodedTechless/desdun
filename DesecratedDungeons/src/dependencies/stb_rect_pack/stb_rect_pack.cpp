@@ -1,3 +1,3 @@
 
 #define STB_RECT_PACK_IMPLEMENTATION
-#include "stb_rect_pack/stb_rect_pack.h"
+#include <dependencies/stb_rect_pack/stb_rect_pack.h>

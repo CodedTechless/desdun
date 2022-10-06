@@ -1,6 +1,6 @@
 #pragma once
 
-#include <dependencies/glm/glm.hpp>
+#include <glm/glm.hpp>
 
 #include <libraries.hpp>
 

@@ -1,11 +1,13 @@
 
 #include <game/game.h>
 
-void main()
+int main()
 {
 	Desdun::Game* game = new Desdun::Game();
 
 	game->Start();
 
 	delete game;
+
+	return 0;
 }

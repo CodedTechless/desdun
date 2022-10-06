@@ -44,12 +44,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)int\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\$(Platform)-int\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)int\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\$(Platform)-int\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -58,7 +58,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\GLFW\include\GLFW;$(SolutionDir)dependencies\GLEW\include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\GLFW\include\GLFW;$(SolutionDir)dependencies\GLEW\include;$(ProjectDir)src;$(ProjectDir)src\dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -76,7 +76,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\GLFW\include\GLFW;$(SolutionDir)dependencies\GLEW\include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\GLFW\include\GLFW;$(SolutionDir)dependencies\GLEW\include;$(ProjectDir)src;$(ProjectDir)src\dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -94,9 +94,6 @@
     <ClCompile Include="src\core\layers\layer_collection.cpp" />
     <ClCompile Include="src\core\window.cpp" />
     <ClCompile Include="src\dependencies\glm\detail\glm.cpp" />
-    <ClCompile Include="src\dependencies\glm\out\build\x64-Debug\CMakeFiles\3.19.20122902-MSVC_2\CompilerIdCXX\CMakeCXXCompilerId.cpp" />
-    <ClCompile Include="src\dependencies\glm\out\build\x64-Debug\CMakeFiles\3.19.20122902-MSVC_2\CompilerIdC\CMakeCCompilerId.c" />
-    <ClCompile Include="src\dependencies\glm\out\build\x64-Debug\CMakeFiles\ShowIncludes\main.c" />
     <ClCompile Include="src\dependencies\imgui\imgui.cpp" />
     <ClCompile Include="src\dependencies\imgui\imgui_demo.cpp" />
     <ClCompile Include="src\dependencies\imgui\imgui_draw.cpp" />
@@ -382,7 +379,6 @@
     <ClInclude Include="src\dependencies\glm\mat4x3.hpp" />
     <ClInclude Include="src\dependencies\glm\mat4x4.hpp" />
     <ClInclude Include="src\dependencies\glm\matrix.hpp" />
-    <ClInclude Include="src\dependencies\glm\out\build\x64-Debug\CMakeFiles\ShowIncludes\foo.h" />
     <ClInclude Include="src\dependencies\glm\packing.hpp" />
     <ClInclude Include="src\dependencies\glm\simd\common.h" />
     <ClInclude Include="src\dependencies\glm\simd\exponential.h" />
@@ -552,8 +548,6 @@
     <None Include="src\dependencies\glm\gtx\vector_angle.inl" />
     <None Include="src\dependencies\glm\gtx\vector_query.inl" />
     <None Include="src\dependencies\glm\gtx\wrap.inl" />
-    <None Include="src\dependencies\glm\out\build\x64-Debug\CMakeFiles\3.19.20122902-MSVC_2\CMakeDetermineCompilerABI_C.bin" />
-    <None Include="src\dependencies\glm\out\build\x64-Debug\CMakeFiles\3.19.20122902-MSVC_2\CMakeDetermineCompilerABI_CXX.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
