@@ -24,15 +24,6 @@
     <ClCompile Include="src\core\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\dependencies\glm\out\build\x64-Debug\CMakeFiles\3.19.20122902-MSVC_2\CompilerIdC\CMakeCCompilerId.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dependencies\glm\out\build\x64-Debug\CMakeFiles\3.19.20122902-MSVC_2\CompilerIdCXX\CMakeCXXCompilerId.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dependencies\glm\out\build\x64-Debug\CMakeFiles\ShowIncludes\main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\input\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,9 +72,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\dependencies\glm\out\build\x64-Debug\CMakeFiles\ShowIncludes\foo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\libraries.hpp">
@@ -991,12 +979,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\dependencies\glm\out\build\x64-Debug\CMakeFiles\3.19.20122902-MSVC_2\CMakeDetermineCompilerABI_C.bin">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\dependencies\glm\out\build\x64-Debug\CMakeFiles\3.19.20122902-MSVC_2\CMakeDetermineCompilerABI_CXX.bin">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="src\dependencies\glm\detail\func_common.inl">
       <Filter>Header Files</Filter>
     </None>
