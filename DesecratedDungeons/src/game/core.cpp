@@ -3,8 +3,10 @@
 #include <glfw3.h>
 
 #include <core/window.h>
+#include <core/debug/debug.h>
 
-#include "game.h"
+#include "layers/game.h"
+#include "core.h"
 
 namespace Desdun
 {
@@ -15,6 +17,9 @@ namespace Desdun
 		GameInstance = this;
 		
 		GameWindow = new Window("Desecrated Dungeons", { 800, 600 });
+
+        Layer* MainLayer = new GameLayer("GameLayer");
+        GameLayers.PushLayer(MainLayer);
 
         /*
         ImGuiLayer = new ImGuiLayer(ImGuiIniFileName);
@@ -38,7 +43,9 @@ namespace Desdun
 
 		while (Running)
 		{
+            GameWindow->Clear();
 
+            GameWindow->Update();
 		}
 	}
 

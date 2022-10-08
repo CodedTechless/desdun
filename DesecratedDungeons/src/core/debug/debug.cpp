@@ -56,7 +56,12 @@ namespace Desdun
 		Log(String, "ERROR", Header);
 	}
 
-	void Debug::OpenGLMessage(const std::string& String, GLenum Source, GLenum Type, GLuint Id, GLenum Severity)
+	void Debug::GLFWMessage(int error, const char* msg)
+	{
+		std::cerr << " [" + std::to_string(error) + "] " + std::string(msg) + '\n' << std::endl;
+	}
+
+	void Debug::OpenGLMessage(GLenum Source, GLenum Type, GLuint ID, GLenum Severity, GLsizei Length, const GLchar* Message, const void* UserParam)
 	{
 		std::string _source, _type, _severity;
 
@@ -140,7 +145,7 @@ namespace Desdun
 		}
 		
 
-		Log("OpenGL Error " + std::to_string(Id) + " [" + _source + "]: " + String, _severity, "OpenGL");
+		Log("OpenGL Error " + std::to_string(ID) + " [" + _source + "]: " + std::string(Message), _severity, "OpenGL");
 	}
 
 }

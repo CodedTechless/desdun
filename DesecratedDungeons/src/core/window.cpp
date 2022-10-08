@@ -5,16 +5,10 @@
 #include <core/input/input.h>
 #include <core/input/event.h>
 
-#include <game/game.h>
+#include <game/core.h>
 
 namespace Desdun
 {
-    void GLFWErrorCallback(int error, const char* msg) {
-        std::string s;
-
-        s = " [" + std::to_string(error) + "] " + msg + '\n';
-        std::cerr << s << std::endl;
-    }
 
     struct UserPointerInfo
     {
@@ -25,7 +19,7 @@ namespace Desdun
     Window::Window(const char AppTitle[], glm::vec2 aSize)
         : Size(aSize)
     {
-        glfwSetErrorCallback(GLFWErrorCallback);
+        glfwSetErrorCallback(Debug::GLFWMessage);
 
         if (glfwInit() != GL_TRUE)
             assert(false);
@@ -33,9 +27,8 @@ namespace Desdun
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
-        // create the new active window
         WindowObject = glfwCreateWindow(aSize.x, aSize.y, AppTitle, NULL, NULL);
-        if (WindowObject == nullptr) // if the window couldn't be created, terminate the app
+        if (WindowObject == nullptr)
         {
             glfwTerminate();
             assert(false);
@@ -45,7 +38,7 @@ namespace Desdun
         if (glewInit() != GLEW_OK)
             assert(false);
 
-        Debug::Log("Created window (" + std::to_string(aSize.x) + ", " + std::to_string(aSize.y) + ")", "Application");
+        //Debug::Log("Created window (" + std::to_string(aSize.x) + ", " + std::to_string(aSize.y) + ")", "Application");
 
         // Set up all the input callbacks.
         UserPointerInfo* userPointerInfo = new UserPointerInfo({ Game::GetInstance(), this });
@@ -165,7 +158,6 @@ namespace Desdun
     Window::~Window()
     {
         glfwDestroyWindow(WindowObject);
-        glfwTerminate();
     }
 
     void Window::SetVsyncEnabled(bool Enabled)

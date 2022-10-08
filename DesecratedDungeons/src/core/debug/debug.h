@@ -24,7 +24,8 @@ namespace Desdun
 		static void Warn(const std::string& String, const std::string& Header = "");
 		static void Error(const std::string& String, const std::string& Header = "");
 
-		static void OpenGLMessage(const std::string& String, GLenum Source, GLenum Type, GLuint Id, GLenum Severity);
+		static void OpenGLMessage(GLenum Source, GLenum Type, GLuint ID, GLenum Severity, GLsizei Length, const GLchar* Message, const void* UserParam);
+		static void GLFWMessage(int error, const char* msg);
 
 		template<typename Func>
 		static void DefineCommand(std::string CommandName, Func commandFunction)

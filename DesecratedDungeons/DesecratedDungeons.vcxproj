@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -89,7 +89,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\core\debug\debug.cpp" />
+    <ClCompile Include="src\core\graphics\core\render_camera.cpp" />
+    <ClCompile Include="src\core\graphics\interface.cpp" />
+    <ClCompile Include="src\core\graphics\core\render_queue.cpp" />
+    <ClCompile Include="src\core\graphics\shaders\shader.cpp" />
+    <ClCompile Include="src\core\graphics\texture\texture.cpp" />
+    <ClCompile Include="src\core\graphics\texture\texture_array.cpp" />
     <ClCompile Include="src\core\input\input.cpp" />
+    <ClCompile Include="src\core\instance\world.cpp" />
     <ClCompile Include="src\core\layers\layer.cpp" />
     <ClCompile Include="src\core\layers\layer_collection.cpp" />
     <ClCompile Include="src\core\window.cpp" />
@@ -103,13 +110,22 @@
     <ClCompile Include="src\dependencies\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\dependencies\stb_image\stb_image.cpp" />
     <ClCompile Include="src\dependencies\stb_rect_pack\stb_rect_pack.cpp" />
-    <ClCompile Include="src\game\game.cpp" />
+    <ClCompile Include="src\game\core.cpp" />
+    <ClCompile Include="src\game\layers\game.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\corelibraries.hpp" />
     <ClInclude Include="src\core\debug\debug.h" />
+    <ClInclude Include="src\core\graphics\core\render_camera.h" />
+    <ClInclude Include="src\core\graphics\interface.h" />
+    <ClInclude Include="src\core\graphics\core\render_queue.h" />
+    <ClInclude Include="src\core\graphics\shaders\shader.h" />
+    <ClInclude Include="src\core\graphics\texture\texture.h" />
+    <ClInclude Include="src\core\graphics\texture\texture_array.h" />
     <ClInclude Include="src\core\input\event.h" />
     <ClInclude Include="src\core\input\input.h" />
+    <ClInclude Include="src\core\instance\world.h" />
     <ClInclude Include="src\core\layers\layer.h" />
     <ClInclude Include="src\core\layers\layer_collection.h" />
     <ClInclude Include="src\core\window.h" />
@@ -408,7 +424,8 @@
     <ClInclude Include="src\dependencies\stb_image\stb_image.h" />
     <ClInclude Include="src\dependencies\stb_rect_pack\stb_rect_pack.h" />
     <ClInclude Include="src\dependencies\uuid\uuid.hpp" />
-    <ClInclude Include="src\game\game.h" />
+    <ClInclude Include="src\game\core.h" />
+    <ClInclude Include="src\game\layers\game.h" />
     <ClInclude Include="src\libraries.hpp" />
   </ItemGroup>
   <ItemGroup>
