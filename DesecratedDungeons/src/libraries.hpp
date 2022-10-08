@@ -14,11 +14,13 @@
 
 #include <functional>
 
+#include <core/debug/debug.h>
 #include <glm/glm.hpp>
 
 namespace Desdun
 {
 	using uint = unsigned int;
+	using uchar = unsigned char;
 
 	using Vector2 = glm::vec<2, float>;
 	using Vector3 = glm::vec<3, float>;

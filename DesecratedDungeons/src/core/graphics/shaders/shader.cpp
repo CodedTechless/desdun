@@ -54,6 +54,26 @@ namespace Desdun
         Path = ShaderPath;
     }
 
+    void Shader::SetUniform(const std::string& Name, const Vector4& Value)
+    {
+        glUniform4f(GetUniformLocation(Name), Value.x, Value.y, Value.z, Value.w);
+    }
+
+    void Shader::SetUniform(const std::string& Name, const Vector3& Value)
+    {
+        glUniform3f(GetUniformLocation(Name), Value.x, Value.y, Value.z);
+    }
+
+    void Shader::SetUniform(const std::string& Name, int Value)
+    {
+        glUniform1i(GetUniformLocation(Name), Value);
+    }
+
+    void Shader::SetUniform(const std::string& Name, const glm::mat4& Matrix)
+    {
+        glUniformMatrix4fv(GetUniformLocation(Name), 1, GL_FALSE, &Matrix[0][0]);
+    }
+
     ShaderSource Shader::Parse(const std::string& FilePath)
     {
         std::ifstream Stream(FilePath);
@@ -127,25 +147,5 @@ namespace Desdun
         glDeleteShader(FragmentShader);
 
         return Program;
-    }
-
-    void Shader::SetUniform(const std::string& Name, const Vector4& Value)
-    {
-        glUniform4f(GetUniformLocation(Name), Value.x, Value.y, Value.z, Value.w);
-    }
-
-    void Shader::SetUniform(const std::string& Name, const Vector3& Value)
-    {
-        glUniform3f(GetUniformLocation(Name), Value.x, Value.y, Value.z);
-    }
-
-    void Shader::SetUniform(const std::string& Name, int Value)
-    {
-        glUniform1i(GetUniformLocation(Name), Value);
-    }
-
-    void Shader::SetUniform(const std::string& Name, const glm::mat4& Matrix)
-    {
-        glUniformMatrix4fv(GetUniformLocation(Name), 1, GL_FALSE, &Matrix[0][0]);
     }
 }

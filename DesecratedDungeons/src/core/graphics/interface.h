@@ -3,6 +3,9 @@
 #include <core/graphics/core/render_camera.h>
 #include <core/graphics/core/render_queue.h>
 
+#include <core/graphics/shaders/shader.h>
+#include <core/graphics/buffers/framebuffer.h>
+
 namespace Desdun
 {
 	struct Quad
