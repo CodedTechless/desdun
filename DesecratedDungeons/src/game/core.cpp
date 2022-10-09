@@ -4,6 +4,7 @@
 
 #include <core/window.h>
 #include <core/debug/debug.h>
+#include <core/graphics/interface.h>
 
 #include "layers/game.h"
 #include "core.h"
@@ -21,6 +22,8 @@ namespace Desdun
         Layer* MainLayer = new GameLayer("GameLayer");
         GameLayers.PushLayer(MainLayer);
 
+        RenderInterface::Start();
+
         /*
         ImGuiLayer = new ImGuiLayer(ImGuiIniFileName);
         Layers.PushOverlay(a_ImGuiLayer);
@@ -29,7 +32,9 @@ namespace Desdun
 
 	Game::~Game()
 	{
+        delete GameWindow;
 
+        RenderInterface::Stop();
 	}
 
 	void Game::Start()
@@ -44,6 +49,11 @@ namespace Desdun
 		while (Running)
 		{
             GameWindow->Clear();
+
+            for (auto* Layer : GameLayers)
+            {
+                Layer->OnFrameUpdate(1.f);
+            }
 
             GameWindow->Update();
 		}

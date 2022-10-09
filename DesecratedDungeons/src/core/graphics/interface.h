@@ -15,28 +15,30 @@
 
 namespace Desdun
 {
-
-	typedef std::array<RenderCommand, RENDER_QUEUE_SIZE> RenderCommandQueue;
-
 	struct Quad
 	{
 		Vector3 Position;
 		Vector4 Tint;
-		Vector3 TextureCoords;
-		float TextureIndex;
+		Vector2 TextureCoords;
+		uint32_t Layer;
+		uint32_t TextureIndex;
 	};
 
 	struct RenderCommand
 	{
-		Mat4 Transform { 1.f };
-		Vector4 Tint { 0.f };
-		
-		Vector3 ObjectTextureCoords[4] = {};
+		Mat4 Transform{ 1.f };
+		Vector4 Tint{ 0.f };
+
+		Vector2 ObjectTextureCoords[4] = {};
+		uint32_t ObjectTextureLayer = 0;
+
 		ptr<TextureArray> ObjectTexture = nullptr;
 		ptr<Shader> ObjectShader = nullptr;
 
 		int ZIndex = 0;
 	};
+
+	typedef std::array<RenderCommand, RENDER_QUEUE_SIZE> RenderCommandQueue;
 
 	class RenderInterface
 	{
@@ -48,6 +50,7 @@ namespace Desdun
 		static void BeginScene(const RenderCamera& Camera);
 		static void EndScene();
 
+		static void Clear();
 		static void Submit(const RenderCommand& Command);
 
 		struct RenderCore
@@ -63,6 +66,8 @@ namespace Desdun
 			ptr<Shader> DefaultShader = nullptr;
 			ptr<Shader> RenderShader = nullptr;
 			ptr<FrameBuffer> RenderTarget = nullptr;
+
+			Color4 TargetClearColour = Color4(0.1f, 0.1f, 0.1f, 1.f);
 
 			// Quads, Vertices and Indices
 

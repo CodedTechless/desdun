@@ -23,7 +23,7 @@ namespace Desdun
 		void OnWindowEvent(WindowEvent windowEvent);
 
 	private:
-
+		ptr<TextureArray> GoofyAhh = nullptr;
 	};
 
 }

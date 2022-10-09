@@ -5,6 +5,8 @@
 #include <core/input/input.h>
 #include <core/input/event.h>
 
+#include <core/graphics/interface.h>
+
 #include <game/core.h>
 
 namespace Desdun
@@ -16,8 +18,8 @@ namespace Desdun
         Window* ActiveWindow;
     };
 
-    Window::Window(const char AppTitle[], glm::vec2 aSize)
-        : Size(aSize)
+    Window::Window(const std::string& title, Vector2 size)
+        : Title(title), Size(size)
     {
         glfwSetErrorCallback(Debug::GLFWMessage);
 
@@ -27,7 +29,7 @@ namespace Desdun
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
-        WindowObject = glfwCreateWindow(aSize.x, aSize.y, AppTitle, NULL, NULL);
+        WindowObject = glfwCreateWindow(size.x, size.y, title.c_str(), NULL, NULL);
         if (WindowObject == nullptr)
         {
             glfwTerminate();
@@ -176,7 +178,7 @@ namespace Desdun
 
     void Window::Clear()
     {
-        //Renderer::Clear();
+        RenderInterface::Clear();
     }
 
     void Window::Update()

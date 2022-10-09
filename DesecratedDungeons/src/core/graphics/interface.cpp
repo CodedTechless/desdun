@@ -28,16 +28,19 @@ namespace Desdun
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		m_RenderCore.BatchArray = std::make_shared<VertexArray>();
+		const Color4& c = m_RenderCore.TargetClearColour;
+		glClearColor(c.r, c.g, c.b, c.a);
 
-		// Create a new array of quads to be pushed into a vertex buffer. Then, new verticies can be pushed in real time.
+		// Batch Renderer Setup
+
+		m_RenderCore.BatchArray = std::make_shared<VertexArray>();
 		m_RenderCore.Quads = new Quad[RenderInterface::RenderCore::MaxVertices];
 
-		// Set up an empty unsigned int array to hold our quad indicies in the correct format.
 		uint QuadOffset = 0;
 		uint* IndexBufferTemplate = new uint[RenderInterface::RenderCore::MaxIndices];
 		
-		for (uint i = 0; i < RenderInterface::RenderCore::MaxIndices; i += 6) {
+		for (uint i = 0; i < RenderInterface::RenderCore::MaxIndices; i += 6) 
+		{
 			IndexBufferTemplate[i + 0] = 0 + QuadOffset;
 			IndexBufferTemplate[i + 1] = 1 + QuadOffset;
 			IndexBufferTemplate[i + 2] = 2 + QuadOffset;
@@ -58,7 +61,8 @@ namespace Desdun
 			{ LayoutType::Float, 3 }, // Position
 			{ LayoutType::Float, 4 }, // Colour
 			{ LayoutType::Float, 2 }, // Texture coordinates
-			{ LayoutType::Float, 1 }  // Texture index
+			{ LayoutType::UnsignedInt, 1 }, // Texture Layer
+			{ LayoutType::UnsignedInt, 1 }  // Texture index
 		});
 
 		// Add the vertex and index buffer to the vertex array.
@@ -70,12 +74,17 @@ namespace Desdun
 		m_RenderCore.DefaultShader->Import("assets/shaders/basic.shader");
 		m_RenderCore.DefaultShader->Bind();
 
-		m_RenderCore.RenderShader = m_RenderCore.DefaultShader;
+		SetShader(m_RenderCore.DefaultShader);
 	}
 
 	void RenderInterface::Stop()
 	{
 		glfwTerminate();
+	}
+
+	void RenderInterface::Clear()
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	void RenderInterface::Submit(const RenderCommand& Command)
@@ -113,8 +122,8 @@ namespace Desdun
 			}
 		}
 
-		uint TextureSlotIndex = 0;
-		for (uint i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
+		uint32_t TextureSlotIndex = 0;
+		for (uint32_t i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
 		{
 			if (m_RenderCore.Textures[i] == Command.ObjectTexture)
 			{
@@ -131,6 +140,8 @@ namespace Desdun
 			}
 
 			m_RenderCore.Textures[m_RenderCore.NextTextureSlot] = Command.ObjectTexture;
+			TextureSlotIndex = m_RenderCore.NextTextureSlot;
+
 			m_RenderCore.NextTextureSlot++;
 		}
 
@@ -139,6 +150,7 @@ namespace Desdun
 			m_RenderCore.QuadsHeader->Position = Command.Transform * m_RenderCore.VertexNormal[i];
 			m_RenderCore.QuadsHeader->Tint = Command.Tint;
 			m_RenderCore.QuadsHeader->TextureCoords = Command.ObjectTextureCoords[i];
+			m_RenderCore.QuadsHeader->Layer = Command.ObjectTextureLayer;
 			m_RenderCore.QuadsHeader->TextureIndex = TextureSlotIndex;
 
 			m_RenderCore.QuadsHeader++;
@@ -149,7 +161,7 @@ namespace Desdun
 
 	void RenderInterface::BeginScene(const RenderCamera& Camera)
 	{
-		SetShader(m_RenderCore.DefaultShader);
+		BeginBatch(m_RenderCore.DefaultShader);
 
 		m_RenderCore.CurrentCamera = Camera;
 		m_RenderCore.CommandIndex = 0;
@@ -189,8 +201,8 @@ namespace Desdun
 
 	void RenderInterface::SetShader(ptr<Shader> shader)
 	{
-		auto Samplers = new int[ALLOCATED_TEXTURE_SLOTS];
-		for (auto i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
+		int* Samplers = new int[ALLOCATED_TEXTURE_SLOTS];
+		for (int i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
 		{
 			Samplers[i] = i;
 		}
@@ -210,7 +222,7 @@ namespace Desdun
 		if (shader)
 			SetShader(shader);
 
-		m_RenderCore.NextTextureSlot = 1;
+		m_RenderCore.NextTextureSlot = 0;
 		m_RenderCore.VertexBufferIndex = 0;
 		m_RenderCore.QuadsHeader = m_RenderCore.Quads;
 	}
@@ -223,7 +235,7 @@ namespace Desdun
 		auto Size = (uint32_t)((uint8_t*)m_RenderCore.QuadsHeader - (uint8_t*)m_RenderCore.Quads);
 		m_RenderCore.VertexBatch->Set(m_RenderCore.Quads, Size);
 
-		for (unsigned int i = 0; i < m_RenderCore.NextTextureSlot; i++)
+		for (uint i = 0; i < m_RenderCore.NextTextureSlot; i++)
 		{
 			m_RenderCore.Textures[i]->Bind(i);
 		}

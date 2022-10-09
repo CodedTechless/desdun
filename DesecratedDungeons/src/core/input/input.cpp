@@ -23,9 +23,9 @@ namespace Desdun
 
 	glm::vec2 Input::GetMousePosition() 
 	{
-		Window* Window = Game::GetInstance()->GetPrimaryWindow();
-		GLFWwindow* Context = Window->GetContext();
-		glm::vec2 Size = Window->Size;
+		auto* Window = Game::GetInstance()->GetPrimaryWindow();
+		auto* Context = Window->GetContext();
+		Vector2 Size = Window->GetSize();
 
 		double X, Y;
 		glfwGetCursorPos(Context, &X, &Y);

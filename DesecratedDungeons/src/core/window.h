@@ -5,25 +5,35 @@
 #include <GL/glew.h>
 #include <glfw3.h>
 
+#include <libraries.hpp>
+
 namespace Desdun
 {
 	class Window
 	{
 	public:
-		Window(const char AppTitle[], glm::vec2 Size);
+		Window() = default;
+		Window(const std::string& title, Vector2 size);
 		~Window();
 
 		void Clear();
-		void SetVsyncEnabled(bool Enabled);
-
 		void Update();
 
-		GLFWwindow* GetContext() { return WindowObject; };
+		void SetVsyncEnabled(bool Enabled);
 
-		bool IsFocused = true;
-		glm::vec2 Size;
+		GLFWwindow* GetContext() const { return WindowObject; };
+
+		bool GetFocused() const { return IsFocused; };
+		Vector2 GetSize() const { return Size; };
 
 	private:
+		std::string Title = "";
+		
+		Vector2 Size = {};
+		bool IsFocused = true;
+
 		GLFWwindow* WindowObject;
+
+		friend struct Input;
 	};
 }

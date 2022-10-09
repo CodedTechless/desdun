@@ -74,7 +74,7 @@ namespace Desdun
         glUniform1iv(GetUniformLocation(Name), Size, Values);
     }
 
-    void Shader::SetUniform(const std::string& Name, const glm::mat4& Matrix)
+    void Shader::SetUniform(const std::string& Name, const Mat4& Matrix)
     {
         glUniformMatrix4fv(GetUniformLocation(Name), 1, GL_FALSE, &Matrix[0][0]);
     }
@@ -84,7 +84,7 @@ namespace Desdun
         std::ifstream Stream(FilePath);
 
         std::string Line;
-        std::stringstream ss[2];
+        std::stringstream ss[3];
 
         ShaderType Type = ShaderType::None;
         while (getline(Stream, Line))
@@ -102,7 +102,7 @@ namespace Desdun
             }
         }
 
-        return { ss[0].str(), ss[1].str() };
+        return { ss[1].str(), ss[2].str() };
     }
 
     uint Shader::Compile(unsigned int Type, const std::string& SourceString)

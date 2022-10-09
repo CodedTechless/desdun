@@ -1462,5 +1462,6 @@
     <None Include="src\dependencies\glm\gtx\wrap.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="assets\shaders\basic.shader" />
   </ItemGroup>
 </Project>

@@ -437,6 +437,7 @@
     <ClInclude Include="src\libraries.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\shaders\basic.shader" />
     <None Include="src\dependencies\glm\detail\func_common.inl" />
     <None Include="src\dependencies\glm\detail\func_common_simd.inl" />
     <None Include="src\dependencies\glm\detail\func_exponential.inl" />

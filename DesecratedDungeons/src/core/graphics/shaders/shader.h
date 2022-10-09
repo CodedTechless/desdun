@@ -37,7 +37,7 @@ namespace Desdun
 		void SetUniform(const std::string& Name, const Vector4& Value);
 		void SetUniform(const std::string& Name, const Vector3& Value);
 		void SetUniform(const std::string& Name, int Value);
-		void SetUniform(const std::string& Name, int* Value, uint Size);
+		void SetUniform(const std::string& Name, int* Values, uint Size);
 		void SetUniform(const std::string& Name, const Mat4& Matrix);
 
 	private:
