@@ -31,14 +31,17 @@ namespace Desdun
 		void Bind();
 		void Unbind();
 
+		uint GetRenderID() const { return RenderID; };
+
 	public:
 		void SetUniform(const std::string& Name, const Vector4& Value);
 		void SetUniform(const std::string& Name, const Vector3& Value);
 		void SetUniform(const std::string& Name, int Value);
+		void SetUniform(const std::string& Name, int* Value, uint Size);
 		void SetUniform(const std::string& Name, const Mat4& Matrix);
 
 	private:
-		unsigned int RenderID = 0;
+		uint RenderID = 0;
 		std::string Path = "";
 
 		std::unordered_map<std::string, int> UniformCache;

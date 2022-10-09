@@ -89,13 +89,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\core\debug\debug.cpp" />
+    <ClCompile Include="src\core\graphics\buffers\frame.cpp" />
+    <ClCompile Include="src\core\graphics\buffers\vao.cpp" />
     <ClCompile Include="src\core\graphics\core\render_camera.cpp" />
     <ClCompile Include="src\core\graphics\interface.cpp" />
-    <ClCompile Include="src\core\graphics\core\render_queue.cpp" />
     <ClCompile Include="src\core\graphics\shaders\shader.cpp" />
     <ClCompile Include="src\core\graphics\texture\image.cpp" />
     <ClCompile Include="src\core\graphics\texture\texture.cpp" />
     <ClCompile Include="src\core\graphics\texture\texture_array.cpp" />
+    <ClCompile Include="src\core\graphics\buffers\index.cpp" />
+    <ClCompile Include="src\core\graphics\buffers\vertex.cpp" />
     <ClCompile Include="src\core\input\input.cpp" />
     <ClCompile Include="src\core\instance\world.cpp" />
     <ClCompile Include="src\core\layers\layer.cpp" />
@@ -118,13 +121,16 @@
   <ItemGroup>
     <ClInclude Include="src\corelibraries.hpp" />
     <ClInclude Include="src\core\debug\debug.h" />
+    <ClInclude Include="src\core\graphics\buffers\frame.h" />
+    <ClInclude Include="src\core\graphics\buffers\vao.h" />
     <ClInclude Include="src\core\graphics\core\render_camera.h" />
     <ClInclude Include="src\core\graphics\interface.h" />
-    <ClInclude Include="src\core\graphics\core\render_queue.h" />
     <ClInclude Include="src\core\graphics\shaders\shader.h" />
     <ClInclude Include="src\core\graphics\texture\image.h" />
     <ClInclude Include="src\core\graphics\texture\texture.h" />
     <ClInclude Include="src\core\graphics\texture\texture_array.h" />
+    <ClInclude Include="src\core\graphics\buffers\index.h" />
+    <ClInclude Include="src\core\graphics\buffers\vertex.h" />
     <ClInclude Include="src\core\input\event.h" />
     <ClInclude Include="src\core\input\input.h" />
     <ClInclude Include="src\core\instance\world.h" />

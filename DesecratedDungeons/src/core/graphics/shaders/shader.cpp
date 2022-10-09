@@ -69,6 +69,11 @@ namespace Desdun
         glUniform1i(GetUniformLocation(Name), Value);
     }
 
+    void Shader::SetUniform(const std::string& Name, int* Values, uint Size)
+    {
+        glUniform1iv(GetUniformLocation(Name), Size, Values);
+    }
+
     void Shader::SetUniform(const std::string& Name, const glm::mat4& Matrix)
     {
         glUniformMatrix4fv(GetUniformLocation(Name), 1, GL_FALSE, &Matrix[0][0]);

@@ -11,6 +11,8 @@
 
 #include <unordered_map>
 #include <vector>
+#include <array>
+#include <algorithm>
 
 #include <functional>
 

@@ -12,6 +12,8 @@ namespace Desdun
 	public:
 		RenderCamera() = default;
 
+		Mat4 Transform { 1.f };
+
 		void SetOrthoSize(Vector2 Size)
 		{
 			m_OrthoSize = Size;
@@ -27,6 +29,7 @@ namespace Desdun
 		Vector2 GetOrthoSize() const { return m_OrthoSize; };
 		Vector2 GetOrthoZPlane() const { return m_OrthoZPlane; };
 
+		Mat4 GetProjectionTransform() const { return m_Projection * glm::inverse(Transform); };
 		Mat4 GetProjection() const { return m_Projection; };
 
 	private:
@@ -37,6 +40,7 @@ namespace Desdun
 		}
 
 		Mat4 m_Projection = {};
+		
 
 		Vector2 m_OrthoSize = { 800.f, 600.f };
 		Vector2 m_OrthoZPlane = { -100, 100 };

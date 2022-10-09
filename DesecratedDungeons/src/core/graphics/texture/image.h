@@ -8,20 +8,20 @@ namespace Desdun
 
 	struct ImageContext
 	{
-		Vector2i Size = {};
-		int BitsPerPixel = 0;
+		const Vector2i Size = {};
+		const int BitsPerPixel = 0;
+		const std::string& Path = "";
 	};
 
 	class Image
 	{
 	public:
 		Image() = default;
+		Image(const std::string& FilePath);
+		Image(Vector2i size, int bitsPerPixel, uchar* buffer);
 		~Image();
 
-		static ptr<Image> Create(const std::string& FilePath);
-		static ptr<Image> Create(Vector2i size, int bitsPerPixel, uchar* buffer);
-
-		ImageContext GetContext() const { return { Size, BitsPerPixel }; };
+		ImageContext GetContext() const { return { Size, BitsPerPixel, Path }; };
 		uchar* GetBuffer() const { return Buffer; };
 
 	private:

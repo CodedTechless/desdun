@@ -1,21 +1,42 @@
 #pragma once
 
 #include <core/graphics/core/render_camera.h>
-#include <core/graphics/core/render_queue.h>
-
+#include <core/graphics/texture/texture_array.h>
 #include <core/graphics/shaders/shader.h>
-#include <core/graphics/buffers/framebuffer.h>
+#include <core/graphics/buffers/vertex.h>
+#include <core/graphics/buffers/vao.h>
+#include <core/graphics/buffers/index.h>
+#include <core/graphics/buffers/frame.h>
+
+#include <libraries.hpp>
+
+#define RENDER_QUEUE_SIZE 2048
+#define ALLOCATED_TEXTURE_SLOTS 16
 
 namespace Desdun
 {
+
+	typedef std::array<RenderCommand, RENDER_QUEUE_SIZE> RenderCommandQueue;
+
 	struct Quad
 	{
 		Vector3 Position;
 		Vector4 Tint;
-		Vector2 TextureCoords;
+		Vector3 TextureCoords;
 		float TextureIndex;
 	};
 
+	struct RenderCommand
+	{
+		Mat4 Transform { 1.f };
+		Vector4 Tint { 0.f };
+		
+		Vector3 ObjectTextureCoords[4] = {};
+		ptr<TextureArray> ObjectTexture = nullptr;
+		ptr<Shader> ObjectShader = nullptr;
+
+		int ZIndex = 0;
+	};
 
 	class RenderInterface
 	{
@@ -27,23 +48,70 @@ namespace Desdun
 		static void BeginScene(const RenderCamera& Camera);
 		static void EndScene();
 
+		static void Submit(const RenderCommand& Command);
+
 		struct RenderCore
 		{
+			// Render Limits
+
 			static constexpr uint MaxQuads = 20000;
-			static constexpr uint MaxVerticies = MaxQuads * 4;
+			static constexpr uint MaxVertices = MaxQuads * 4;
 			static constexpr uint MaxIndices = MaxQuads * 6;
 
+			// Shaders and Targets
+
+			ptr<Shader> DefaultShader = nullptr;
 			ptr<Shader> RenderShader = nullptr;
-			ptr<FrameBuffer> RenderFrameBuffer = nullptr;
+			ptr<FrameBuffer> RenderTarget = nullptr;
+
+			// Quads, Vertices and Indices
+
+			Quad* Quads = nullptr;
+			Quad* QuadsHeader = nullptr;
+
+			ptr<VertexBuffer> VertexBatch = nullptr;
+			ptr<IndexBuffer> IndexBatch = nullptr;
+
+			ptr<VertexArray> BatchArray = nullptr;
+
+			uint VertexBufferIndex = 0;
+			Vector4 VertexNormal[4] = {
+				{ -0.5f,  0.5f, 0.f, 1.f },
+				{  0.5f,  0.5f, 0.f, 1.f },
+				{  0.5f, -0.5f, 0.f, 1.f },
+				{ -0.5f, -0.5f, 0.f, 1.f }
+			};
+
+			// Frames
 
 			uint FrameDrawCalls = 0;
 			uint FrameVertices = 0;
+
+			// Textures
+
+			uint NextTextureSlot = 0;
+			std::array<ptr<TextureArray>, ALLOCATED_TEXTURE_SLOTS> Textures;
+
+			// Cameras
+
+			RenderCamera CurrentCamera = {};
+
+			// Commands
+
+			RenderCommandQueue RenderQueue = {};
+			uint CommandIndex = 0;
 		};
 
 	private:
 
+		static void Execute(RenderCommand& Command);
+		static void SetShader(ptr<Shader> shader);
+
+		static void BeginBatch(ptr<Shader> shader = nullptr);
+		static void FinishBatch();
+
 		static RenderCore m_RenderCore;
-		static RenderQueue m_RenderQueue;
+
 	};
 
 

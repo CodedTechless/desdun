@@ -48,13 +48,13 @@ namespace Desdun
 		Array[layer] = image;
 	}
 
-	void Texture::Bind(uint Slot)
+	void TextureArray::Bind(uint Slot)
 	{
 		glActiveTexture(GL_TEXTURE0 + Slot);
 		glBindTexture(GL_TEXTURE_2D_ARRAY, RenderID);
 	}
 
-	void Texture::Unbind()
+	void TextureArray::Unbind()
 	{
 		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 	}
