@@ -1464,4 +1464,9 @@
     </None>
     <None Include="assets\shaders\basic.shader" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\goofy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

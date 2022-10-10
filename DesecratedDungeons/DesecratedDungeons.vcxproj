@@ -575,6 +575,9 @@
     <None Include="src\dependencies\glm\gtx\vector_query.inl" />
     <None Include="src\dependencies\glm\gtx\wrap.inl" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\goofy.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

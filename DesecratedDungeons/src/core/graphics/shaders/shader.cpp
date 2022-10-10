@@ -56,26 +56,31 @@ namespace Desdun
 
     void Shader::SetUniform(const std::string& Name, const Vector4& Value)
     {
+        Bind();
         glUniform4f(GetUniformLocation(Name), Value.x, Value.y, Value.z, Value.w);
     }
 
     void Shader::SetUniform(const std::string& Name, const Vector3& Value)
     {
+        Bind();
         glUniform3f(GetUniformLocation(Name), Value.x, Value.y, Value.z);
     }
 
     void Shader::SetUniform(const std::string& Name, int Value)
     {
+        Bind();
         glUniform1i(GetUniformLocation(Name), Value);
     }
 
     void Shader::SetUniform(const std::string& Name, int* Values, uint Size)
     {
+        Bind();
         glUniform1iv(GetUniformLocation(Name), Size, Values);
     }
 
     void Shader::SetUniform(const std::string& Name, const Mat4& Matrix)
     {
+        Bind();
         glUniformMatrix4fv(GetUniformLocation(Name), 1, GL_FALSE, &Matrix[0][0]);
     }
 

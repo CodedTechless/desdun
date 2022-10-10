@@ -94,6 +94,8 @@ namespace Desdun
 
 			// Textures
 
+			int* TextureSamplers = nullptr;
+
 			uint NextTextureSlot = 0;
 			std::array<ptr<TextureArray>, ALLOCATED_TEXTURE_SLOTS> Textures;
 

@@ -9,9 +9,9 @@ namespace Desdun
 
 	enum class LayoutType 
 	{
-		Float = 5126,
-		UnsignedInt = 5125,
-		UnsignedByte = 5121
+		Float = GL_FLOAT,
+		UnsignedInt = GL_UNSIGNED_INT,
+		UnsignedByte = GL_UNSIGNED_BYTE
 	};
 
 	struct LayoutElement 

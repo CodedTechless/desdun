@@ -19,8 +19,8 @@ namespace Desdun
 
 	void GameLayer::OnFrameUpdate(const float Delta)
 	{
-		Mat4 Transform = glm::translate(Mat4(1.f), Vector3(100, 100, 0))
-			* glm::rotate(Mat4(1.f), glm::radians(0.f), Vector3(0.f, 0.f, 1.f))
+		Mat4 Transform = glm::translate(Mat4(1.f), Vector3(100.f, 100.f, 0.f))
+//			* glm::rotate(Mat4(1.f), glm::radians(0.f), Vector3(0.f, 0.f, 1.f))
 			* glm::scale(Mat4(1.f), Vector3(100.f, 100.f, 1.f));
 		
 		RenderCamera cam = {};

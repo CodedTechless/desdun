@@ -72,7 +72,12 @@ namespace Desdun
 		// Initialise the texture shader and import the basic shader.
 		m_RenderCore.DefaultShader = std::make_shared<Shader>();
 		m_RenderCore.DefaultShader->Import("assets/shaders/basic.shader");
-		m_RenderCore.DefaultShader->Bind();
+
+		m_RenderCore.TextureSamplers = new int[ALLOCATED_TEXTURE_SLOTS];
+		for (int i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
+		{
+			m_RenderCore.TextureSamplers[i] = i;
+		}
 
 		SetShader(m_RenderCore.DefaultShader);
 	}
@@ -123,15 +128,17 @@ namespace Desdun
 		}
 
 		uint32_t TextureSlotIndex = 0;
+		bool HasSlot = false;
 		for (uint32_t i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
 		{
 			if (m_RenderCore.Textures[i] == Command.ObjectTexture)
 			{
+				HasSlot = true;
 				TextureSlotIndex = i;
 			}
 		}
 
-		if (TextureSlotIndex == 0)
+		if (!HasSlot)
 		{
 			if (m_RenderCore.NextTextureSlot > ALLOCATED_TEXTURE_SLOTS)
 			{
@@ -161,10 +168,10 @@ namespace Desdun
 
 	void RenderInterface::BeginScene(const RenderCamera& Camera)
 	{
-		BeginBatch(m_RenderCore.DefaultShader);
-
 		m_RenderCore.CurrentCamera = Camera;
 		m_RenderCore.CommandIndex = 0;
+		
+		BeginBatch(m_RenderCore.DefaultShader);
 	}
 
 	void RenderInterface::EndScene()
@@ -196,24 +203,21 @@ namespace Desdun
 			Execute(*i);
 		}
 
+
+		Debug::Log(std::to_string(m_RenderCore.CommandIndex) + " " + std::to_string(m_RenderCore.VertexBufferIndex));
+
 		FinishBatch();
 	}
 
 	void RenderInterface::SetShader(ptr<Shader> shader)
 	{
-		int* Samplers = new int[ALLOCATED_TEXTURE_SLOTS];
-		for (int i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
-		{
-			Samplers[i] = i;
-		}
-
 		if (shader != m_RenderCore.RenderShader)
 			m_RenderCore.RenderShader = shader;
 
 		const RenderCamera& Camera = m_RenderCore.CurrentCamera;
 		Mat4 Proj = Camera.GetProjectionTransform();
 		
-		m_RenderCore.RenderShader->SetUniform("Textures", Samplers, ALLOCATED_TEXTURE_SLOTS);
+		m_RenderCore.RenderShader->SetUniform("Textures", m_RenderCore.TextureSamplers, ALLOCATED_TEXTURE_SLOTS);
 		m_RenderCore.RenderShader->SetUniform("Projection", Proj);
 	}
 
@@ -234,6 +238,7 @@ namespace Desdun
 
 		auto Size = (uint32_t)((uint8_t*)m_RenderCore.QuadsHeader - (uint8_t*)m_RenderCore.Quads);
 		m_RenderCore.VertexBatch->Set(m_RenderCore.Quads, Size);
+
 
 		for (uint i = 0; i < m_RenderCore.NextTextureSlot; i++)
 		{

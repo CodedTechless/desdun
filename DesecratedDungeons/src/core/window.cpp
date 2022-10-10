@@ -26,8 +26,8 @@ namespace Desdun
         if (glfwInit() != GL_TRUE)
             assert(false);
         
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+//        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
         WindowObject = glfwCreateWindow(size.x, size.y, title.c_str(), NULL, NULL);
         if (WindowObject == nullptr)

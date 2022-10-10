@@ -9,8 +9,8 @@ in uint v_TextureSlot;
 
 out vec4 Tint;
 out vec2 TextureCoordinate;
-out uint Layer;
-out uint TextureSlot;
+flat out uint Layer;
+flat out uint TextureSlot;
 
 uniform mat4 Projection;
 
@@ -31,8 +31,8 @@ out vec4 FragColor;
 
 in vec4 Tint;
 in vec2 TextureCoordinate;
-in uint Layer;
-in uint TextureSlot;
+flat in uint Layer;
+flat in uint TextureSlot;
 
 uniform sampler2DArray Textures[16];
 
