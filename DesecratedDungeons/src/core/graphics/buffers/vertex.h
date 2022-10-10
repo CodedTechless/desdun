@@ -10,6 +10,7 @@ namespace Desdun
 	enum class LayoutType 
 	{
 		Float = GL_FLOAT,
+		Int = GL_INT,
 		UnsignedInt = GL_UNSIGNED_INT,
 		UnsignedByte = GL_UNSIGNED_BYTE
 	};
@@ -25,6 +26,7 @@ namespace Desdun
 			switch (Type) 
 			{
 				case LayoutType::Float:			return 4;
+				case LayoutType::Int:			return 4;
 				case LayoutType::UnsignedInt:	return 4;
 				case LayoutType::UnsignedByte:	return 1;
 			}
@@ -40,15 +42,15 @@ namespace Desdun
 		VertexBufferLayout() = default;
 		VertexBufferLayout(std::initializer_list<LayoutElement> Init);
 
-		void SetLayout(std::vector<LayoutElement> Elements);
+		void SetLayout(std::initializer_list<LayoutElement> Elements);
 
 		const std::vector<LayoutElement>& GetElements() const { return Elements; }
-		uint GetStride() const { return bStride; }
+		uint GetStride() const { return Stride; }
 
 	private:
 
 		std::vector<LayoutElement> Elements;
-		uint bStride = 0;
+		uint Stride = 0;
 
 	};
 

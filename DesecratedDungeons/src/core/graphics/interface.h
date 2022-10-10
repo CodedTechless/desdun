@@ -20,8 +20,8 @@ namespace Desdun
 		Vector3 Position;
 		Vector4 Tint;
 		Vector2 TextureCoords;
-		uint32_t Layer;
-		uint32_t TextureIndex;
+		float Layer;
+		float TextureIndex;
 	};
 
 	struct RenderCommand

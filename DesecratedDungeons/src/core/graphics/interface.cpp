@@ -61,8 +61,8 @@ namespace Desdun
 			{ LayoutType::Float, 3 }, // Position
 			{ LayoutType::Float, 4 }, // Colour
 			{ LayoutType::Float, 2 }, // Texture coordinates
-			{ LayoutType::UnsignedInt, 1 }, // Texture Layer
-			{ LayoutType::UnsignedInt, 1 }  // Texture index
+			{ LayoutType::Float, 1 }, // Texture Layer
+			{ LayoutType::Float, 1 }  // Texture index
 		});
 
 		// Add the vertex and index buffer to the vertex array.
@@ -80,6 +80,8 @@ namespace Desdun
 		}
 
 		SetShader(m_RenderCore.DefaultShader);
+
+		
 	}
 
 	void RenderInterface::Stop()
@@ -239,7 +241,6 @@ namespace Desdun
 		auto Size = (uint32_t)((uint8_t*)m_RenderCore.QuadsHeader - (uint8_t*)m_RenderCore.Quads);
 		m_RenderCore.VertexBatch->Set(m_RenderCore.Quads, Size);
 
-
 		for (uint i = 0; i < m_RenderCore.NextTextureSlot; i++)
 		{
 			m_RenderCore.Textures[i]->Bind(i);
@@ -247,6 +248,7 @@ namespace Desdun
 
 		m_RenderCore.BatchArray->Bind();
 		m_RenderCore.RenderShader->Bind();
+
 		glDrawElements(GL_TRIANGLES, m_RenderCore.VertexBufferIndex, GL_UNSIGNED_INT, nullptr);
 	}
 

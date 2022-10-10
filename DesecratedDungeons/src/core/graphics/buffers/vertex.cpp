@@ -47,19 +47,19 @@ namespace Desdun
 	// Buffer Layout
 
 	VertexBufferLayout::VertexBufferLayout(std::initializer_list<LayoutElement> Init)
-		: bStride(0), Elements(Init)
+		: Stride(0), Elements(Init)
 	{
 		for (auto& Element : Elements) {
-			bStride += LayoutElement::GetSize(Element.Type) * Element.Count;
+			Stride += LayoutElement::GetSize(Element.Type) * Element.Count;
 		}
 	}
 
-	void VertexBufferLayout::SetLayout(std::vector<LayoutElement> NewElements)
+	void VertexBufferLayout::SetLayout(std::initializer_list<LayoutElement> NewElements)
 	{
 		for (auto& Element : NewElements)
 		{
 			Elements.push_back(Element);
-			bStride += LayoutElement::GetSize(Element.Type) * Element.Count;
+			Stride += LayoutElement::GetSize(Element.Type) * Element.Count;
 		}
 	}
 }

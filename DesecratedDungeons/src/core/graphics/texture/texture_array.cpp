@@ -11,7 +11,7 @@ namespace Desdun
 	{
 		glGenTextures(1, &RenderID);
 		glBindTexture(GL_TEXTURE_2D_ARRAY, RenderID);
-		glTexStorage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA8, SubImageSize.x, SubImageSize.y, layers);
+		glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, SubImageSize.x, SubImageSize.y, layers);
 
 		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -42,7 +42,7 @@ namespace Desdun
 		}
 
 		glBindTexture(GL_TEXTURE_2D_ARRAY, RenderID);
-		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, layer, BaseSize.x, BaseSize.y, Layers, GL_RGBA, GL_UNSIGNED_BYTE, image->GetBuffer());
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, layer, BaseSize.x, BaseSize.y, 1, GL_RGBA, GL_UNSIGNED_BYTE, image->GetBuffer());
 		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 
 		Array[layer] = image;
