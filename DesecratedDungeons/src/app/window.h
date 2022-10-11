@@ -34,6 +34,6 @@ namespace Desdun
 
 		GLFWwindow* WindowObject;
 
-		friend struct Input;
+		friend class Input;
 	};
 }

@@ -72,9 +72,6 @@
     <ClCompile Include="src\game\layers\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\instance\world.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\graphics\core\render_camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -105,7 +102,7 @@
     <ClCompile Include="src\core\resource\sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\instance\instance.cpp">
+    <ClCompile Include="src\core\instance\base\Instance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -170,7 +167,7 @@
     <ClInclude Include="src\dependencies\stb_rect_pack\stb_rect_pack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\dependencies\uuid\uuid.hpp">
+    <ClInclude Include="src\dependencies\uuid.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dependencies\glm\detail\_features.hpp">
@@ -1025,9 +1022,6 @@
     <ClInclude Include="src\game\layers\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\instance\world.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\gamelib.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1061,7 +1055,13 @@
     <ClInclude Include="src\core\resource\sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\instance\instance.h">
+    <ClInclude Include="src\core\instance\base\Instance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\instance\derived\CanvasInstance.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\instance\index.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

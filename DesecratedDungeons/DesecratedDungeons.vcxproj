@@ -100,8 +100,7 @@
     <ClCompile Include="src\core\graphics\buffers\index.cpp" />
     <ClCompile Include="src\core\graphics\buffers\vertex.cpp" />
     <ClCompile Include="src\app\input\input.cpp" />
-    <ClCompile Include="src\core\instance\instance.cpp" />
-    <ClCompile Include="src\core\instance\world.cpp" />
+    <ClCompile Include="src\core\instance\base\Instance.cpp" />
     <ClCompile Include="src\app\layers\layer.cpp" />
     <ClCompile Include="src\app\layers\layer_collection.cpp" />
     <ClCompile Include="src\app\window.cpp" />
@@ -121,7 +120,9 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\core\instance\instance.h" />
+    <ClInclude Include="src\core\instance\derived\CanvasInstance.hpp" />
+    <ClInclude Include="src\core\instance\index.hpp" />
+    <ClInclude Include="src\core\instance\base\Instance.h" />
     <ClInclude Include="src\core\resource\sprite.h" />
     <ClInclude Include="src\gamelib.hpp" />
     <ClInclude Include="src\core\debug\debug.h" />
@@ -137,7 +138,6 @@
     <ClInclude Include="src\core\graphics\buffers\vertex.h" />
     <ClInclude Include="src\app\input\event.h" />
     <ClInclude Include="src\app\input\input.h" />
-    <ClInclude Include="src\core\instance\world.h" />
     <ClInclude Include="src\app\layers\layer.h" />
     <ClInclude Include="src\app\layers\layer_collection.h" />
     <ClInclude Include="src\app\window.h" />
@@ -435,7 +435,7 @@
     <ClInclude Include="src\dependencies\json\json.hpp" />
     <ClInclude Include="src\dependencies\stb_image\stb_image.h" />
     <ClInclude Include="src\dependencies\stb_rect_pack\stb_rect_pack.h" />
-    <ClInclude Include="src\dependencies\uuid\uuid.hpp" />
+    <ClInclude Include="src\dependencies\uuid.hpp" />
     <ClInclude Include="src\game\core.h" />
     <ClInclude Include="src\game\layers\game.h" />
     <ClInclude Include="src\libraries.hpp" />

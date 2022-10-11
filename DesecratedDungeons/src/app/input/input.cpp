@@ -7,7 +7,7 @@ namespace Desdun
 {
 	bool Input::KeyDown(const Input::KeyCode Key)
 	{
-		auto Window = Game::GetInstance()->GetPrimaryWindow()->GetContext();
+		auto Window = Application::GetApplication()->GetPrimaryWindow()->GetContext();
 		auto State = glfwGetKey(Window, (int)Key);
 
 		return State == GLFW_PRESS || State == GLFW_REPEAT;
@@ -15,7 +15,7 @@ namespace Desdun
 	
 	bool Input::MouseButtonDown(const Input::MouseCode Button)
 	{
-		auto Window = Game::GetInstance()->GetPrimaryWindow()->GetContext();
+		auto Window = Application::GetApplication()->GetPrimaryWindow()->GetContext();
 		auto State = glfwGetMouseButton(Window, (int)Button);
 
 		return State == GLFW_PRESS;
@@ -23,7 +23,7 @@ namespace Desdun
 
 	glm::vec2 Input::GetMousePosition() 
 	{
-		auto* Window = Game::GetInstance()->GetPrimaryWindow();
+		auto* Window = Application::GetApplication()->GetPrimaryWindow();
 		auto* Context = Window->GetContext();
 		Vector2 Size = Window->GetSize();
 

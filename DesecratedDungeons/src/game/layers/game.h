@@ -26,8 +26,13 @@ namespace Desdun
 		Input::Filter OnInputEvent(InputEvent InputObject, bool Processed);
 		void OnWindowEvent(WindowEvent windowEvent);
 
+		template<typename T>
+		ptr<T> Create();
+
 	private:
-		std::array<Instance, MAX_INSTANCES> Instances = {};
+		std::array<ptr<Instance>, MAX_INSTANCES> Instances = {};
+
+		uint InstanceCount = 0;
 
 		ptr<TextureArray> GoofyAhh = nullptr;
 	};
