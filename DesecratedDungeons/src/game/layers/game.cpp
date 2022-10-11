@@ -13,7 +13,7 @@ namespace Desdun
 
 		ptr<Image> image = CreatePointer<Image>("assets/goofy.png");
 
-		GoofyAhh = CreatePointer<TextureArray>(Vector2(300,  300), 16);
+		GoofyAhh = CreatePointer<TextureArray>(Vector2(300.f,  300.f), 16);
 		GoofyAhh->SetLayer(0, image);
 	}
 

@@ -8,7 +8,6 @@
 
 #include "interface.h"
 
-
 namespace Desdun
 {
 	RenderInterface::RenderCore RenderInterface::m_RenderCore = {};
@@ -27,6 +26,9 @@ namespace Desdun
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		char* Version = (char*)glGetString(GL_VERSION);
+		Debug::Log("OpenGL " + std::string(Version));
 
 		const Color4& c = m_RenderCore.TargetClearColour;
 		glClearColor(c.r, c.g, c.b, c.a);
@@ -206,7 +208,7 @@ namespace Desdun
 		}
 
 
-		Debug::Log(std::to_string(m_RenderCore.CommandIndex) + " " + std::to_string(m_RenderCore.VertexBufferIndex));
+		//Debug::Log(std::to_string(m_RenderCore.CommandIndex) + " " + std::to_string(m_RenderCore.VertexBufferIndex));
 
 		FinishBatch();
 	}
