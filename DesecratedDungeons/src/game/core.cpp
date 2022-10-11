@@ -2,7 +2,8 @@
 #include <GL/glew.h>
 #include <glfw3.h>
 
-#include <core/window.h>
+#include <app/window.h>
+
 #include <core/debug/debug.h>
 #include <core/graphics/interface.h>
 
@@ -11,16 +12,16 @@
 
 namespace Desdun
 {
-	Game* Game::GameInstance = nullptr;
+	Application* Application::AppInstance = nullptr;
 
-	Game::Game()
+	Application::Application()
 	{
-		GameInstance = this;
+		AppInstance = this;
 		
 		GameWindow = new Window("Desecrated Dungeons", { 800, 600 });
 
-        Layer* MainLayer = new GameLayer("GameLayer");
-        GameLayers.PushLayer(MainLayer);
+        Layer* GameLayer = new Game("Game");
+        GameLayers.PushLayer(GameLayer);
 
         RenderInterface::Start();
 
@@ -30,14 +31,13 @@ namespace Desdun
         */
 	}
 
-	Game::~Game()
+	Application::~Application()
 	{
         delete GameWindow;
-
         RenderInterface::Stop();
 	}
 
-	void Game::Start()
+	void Application::Start()
 	{
 		if (Running)
 		{
@@ -59,12 +59,12 @@ namespace Desdun
 		}
 	}
 
-	void Game::End()
+	void Application::End()
 	{
 		Running = false;
 	}
 
-    void Game::PushInputEvent(const InputEvent& inputEvent)
+    void Application::PushInputEvent(const InputEvent& inputEvent)
     {
         //Debug::Log("Event " + std::to_string((int)inputEvent.InputType) + " " + std::to_string((int)inputEvent.InputState) + " " + std::to_string((int)inputEvent.KeyCode) + " " + std::to_string((int)inputEvent.MouseCode) + " (" + std::to_string(inputEvent.Delta.x) + ", " + std::to_string(inputEvent.Delta.y) + ") (" + std::to_string(inputEvent.Position.x) + ", " + std::to_string(inputEvent.Position.y) + ")", "Application");
 
@@ -93,7 +93,7 @@ namespace Desdun
         }
     }
 
-    void Game::PushWindowEvent(const WindowEvent& windowEvent)
+    void Application::PushWindowEvent(const WindowEvent& windowEvent)
     {
         for (auto* Layer : GameLayers)
         {

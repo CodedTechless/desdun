@@ -99,11 +99,13 @@
     <ClCompile Include="src\core\graphics\texture\texture_array.cpp" />
     <ClCompile Include="src\core\graphics\buffers\index.cpp" />
     <ClCompile Include="src\core\graphics\buffers\vertex.cpp" />
-    <ClCompile Include="src\core\input\input.cpp" />
+    <ClCompile Include="src\app\input\input.cpp" />
+    <ClCompile Include="src\core\instance\instance.cpp" />
     <ClCompile Include="src\core\instance\world.cpp" />
-    <ClCompile Include="src\core\layers\layer.cpp" />
-    <ClCompile Include="src\core\layers\layer_collection.cpp" />
-    <ClCompile Include="src\core\window.cpp" />
+    <ClCompile Include="src\app\layers\layer.cpp" />
+    <ClCompile Include="src\app\layers\layer_collection.cpp" />
+    <ClCompile Include="src\app\window.cpp" />
+    <ClCompile Include="src\core\resource\sprite.cpp" />
     <ClCompile Include="src\dependencies\glm\detail\glm.cpp" />
     <ClCompile Include="src\dependencies\imgui\imgui.cpp" />
     <ClCompile Include="src\dependencies\imgui\imgui_demo.cpp" />
@@ -119,7 +121,9 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\corelibraries.hpp" />
+    <ClInclude Include="src\core\instance\instance.h" />
+    <ClInclude Include="src\core\resource\sprite.h" />
+    <ClInclude Include="src\gamelib.hpp" />
     <ClInclude Include="src\core\debug\debug.h" />
     <ClInclude Include="src\core\graphics\buffers\frame.h" />
     <ClInclude Include="src\core\graphics\buffers\vao.h" />
@@ -131,12 +135,12 @@
     <ClInclude Include="src\core\graphics\texture\texture_array.h" />
     <ClInclude Include="src\core\graphics\buffers\index.h" />
     <ClInclude Include="src\core\graphics\buffers\vertex.h" />
-    <ClInclude Include="src\core\input\event.h" />
-    <ClInclude Include="src\core\input\input.h" />
+    <ClInclude Include="src\app\input\event.h" />
+    <ClInclude Include="src\app\input\input.h" />
     <ClInclude Include="src\core\instance\world.h" />
-    <ClInclude Include="src\core\layers\layer.h" />
-    <ClInclude Include="src\core\layers\layer_collection.h" />
-    <ClInclude Include="src\core\window.h" />
+    <ClInclude Include="src\app\layers\layer.h" />
+    <ClInclude Include="src\app\layers\layer_collection.h" />
+    <ClInclude Include="src\app\window.h" />
     <ClInclude Include="src\dependencies\glm\common.hpp" />
     <ClInclude Include="src\dependencies\glm\detail\compute_common.hpp" />
     <ClInclude Include="src\dependencies\glm\detail\compute_vector_relational.hpp" />

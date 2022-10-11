@@ -1,17 +1,21 @@
 #pragma once
 
-#include <core/layers/layer.h>
-#include <core/input/input.h>
-#include <core/input/event.h>
+#include <core/instance/instance.h>
+
+#include <app/layers/layer.h>
+#include <app/input/input.h>
+#include <app/input/event.h>
+
+#define MAX_INSTANCES 1024
 
 namespace Desdun
 {
 
-	class GameLayer : public Layer
+	class Game : public Layer
 	{
 	public:
-		GameLayer() = default;
-		GameLayer(const std::string& Name)
+		Game() = default;
+		Game(const std::string& Name)
 			: Layer(Name) {};
 
 		void OnAwake();
@@ -23,6 +27,8 @@ namespace Desdun
 		void OnWindowEvent(WindowEvent windowEvent);
 
 	private:
+		std::array<Instance, MAX_INSTANCES> Instances = {};
+
 		ptr<TextureArray> GoofyAhh = nullptr;
 	};
 

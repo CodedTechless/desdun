@@ -1,8 +1,8 @@
 #pragma once
 
-#include "layer.h"
-
 #include <libraries.hpp>
+
+#include "layer.h"
 
 namespace Desdun {
 	class LayerCollection {

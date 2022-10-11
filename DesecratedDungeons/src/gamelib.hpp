@@ -10,8 +10,8 @@
 
 // Input
 
-#include <core/input/input.h>
-#include <core/input/event.h>
+#include <app/input/input.h>
+#include <app/input/event.h>
 
 // Instances
 

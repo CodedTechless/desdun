@@ -3,7 +3,7 @@
 
 int main()
 {
-	Desdun::Game* game = new Desdun::Game();
+	Desdun::Application* game = new Desdun::Application();
 	game->Start();
 
 	delete game;

@@ -1,10 +1,10 @@
 
 #include "window.h"
 
-#include <core/debug/debug.h>
-#include <core/input/input.h>
-#include <core/input/event.h>
+#include <app/input/input.h>
+#include <app/input/event.h>
 
+#include <core/debug/debug.h>
 #include <core/graphics/interface.h>
 
 #include <game/core.h>

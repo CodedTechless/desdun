@@ -21,19 +21,19 @@
     <ClCompile Include="src\game\core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\window.cpp">
+    <ClCompile Include="src\app\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\input\input.cpp">
+    <ClCompile Include="src\app\input\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\debug\debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\layers\layer_collection.cpp">
+    <ClCompile Include="src\app\layers\layer_collection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\layers\layer.cpp">
+    <ClCompile Include="src\app\layers\layer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\dependencies\imgui\imgui.cpp">
@@ -102,30 +102,36 @@
     <ClCompile Include="src\core\graphics\buffers\vao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\resource\sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\instance\instance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\window.h">
+    <ClInclude Include="src\app\window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\libraries.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\input\input.h">
+    <ClInclude Include="src\app\input\input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\debug\debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\input\event.h">
+    <ClInclude Include="src\app\input\event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\layers\layer_collection.h">
+    <ClInclude Include="src\app\layers\layer_collection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\layers\layer.h">
+    <ClInclude Include="src\app\layers\layer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dependencies\imgui\imconfig.h">
@@ -1022,7 +1028,7 @@
     <ClInclude Include="src\core\instance\world.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\corelibraries.hpp">
+    <ClInclude Include="src\gamelib.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\graphics\core\render_camera.h">
@@ -1050,6 +1056,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\graphics\buffers\vao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\resource\sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\instance\instance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

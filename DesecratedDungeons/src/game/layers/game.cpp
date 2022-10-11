@@ -1,13 +1,13 @@
 
 
-#include <corelibraries.hpp>
+#include <gamelib.hpp>
 
 #include "game.h"
 
 namespace Desdun
 {
 
-	void GameLayer::OnAwake()
+	void Game::OnAwake()
 	{
 		Debug::Log("beep!");
 
@@ -17,7 +17,7 @@ namespace Desdun
 		GoofyAhh->SetLayer(0, image);
 	}
 
-	void GameLayer::OnFrameUpdate(const float Delta)
+	void Game::OnFrameUpdate(const float Delta)
 	{
 		Mat4 Transform = glm::translate(Mat4(1.f), Vector3(100.f, 100.f, 0.f))
 //			* glm::rotate(Mat4(1.f), glm::radians(0.f), Vector3(0.f, 0.f, 1.f))
@@ -48,18 +48,18 @@ namespace Desdun
 
 	}
 
-	void GameLayer::OnGameStep(const float Delta)
+	void Game::OnGameStep(const float Delta)
 	{
 
 	}
 
-	Input::Filter GameLayer::OnInputEvent(InputEvent InputObject, bool Processed)
+	Input::Filter Game::OnInputEvent(InputEvent InputObject, bool Processed)
 	{
 
 		return Input::Filter::Ignore;
 	}
 
-	void GameLayer::OnWindowEvent(WindowEvent WindowObject)
+	void Game::OnWindowEvent(WindowEvent WindowObject)
 	{
 
 	}

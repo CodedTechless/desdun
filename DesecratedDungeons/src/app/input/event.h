@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/input/input.h>
+#include <app/input/input.h>
 
 #include <libraries.hpp>
 

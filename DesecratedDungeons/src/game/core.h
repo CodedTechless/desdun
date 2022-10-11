@@ -1,34 +1,34 @@
 #pragma once
 
 
-#include <core/window.h>
-#include <core/input/event.h>
-#include <core/layers/layer_collection.h>
+#include <app/window.h>
+#include <app/input/event.h>
+#include <app/layers/layer_collection.h>
 
 namespace Desdun
 {
 
-	class Game
+	class Application
 	{
 	public:
-		Game();
-		~Game();
+		Application();
+		~Application();
 
 		void Start();
 		void End();
 
 		Window* GetPrimaryWindow() { return GameWindow; };
 
-		static Game* GetInstance() { return GameInstance; };
-
 		LayerCollection GameLayers = {};
+
+		static Application* GetApplication() { return AppInstance; };
 
 	protected:
 		void PushInputEvent(const InputEvent& inputEvent);
 		void PushWindowEvent(const WindowEvent& windowEvent);
 
 	private:
-		static Game* GameInstance;
+		static Application* AppInstance;
 
 		Window* GameWindow = nullptr;
 		bool Running = false;
