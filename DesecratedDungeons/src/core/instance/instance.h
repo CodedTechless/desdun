@@ -21,6 +21,8 @@ namespace Desdun
 		virtual Input::Filter OnInputEvent(InputEvent input, bool processed) { return Input::Filter::Ignore; };
 		virtual void OnWindowEvent(WindowEvent window) {};
 
+		void SetParent(ptr<Instance>);
+
 	private:
 		uint ID = 0;
 
