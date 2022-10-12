@@ -16,14 +16,14 @@ namespace Desdun
 
 	class Instance
 	{
-	public:
-		Instance() = default;
-		Instance(Game* game, const std::string& id)
-			: GameModel(game), ID(id) {};
+	public: // Class definitions
 
-		virtual ~Instance() = default;
+		Instance(Game* game, const std::string& id);
+		~Instance();
 		
 		std::string Name = "Instance";
+
+		// Virtuals
 
 		virtual void OnAwake() {};
 		virtual void OnDestroyed() {};
@@ -34,25 +34,12 @@ namespace Desdun
 		virtual Input::Filter OnInputEvent(InputEvent input, bool processed) { return Input::Filter::Ignore; };
 		virtual void OnWindowEvent(WindowEvent window) {};
 
-		void SetParent(Instance* instance) 
-		{
-			if (Parent) Parent->RemoveChild(this);
+		// Instance operations
 
-			Parent = instance;
+		void SetParent(Instance* instance);
+		Instance* FindChild(const std::string& name);
 
-			Parent->Children.push_back(this);
-		};
-
-		Instance* FindChild(const std::string& name)
-		{
-			for (auto instance : Children)
-			{
-				if (instance->Name == name)
-				{
-					return instance;
-				}
-			}
-		}
+		// Getters
 
 		std::string GetInstanceID() const { return ID; };
 		Game* GetGameModel() const { return GameModel; };
@@ -67,27 +54,13 @@ namespace Desdun
 
 	private:
 
-		void RemoveChild(Instance* instance)
-		{
-			auto it = std::find(Children.begin(), Children.end(),
-				[&](ptr<Instance> child)
-				{
-					return child->GetInstanceID() == instance->GetInstanceID();
-				}
-			);
-
-			if (it != Children.end())
-			{
-				Children.erase(it);
-			}
-		}
-
-		std::string ID = 0;
-
 		Instance* Parent = nullptr;
 		std::vector<Instance*> Children = {};
 
-		Game* GameModel = nullptr;
+		std::string ID;
+		Game* GameModel;
+
+		void RemoveChild(Instance* instance);
 
 	};
 

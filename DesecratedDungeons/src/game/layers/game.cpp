@@ -10,12 +10,12 @@ namespace Desdun
 {
 
 	template<typename T>
-	ptr<T> Game::Create()
+	T* Game::Create()
 	{
 		std::string NewID = UUID::Generate();
 
-		ptr<T> NewInst = CreatePointer<T>(this, NewID);
-		Instances[InstanceCount++] = NewInst;
+		T* NewInst = new T(this, NewID);
+		Instances.push_back((Instance*)NewInst);
 
 		NewInst->OnAwake();
 
@@ -26,7 +26,9 @@ namespace Desdun
 	{
 		Debug::Log("beep!");
 
-		ptr<Instance> inst = Create<Instance>();
+		Instances.reserve(MAX_INSTANCES);
+
+		Instance* inst = Create<Instance>();
 		inst->Name = "NewInstance";
 
 		ptr<Image> image = CreatePointer<Image>("assets/goofy.png");

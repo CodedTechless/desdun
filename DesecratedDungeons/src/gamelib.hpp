@@ -15,4 +15,4 @@
 
 // Instances
 
-#include <core/instance/world.h>
+#include <core/instance/index.hpp>

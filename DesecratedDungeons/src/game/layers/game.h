@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/instance/instance.h>
+#include <core/instance/base/Instance.h>
 
 #include <app/layers/layer.h>
 #include <app/input/input.h>
@@ -27,10 +27,10 @@ namespace Desdun
 		void OnWindowEvent(WindowEvent windowEvent);
 
 		template<typename T>
-		ptr<T> Create();
+		T* Create();
 
 	private:
-		std::array<Instance, MAX_INSTANCES> Instances = {};
+		std::vector<Instance*> Instances = {};
 
 		uint InstanceCount = 0;
 
