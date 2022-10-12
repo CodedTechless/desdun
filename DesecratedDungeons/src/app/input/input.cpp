@@ -1,7 +1,7 @@
 
 #include "input.h"
 
-#include <game/core.h>
+#include <app/core.h>
 
 namespace Desdun
 {

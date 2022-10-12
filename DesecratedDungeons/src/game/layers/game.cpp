@@ -1,7 +1,8 @@
 
 
-#include <gamelib.hpp>
+#include <game/instances/Actor.hpp>
 
+#include <gamelib.hpp>
 #include <uuid.hpp>
 
 #include "game.h"
@@ -16,6 +17,7 @@ namespace Desdun
 
 		T* NewInst = new T(this, NewID);
 		Instances.push_back((Instance*)NewInst);
+		InstanceCount++;
 
 		NewInst->OnAwake();
 
@@ -28,49 +30,23 @@ namespace Desdun
 
 		Instances.reserve(MAX_INSTANCES);
 
-		Instance* inst = Create<Instance>();
-		inst->Name = "NewInstance";
-
-		ptr<Image> image = CreatePointer<Image>("assets/goofy.png");
-
-		GoofyAhh = CreatePointer<TextureArray>(Vector2(300.f,  300.f), 16);
-		GoofyAhh->SetLayer(0, image);
+		auto* inst = Create<Actor>();
+		inst->Name = "Actor";
 	}
 
 	void Game::OnFrameUpdate(const float Delta)
 	{
-		for (auto i = Instances.begin(); i < Instances.begin() + InstanceCount; ++i)
-		{
-			(*i)->OnFrameUpdate(Delta);
-		}
-
-		Mat4 Transform = glm::translate(Mat4(1.f), Vector3(100.f, 100.f, 0.f))
-//			* glm::rotate(Mat4(1.f), glm::radians(0.f), Vector3(0.f, 0.f, 1.f))
-			* glm::scale(Mat4(1.f), Vector3(100.f, 100.f, 1.f));
-		
 		RenderCamera cam = {};
 		cam.SetOrthoSize(Vector2(800, 600));
 
 		RenderInterface::BeginScene(cam);
 
-		RenderInterface::Submit({
-			Transform, Color4(1.f, 1.f, 1.f, 1.f),
-			{
-				{ 0.f, 0.f },
-				{ 1.f, 0.f },
-				{ 1.f, 1.f },
-				{ 0.f, 1.f }
-			},
-
-			0,
-			GoofyAhh,
-			nullptr,
-
-			0
-		});
+		for (auto i = Instances.begin(); i < Instances.begin() + InstanceCount; ++i)
+		{
+			(*i)->OnFrameUpdate(Delta);
+		}
 
 		RenderInterface::EndScene();
-
 	}
 
 	void Game::OnGameStep(const float Delta)

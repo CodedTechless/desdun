@@ -1,5 +1,5 @@
 
-#include <game/core.h>
+#include <app/core.h>
 
 int main()
 {

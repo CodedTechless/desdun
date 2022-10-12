@@ -115,12 +115,14 @@
     <ClCompile Include="src\dependencies\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\dependencies\stb_image\stb_image.cpp" />
     <ClCompile Include="src\dependencies\stb_rect_pack\stb_rect_pack.cpp" />
-    <ClCompile Include="src\game\core.cpp" />
+    <ClCompile Include="src\app\core.cpp" />
     <ClCompile Include="src\game\layers\game.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\instances\Actor.hpp" />
     <ClInclude Include="src\core\instance\derived\CanvasInstance.hpp" />
+    <ClInclude Include="src\core\instance\derived\Object.hpp" />
     <ClInclude Include="src\core\instance\index.hpp" />
     <ClInclude Include="src\core\instance\base\Instance.h" />
     <ClInclude Include="src\core\resource\sprite.h" />
@@ -436,7 +438,7 @@
     <ClInclude Include="src\dependencies\stb_image\stb_image.h" />
     <ClInclude Include="src\dependencies\stb_rect_pack\stb_rect_pack.h" />
     <ClInclude Include="src\dependencies\uuid.hpp" />
-    <ClInclude Include="src\game\core.h" />
+    <ClInclude Include="src\app\core.h" />
     <ClInclude Include="src\game\layers\game.h" />
     <ClInclude Include="src\libraries.hpp" />
   </ItemGroup>

@@ -7,7 +7,7 @@
 #include <core/debug/debug.h>
 #include <core/graphics/interface.h>
 
-#include <game/core.h>
+#include <app/core.h>
 
 namespace Desdun
 {

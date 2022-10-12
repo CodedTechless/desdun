@@ -7,7 +7,7 @@
 #include <core/debug/debug.h>
 #include <core/graphics/interface.h>
 
-#include "layers/game.h"
+#include <game/layers/game.h>
 #include "core.h"
 
 namespace Desdun
@@ -45,9 +45,29 @@ namespace Desdun
 		}
 
 		Running = true;
+        float Time = 0.f;
+        float CurrentTime = (float)glfwGetTime();
+        float Accumulator = 0.f;
 
-		while (Running)
-		{
+        size_t Frames = 0, Updates = 0;
+
+        while (Running)
+        {
+            float NewTime = (float)glfwGetTime();
+            float FrameTime = std::min(NewTime - CurrentTime, 0.25f);
+            CurrentTime = NewTime;
+
+            Time += FrameTime;
+            Accumulator += FrameTime;
+
+            while (Accumulator >= 1.f / 30.f)
+            {
+                for (Layer* a_Layer : GameLayers) {
+                    a_Layer->OnGameStep(Accumulator);
+                }
+
+                Accumulator -= 1.f / 30.f;
+            }
             GameWindow->Clear();
 
             for (auto* Layer : GameLayers)

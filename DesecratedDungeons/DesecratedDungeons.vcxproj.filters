@@ -18,7 +18,7 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\core.cpp">
+    <ClCompile Include="src\app\core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\app\window.cpp">
@@ -107,7 +107,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\game\core.h">
+    <ClInclude Include="src\app\core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\app\window.h">
@@ -1062,6 +1062,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\instance\index.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\instances\Actor.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\instance\derived\Object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
