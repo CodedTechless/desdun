@@ -30,7 +30,7 @@ namespace Desdun
 		ptr<T> Create();
 
 	private:
-		std::array<ptr<Instance>, MAX_INSTANCES> Instances = {};
+		std::array<Instance, MAX_INSTANCES> Instances = {};
 
 		uint InstanceCount = 0;
 
