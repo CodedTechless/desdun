@@ -11,6 +11,7 @@
 #include <time.h>
 
 #include <iostream>
+#include <filesystem>
 #include <string>
 
 #include <unordered_map>
@@ -22,6 +23,8 @@
 
 #include <core/debug/debug.h>
 #include <glm/glm.hpp>
+
+namespace fs = std::filesystem;
 
 namespace Desdun
 {

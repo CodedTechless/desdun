@@ -1,7 +1,7 @@
 #pragma once
 
 #include <core/graphics/texture/texture.h>
-#include <core/graphics/texture/image.h>
+#include <core/resource/sprite/image.h>
 
 #include <libraries.hpp>
 
@@ -19,6 +19,8 @@ namespace Desdun
 		void Unbind();
 
 		void SetLayer(uint layer, ptr<Image> image);
+
+		// Getters
 
 		uint GetRenderID() const { return RenderID; };
 

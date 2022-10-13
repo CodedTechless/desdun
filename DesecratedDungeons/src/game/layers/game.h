@@ -2,6 +2,8 @@
 
 #include <core/instance/base/Instance.h>
 
+#include <core/resource/base/resource_loader.h>
+
 #include <app/layers/layer.h>
 #include <app/input/input.h>
 #include <app/input/event.h>

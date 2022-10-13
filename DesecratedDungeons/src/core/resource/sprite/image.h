@@ -1,6 +1,7 @@
 #pragma once
 
 #include <libraries.hpp>
+#include <core/resource/base/resource.h>
 
 
 namespace Desdun
@@ -13,19 +14,20 @@ namespace Desdun
 		const std::string& Path = "";
 	};
 
-	class Image
+	class Image : public Resource
 	{
 	public:
 		Image() = default;
-		Image(const std::string& FilePath);
-		Image(Vector2i size, int bitsPerPixel, uchar* buffer);
+		Image(const std::string& path);
 		~Image();
+
+		void Load(const std::string& path);
+		void Push(Vector2i size, int bitsPerPixel, uchar* buffer);
 
 		ImageContext GetContext() const { return { Size, BitsPerPixel, Path }; };
 		uchar* GetBuffer() const { return Buffer; };
 
 	private:
-		std::string Path = "";
 
 		Vector2i Size = {};
 		int BitsPerPixel = 0;
