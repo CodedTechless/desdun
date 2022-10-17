@@ -1,7 +1,7 @@
 #pragma once
 
 #include <libraries.hpp>
-#include <core/resource/base/resource.h>
+#include <core/resource/base/resource.hpp>
 
 
 namespace Desdun
@@ -9,22 +9,20 @@ namespace Desdun
 
 	struct ImageContext
 	{
-		const Vector2i Size = {};
-		const int BitsPerPixel = 0;
-		const std::string& Path = "";
+		const Vector2i Size;
+		const int BitsPerPixel;
 	};
 
 	class Image : public Resource
 	{
 	public:
 		Image() = default;
-		Image(const std::string& path);
 		~Image();
 
 		void Load(const std::string& path);
-		void Push(Vector2i size, int bitsPerPixel, uchar* buffer);
+//		void Push(Vector2i size, int bitsPerPixel, uchar* buffer);
 
-		ImageContext GetContext() const { return { Size, BitsPerPixel, Path }; };
+		ImageContext GetContext() const { return { Size, BitsPerPixel }; };
 		uchar* GetBuffer() const { return Buffer; };
 
 	private:

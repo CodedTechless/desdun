@@ -7,11 +7,6 @@
 namespace Desdun
 {
 
-	Image::Image(const std::string& path)
-	{
-		Load(path);
-	}
-
 	Image::~Image()
 	{
 		if (Buffer) {
@@ -19,12 +14,14 @@ namespace Desdun
 		}
 	}
 
+	/*
 	void Image::Push(Vector2i size, int bitsPerPixel, uchar* buffer)
 	{
 		Size = size;
 		BitsPerPixel = bitsPerPixel;
 		Buffer = buffer;
 	}
+	*/
 
 	void Image::Load(const std::string& path)
 	{

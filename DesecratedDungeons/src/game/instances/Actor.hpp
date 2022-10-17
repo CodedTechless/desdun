@@ -15,8 +15,10 @@ public:
 
 	void OnAwake()
 	{
+		auto GoofyImage = ResourceService::Fetch<Image>("assets/goofy.png");
+
 		tex = CreatePointer<TextureArray>(Vector2(300.f, 300.f), 16);
-		tex->SetLayer(0, CreatePointer<Image>("assets/goofy.png"));
+		tex->SetLayer(0, GoofyImage);
 	}
 
 	void OnGameStep(const float Delta)

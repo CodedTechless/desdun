@@ -2,12 +2,10 @@
 #include <GL/glew.h>
 #include <glfw3.h>
 
-#include <app/window.h>
-
 #include <core/debug/debug.h>
 #include <core/graphics/interface.h>
-
 #include <game/layers/game.h>
+
 #include "core.h"
 
 namespace Desdun

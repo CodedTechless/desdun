@@ -4,6 +4,10 @@
 
 #include <core/debug/debug.h>
 
+// Resources
+
+#include <core/resource/resource_service.hpp>
+
 // Graphics and Rendering
 
 #include <core/graphics/interface.h>

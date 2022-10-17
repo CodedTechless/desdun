@@ -10,14 +10,15 @@ namespace Desdun
 	{
 	public:
 		Resource() = default;
-		virtual ~Resource() = 0;
+		virtual ~Resource() = default;
 
 		virtual void Load(const std::string& path) = 0;
 
+		std::string GetPath() const { return Path; };
+
 	protected:
 		std::string Path = "";
-		bool Loaded = false;
-
+		
 	};
 
 }

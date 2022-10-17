@@ -21,7 +21,7 @@
     <ClCompile Include="src\app\core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\app\window.cpp">
+    <ClCompile Include="src\app\system\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\app\input\input.cpp">
@@ -84,7 +84,7 @@
     <ClCompile Include="src\core\graphics\texture\texture_array.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\resource\sprite\image.cpp">
+    <ClCompile Include="src\core\resource\external\image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\graphics\buffers\frame.cpp">
@@ -99,16 +99,7 @@
     <ClCompile Include="src\core\graphics\buffers\vao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\resource\sprite\sprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\instance\base\Instance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\resource\base\resource.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\resource\resource_service.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,7 +107,7 @@
     <ClInclude Include="src\app\core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\app\window.h">
+    <ClInclude Include="src\app\system\window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\libraries.hpp">
@@ -1043,7 +1034,7 @@
     <ClInclude Include="src\core\graphics\texture\texture_array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\resource\sprite\image.h">
+    <ClInclude Include="src\core\resource\external\image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\graphics\buffers\frame.h">
@@ -1056,9 +1047,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\graphics\buffers\vao.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\resource\sprite\sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\instance\base\Instance.h">
@@ -1076,13 +1064,10 @@
     <ClInclude Include="src\core\instance\derived\Object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\resource\base\resource.h">
+    <ClInclude Include="src\core\resource\base\resource.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\resource\resource_service.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\resource\base\resource_loader.hpp">
+    <ClInclude Include="src\core\resource\resource_service.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

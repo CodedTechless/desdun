@@ -1,7 +1,6 @@
 #pragma once
 
-
-#include <app/window.h>
+#include <app/system/window.h>
 #include <app/input/event.h>
 #include <app/layers/layer_collection.h>
 

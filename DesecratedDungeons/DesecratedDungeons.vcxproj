@@ -94,7 +94,7 @@
     <ClCompile Include="src\core\graphics\core\render_camera.cpp" />
     <ClCompile Include="src\core\graphics\interface.cpp" />
     <ClCompile Include="src\core\graphics\shaders\shader.cpp" />
-    <ClCompile Include="src\core\resource\sprite\image.cpp" />
+    <ClCompile Include="src\core\resource\external\image.cpp" />
     <ClCompile Include="src\core\graphics\texture\texture.cpp" />
     <ClCompile Include="src\core\graphics\texture\texture_array.cpp" />
     <ClCompile Include="src\core\graphics\buffers\index.cpp" />
@@ -103,10 +103,7 @@
     <ClCompile Include="src\core\instance\base\Instance.cpp" />
     <ClCompile Include="src\app\layers\layer.cpp" />
     <ClCompile Include="src\app\layers\layer_collection.cpp" />
-    <ClCompile Include="src\app\window.cpp" />
-    <ClCompile Include="src\core\resource\base\resource.cpp" />
-    <ClCompile Include="src\core\resource\resource_service.cpp" />
-    <ClCompile Include="src\core\resource\sprite\sprite.cpp" />
+    <ClCompile Include="src\app\system\window.cpp" />
     <ClCompile Include="src\dependencies\glm\detail\glm.cpp" />
     <ClCompile Include="src\dependencies\imgui\imgui.cpp" />
     <ClCompile Include="src\dependencies\imgui\imgui_demo.cpp" />
@@ -122,15 +119,13 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\core\resource\base\resource.h" />
-    <ClInclude Include="src\core\resource\base\resource_loader.hpp" />
-    <ClInclude Include="src\core\resource\resource_service.h" />
+    <ClInclude Include="src\core\resource\base\resource.hpp" />
+    <ClInclude Include="src\core\resource\resource_service.hpp" />
     <ClInclude Include="src\game\instances\Actor.hpp" />
     <ClInclude Include="src\core\instance\derived\CanvasInstance.hpp" />
     <ClInclude Include="src\core\instance\derived\Object.hpp" />
     <ClInclude Include="src\core\instance\index.hpp" />
     <ClInclude Include="src\core\instance\base\Instance.h" />
-    <ClInclude Include="src\core\resource\sprite\sprite.h" />
     <ClInclude Include="src\gamelib.hpp" />
     <ClInclude Include="src\core\debug\debug.h" />
     <ClInclude Include="src\core\graphics\buffers\frame.h" />
@@ -138,7 +133,7 @@
     <ClInclude Include="src\core\graphics\core\render_camera.h" />
     <ClInclude Include="src\core\graphics\interface.h" />
     <ClInclude Include="src\core\graphics\shaders\shader.h" />
-    <ClInclude Include="src\core\resource\sprite\image.h" />
+    <ClInclude Include="src\core\resource\external\image.h" />
     <ClInclude Include="src\core\graphics\texture\texture.h" />
     <ClInclude Include="src\core\graphics\texture\texture_array.h" />
     <ClInclude Include="src\core\graphics\buffers\index.h" />
@@ -147,7 +142,7 @@
     <ClInclude Include="src\app\input\input.h" />
     <ClInclude Include="src\app\layers\layer.h" />
     <ClInclude Include="src\app\layers\layer_collection.h" />
-    <ClInclude Include="src\app\window.h" />
+    <ClInclude Include="src\app\system\window.h" />
     <ClInclude Include="src\dependencies\glm\common.hpp" />
     <ClInclude Include="src\dependencies\glm\detail\compute_common.hpp" />
     <ClInclude Include="src\dependencies\glm\detail\compute_vector_relational.hpp" />

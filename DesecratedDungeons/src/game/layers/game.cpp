@@ -32,6 +32,7 @@ namespace Desdun
 
 		auto* inst = Create<Actor>();
 		inst->Name = "Actor";
+
 	}
 
 	void Game::OnFrameUpdate(const float Delta)

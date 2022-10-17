@@ -1,7 +1,6 @@
 #pragma once
 
-#include <core/graphics/texture/texture.h>
-#include <core/resource/sprite/image.h>
+#include <core/resource/external/image.h>
 
 #include <libraries.hpp>
 
