@@ -16,6 +16,12 @@ namespace Desdun
 		{
 			fs::path Location = fs::proximate(path);
 
+			if (!fs::exists(Location))
+			{
+				Debug::Error("No such resource as '" + path + "'!");
+				return nullptr;
+			}
+
 			auto it = Resources.find(Location);
 			if (it != Resources.end())
 			{

@@ -6,13 +6,13 @@
 
 #include <libraries.hpp>
 
-#include "interface.h"
+#include "renderer.h"
 
 namespace Desdun
 {
-	RenderInterface::RenderCore RenderInterface::m_RenderCore = {};
+	Renderer::RenderCore Renderer::m_RenderCore = {};
 
-	void RenderInterface::Start()
+	void Renderer::Start()
 	{
 		// Debug Output
 
@@ -36,12 +36,12 @@ namespace Desdun
 		// Batch Renderer Setup
 
 		m_RenderCore.BatchArray = std::make_shared<VertexArray>();
-		m_RenderCore.Quads = new Quad[RenderInterface::RenderCore::MaxVertices];
+		m_RenderCore.Quads = new Quad[Renderer::RenderCore::MaxVertices];
 
 		uint QuadOffset = 0;
-		uint* IndexBufferTemplate = new uint[RenderInterface::RenderCore::MaxIndices];
+		uint* IndexBufferTemplate = new uint[Renderer::RenderCore::MaxIndices];
 		
-		for (uint i = 0; i < RenderInterface::RenderCore::MaxIndices; i += 6) 
+		for (uint i = 0; i < Renderer::RenderCore::MaxIndices; i += 6) 
 		{
 			IndexBufferTemplate[i + 0] = 0 + QuadOffset;
 			IndexBufferTemplate[i + 1] = 1 + QuadOffset;
@@ -54,11 +54,11 @@ namespace Desdun
 			QuadOffset += 4;
 		}
 
-		m_RenderCore.IndexBatch = CreatePointer<IndexBuffer>(IndexBufferTemplate, RenderInterface::RenderCore::MaxIndices);
+		m_RenderCore.IndexBatch = CreatePointer<IndexBuffer>(IndexBufferTemplate, Renderer::RenderCore::MaxIndices);
 		delete[] IndexBufferTemplate;
 
 		// Create the vertex buffer and set its layout.
-		m_RenderCore.VertexBatch = CreatePointer<VertexBuffer>(RenderInterface::RenderCore::MaxVertices * sizeof(Quad));
+		m_RenderCore.VertexBatch = CreatePointer<VertexBuffer>(Renderer::RenderCore::MaxVertices * sizeof(Quad));
 		m_RenderCore.VertexBatch->SetBufferLayout({ // Create a layout for data that is held in the vertex buffer for drawing.
 			{ LayoutType::Float, 3 }, // Position
 			{ LayoutType::Float, 4 }, // Colour
@@ -86,25 +86,25 @@ namespace Desdun
 		
 	}
 
-	void RenderInterface::Stop()
+	void Renderer::Stop()
 	{
 		glfwTerminate();
 	}
 
-	void RenderInterface::Clear()
+	void Renderer::Clear()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void RenderInterface::Submit(const RenderCommand& Command)
+	void Renderer::Submit(const RenderCommand& Command)
 	{
 		m_RenderCore.RenderQueue[m_RenderCore.CommandIndex] = Command;
 		m_RenderCore.CommandIndex++;
 	}
 
-	void RenderInterface::Execute(RenderCommand& Command)
+	void Renderer::Execute(RenderCommand& Command)
 	{
-		if (m_RenderCore.VertexBufferIndex >= RenderInterface::RenderCore::MaxIndices)
+		if (m_RenderCore.VertexBufferIndex >= Renderer::RenderCore::MaxIndices)
 		{
 			// if we're exceeding the vertex quota, then reset and begin a new batch.
 			FinishBatch();
@@ -170,7 +170,18 @@ namespace Desdun
 		m_RenderCore.VertexBufferIndex += 6;
 	}
 
-	void RenderInterface::BeginScene(const RenderCamera& Camera)
+	void Renderer::RegisterTexture(ptr<Image> image)
+	{
+		auto Size = image->GetSize();
+
+		auto it = m_RenderCore.TextureIndex.find(Size);
+		if (it != m_RenderCore.TextureIndex.end())
+		{
+
+		}
+	}
+
+	void Renderer::BeginScene(const RenderCamera& Camera)
 	{
 		m_RenderCore.CurrentCamera = Camera;
 		m_RenderCore.CommandIndex = 0;
@@ -178,7 +189,7 @@ namespace Desdun
 		BeginBatch(m_RenderCore.DefaultShader);
 	}
 
-	void RenderInterface::EndScene()
+	void Renderer::EndScene()
 	{
 		std::sort(m_RenderCore.RenderQueue.begin(), m_RenderCore.RenderQueue.begin() + m_RenderCore.CommandIndex,
 			[&](const RenderCommand& A, const RenderCommand& B)
@@ -213,7 +224,7 @@ namespace Desdun
 		FinishBatch();
 	}
 
-	void RenderInterface::SetShader(ptr<Shader> shader)
+	void Renderer::SetShader(ptr<Shader> shader)
 	{
 		if (shader != m_RenderCore.RenderShader)
 			m_RenderCore.RenderShader = shader;
@@ -225,7 +236,7 @@ namespace Desdun
 		m_RenderCore.RenderShader->SetUniform("Projection", Proj);
 	}
 
-	void RenderInterface::BeginBatch(ptr<Shader> shader)
+	void Renderer::BeginBatch(ptr<Shader> shader)
 	{
 		if (shader)
 			SetShader(shader);
@@ -235,7 +246,7 @@ namespace Desdun
 		m_RenderCore.QuadsHeader = m_RenderCore.Quads;
 	}
 
-	void RenderInterface::FinishBatch()
+	void Renderer::FinishBatch()
 	{
 		if (m_RenderCore.VertexBufferIndex == 0)
 			return;

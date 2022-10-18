@@ -32,7 +32,7 @@ namespace Desdun
 		Vector2 ObjectTextureCoords[4] = {};
 		uint32_t ObjectTextureLayer = 0;
 
-		ptr<TextureArray> ObjectTexture = nullptr;
+		ptr<Image> ObjectImage = nullptr;
 		ptr<Shader> ObjectShader = nullptr;
 
 		int ZIndex = 0;
@@ -40,18 +40,20 @@ namespace Desdun
 
 	typedef std::array<RenderCommand, RENDER_QUEUE_SIZE> RenderCommandQueue;
 
-	class RenderInterface
+	class Renderer
 	{
 	public:
 
 		static void Start();
 		static void Stop();
 
-		static void BeginScene(const RenderCamera& Camera);
+		static void BeginScene(const RenderCamera& camera);
 		static void EndScene();
 
 		static void Clear();
-		static void Submit(const RenderCommand& Command);
+		static void Submit(const RenderCommand& command);
+
+		static void RegisterTexture(ptr<Image> image);
 
 		struct RenderCore
 		{
@@ -98,6 +100,8 @@ namespace Desdun
 
 			uint NextTextureSlot = 0;
 			std::array<ptr<TextureArray>, ALLOCATED_TEXTURE_SLOTS> Textures;
+
+			std::unordered_map<Vector2, ptr<TextureArray>> TextureIndex;
 
 			// Cameras
 

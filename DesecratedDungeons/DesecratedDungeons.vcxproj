@@ -92,8 +92,9 @@
     <ClCompile Include="src\core\graphics\buffers\frame.cpp" />
     <ClCompile Include="src\core\graphics\buffers\vao.cpp" />
     <ClCompile Include="src\core\graphics\core\render_camera.cpp" />
-    <ClCompile Include="src\core\graphics\interface.cpp" />
+    <ClCompile Include="src\core\graphics\core\renderer.cpp" />
     <ClCompile Include="src\core\graphics\shaders\shader.cpp" />
+    <ClCompile Include="src\core\resource\external\audio.cpp" />
     <ClCompile Include="src\core\resource\external\image.cpp" />
     <ClCompile Include="src\core\graphics\texture\texture.cpp" />
     <ClCompile Include="src\core\graphics\texture\texture_array.cpp" />
@@ -112,18 +113,21 @@
     <ClCompile Include="src\dependencies\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\dependencies\imgui\imgui_tables.cpp" />
     <ClCompile Include="src\dependencies\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\dependencies\stb_image\stb_image.cpp" />
-    <ClCompile Include="src\dependencies\stb_rect_pack\stb_rect_pack.cpp" />
+    <ClCompile Include="src\dependencies\stb\stb.cpp" />
+    <ClCompile Include="src\dependencies\stb\stb_vorbis_impl.c" />
     <ClCompile Include="src\app\core.cpp" />
     <ClCompile Include="src\game\layers\game.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\resource\base\resource.hpp" />
+    <ClInclude Include="src\core\resource\external\audio.h" />
     <ClInclude Include="src\core\resource\resource_service.hpp" />
-    <ClInclude Include="src\game\instances\Actor.hpp" />
+    <ClInclude Include="src\dependencies\stb\stb_truetype.h" />
+    <ClInclude Include="src\dependencies\stb\stb_vorbis.h" />
+    <ClInclude Include="src\game\instances\base\Actor.hpp" />
     <ClInclude Include="src\core\instance\derived\CanvasInstance.hpp" />
-    <ClInclude Include="src\core\instance\derived\Object.hpp" />
+    <ClInclude Include="src\core\instance\derived\WorldInstance.hpp" />
     <ClInclude Include="src\core\instance\index.hpp" />
     <ClInclude Include="src\core\instance\base\Instance.h" />
     <ClInclude Include="src\gamelib.hpp" />
@@ -131,7 +135,7 @@
     <ClInclude Include="src\core\graphics\buffers\frame.h" />
     <ClInclude Include="src\core\graphics\buffers\vao.h" />
     <ClInclude Include="src\core\graphics\core\render_camera.h" />
-    <ClInclude Include="src\core\graphics\interface.h" />
+    <ClInclude Include="src\core\graphics\core\renderer.h" />
     <ClInclude Include="src\core\graphics\shaders\shader.h" />
     <ClInclude Include="src\core\resource\external\image.h" />
     <ClInclude Include="src\core\graphics\texture\texture.h" />
@@ -435,8 +439,8 @@
     <ClInclude Include="src\dependencies\imgui\imstb_textedit.h" />
     <ClInclude Include="src\dependencies\imgui\imstb_truetype.h" />
     <ClInclude Include="src\dependencies\json\json.hpp" />
-    <ClInclude Include="src\dependencies\stb_image\stb_image.h" />
-    <ClInclude Include="src\dependencies\stb_rect_pack\stb_rect_pack.h" />
+    <ClInclude Include="src\dependencies\stb\stb_image.h" />
+    <ClInclude Include="src\dependencies\stb\stb_rect_pack.h" />
     <ClInclude Include="src\dependencies\uuid.hpp" />
     <ClInclude Include="src\app\core.h" />
     <ClInclude Include="src\game\layers\game.h" />

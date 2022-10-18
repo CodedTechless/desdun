@@ -3,7 +3,7 @@
 #include <glfw3.h>
 
 #include <core/debug/debug.h>
-#include <core/graphics/interface.h>
+#include <core/graphics/core/renderer.h>
 #include <game/layers/game.h>
 
 #include "core.h"
@@ -21,7 +21,7 @@ namespace Desdun
         Layer* GameLayer = new Game("Game");
         GameLayers.PushLayer(GameLayer);
 
-        RenderInterface::Start();
+        Renderer::Start();
 
         /*
         ImGuiLayer = new ImGuiLayer(ImGuiIniFileName);
@@ -32,7 +32,7 @@ namespace Desdun
 	Application::~Application()
 	{
         delete GameWindow;
-        RenderInterface::Stop();
+        Renderer::Stop();
 	}
 
 	void Application::Start()

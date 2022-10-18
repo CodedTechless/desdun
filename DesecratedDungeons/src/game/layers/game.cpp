@@ -15,7 +15,10 @@ namespace Desdun
 	{
 		std::string NewID = UUID::Generate();
 
-		T* NewInst = new T(this, NewID);
+		T* NewInst = new T();
+		NewInst->GameModel = this;
+		NewInst->ID = NewID;
+
 		Instances.push_back((Instance*)NewInst);
 		InstanceCount++;
 
@@ -40,14 +43,14 @@ namespace Desdun
 		RenderCamera cam = {};
 		cam.SetOrthoSize(Vector2(800, 600));
 
-		RenderInterface::BeginScene(cam);
+		Renderer::BeginScene(cam);
 
 		for (auto i = Instances.begin(); i < Instances.begin() + InstanceCount; ++i)
 		{
 			(*i)->OnFrameUpdate(Delta);
 		}
 
-		RenderInterface::EndScene();
+		Renderer::EndScene();
 	}
 
 	void Game::OnGameStep(const float Delta)

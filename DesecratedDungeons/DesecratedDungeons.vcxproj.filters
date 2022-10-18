@@ -57,16 +57,10 @@
     <ClCompile Include="src\dependencies\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\dependencies\stb_image\stb_image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dependencies\stb_rect_pack\stb_rect_pack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\dependencies\glm\detail\glm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\graphics\interface.cpp">
+    <ClCompile Include="src\core\graphics\core\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\game\layers\game.cpp">
@@ -100,6 +94,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\instance\base\Instance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\resource\external\audio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dependencies\stb\stb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dependencies\stb\stb_vorbis_impl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -158,10 +161,10 @@
     <ClInclude Include="src\dependencies\json\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\dependencies\stb_image\stb_image.h">
+    <ClInclude Include="src\dependencies\stb\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\dependencies\stb_rect_pack\stb_rect_pack.h">
+    <ClInclude Include="src\dependencies\stb\stb_rect_pack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dependencies\uuid.hpp">
@@ -1013,7 +1016,7 @@
     <ClInclude Include="src\dependencies\glm\vector_relational.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\graphics\interface.h">
+    <ClInclude Include="src\core\graphics\core\renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\layers\game.h">
@@ -1058,16 +1061,25 @@
     <ClInclude Include="src\core\instance\index.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\instances\Actor.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\instance\derived\Object.hpp">
+    <ClInclude Include="src\game\instances\base\Actor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\resource\base\resource.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\resource\resource_service.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\resource\external\audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dependencies\stb\stb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dependencies\stb\stb_vorbis.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\instance\derived\WorldInstance.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

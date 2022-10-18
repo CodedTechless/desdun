@@ -36,7 +36,6 @@ namespace Desdun
 		uint Layers = 0;
 
 		ptr<Image>* Array = {};
-
 	};
 
 }

@@ -5,7 +5,7 @@
 #include <app/input/event.h>
 
 #include <core/debug/debug.h>
-#include <core/graphics/interface.h>
+#include <core/graphics/core/renderer.h>
 
 #include <app/core.h>
 
@@ -163,7 +163,7 @@ namespace Desdun
 
     void Window::Clear()
     {
-        RenderInterface::Clear();
+        Renderer::Clear();
     }
 
     void Window::Update()

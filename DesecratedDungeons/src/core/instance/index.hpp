@@ -2,4 +2,9 @@
 
 // Base instances
 
-#include "base/instance.h"
+#include "base/Instance.h"
+
+// Derived Instances
+
+#include "derived/CanvasInstance.hpp"
+#include "derived/WorldInstance.hpp"

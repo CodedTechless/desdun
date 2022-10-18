@@ -1,6 +1,6 @@
 
 
-#include <stb_image/stb_image.h>
+#include <stb/stb_image.h>
 
 #include "image.h"
 
@@ -28,7 +28,7 @@ namespace Desdun
 		Path = path;
 
 		stbi_set_flip_vertically_on_load(1);
-		Buffer = stbi_load(Path.c_str(), &Size.x, &Size.y, &BitsPerPixel, 4);
+		Buffer = stbi_load(Path.c_str(), &Size.x, &Size.y, &Channels, 4);
 	}
 
 }

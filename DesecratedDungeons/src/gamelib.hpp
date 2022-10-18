@@ -10,7 +10,7 @@
 
 // Graphics and Rendering
 
-#include <core/graphics/interface.h>
+#include <core/graphics/core/renderer.h>
 
 // Input
 

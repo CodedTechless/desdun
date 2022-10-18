@@ -1,17 +1,15 @@
 #pragma once
 
-#include <core/instance/base/Instance.h>
+#include <core/instance/index.hpp>
 #include <gamelib.hpp>
 
 using namespace Desdun;
 
 
-class Actor : public Instance
+class Actor : public CanvasInstance
 {
 public:
-
-	Actor(Game* game, const std::string& ID)
-		: Instance(game, ID) {};
+	Actor() = default;
 
 	void OnAwake()
 	{
@@ -26,22 +24,22 @@ public:
 
 		if (Input::KeyDown(Input::KeyCode::W))
 		{
-			Pos -= Vector2(0.f, 10.f);
+			Position -= Vector2(0.f, 10.f);
 		}
 
 		if (Input::KeyDown(Input::KeyCode::A))
 		{
-			Pos -= Vector2(10.f, 0.f);
+			Position -= Vector2(10.f, 0.f);
 		}
 
 		if (Input::KeyDown(Input::KeyCode::S))
 		{
-			Pos += Vector2(0.f, 10.f);
+			Position += Vector2(0.f, 10.f);
 		}
 
 		if (Input::KeyDown(Input::KeyCode::D))
 		{
-			Pos += Vector2(10.f, 0.f);
+			Position += Vector2(10.f, 0.f);
 		}
 
 	}
@@ -53,7 +51,7 @@ public:
 			//			* glm::rotate(Mat4(1.f), glm::radians(0.f), Vector3(0.f, 0.f, 1.f))
 			* glm::scale(Mat4(1.f), Vector3(100.f, 100.f, 1.f));
 
-		RenderInterface::Submit({
+		Renderer::Submit({
 			Transform, Color4(1.f, 1.f, 1.f, 1.f),
 			{
 				{ 0.f, 0.f },
