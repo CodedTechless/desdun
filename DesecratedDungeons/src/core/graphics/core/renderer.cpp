@@ -36,7 +36,7 @@ namespace Desdun
 		// Batch Renderer Setup
 
 		m_RenderCore.BatchArray = std::make_shared<VertexArray>();
-		m_RenderCore.Quads = new Quad[Renderer::RenderCore::MaxVertices];
+		m_RenderCore.Quads = new Vertex[Renderer::RenderCore::MaxVertices];
 
 		uint QuadOffset = 0;
 		uint* IndexBufferTemplate = new uint[Renderer::RenderCore::MaxIndices];
@@ -58,7 +58,7 @@ namespace Desdun
 		delete[] IndexBufferTemplate;
 
 		// Create the vertex buffer and set its layout.
-		m_RenderCore.VertexBatch = CreatePointer<VertexBuffer>(Renderer::RenderCore::MaxVertices * sizeof(Quad));
+		m_RenderCore.VertexBatch = CreatePointer<VertexBuffer>(Renderer::RenderCore::MaxVertices * sizeof(Vertex));
 		m_RenderCore.VertexBatch->SetBufferLayout({ // Create a layout for data that is held in the vertex buffer for drawing.
 			{ LayoutType::Float, 3 }, // Position
 			{ LayoutType::Float, 4 }, // Colour

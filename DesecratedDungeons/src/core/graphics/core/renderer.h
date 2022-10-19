@@ -15,7 +15,7 @@
 
 namespace Desdun
 {
-	struct Quad
+	struct Vertex
 	{
 		Vector3 Position;
 		Vector4 Tint;
@@ -32,7 +32,7 @@ namespace Desdun
 		Vector2 ObjectTextureCoords[4] = {};
 		uint32_t ObjectTextureLayer = 0;
 
-		ptr<Image> ObjectImage = nullptr;
+		ptr<TextureArray> ObjectTexture = nullptr;
 		ptr<Shader> ObjectShader = nullptr;
 
 		int ZIndex = 0;
@@ -73,8 +73,8 @@ namespace Desdun
 
 			// Quads, Vertices and Indices
 
-			Quad* Quads = nullptr;
-			Quad* QuadsHeader = nullptr;
+			Vertex* Quads = nullptr;
+			Vertex* QuadsHeader = nullptr;
 
 			ptr<VertexBuffer> VertexBatch = nullptr;
 			ptr<IndexBuffer> IndexBatch = nullptr;
