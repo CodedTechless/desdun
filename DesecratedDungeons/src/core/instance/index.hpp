@@ -6,5 +6,4 @@
 
 // Derived Instances
 
-#include "derived/CanvasInstance.hpp"
 #include "derived/WorldInstance.hpp"

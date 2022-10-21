@@ -6,7 +6,7 @@
 using namespace Desdun;
 
 
-class Actor : public CanvasInstance
+class Actor : public WorldInstance
 {
 public:
 	Actor() = default;

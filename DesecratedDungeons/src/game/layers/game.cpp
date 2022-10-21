@@ -1,6 +1,6 @@
 
 
-#include <game/instances/Actor.hpp>
+#include <game/instances/index.hpp>
 
 #include <gamelib.hpp>
 #include <uuid.hpp>

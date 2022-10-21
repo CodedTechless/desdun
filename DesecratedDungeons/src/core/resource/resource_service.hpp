@@ -5,14 +5,14 @@
 
 namespace Desdun
 {
-	using ResourceCache = std::unordered_map<fs::path, ptr<Resource>>;
+	using ResourceCache = std::unordered_map<fs::path, Resource*>;
 
 	class ResourceService
 	{
 	public:
 
 		template<typename T>
-		static ptr<T> Fetch(const std::string& path)
+		static T* Fetch(const std::string& path)
 		{
 			fs::path Location = fs::proximate(path);
 
@@ -25,18 +25,19 @@ namespace Desdun
 			auto it = Resources.find(Location);
 			if (it != Resources.end())
 			{
-				return std::static_pointer_cast<T>(it->second);
+				return it->second;
 			}
 
-			ptr<T> NewResource = CreatePointer<T>();
+			T* NewResource = new T();
 			NewResource->Load(path);
 
-			Resources[Location] = std::static_pointer_cast<Resource>(NewResource);
+			Resources[Location.stem().generic_string()] = NewResource;
 
 			return NewResource;
 		}
 
 	private:
+
 		static ResourceCache Resources;
 
 	};

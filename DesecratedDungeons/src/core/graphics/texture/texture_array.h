@@ -1,11 +1,11 @@
 #pragma once
 
-#include <core/resource/external/image.h>
-
 #include <libraries.hpp>
 
 namespace Desdun
 {
+
+	class Image;
 
 	class TextureArray
 	{
@@ -17,13 +17,13 @@ namespace Desdun
 		void Bind(uint Slot = 0);
 		void Unbind();
 
-		void SetLayer(uint layer, ptr<Image> image);
+		void SetLayer(uint layer, Image* image);
 
 		// Getters
 
 		uint GetRenderID() const { return RenderID; };
 
-		ptr<Image> operator[](uint Index)
+		Image* operator[](uint Index)
 		{
 			return *(Array + Index);
 		}
@@ -35,7 +35,8 @@ namespace Desdun
 		Vector2i BaseSize = { 0, 0 };
 		uint Layers = 0;
 
-		ptr<Image>* Array = {};
+		(Image*)* Array = {};
+
 	};
 
 }

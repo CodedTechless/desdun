@@ -6,6 +6,16 @@
 namespace Desdun
 {
 
+	namespace Enum
+	{
+		enum class ResourceType
+		{
+			None = 0,
+			Image = 1,
+			Audio = 2
+		};
+	}
+
 	class Resource
 	{
 	public:
@@ -15,9 +25,13 @@ namespace Desdun
 		virtual void Load(const std::string& path) = 0;
 
 		std::string GetPath() const { return Path; };
+		Enum::ResourceType GetType() const { return Type; };
 
 	protected:
+		std::string Name = "";
 		std::string Path = "";
+
+		Enum::ResourceType Type = Enum::ResourceType::None;
 		
 	};
 

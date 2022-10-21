@@ -6,7 +6,7 @@ using namespace Desdun;
 
 // Instance > WorldInstance
 
-namespace Enum
+namespace Desdun::Enum
 {
 	enum class InterpolationMode
 	{

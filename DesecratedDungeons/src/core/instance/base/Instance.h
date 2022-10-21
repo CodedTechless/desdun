@@ -29,6 +29,7 @@ namespace Desdun
 		virtual void OnDestroyed() {};
 
 		virtual void OnGameStep(const float Delta) {};
+		virtual void OnFrameUpdate(const float Delta) {};
 
 		virtual Input::Filter OnInputEvent(InputEvent input, bool processed) { return Input::Filter::Ignore; };
 		virtual void OnWindowEvent(WindowEvent window) {};
@@ -62,6 +63,7 @@ namespace Desdun
 		void RemoveChild(Instance* instance);
 
 		friend class Game;
+
 	};
 
 }

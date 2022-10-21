@@ -126,7 +126,6 @@
     <ClInclude Include="src\dependencies\stb\stb_truetype.h" />
     <ClInclude Include="src\dependencies\stb\stb_vorbis.h" />
     <ClInclude Include="src\game\instances\base\Actor.hpp" />
-    <ClInclude Include="src\core\instance\derived\CanvasInstance.hpp" />
     <ClInclude Include="src\core\instance\derived\WorldInstance.hpp" />
     <ClInclude Include="src\core\instance\index.hpp" />
     <ClInclude Include="src\core\instance\base\Instance.h" />
