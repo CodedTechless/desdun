@@ -55,4 +55,9 @@ namespace Desdun
 		Parent->Children.push_back(this);
 	};
 
+	void Instance::DrawImage(ptr<Image> image)
+	{
+
+	}
+
 }

@@ -5,8 +5,6 @@
 namespace Desdun
 {
 
-	class Image;
-
 	class TextureArray
 	{
 	public:
@@ -17,13 +15,14 @@ namespace Desdun
 		void Bind(uint Slot = 0);
 		void Unbind();
 
-		void SetLayer(uint layer, Image* image);
+		void SetLayer(uint layer, uchar* buffer);
 
 		// Getters
 
+		Vector2i GetBaseSize() const { return BaseSize; };
 		uint GetRenderID() const { return RenderID; };
 
-		Image* operator[](uint Index)
+		uchar* operator[](uint Index)
 		{
 			return *(Array + Index);
 		}
@@ -35,7 +34,7 @@ namespace Desdun
 		Vector2i BaseSize = { 0, 0 };
 		uint Layers = 0;
 
-		(Image*)* Array = {};
+		uchar** Array = {};
 
 	};
 

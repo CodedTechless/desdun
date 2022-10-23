@@ -1,6 +1,5 @@
 
 #include <GL/glew.h>
-#include <core/resource/external/image.h>
 
 #include "texture_array.h"
 
@@ -21,7 +20,7 @@ namespace Desdun
 
 		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 
-		Array = new Image*[layers]();
+		Array = new uchar*[layers];
 	}
 
 	TextureArray::~TextureArray()
@@ -29,14 +28,8 @@ namespace Desdun
 		glDeleteTextures(1, &RenderID);
 	}
 
-	void TextureArray::SetLayer(uint layer, Image* image)
+	void TextureArray::SetLayer(uint layer, uchar* buffer)
 	{
-		if (image->GetSize() != BaseSize)
-		{
-			Debug::Error("Image provided was not the same size as the subimage of the texture array.");
-			return;
-		}
-
 		if (layer > Layers)
 		{
 			Debug::Error("Attempted to update a layer of a depth higher than " + std::to_string(layer));
@@ -44,10 +37,10 @@ namespace Desdun
 		}
 
 		glBindTexture(GL_TEXTURE_2D_ARRAY, RenderID);
-		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, layer, BaseSize.x, BaseSize.y, 1, GL_RGBA, GL_UNSIGNED_BYTE, image->GetBuffer());
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, layer, BaseSize.x, BaseSize.y, 1, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 
-		Array[layer] = image;
+		Array[layer] = buffer;
 	}
 
 	void TextureArray::Bind(uint Slot)

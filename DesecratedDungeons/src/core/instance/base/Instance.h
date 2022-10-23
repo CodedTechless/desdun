@@ -5,6 +5,8 @@
 #include <app/input/input.h>
 #include <app/input/event.h>
 
+#include <core/resource/external/image.h>
+
 /*
 	Base class of all Instances.
 */
@@ -16,7 +18,7 @@ namespace Desdun
 
 	class Instance
 	{
-	public: // Class definitions
+	public:
 
 		Instance(Game* game, const std::string& id);
 		~Instance();
@@ -33,6 +35,10 @@ namespace Desdun
 
 		virtual Input::Filter OnInputEvent(InputEvent input, bool processed) { return Input::Filter::Ignore; };
 		virtual void OnWindowEvent(WindowEvent window) {};
+
+		// Drawing
+
+		void DrawImage(ptr<Image> image);
 
 		// Instance operations
 
@@ -54,12 +60,12 @@ namespace Desdun
 
 	private:
 
-		Instance* Parent = nullptr;
-		std::vector<Instance*> Children = {};
-
-		std::string ID;
 		Game* GameModel;
+		Instance* Parent = nullptr;
+		
+		std::string ID;
 
+		std::vector<Instance*> Children = {};
 		void RemoveChild(Instance* instance);
 
 		friend class Game;

@@ -6,7 +6,7 @@
 namespace Desdun
 {
 
-	Texture::Texture(ptr<Image> image)
+	Texture::Texture(uchar* buffer, Vector2i size)
 	{
 		glGenTextures(1, &RenderID);
 		glBindTexture(GL_TEXTURE_2D, RenderID);
@@ -16,12 +16,9 @@ namespace Desdun
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // horizontal clamping
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); // horizontal clamping
 
-		auto ImageContext = image->GetContext();
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, ImageContext.Size.x, ImageContext.Size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->GetBuffer());
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 		
 		glBindTexture(GL_TEXTURE_2D, 0);
-
-		RefImage = image;
 	}
 
 	Texture::~Texture()

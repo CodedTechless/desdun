@@ -1,11 +1,12 @@
 #pragma once
 
 #include <core/resource/base/resource.hpp>
+#include <core/resource/external/image.h>
 #include <libraries.hpp>
 
 namespace Desdun
 {
-	using ResourceCache = std::unordered_map<fs::path, Resource*>;
+	using ResourceCache = std::unordered_map<const char*, std::unordered_map<std::string, Resource*>>;
 
 	class ResourceService
 	{
@@ -22,16 +23,19 @@ namespace Desdun
 				return nullptr;
 			}
 
-			auto it = Resources.find(Location);
-			if (it != Resources.end())
+			auto Name = Location.generic_string();
+			auto* Type = typeid(T).name();
+
+			auto it = Resources[Type].find(Name);
+			if (it != Resources[Type].end())
 			{
-				return it->second;
+				return (T*)it->second;
 			}
 
 			T* NewResource = new T();
 			NewResource->Load(path);
 
-			Resources[Location.stem().generic_string()] = NewResource;
+			Resources[Type][Name] = NewResource;
 
 			return NewResource;
 		}
