@@ -20,14 +20,14 @@ namespace Desdun
 
 		LayerCollection GameLayers = {};
 
-		static Application* GetApplication() { return AppInstance; };
+		static Application* GetApplication() { return AppObject; };
 
 	protected:
 		void PushInputEvent(const InputEvent& inputEvent);
 		void PushWindowEvent(const WindowEvent& windowEvent);
 
 	private:
-		static Application* AppInstance;
+		static Application* AppObject;
 
 		Window* GameWindow = nullptr;
 		bool Running = false;

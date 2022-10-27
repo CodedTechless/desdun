@@ -93,7 +93,7 @@
     <ClCompile Include="src\core\graphics\buffers\vao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\instance\base\Instance.cpp">
+    <ClCompile Include="src\core\object\object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\resource\external\audio.cpp">
@@ -1052,13 +1052,13 @@
     <ClInclude Include="src\core\graphics\buffers\vao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\instance\base\Instance.h">
+    <ClInclude Include="src\core\object\object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\instance\index.hpp">
+    <ClInclude Include="src\core\object\index.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\instances\base\Actor.hpp">
+    <ClInclude Include="src\game\objects\base\Actor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\resource\base\resource.hpp">
@@ -1076,7 +1076,28 @@
     <ClInclude Include="src\dependencies\stb\stb_vorbis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\instance\derived\WorldInstance.hpp">
+    <ClInclude Include="src\core\object\derived\physics_object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\object\derived\kinematic_object.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\object\derived\animator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\object\derived\particle_emitter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\object\derived\sound.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\object\derived\static_physics_object.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\object\derived\tile_map.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\object\derived\point_light.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -10,11 +10,11 @@
 
 namespace Desdun
 {
-	Application* Application::AppInstance = nullptr;
+	Application* Application::AppObject = nullptr;
 
 	Application::Application()
 	{
-		AppInstance = this;
+		AppObject = this;
 		
 		GameWindow = new Window("Desecrated Dungeons", { 800, 600 });
 

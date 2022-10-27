@@ -1,14 +1,14 @@
 
 
-#include "Instance.h"
+#include "Object.h"
 
 namespace Desdun
 {
 	
-	Instance::Instance(Game* game, const std::string& id)
+	Object::Object(Game* game, const std::string& id)
 		: GameModel(game), ID(id) {};
 
-	Instance::~Instance()
+	Object::~Object()
 	{
 		for (auto instance : Children)
 		{
@@ -21,7 +21,7 @@ namespace Desdun
 		}
 	}
 
-	void Instance::RemoveChild(Instance* instance)
+	void Object::RemoveChild(Object* instance)
 	{
 		for (auto it = Children.begin(); it != Children.end(); ++it)
 		{
@@ -33,7 +33,7 @@ namespace Desdun
 		}
 	}
 
-	Instance* Instance::FindChild(const std::string& name)
+	Object* Object::FindChild(const std::string& name)
 	{
 		for (auto instance : Children)
 		{
@@ -46,7 +46,7 @@ namespace Desdun
 		return nullptr;
 	}
 
-	void Instance::SetParent(Instance* instance)
+	void Object::SetParent(Object* instance)
 	{
 		if (Parent) Parent->RemoveChild(this);
 
@@ -54,10 +54,5 @@ namespace Desdun
 
 		Parent->Children.push_back(this);
 	};
-
-	void Instance::DrawImage(ptr<Image> image)
-	{
-
-	}
 
 }

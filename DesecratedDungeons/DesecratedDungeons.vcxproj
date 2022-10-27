@@ -101,7 +101,7 @@
     <ClCompile Include="src\core\graphics\buffers\index.cpp" />
     <ClCompile Include="src\core\graphics\buffers\vertex.cpp" />
     <ClCompile Include="src\app\input\input.cpp" />
-    <ClCompile Include="src\core\instance\base\Instance.cpp" />
+    <ClCompile Include="src\core\object\object.cpp" />
     <ClCompile Include="src\app\layers\layer.cpp" />
     <ClCompile Include="src\app\layers\layer_collection.cpp" />
     <ClCompile Include="src\app\system\window.cpp" />
@@ -120,15 +120,22 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\object\derived\animator.hpp" />
+    <ClInclude Include="src\core\object\derived\kinematic_object.hpp" />
+    <ClInclude Include="src\core\object\derived\particle_emitter.hpp" />
+    <ClInclude Include="src\core\object\derived\physics_object.h" />
+    <ClInclude Include="src\core\object\derived\point_light.hpp" />
+    <ClInclude Include="src\core\object\derived\sound.hpp" />
+    <ClInclude Include="src\core\object\derived\static_physics_object.hpp" />
+    <ClInclude Include="src\core\object\derived\tile_map.hpp" />
     <ClInclude Include="src\core\resource\base\resource.hpp" />
     <ClInclude Include="src\core\resource\external\audio.h" />
     <ClInclude Include="src\core\resource\resource_service.hpp" />
     <ClInclude Include="src\dependencies\stb\stb_truetype.h" />
     <ClInclude Include="src\dependencies\stb\stb_vorbis.h" />
-    <ClInclude Include="src\game\instances\base\Actor.hpp" />
-    <ClInclude Include="src\core\instance\derived\WorldInstance.hpp" />
-    <ClInclude Include="src\core\instance\index.hpp" />
-    <ClInclude Include="src\core\instance\base\Instance.h" />
+    <ClInclude Include="src\game\objects\base\Actor.hpp" />
+    <ClInclude Include="src\core\object\index.hpp" />
+    <ClInclude Include="src\core\object\object.h" />
     <ClInclude Include="src\gamelib.hpp" />
     <ClInclude Include="src\core\debug\debug.h" />
     <ClInclude Include="src\core\graphics\buffers\frame.h" />
