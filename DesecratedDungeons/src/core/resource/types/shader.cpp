@@ -12,11 +12,6 @@
 namespace Desdun 
 {
 
-    Shader::Shader(const std::string& Path)
-    {
-        Import(Path);
-    }
-
     Shader::~Shader()
     {
         glDeleteProgram(RenderID);
@@ -45,7 +40,7 @@ namespace Desdun
     }
 
     // Shader importation and compilation
-    void Shader::Import(const std::string& ShaderPath)
+    void Shader::Load(const std::string& ShaderPath)
     {
         ShaderSource Source = Parse(ShaderPath);
         uint Program = Create(Source.VertexSource, Source.FragmentSource);

@@ -1,33 +1,39 @@
 #pragma once
 
-#include <libraries.hpp>
+/*
+	base class of all Objects. every game object inherits from this one!
+*/
 
 #include <app/input/input.h>
 #include <app/input/event.h>
 
-#include <core/resource/external/image.h>
+#include <app/core.h>
 
-/*
-	Base class of all Objects.
-*/
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/matrix_interpolation.hpp>
+
+#include <libraries.hpp>
 
 namespace Desdun
 {
 
-	class Game;
+	class Scene;
 
 	class Object
 	{
 	public:
 
-		Object(Game* game, const std::string& id);
+		Object() = default;
 		~Object();
 		
 		std::string Name = "Object";
 
+		// Properties
+
 		Vector2 Position = { 0.f, 0.f };
-		Vector2 Scale = { 0.f, 0.f };
-		float Angle = 0.f;
+		Vector2 Scale = { 1.f, 1.f };
+		float Rotation = 0.f;
 
 		float ZIndex = 0.f;
 
@@ -52,7 +58,7 @@ namespace Desdun
 		// Getters
 
 		std::string GetObjectID() const { return ID; };
-		Game* GetGameModel() const { return GameModel; };
+		Scene* GetScene() const { return m_ActiveScene; };
 
 		const std::vector<Object*>& GetChildren() const { return Children; };
 		Object* GetParent() const { return Parent; };
@@ -60,6 +66,20 @@ namespace Desdun
 		Object* operator[](uint idx)
 		{
 			return Children[idx];
+		}
+
+		// Transforms
+
+		Mat4 GetFrameTransform() const
+		{
+			return glm::interpolate(LastTransform, GoalTransform, Application::GetApplication()->GetInterpolationFraction());
+		}
+
+		Mat4 GetTransform() const
+		{
+			return glm::translate(Mat4(1.0f), Vector3(Position, 0.f))
+				* glm::rotate(Mat4(1.0f), glm::radians(Rotation), Vector3(0.f, 0.f, 1.f))
+				* glm::scale(Mat4(1.0f), Vector3(Scale.x, Scale.y, 1.f));
 		}
 
 	private:
@@ -72,7 +92,7 @@ namespace Desdun
 
 		// Game
 
-		Game* GameModel;
+		Scene* m_ActiveScene = nullptr;
 		Object* Parent = nullptr;
 		
 		std::string ID;
@@ -82,7 +102,7 @@ namespace Desdun
 		std::vector<Object*> Children = {};
 		void RemoveChild(Object* instance);
 
-		friend class Game;
+		friend class Scene;
 
 	};
 

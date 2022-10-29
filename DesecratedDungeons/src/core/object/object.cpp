@@ -1,12 +1,9 @@
 
 
-#include "Object.h"
+#include "object.h"
 
 namespace Desdun
 {
-	
-	Object::Object(Game* game, const std::string& id)
-		: GameModel(game), ID(id) {};
 
 	Object::~Object()
 	{

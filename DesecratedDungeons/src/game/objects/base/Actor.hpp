@@ -1,22 +1,21 @@
 #pragma once
 
-#include <core/instance/index.hpp>
 #include <gamelib.hpp>
 
 using namespace Desdun;
 
 
-class Actor : public WorldInstance
+class Actor : public KinematicObject
 {
 public:
 	Actor() = default;
 
 	void OnAwake()
 	{
-		auto GoofyImage = ResourceService::Fetch<Image>("assets/goofy.png");
+		GoofyImage = ResourceService::Fetch<Image>("assets/goofy.png");
 
 		tex = CreatePointer<TextureArray>(Vector2(300.f, 300.f), 16);
-		tex->SetLayer(0, GoofyImage);
+		GoofyImage->Allocate(tex, 0);
 	}
 
 	void OnGameStep(const float Delta)
@@ -47,12 +46,9 @@ public:
 	void OnFrameUpdate(const float Delta)
 	{
 
-		Mat4 Transform = glm::translate(Mat4(1.f), Vector3(Pos, 0.f))
-			//			* glm::rotate(Mat4(1.f), glm::radians(0.f), Vector3(0.f, 0.f, 1.f))
-			* glm::scale(Mat4(1.f), Vector3(100.f, 100.f, 1.f));
-
 		Renderer::Submit({
-			Transform, Color4(1.f, 1.f, 1.f, 1.f),
+			GetFrameTransform() * glm::scale(Mat4(1.f), Vector3(100.f, 100.f, 1.f)),
+			{ 1.f, 1.f, 1.f, 1.f},
 			{
 				{ 0.f, 0.f },
 				{ 1.f, 0.f },
@@ -60,18 +56,17 @@ public:
 				{ 0.f, 1.f }
 			},
 
-			0,
-			tex,
+			GoofyImage,
 			nullptr,
 
 			0
 		});
+
 	}
 
 private:
 
-	Vector2 Pos = { 100.f, 100.f };
-
+	Image* GoofyImage = nullptr;
 	ptr<TextureArray> tex = nullptr;
 
 };

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <core/resource/base/resource.hpp>
-#include <core/resource/external/image.h>
+#include <core/resource/resource.hpp>
+#include <core/resource/types/image.h>
 #include <libraries.hpp>
 
 namespace Desdun
@@ -23,17 +23,20 @@ namespace Desdun
 				return nullptr;
 			}
 
-			auto Name = Location.generic_string();
-			auto* Type = typeid(T).name();
+			std::string Name = Location.generic_string();
+			const char* Type = typeid(T).name();
 
 			auto it = Resources[Type].find(Name);
 			if (it != Resources[Type].end())
 			{
+				Debug::Log("Found cached resource for " + std::string(Type) + " " + Name);
 				return (T*)it->second;
 			}
 
 			T* NewResource = new T();
 			NewResource->Load(path);
+
+			Debug::Log("Loaded " + std::string(Type) + " " + Name);
 
 			Resources[Type][Name] = NewResource;
 
@@ -45,7 +48,5 @@ namespace Desdun
 		static ResourceCache Resources;
 
 	};
-
-	ResourceCache ResourceService::Resources = {};
 
 }

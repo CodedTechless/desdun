@@ -1,5 +1,10 @@
 #pragma once
 
+/*
+one big include file filled with everything game related
+*/
+
+
 // Debugging
 
 #include <core/debug/debug.h>
@@ -17,6 +22,6 @@
 #include <app/input/input.h>
 #include <app/input/event.h>
 
-// Instances
+// Objects
 
-#include <core/instance/index.hpp>
+#include <core/object/index.hpp>

@@ -1,6 +1,8 @@
 
 #include <core/debug/debug.h>
 
+#include <core/resource/resource_service.hpp>
+
 #include <GL/glew.h>
 #include <glfw3.h>
 
@@ -72,8 +74,7 @@ namespace Desdun
 		m_RenderCore.BatchArray->SetIndexBuffer(m_RenderCore.IndexBatch);
 
 		// Initialise the texture shader and import the basic shader.
-		m_RenderCore.DefaultShader = std::make_shared<Shader>();
-		m_RenderCore.DefaultShader->Import("assets/shaders/basic.shader");
+		m_RenderCore.DefaultShader = ResourceService::Fetch<Shader>("assets/shaders/basic.shader");
 
 		m_RenderCore.TextureSamplers = new int[ALLOCATED_TEXTURE_SLOTS];
 		for (int i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
@@ -131,14 +132,18 @@ namespace Desdun
 			}
 		}
 
+		Image::Allocation texture = Command.ImageResource->GetAllocation();
+
 		uint32_t TextureSlotIndex = 0;
 		bool HasSlot = false;
 		for (uint32_t i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
 		{
-			if (m_RenderCore.Textures[i] == Command.ObjectTexture)
+			if (m_RenderCore.Textures[i] == texture.Texture)
 			{
 				HasSlot = true;
 				TextureSlotIndex = i;
+
+				break;
 			}
 		}
 
@@ -150,7 +155,7 @@ namespace Desdun
 				BeginBatch();
 			}
 
-			m_RenderCore.Textures[m_RenderCore.NextTextureSlot] = Command.ObjectTexture;
+			m_RenderCore.Textures[m_RenderCore.NextTextureSlot] = texture.Texture;
 			TextureSlotIndex = m_RenderCore.NextTextureSlot;
 
 			m_RenderCore.NextTextureSlot++;
@@ -161,7 +166,7 @@ namespace Desdun
 			m_RenderCore.QuadsHeader->Position = Command.Transform * m_RenderCore.VertexNormal[i];
 			m_RenderCore.QuadsHeader->Tint = Command.Tint;
 			m_RenderCore.QuadsHeader->TextureCoords = Command.ObjectTextureCoords[i];
-			m_RenderCore.QuadsHeader->Layer = Command.ObjectTextureLayer;
+			m_RenderCore.QuadsHeader->Layer = texture.Layer;
 			m_RenderCore.QuadsHeader->TextureIndex = TextureSlotIndex;
 
 			m_RenderCore.QuadsHeader++;
@@ -170,20 +175,10 @@ namespace Desdun
 		m_RenderCore.VertexBufferIndex += 6;
 	}
 
-	void Renderer::RegisterTexture(ptr<Image> image)
+	void Renderer::BeginScene(const RenderCamera& camera, Mat4 transform)
 	{
-		auto Size = image->GetSize();
-
-		auto it = m_RenderCore.TextureIndex.find(Size);
-		if (it != m_RenderCore.TextureIndex.end())
-		{
-
-		}
-	}
-
-	void Renderer::BeginScene(const RenderCamera& Camera)
-	{
-		m_RenderCore.CurrentCamera = Camera;
+		m_RenderCore.CurrentCamera = camera;
+		m_RenderCore.ProjectionTransform = transform;
 		m_RenderCore.CommandIndex = 0;
 		
 		BeginBatch(m_RenderCore.DefaultShader);
@@ -208,7 +203,7 @@ namespace Desdun
 				return A.ZIndex < B.ZIndex ||
 					(A.ZIndex == B.ZIndex && A.ObjectShader->GetRenderID() < B.ObjectShader->GetRenderID()) ||
 					((A.ZIndex == B.ZIndex && A.ObjectShader->GetRenderID() == B.ObjectShader->GetRenderID()) && 
-					(A.ObjectTexture->GetRenderID() < B.ObjectTexture->GetRenderID()));
+					(A.ImageResource->GetAllocation().Texture->GetRenderID() < B.ImageResource->GetAllocation().Texture->GetRenderID()));
 			}
 		);
 
@@ -224,19 +219,16 @@ namespace Desdun
 		FinishBatch();
 	}
 
-	void Renderer::SetShader(ptr<Shader> shader)
+	void Renderer::SetShader(Shader* shader)
 	{
 		if (shader != m_RenderCore.RenderShader)
 			m_RenderCore.RenderShader = shader;
-
-		const RenderCamera& Camera = m_RenderCore.CurrentCamera;
-		Mat4 Proj = Camera.GetProjectionTransform();
 		
 		m_RenderCore.RenderShader->SetUniform("Textures", m_RenderCore.TextureSamplers, ALLOCATED_TEXTURE_SLOTS);
-		m_RenderCore.RenderShader->SetUniform("Projection", Proj);
+		m_RenderCore.RenderShader->SetUniform("Projection", m_RenderCore.ProjectionTransform);
 	}
 
-	void Renderer::BeginBatch(ptr<Shader> shader)
+	void Renderer::BeginBatch(Shader* shader)
 	{
 		if (shader)
 			SetShader(shader);

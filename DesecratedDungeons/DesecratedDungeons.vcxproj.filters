@@ -69,7 +69,7 @@
     <ClCompile Include="src\core\graphics\core\render_camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\graphics\shaders\shader.cpp">
+    <ClCompile Include="src\core\resource\types\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\graphics\texture\texture.cpp">
@@ -78,7 +78,7 @@
     <ClCompile Include="src\core\graphics\texture\texture_array.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\resource\external\image.cpp">
+    <ClCompile Include="src\core\resource\types\image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\graphics\buffers\frame.cpp">
@@ -96,13 +96,16 @@
     <ClCompile Include="src\core\object\object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\resource\external\audio.cpp">
+    <ClCompile Include="src\core\resource\types\audio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\dependencies\stb\stb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\dependencies\stb\stb_vorbis_impl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\scene\scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1028,7 +1031,7 @@
     <ClInclude Include="src\core\graphics\core\render_camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\graphics\shaders\shader.h">
+    <ClInclude Include="src\core\resource\types\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\graphics\texture\texture.h">
@@ -1037,7 +1040,7 @@
     <ClInclude Include="src\core\graphics\texture\texture_array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\resource\external\image.h">
+    <ClInclude Include="src\core\resource\types\image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\graphics\buffers\frame.h">
@@ -1058,16 +1061,16 @@
     <ClInclude Include="src\core\object\index.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\objects\base\Actor.hpp">
+    <ClInclude Include="src\game\objects\base\actor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\resource\base\resource.hpp">
+    <ClInclude Include="src\core\resource\resource.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\resource\resource_service.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\resource\external\audio.h">
+    <ClInclude Include="src\core\resource\types\audio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dependencies\stb\stb_truetype.h">
@@ -1076,28 +1079,37 @@
     <ClInclude Include="src\dependencies\stb\stb_vorbis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\object\derived\physics_object.h">
+    <ClInclude Include="src\core\object\derived\physics\physics_object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\object\derived\kinematic_object.hpp">
+    <ClInclude Include="src\core\object\derived\physics\kinematic_object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\object\derived\animator.hpp">
+    <ClInclude Include="src\core\object\derived\visual\animator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\object\derived\particle_emitter.hpp">
+    <ClInclude Include="src\core\object\derived\visual\particle_emitter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\object\derived\sound.hpp">
+    <ClInclude Include="src\core\object\derived\audio\sound.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\object\derived\static_physics_object.hpp">
+    <ClInclude Include="src\core\object\derived\physics\static_physics_object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\object\derived\tile_map.hpp">
+    <ClInclude Include="src\core\object\derived\visual\tile_map.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\object\derived\point_light.hpp">
+    <ClInclude Include="src\core\object\derived\visual\point_light.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\scene\scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\objects\index.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\object\derived\visual\camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,8 @@
 #include <GL/glew.h>
 #include <glfw3.h>
 
+#include <core/resource/resource_service.hpp>
+
 #include <core/debug/debug.h>
 #include <core/graphics/core/renderer.h>
 #include <game/layers/game.h>
@@ -12,16 +14,18 @@ namespace Desdun
 {
 	Application* Application::AppObject = nullptr;
 
+    ResourceCache ResourceService::Resources = {};
+
 	Application::Application()
 	{
 		AppObject = this;
 		
 		GameWindow = new Window("Desecrated Dungeons", { 800, 600 });
+        Renderer::Start();
 
         Layer* GameLayer = new Game("Game");
         GameLayers.PushLayer(GameLayer);
 
-        Renderer::Start();
 
         /*
         ImGuiLayer = new ImGuiLayer(ImGuiIniFileName);
@@ -58,19 +62,22 @@ namespace Desdun
             Time += FrameTime;
             Accumulator += FrameTime;
 
-            while (Accumulator >= 1.f / 30.f)
+            while (Accumulator >= GameSpeed)
             {
                 for (Layer* a_Layer : GameLayers) {
                     a_Layer->OnGameStep(Accumulator);
                 }
 
-                Accumulator -= 1.f / 30.f;
+                Accumulator -= GameSpeed;
             }
+
+            StepInterpFrac = Accumulator / GameSpeed;
+            
             GameWindow->Clear();
 
             for (auto* Layer : GameLayers)
             {
-                Layer->OnFrameUpdate(1.f);
+                Layer->OnFrameUpdate(FrameTime);
             }
 
             GameWindow->Update();

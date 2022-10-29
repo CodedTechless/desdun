@@ -1,9 +1,17 @@
 #pragma once
 
-// Base instances
+/*
+one big index containing every single object in the engine
+*/
+
+// Base
 
 #include "object.h"
 
-// Derived Objects
+// Physics
 
-#include "derived/kinematic_object.hpp"
+#include "derived/physics/kinematic_object.hpp"
+
+// Visual
+
+#include "derived/visual/camera.hpp"

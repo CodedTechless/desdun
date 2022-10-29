@@ -2,15 +2,17 @@
 
 #include <core/graphics/core/render_camera.h>
 #include <core/graphics/texture/texture_array.h>
-#include <core/graphics/shaders/shader.h>
 #include <core/graphics/buffers/vertex.h>
 #include <core/graphics/buffers/vao.h>
 #include <core/graphics/buffers/index.h>
 #include <core/graphics/buffers/frame.h>
 
+#include <core/resource/types/shader.h>
+#include <core/resource/types/image.h>
+
 #include <libraries.hpp>
 
-#define RENDER_QUEUE_SIZE 2048
+#define RENDER_QUEUE_SIZE 8192
 #define ALLOCATED_TEXTURE_SLOTS 16
 
 namespace Desdun
@@ -30,10 +32,9 @@ namespace Desdun
 		Vector4 Tint{ 0.f };
 
 		Vector2 ObjectTextureCoords[4] = {};
-		uint32_t ObjectTextureLayer = 0;
 
-		ptr<TextureArray> ObjectTexture = nullptr;
-		ptr<Shader> ObjectShader = nullptr;
+		Image* ImageResource = nullptr;
+		Shader* ObjectShader = nullptr;
 
 		int ZIndex = 0;
 	};
@@ -47,13 +48,11 @@ namespace Desdun
 		static void Start();
 		static void Stop();
 
-		static void BeginScene(const RenderCamera& camera);
+		static void BeginScene(const RenderCamera& camera, Mat4 transform);
 		static void EndScene();
 
 		static void Clear();
 		static void Submit(const RenderCommand& command);
-
-		static void RegisterTexture(ptr<Image> image);
 
 		struct RenderCore
 		{
@@ -65,8 +64,8 @@ namespace Desdun
 
 			// Shaders and Targets
 
-			ptr<Shader> DefaultShader = nullptr;
-			ptr<Shader> RenderShader = nullptr;
+			Shader* DefaultShader = nullptr;
+			Shader* RenderShader = nullptr;
 			ptr<FrameBuffer> RenderTarget = nullptr;
 
 			Color4 TargetClearColour = Color4(0.1f, 0.1f, 0.1f, 1.f);
@@ -101,11 +100,10 @@ namespace Desdun
 			uint NextTextureSlot = 0;
 			std::array<ptr<TextureArray>, ALLOCATED_TEXTURE_SLOTS> Textures;
 
-			std::unordered_map<Vector2, ptr<TextureArray>> TextureIndex;
-
 			// Cameras
 
 			RenderCamera CurrentCamera = {};
+			Mat4 ProjectionTransform { 1.f };
 
 			// Commands
 
@@ -116,9 +114,9 @@ namespace Desdun
 	private:
 
 		static void Execute(RenderCommand& Command);
-		static void SetShader(ptr<Shader> shader);
+		static void SetShader(Shader* shader);
 
-		static void BeginBatch(ptr<Shader> shader = nullptr);
+		static void BeginBatch(Shader* shader = nullptr);
 		static void FinishBatch();
 
 		static RenderCore m_RenderCore;

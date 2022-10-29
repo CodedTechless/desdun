@@ -65,6 +65,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\GLEW\lib\Release\x64;$(SolutionDir)dependencies\GLFW\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -85,6 +86,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\GLEW\lib\Release\x64;$(SolutionDir)dependencies\GLFW\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -93,9 +95,9 @@
     <ClCompile Include="src\core\graphics\buffers\vao.cpp" />
     <ClCompile Include="src\core\graphics\core\render_camera.cpp" />
     <ClCompile Include="src\core\graphics\core\renderer.cpp" />
-    <ClCompile Include="src\core\graphics\shaders\shader.cpp" />
-    <ClCompile Include="src\core\resource\external\audio.cpp" />
-    <ClCompile Include="src\core\resource\external\image.cpp" />
+    <ClCompile Include="src\core\resource\types\shader.cpp" />
+    <ClCompile Include="src\core\resource\types\audio.cpp" />
+    <ClCompile Include="src\core\resource\types\image.cpp" />
     <ClCompile Include="src\core\graphics\texture\texture.cpp" />
     <ClCompile Include="src\core\graphics\texture\texture_array.cpp" />
     <ClCompile Include="src\core\graphics\buffers\index.cpp" />
@@ -105,6 +107,7 @@
     <ClCompile Include="src\app\layers\layer.cpp" />
     <ClCompile Include="src\app\layers\layer_collection.cpp" />
     <ClCompile Include="src\app\system\window.cpp" />
+    <ClCompile Include="src\core\scene\scene.cpp" />
     <ClCompile Include="src\dependencies\glm\detail\glm.cpp" />
     <ClCompile Include="src\dependencies\imgui\imgui.cpp" />
     <ClCompile Include="src\dependencies\imgui\imgui_demo.cpp" />
@@ -120,20 +123,22 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\core\object\derived\animator.hpp" />
-    <ClInclude Include="src\core\object\derived\kinematic_object.hpp" />
-    <ClInclude Include="src\core\object\derived\particle_emitter.hpp" />
-    <ClInclude Include="src\core\object\derived\physics_object.h" />
-    <ClInclude Include="src\core\object\derived\point_light.hpp" />
-    <ClInclude Include="src\core\object\derived\sound.hpp" />
-    <ClInclude Include="src\core\object\derived\static_physics_object.hpp" />
-    <ClInclude Include="src\core\object\derived\tile_map.hpp" />
-    <ClInclude Include="src\core\resource\base\resource.hpp" />
-    <ClInclude Include="src\core\resource\external\audio.h" />
+    <ClInclude Include="src\core\object\derived\visual\animator.hpp" />
+    <ClInclude Include="src\core\object\derived\physics\kinematic_object.hpp" />
+    <ClInclude Include="src\core\object\derived\visual\camera.hpp" />
+    <ClInclude Include="src\core\object\derived\visual\particle_emitter.hpp" />
+    <ClInclude Include="src\core\object\derived\physics\physics_object.h" />
+    <ClInclude Include="src\core\object\derived\visual\point_light.hpp" />
+    <ClInclude Include="src\core\object\derived\audio\sound.hpp" />
+    <ClInclude Include="src\core\object\derived\physics\static_physics_object.hpp" />
+    <ClInclude Include="src\core\object\derived\visual\tile_map.hpp" />
+    <ClInclude Include="src\core\resource\resource.hpp" />
+    <ClInclude Include="src\core\resource\types\audio.h" />
     <ClInclude Include="src\core\resource\resource_service.hpp" />
+    <ClInclude Include="src\core\scene\scene.h" />
     <ClInclude Include="src\dependencies\stb\stb_truetype.h" />
     <ClInclude Include="src\dependencies\stb\stb_vorbis.h" />
-    <ClInclude Include="src\game\objects\base\Actor.hpp" />
+    <ClInclude Include="src\game\objects\base\actor.hpp" />
     <ClInclude Include="src\core\object\index.hpp" />
     <ClInclude Include="src\core\object\object.h" />
     <ClInclude Include="src\gamelib.hpp" />
@@ -142,8 +147,8 @@
     <ClInclude Include="src\core\graphics\buffers\vao.h" />
     <ClInclude Include="src\core\graphics\core\render_camera.h" />
     <ClInclude Include="src\core\graphics\core\renderer.h" />
-    <ClInclude Include="src\core\graphics\shaders\shader.h" />
-    <ClInclude Include="src\core\resource\external\image.h" />
+    <ClInclude Include="src\core\resource\types\shader.h" />
+    <ClInclude Include="src\core\resource\types\image.h" />
     <ClInclude Include="src\core\graphics\texture\texture.h" />
     <ClInclude Include="src\core\graphics\texture\texture_array.h" />
     <ClInclude Include="src\core\graphics\buffers\index.h" />
@@ -450,6 +455,7 @@
     <ClInclude Include="src\dependencies\uuid.hpp" />
     <ClInclude Include="src\app\core.h" />
     <ClInclude Include="src\game\layers\game.h" />
+    <ClInclude Include="src\game\objects\index.hpp" />
     <ClInclude Include="src\libraries.hpp" />
   </ItemGroup>
   <ItemGroup>

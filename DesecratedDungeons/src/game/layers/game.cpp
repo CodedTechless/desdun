@@ -1,81 +1,48 @@
 
 
-#include <game/instances/index.hpp>
-
 #include <gamelib.hpp>
 #include <uuid.hpp>
+
+
+#include <game/objects/index.hpp>
 
 #include "game.h"
 
 namespace Desdun
 {
 
-	template<typename T>
-	T* Game::Create()
-	{
-		std::string NewID = UUID::Generate();
-
-		T* NewInst = new T();
-		NewInst->GameModel = this;
-		NewInst->ID = NewID;
-
-		Instances.push_back((Instance*)NewInst);
-		InstanceCount++;
-
-		NewInst->OnAwake();
-
-		return NewInst;
-	}
-
 	void Game::OnAwake()
 	{
 		Debug::Log("beep!");
 
-		Instances.reserve(MAX_INSTANCES);
+		GameScene = new Scene();
 
-		auto* inst = Create<Actor>();
-		inst->Name = "Actor";
+		auto* cam = GameScene->CreateObject<Camera>();
+		cam->m_RenderCamera.SetOrthoSize({ 800, 600 });
+
+		GameScene->CurrentCamera = cam;
+
+		GameScene->CreateObject<Actor>();
 
 	}
 
-	void Game::OnFrameUpdate(const float Delta)
+	void Game::OnFrameUpdate(const float delta)
 	{
-		RenderCamera cam = {};
-		cam.SetOrthoSize(Vector2(800, 600));
-
-		Renderer::BeginScene(cam);
-
-		for (auto i = Instances.begin(); i < Instances.begin() + InstanceCount; ++i)
-		{
-			(*i)->OnFrameUpdate(Delta);
-		}
-
-		Renderer::EndScene();
+		GameScene->OnFrameUpdate(delta);
 	}
 
 	void Game::OnGameStep(const float Delta)
 	{
-		for (auto i = Instances.begin(); i < Instances.begin() + InstanceCount; ++i)
-		{
-			(*i)->OnGameStep(Delta);
-		}
+		GameScene->OnGameStep(Delta);
 	}
 
 	Input::Filter Game::OnInputEvent(InputEvent InputObject, bool Processed)
 	{
-		for (auto i = Instances.begin(); i < Instances.begin() + InstanceCount; ++i)
-		{
-			(*i)->OnInputEvent(InputObject, Processed);
-		}
-
-		return Input::Filter::Ignore;
+		return GameScene->OnInputEvent(InputObject, Processed);
 	}
 
 	void Game::OnWindowEvent(WindowEvent WindowObject)
 	{
-		for (auto i = Instances.begin(); i < Instances.begin() + InstanceCount; ++i)
-		{
-			(*i)->OnWindowEvent(WindowObject);
-		}
+		GameScene->OnWindowEvent(WindowObject);
 	}
 }

@@ -12,7 +12,8 @@ namespace Desdun
 		{
 			None = 0,
 			Image = 1,
-			Audio = 2
+			Audio = 2,
+			Shader = 3
 		};
 	}
 
@@ -28,7 +29,6 @@ namespace Desdun
 		Enum::ResourceType GetType() const { return Type; };
 
 	protected:
-		std::string Name = "";
 		std::string Path = "";
 
 		Enum::ResourceType Type = Enum::ResourceType::None;

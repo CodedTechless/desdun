@@ -16,9 +16,11 @@ namespace Desdun
 		void Start();
 		void End();
 
-		Window* GetPrimaryWindow() { return GameWindow; };
+		Window* GetPrimaryWindow() const { return GameWindow; };
+		float GetInterpolationFraction() const { return StepInterpFrac; };
 
 		LayerCollection GameLayers = {};
+		float GameSpeed = (1.f / 30.f);
 
 		static Application* GetApplication() { return AppObject; };
 
@@ -31,6 +33,8 @@ namespace Desdun
 
 		Window* GameWindow = nullptr;
 		bool Running = false;
+
+		float StepInterpFrac = 0.f;
 
 		friend class Window;
 	};

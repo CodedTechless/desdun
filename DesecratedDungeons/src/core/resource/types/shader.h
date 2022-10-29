@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include <libraries.hpp>
 
+#include <core/resource/resource.hpp>
+
 namespace Desdun 
 {
 
@@ -19,14 +21,14 @@ namespace Desdun
 		Fragment = 2
 	};
 
-	class Shader 
+	class Shader : public Resource
 	{
 	public:
 		Shader() = default;
 		Shader(const std::string& Path);
 		~Shader();
 
-		void Import(const std::string& Path);
+		void Load(const std::string& Path);
 
 		void Bind();
 		void Unbind();
