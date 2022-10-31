@@ -18,7 +18,7 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\app\core.cpp">
+    <ClCompile Include="src\app\app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\app\system\window.cpp">
@@ -110,7 +110,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\app\core.h">
+    <ClInclude Include="src\app\app.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\app\system\window.h">
@@ -1079,10 +1079,10 @@
     <ClInclude Include="src\dependencies\stb\stb_vorbis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\object\derived\physics\physics_object.h">
+    <ClInclude Include="src\core\object\derived\physics\dynamic_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\object\derived\physics\kinematic_object.hpp">
+    <ClInclude Include="src\core\object\derived\physics\kinematic_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\object\derived\visual\animator.hpp">
@@ -1094,13 +1094,13 @@
     <ClInclude Include="src\core\object\derived\audio\sound.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\object\derived\physics\static_physics_object.hpp">
+    <ClInclude Include="src\core\object\derived\physics\static_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\object\derived\visual\tile_map.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\object\derived\visual\point_light.hpp">
+    <ClInclude Include="src\core\object\derived\visual\light.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\scene\scene.h">
@@ -1110,6 +1110,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\object\derived\visual\camera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\object\derived\visual\sprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

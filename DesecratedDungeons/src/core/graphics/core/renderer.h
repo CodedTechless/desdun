@@ -17,12 +17,20 @@
 
 namespace Desdun
 {
+	struct ImageBounds
+	{
+		Vector2 TL;
+		Vector2 TR;
+		Vector2 BR;
+		Vector2 BL;
+	};
+
 	struct Vertex
 	{
 		Vector3 Position;
 		Vector4 Tint;
 		Vector2 TextureCoords;
-		float Layer;
+		float Layer;			// "but matthew!! you could just put this float with TextureCoords" yes ik but i like this more so shut up >:(
 		float TextureIndex;
 	};
 
@@ -31,7 +39,7 @@ namespace Desdun
 		Mat4 Transform{ 1.f };
 		Vector4 Tint{ 0.f };
 
-		Vector2 ObjectTextureCoords[4] = {};
+		Sprite::SpriteBounds ObjectTextureCoords[4] = {};
 
 		Image* ImageResource = nullptr;
 		Shader* ObjectShader = nullptr;
@@ -39,6 +47,7 @@ namespace Desdun
 		int ZIndex = 0;
 	};
 
+	// we use an array for arena allocation bcos it's better than using a vector here
 	typedef std::array<RenderCommand, RENDER_QUEUE_SIZE> RenderCommandQueue;
 
 	class Renderer
@@ -60,7 +69,9 @@ namespace Desdun
 
 			static constexpr uint MaxQuads = 20000;
 			static constexpr uint MaxVertices = MaxQuads * 4;
-			static constexpr uint MaxIndices = MaxQuads * 6;
+			static constexpr uint MaxIndices = MaxQuads * 6;	
+			// these aren't hard limits, just here to stop us sending too much data and having to allocate buffer space unnecessarily
+			// us having to render over 20,000 quads is incredibly unlikely anyway, so...
 
 			// Shaders and Targets
 
@@ -81,7 +92,7 @@ namespace Desdun
 			ptr<VertexArray> BatchArray = nullptr;
 
 			uint VertexBufferIndex = 0;
-			Vector4 VertexNormal[4] = {
+			Vector4 VertexNormal[4] = { // for caching purposes
 				{ -0.5f,  0.5f, 0.f, 1.f },
 				{  0.5f,  0.5f, 0.f, 1.f },
 				{  0.5f, -0.5f, 0.f, 1.f },
@@ -95,7 +106,7 @@ namespace Desdun
 
 			// Textures
 
-			int* TextureSamplers = nullptr;
+			int* TextureSamplers = nullptr; // a pointer to an array of samplers (16 by default)
 
 			uint NextTextureSlot = 0;
 			std::array<ptr<TextureArray>, ALLOCATED_TEXTURE_SLOTS> Textures;
@@ -103,7 +114,7 @@ namespace Desdun
 			// Cameras
 
 			RenderCamera CurrentCamera = {};
-			Mat4 ProjectionTransform { 1.f };
+			Mat4 ProjectionTransform { 1.f };	// the current camera transform as stored when BeginScene is called
 
 			// Commands
 

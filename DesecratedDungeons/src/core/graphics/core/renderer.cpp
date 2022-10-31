@@ -99,7 +99,14 @@ namespace Desdun
 
 	void Renderer::Submit(const RenderCommand& Command)
 	{
-		m_RenderCore.RenderQueue[m_RenderCore.CommandIndex] = Command;
+		RenderCommand CommandCopy { Command };
+
+		if (CommandCopy.ObjectShader == nullptr)
+		{
+			CommandCopy.ObjectShader = m_RenderCore.DefaultShader;
+		}
+
+		m_RenderCore.RenderQueue[m_RenderCore.CommandIndex] = std::move(CommandCopy);
 		m_RenderCore.CommandIndex++;
 	}
 
@@ -112,24 +119,11 @@ namespace Desdun
 			BeginBatch();
 		}
 
-		if (!Command.ObjectShader)
+		// reset the batch if the shader needs changing
+		if (m_RenderCore.RenderShader != Command.ObjectShader)
 		{
-			if (m_RenderCore.RenderShader != m_RenderCore.DefaultShader)
-			{
-				// if there's no defined ObjectShader and the current shader isn't the default one,
-				// then switch back to the default shader.
-				FinishBatch();
-				BeginBatch(m_RenderCore.DefaultShader);
-			}
-		}
-		else
-		{
-			// if there is an object shader, then reset the batch and use the new shader.
-			if (m_RenderCore.RenderShader != Command.ObjectShader)
-			{
-				FinishBatch();
-				BeginBatch(Command.ObjectShader);
-			}
+			FinishBatch();
+			BeginBatch(Command.ObjectShader);
 		}
 
 		Image::Allocation texture = Command.ImageResource->GetAllocation();

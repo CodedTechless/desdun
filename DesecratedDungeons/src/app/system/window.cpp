@@ -7,7 +7,7 @@
 #include <core/debug/debug.h>
 #include <core/graphics/core/renderer.h>
 
-#include <app/core.h>
+#include <app/app.h>
 
 namespace Desdun
 {
@@ -20,6 +20,8 @@ namespace Desdun
         if (glfwInit() != GL_TRUE)
             assert(false);
         
+        // preferably be on opengl 4.2 but not the end of the world
+
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 
@@ -34,9 +36,7 @@ namespace Desdun
         if (glewInit() != GLEW_OK)
             assert(false);
 
-        //Debug::Log("Created window (" + std::to_string(aSize.x) + ", " + std::to_string(aSize.y) + ")", "Application");
-
-        // Set up all the input callbacks.
+        // set up all of the input callbacks here to interface with the input system
         
         glfwSetWindowUserPointer(WindowObject, (void*)this);
 

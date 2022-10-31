@@ -4,7 +4,7 @@
 
 using namespace Desdun;
 
-class ParticleEmitter : public Object
+class Light : public Object
 {
 
 };

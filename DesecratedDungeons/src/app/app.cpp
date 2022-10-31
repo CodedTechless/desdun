@@ -8,7 +8,7 @@
 #include <core/graphics/core/renderer.h>
 #include <game/layers/game.h>
 
-#include "core.h"
+#include "app.h"
 
 namespace Desdun
 {

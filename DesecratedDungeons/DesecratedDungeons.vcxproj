@@ -118,19 +118,20 @@
     <ClCompile Include="src\dependencies\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\dependencies\stb\stb.cpp" />
     <ClCompile Include="src\dependencies\stb\stb_vorbis_impl.c" />
-    <ClCompile Include="src\app\core.cpp" />
+    <ClCompile Include="src\app\app.cpp" />
     <ClCompile Include="src\game\layers\game.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\object\derived\visual\animator.hpp" />
-    <ClInclude Include="src\core\object\derived\physics\kinematic_object.hpp" />
+    <ClInclude Include="src\core\object\derived\physics\kinematic_body.hpp" />
     <ClInclude Include="src\core\object\derived\visual\camera.hpp" />
     <ClInclude Include="src\core\object\derived\visual\particle_emitter.hpp" />
-    <ClInclude Include="src\core\object\derived\physics\physics_object.h" />
-    <ClInclude Include="src\core\object\derived\visual\point_light.hpp" />
+    <ClInclude Include="src\core\object\derived\physics\dynamic_body.hpp" />
+    <ClInclude Include="src\core\object\derived\visual\light.hpp" />
     <ClInclude Include="src\core\object\derived\audio\sound.hpp" />
-    <ClInclude Include="src\core\object\derived\physics\static_physics_object.hpp" />
+    <ClInclude Include="src\core\object\derived\physics\static_body.hpp" />
+    <ClInclude Include="src\core\object\derived\visual\sprite.hpp" />
     <ClInclude Include="src\core\object\derived\visual\tile_map.hpp" />
     <ClInclude Include="src\core\resource\resource.hpp" />
     <ClInclude Include="src\core\resource\types\audio.h" />
@@ -453,7 +454,7 @@
     <ClInclude Include="src\dependencies\stb\stb_image.h" />
     <ClInclude Include="src\dependencies\stb\stb_rect_pack.h" />
     <ClInclude Include="src\dependencies\uuid.hpp" />
-    <ClInclude Include="src\app\core.h" />
+    <ClInclude Include="src\app\app.h" />
     <ClInclude Include="src\game\layers\game.h" />
     <ClInclude Include="src\game\objects\index.hpp" />
     <ClInclude Include="src\libraries.hpp" />

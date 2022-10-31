@@ -5,7 +5,7 @@
 using namespace Desdun;
 
 
-class Actor : public KinematicObject
+class Actor : public KinematicBody
 {
 public:
 	Actor() = default;
@@ -46,8 +46,16 @@ public:
 	void OnFrameUpdate(const float Delta)
 	{
 
+		auto t = GetFrameTransform();
+
+
+
+		Mat4 test = glm::translate(Mat4(1.f), Vector3(100.f, 100.f, 0.f))
+			* glm::rotate(Mat4(1.f), glm::radians(0.f), Vector3(0.f, 0.f, 1.f))
+			* glm::scale(Mat4(1.f), Vector3(1.f, 1.f, 1.f));
+
 		Renderer::Submit({
-			GetFrameTransform() * glm::scale(Mat4(1.f), Vector3(100.f, 100.f, 1.f)),
+			test * t * glm::scale(Mat4(1.f), Vector3(32.f, 32.f, 1.f)),
 			{ 1.f, 1.f, 1.f, 1.f},
 			{
 				{ 0.f, 0.f },
@@ -61,7 +69,6 @@ public:
 
 			0
 		});
-
 	}
 
 private:

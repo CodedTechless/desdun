@@ -7,7 +7,7 @@
 #include <app/input/input.h>
 #include <app/input/event.h>
 
-#include <app/core.h>
+#include <app/app.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -79,7 +79,7 @@ namespace Desdun
 		{
 			return glm::translate(Mat4(1.0f), Vector3(Position, 0.f))
 				* glm::rotate(Mat4(1.0f), glm::radians(Rotation), Vector3(0.f, 0.f, 1.f))
-				* glm::scale(Mat4(1.0f), Vector3(Scale.x, Scale.y, 1.f));
+				* glm::scale(Mat4(1.0f), Vector3(Scale, 1.f));
 		}
 
 	private:

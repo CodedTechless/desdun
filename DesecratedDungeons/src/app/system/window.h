@@ -1,5 +1,9 @@
 #pragma once
 
+/*
+interface class for the GLFW window
+*/
+
 #include <dependencies/glm/glm.hpp>
 
 #include <GL/glew.h>

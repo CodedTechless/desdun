@@ -1,9 +1,19 @@
 
-#include <app/core.h>
+
+/*
+ENTRY POINT BAYBEEEEEE
+
+BEEEEEG YOSHI
+*/
+
+#include <app/app.h>
+
+using namespace Desdun;
 
 int main()
 {
-	Desdun::Application* game = new Desdun::Application();
+	Application* game = new Application();
+
 	game->Start();
 
 	delete game;

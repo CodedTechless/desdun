@@ -6,8 +6,8 @@
 using namespace Desdun;
 
 
-class KinematicObject : public Object
+class KinematicBody : public Object
 {
 public:
-	KinematicObject() = default;
+	KinematicBody() = default;
 };
