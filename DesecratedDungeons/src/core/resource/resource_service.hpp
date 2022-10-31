@@ -6,7 +6,7 @@
 
 namespace Desdun
 {
-	using ResourceCache = std::unordered_map<const char*, std::unordered_map<std::string, Resource*>>;
+	using ResourceMap = std::unordered_map<std::string, std::unordered_map<std::string, Resource*>>;
 
 	class ResourceService
 	{
@@ -24,12 +24,12 @@ namespace Desdun
 			}
 
 			std::string Name = Location.generic_string();
-			const char* Type = typeid(T).name();
+			std::string Type = (std::string)typeid(T).name();
 
 			auto it = Resources[Type].find(Name);
 			if (it != Resources[Type].end())
 			{
-				Debug::Log("Found cached resource for " + std::string(Type) + " " + Name);
+				Debug::Log("Found cached resource for " + Type + " " + Name);
 				return (T*)it->second;
 			}
 
@@ -45,7 +45,7 @@ namespace Desdun
 
 	private:
 
-		static ResourceCache Resources;
+		static ResourceMap Resources;
 
 	};
 

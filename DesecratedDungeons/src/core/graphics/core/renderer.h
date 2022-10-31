@@ -17,12 +17,15 @@
 
 namespace Desdun
 {
+
+	using TextureMap = std::unordered_map<std::string, ptr<TextureArray>>;
+	// to-do: make it so we can use more than 256 of the same sized texture!!!
+	using TextureIndex = std::unordered_map<Vector2, ptr<TextureArray>>;
+
 	struct ImageBounds
 	{
 		Vector2 TL;
-		Vector2 TR;
 		Vector2 BR;
-		Vector2 BL;
 	};
 
 	struct Vertex
@@ -39,12 +42,12 @@ namespace Desdun
 		Mat4 Transform{ 1.f };
 		Vector4 Tint{ 0.f };
 
-		Sprite::SpriteBounds ObjectTextureCoords[4] = {};
+		ImageBounds Bounds = {};
 
 		Image* ImageResource = nullptr;
 		Shader* ObjectShader = nullptr;
 
-		int ZIndex = 0;
+		float ZIndex = 0;
 	};
 
 	// we use an array for arena allocation bcos it's better than using a vector here
@@ -131,6 +134,9 @@ namespace Desdun
 		static void FinishBatch();
 
 		static RenderCore m_RenderCore;
+
+		static TextureMap Textures;
+		static TextureIndex TextureIndex;
 
 	};
 

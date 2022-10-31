@@ -77,9 +77,16 @@ namespace Desdun
 
 		Mat4 GetTransform() const
 		{
-			return glm::translate(Mat4(1.0f), Vector3(Position, 0.f))
+			Mat4 transform = glm::translate(Mat4(1.0f), Vector3(Position, 0.f))
 				* glm::rotate(Mat4(1.0f), glm::radians(Rotation), Vector3(0.f, 0.f, 1.f))
 				* glm::scale(Mat4(1.0f), Vector3(Scale, 1.f));
+
+			if (Parent)
+			{
+				transform = Parent->GetTransform() * transform;
+			}
+
+			return transform;
 		}
 
 	private:

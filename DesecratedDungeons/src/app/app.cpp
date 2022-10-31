@@ -14,7 +14,7 @@ namespace Desdun
 {
 	Application* Application::AppObject = nullptr;
 
-    ResourceCache ResourceService::Resources = {};
+    ResourceMap ResourceService::Resources = {};
 
 	Application::Application()
 	{

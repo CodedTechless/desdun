@@ -45,6 +45,7 @@ public:
 
 	void OnFrameUpdate(const float Delta)
 	{
+#if 0
 
 		auto t = GetFrameTransform();
 
@@ -59,16 +60,16 @@ public:
 			{ 1.f, 1.f, 1.f, 1.f},
 			{
 				{ 0.f, 0.f },
-				{ 1.f, 0.f },
-				{ 1.f, 1.f },
-				{ 0.f, 1.f }
+				{ 1.f, 1.f }
 			},
 
 			GoofyImage,
 			nullptr,
 
 			0
-		});
+			});
+#endif // 0
+
 	}
 
 private:

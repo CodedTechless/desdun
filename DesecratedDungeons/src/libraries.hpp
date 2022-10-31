@@ -28,6 +28,8 @@ namespace fs = std::filesystem;
 
 namespace Desdun
 {
+	using FLAG = bool;
+
 	using uint = unsigned int;
 	using uchar = unsigned char;
 

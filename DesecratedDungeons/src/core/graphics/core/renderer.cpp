@@ -14,6 +14,9 @@ namespace Desdun
 {
 	Renderer::RenderCore Renderer::m_RenderCore = {};
 
+	TextureMap Renderer::Textures = {};
+	TextureIndex Renderer::TextureIndex = {};
+
 	void Renderer::Start()
 	{
 		// Debug Output
@@ -101,6 +104,18 @@ namespace Desdun
 	{
 		RenderCommand CommandCopy { Command };
 
+		if (CommandCopy.ImageResource->TextureAlloc == nullptr)
+		{
+			if (TextureIndex.find(CommandCopy.ImageResource->Size) == TextureIndex.end())
+			{
+				auto NewTexture = CreatePointer<TextureArray>(CommandCopy.ImageResource->Size, 256);
+
+
+				TextureIndex[CommandCopy.ImageResource->Size] = NewTexture;
+			}
+				CommandCopy.ImageResource->Allocate(NewTexture, 0);
+		}
+
 		if (CommandCopy.ObjectShader == nullptr)
 		{
 			CommandCopy.ObjectShader = m_RenderCore.DefaultShader;
@@ -155,11 +170,16 @@ namespace Desdun
 			m_RenderCore.NextTextureSlot++;
 		}
 
+		Vector2 bounds[] = {
+			Command.Bounds.TL, Vector2(Command.Bounds.BR.x, Command.Bounds.TL.y),
+			Command.Bounds.BR, Vector2(Command.Bounds.TL.x, Command.Bounds.BR.y)
+		};
+
 		for (size_t i = 0; i < 4; i++)
 		{
 			m_RenderCore.QuadsHeader->Position = Command.Transform * m_RenderCore.VertexNormal[i];
 			m_RenderCore.QuadsHeader->Tint = Command.Tint;
-			m_RenderCore.QuadsHeader->TextureCoords = Command.ObjectTextureCoords[i];
+			m_RenderCore.QuadsHeader->TextureCoords = bounds[i];
 			m_RenderCore.QuadsHeader->Layer = texture.Layer;
 			m_RenderCore.QuadsHeader->TextureIndex = TextureSlotIndex;
 

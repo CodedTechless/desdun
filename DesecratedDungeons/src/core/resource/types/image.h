@@ -49,6 +49,8 @@ namespace Desdun
 		ptr<TextureArray> TextureAlloc = nullptr;
 		uint TextureLayer = 0;
 
+		friend class Renderer;
+
 	};
 
 }
