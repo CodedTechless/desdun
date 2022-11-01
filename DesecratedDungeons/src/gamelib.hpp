@@ -15,7 +15,7 @@ one big include file filled with everything game related
 
 // Graphics and Rendering
 
-#include <core/graphics/core/renderer.h>
+#include <core/graphics/renderer.h>
 
 // Input
 

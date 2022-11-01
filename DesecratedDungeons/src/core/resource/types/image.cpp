@@ -23,14 +23,14 @@ namespace Desdun
 	}
 	*/
 
-	void Image::Allocate(ptr<TextureArray> alloc, uint layer)
+	void Image::Allocate(ptr<TextureArray> alloc)
 	{
 		if (Size != alloc->GetBaseSize())
 		{
 			Debug::Error("Tried to allocate an image to a texture array that wasn't the same size.");
 		}
 
-		alloc->SetLayer(layer, Buffer);
+		uint layer = alloc->PushLayer(Buffer);
 
 		TextureAlloc = alloc;
 		TextureLayer = layer;

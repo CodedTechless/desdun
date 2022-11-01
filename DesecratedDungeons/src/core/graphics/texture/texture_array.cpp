@@ -21,6 +21,7 @@ namespace Desdun
 		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 
 		Array = new uchar*[layers];
+		ArraySize = 0;
 	}
 
 	TextureArray::~TextureArray()
@@ -28,19 +29,25 @@ namespace Desdun
 		glDeleteTextures(1, &RenderID);
 	}
 
-	void TextureArray::SetLayer(uint layer, uchar* buffer)
+	uint TextureArray::Size() const
 	{
-		if (layer > Layers)
+		return ArraySize;
+	}
+
+	uint TextureArray::PushLayer(uchar* buffer)
+	{
+		if (ArraySize > Layers)
 		{
-			Debug::Error("Attempted to update a layer of a depth higher than " + std::to_string(layer));
-			return;
+			assert(false);
 		}
 
 		glBindTexture(GL_TEXTURE_2D_ARRAY, RenderID);
-		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, layer, BaseSize.x, BaseSize.y, 1, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, ArraySize, BaseSize.x, BaseSize.y, 1, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
-
-		Array[layer] = buffer;
+		
+		Array[ArraySize] = buffer;
+		
+		return ArraySize++;
 	}
 
 	void TextureArray::Bind(uint Slot)

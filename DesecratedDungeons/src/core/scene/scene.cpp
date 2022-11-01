@@ -1,6 +1,6 @@
 
 
-#include <core/graphics/core/renderer.h>
+#include <core/graphics/renderer.h>
 
 #include "scene.h"
 

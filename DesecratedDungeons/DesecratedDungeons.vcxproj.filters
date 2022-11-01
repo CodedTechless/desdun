@@ -60,13 +60,10 @@
     <ClCompile Include="src\dependencies\glm\detail\glm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\graphics\core\renderer.cpp">
+    <ClCompile Include="src\core\graphics\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\game\layers\game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\graphics\core\render_camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\resource\types\shader.cpp">
@@ -1019,7 +1016,7 @@
     <ClInclude Include="src\dependencies\glm\vector_relational.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\graphics\core\renderer.h">
+    <ClInclude Include="src\core\graphics\renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\layers\game.h">
@@ -1028,7 +1025,7 @@
     <ClInclude Include="src\gamelib.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\graphics\core\render_camera.h">
+    <ClInclude Include="src\core\graphics\render_camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\resource\types\shader.h">
@@ -1528,7 +1525,10 @@
     <None Include="assets\shaders\basic.shader" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="assets\goofy.png">
+    <Image Include="assets\textures\goofy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\white.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

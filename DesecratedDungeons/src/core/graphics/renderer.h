@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/graphics/core/render_camera.h>
+#include <core/graphics/render_camera.h>
 #include <core/graphics/texture/texture_array.h>
 #include <core/graphics/buffers/vertex.h>
 #include <core/graphics/buffers/vao.h>
@@ -20,7 +20,7 @@ namespace Desdun
 
 	using TextureMap = std::unordered_map<std::string, ptr<TextureArray>>;
 	// to-do: make it so we can use more than 256 of the same sized texture!!!
-	using TextureIndex = std::unordered_map<Vector2, ptr<TextureArray>>;
+	using TextureIndex = std::vector<ptr<TextureArray>>;
 
 	struct ImageBounds
 	{

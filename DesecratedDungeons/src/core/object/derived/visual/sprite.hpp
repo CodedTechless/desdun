@@ -2,7 +2,7 @@
 
 #include <core/object/object.h>
 
-#include <core/graphics/core/renderer.h>
+#include <core/graphics/renderer.h>
 
 using namespace Desdun;
 
@@ -16,25 +16,18 @@ public:
 		Mat4 transform = GetFrameTransform() 
 			* glm::scale(Mat4(1.f), Vector3(Vector2(SpriteImage->GetSize()), 1.f));
 
-		Renderer::Submit({ transform, Colour, SpriteBounds, SpriteImage, SpriteShader, ZIndex });
+		Renderer::Submit({ transform, Tint, SpriteBounds, SpriteImage, SpriteShader, ZIndex });
 	}
 
-	void SetImage(Image* newImage)
-	{
-
-	}
-
-	float ZIndex = 0;
+	Image* SpriteImage = nullptr;
+	Color4 Tint = { 1.f, 1.f, 1.f, 1.f };
 
 	Shader* SpriteShader = nullptr;
-
-	uint SubImages = 1;
-
-	Color4 Colour = { 1.f, 1.f, 1.f, 1.f };
+	
+	float ZIndex = 0;
 
 private:
 
-	Image* SpriteImage = nullptr;
 	
 	ImageBounds SpriteBounds = {
 		{ 0.f, 0.f },

@@ -33,7 +33,7 @@ namespace Desdun
 		ImageContext GetContext() const { return { Channels, BitsPerChannel }; };
 		uchar* GetBuffer() const { return Buffer; };
 
-		void Allocate(ptr<TextureArray> alloc, uint layer);
+		void Allocate(ptr<TextureArray> alloc);
 		Allocation GetAllocation() { return { TextureAlloc, TextureLayer }; };
 
 	private:

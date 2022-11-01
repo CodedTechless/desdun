@@ -5,7 +5,7 @@
 #include <app/input/event.h>
 
 #include <core/debug/debug.h>
-#include <core/graphics/core/renderer.h>
+#include <core/graphics/renderer.h>
 
 #include <app/app.h>
 

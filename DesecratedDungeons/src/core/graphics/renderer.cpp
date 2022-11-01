@@ -106,14 +106,26 @@ namespace Desdun
 
 		if (CommandCopy.ImageResource->TextureAlloc == nullptr)
 		{
-			if (TextureIndex.find(CommandCopy.ImageResource->Size) == TextureIndex.end())
+			auto it = std::find_if(TextureIndex.begin(), TextureIndex.end(), 
+				[&](ptr<TextureArray> array) 
+				{ 
+					return array->GetBaseSize() == CommandCopy.ImageResource->GetSize(); 
+				}
+			);
+
+			if (it == TextureIndex.end())
 			{
 				auto NewTexture = CreatePointer<TextureArray>(CommandCopy.ImageResource->Size, 256);
+				CommandCopy.ImageResource->Allocate(NewTexture);
 
+				Debug::Log("Allocted texture space of " + std::to_string(CommandCopy.ImageResource->Size.x) + "*" + std::to_string(CommandCopy.ImageResource->Size.y) + "*256");
 
-				TextureIndex[CommandCopy.ImageResource->Size] = NewTexture;
+				TextureIndex.push_back(NewTexture);
 			}
-				CommandCopy.ImageResource->Allocate(NewTexture, 0);
+			else
+			{
+				CommandCopy.ImageResource->Allocate(*it);
+			}
 		}
 
 		if (CommandCopy.ObjectShader == nullptr)

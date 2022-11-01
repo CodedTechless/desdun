@@ -15,12 +15,14 @@ namespace Desdun
 		void Bind(uint Slot = 0);
 		void Unbind();
 
-		void SetLayer(uint layer, uchar* buffer);
+		uint PushLayer(uchar* buffer);
 
 		// Getters
 
 		Vector2i GetBaseSize() const { return BaseSize; };
 		uint GetRenderID() const { return RenderID; };
+
+		uint Size() const;
 
 		uchar* operator[](uint Index)
 		{
@@ -34,8 +36,10 @@ namespace Desdun
 		Vector2i BaseSize = { 0, 0 };
 		uint Layers = 0;
 
-		uchar** Array = {};
+		uchar** Array;
+		uint ArraySize;
 
+		friend class Renderer;
 	};
 
 }

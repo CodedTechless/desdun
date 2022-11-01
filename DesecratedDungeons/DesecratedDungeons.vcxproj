@@ -93,8 +93,7 @@
     <ClCompile Include="src\core\debug\debug.cpp" />
     <ClCompile Include="src\core\graphics\buffers\frame.cpp" />
     <ClCompile Include="src\core\graphics\buffers\vao.cpp" />
-    <ClCompile Include="src\core\graphics\core\render_camera.cpp" />
-    <ClCompile Include="src\core\graphics\core\renderer.cpp" />
+    <ClCompile Include="src\core\graphics\renderer.cpp" />
     <ClCompile Include="src\core\resource\types\shader.cpp" />
     <ClCompile Include="src\core\resource\types\audio.cpp" />
     <ClCompile Include="src\core\resource\types\image.cpp" />
@@ -146,8 +145,8 @@
     <ClInclude Include="src\core\debug\debug.h" />
     <ClInclude Include="src\core\graphics\buffers\frame.h" />
     <ClInclude Include="src\core\graphics\buffers\vao.h" />
-    <ClInclude Include="src\core\graphics\core\render_camera.h" />
-    <ClInclude Include="src\core\graphics\core\renderer.h" />
+    <ClInclude Include="src\core\graphics\render_camera.h" />
+    <ClInclude Include="src\core\graphics\renderer.h" />
     <ClInclude Include="src\core\resource\types\shader.h" />
     <ClInclude Include="src\core\resource\types\image.h" />
     <ClInclude Include="src\core\graphics\texture\texture.h" />
@@ -599,7 +598,8 @@
     <None Include="src\dependencies\glm\gtx\wrap.inl" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="assets\goofy.png" />
+    <Image Include="assets\textures\goofy.png" />
+    <Image Include="assets\textures\white.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

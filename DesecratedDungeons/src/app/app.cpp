@@ -5,7 +5,7 @@
 #include <core/resource/resource_service.hpp>
 
 #include <core/debug/debug.h>
-#include <core/graphics/core/renderer.h>
+#include <core/graphics/renderer.h>
 #include <game/layers/game.h>
 
 #include "app.h"
