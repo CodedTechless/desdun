@@ -6,17 +6,23 @@
 
 using namespace Desdun;
 
-class Actor : public KinematicBody
+class Actor : public Sprite
 {
 public:
 	Actor() = default;
 
 	void OnAwake()
 	{
-		Sprite* sprite = GetScene()->CreateObject<Sprite>();
+		sprite = GetScene()->CreateObject<Sprite>();
+		sprite->Name = "Body";
 
 		sprite->SpriteImage = ResourceService::Fetch<Image>("assets/textures/white.png");
 		sprite->SetParent(this);
+		sprite->Position = Vector2(0.f, -16.f);
+
+		Scale = Vector2(2.f, 2.f);
+
+		SpriteImage = ResourceService::Fetch<Image>("assets/textures/white.png");
 	}
 
 	void OnGameStep(const float Delta)
@@ -41,6 +47,13 @@ public:
 		{
 			Position += Vector2(10.f, 0.f);
 		}
+
+		Rotation += 90 * Delta;
+		sprite->Rotation += 90 * Delta;
 	}
+
+private:
+
+	Sprite* sprite = nullptr;
 
 };

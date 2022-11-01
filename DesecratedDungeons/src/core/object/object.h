@@ -12,6 +12,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_interpolation.hpp>
+#include <glm/gtx/compatibility.hpp>
 
 #include <libraries.hpp>
 
@@ -70,32 +71,17 @@ namespace Desdun
 
 		// Transforms
 
-		Mat4 GetFrameTransform() const
-		{
-			return glm::interpolate(LastTransform, GoalTransform, Application::GetApplication()->GetInterpolationFraction());
-		}
-
-		Mat4 GetTransform() const
-		{
-			Mat4 transform = glm::translate(Mat4(1.0f), Vector3(Position, 0.f))
-				* glm::rotate(Mat4(1.0f), glm::radians(Rotation), Vector3(0.f, 0.f, 1.f))
-				* glm::scale(Mat4(1.0f), Vector3(Scale, 1.f));
-
-			if (Parent)
-			{
-				transform = Parent->GetTransform() * transform;
-			}
-
-			return transform;
-		}
+		Mat4 GetInterpTransform() const;
+		Mat4 GetTransform() const;
+		Mat4 GetGlobalTransform() const;
 
 	private:
 
 		// Transforms
 
-		Mat4 GoalTransform { 1.f };
-		Mat4 FrameTransform { 1.f };
-		Mat4 LastTransform { 1.f };
+		Vector2 LastPosition = Position;
+		Vector2 LastScale = Scale;
+		float LastRotation = Rotation;
 
 		// Game
 

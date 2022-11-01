@@ -11,13 +11,16 @@ namespace Desdun
 	{
 		for (auto i = Objects.begin(); i < Objects.begin() + ObjectCount; ++i)
 		{
-			(*i)->OnGameStep(delta);
+			Object* object = (*i);
+
+			object->LastPosition = object->Position;
+			object->LastScale = object->Scale;
+			object->LastRotation = object->Rotation;
 		}
 
 		for (auto i = Objects.begin(); i < Objects.begin() + ObjectCount; ++i)
 		{
-			(*i)->LastTransform = (*i)->GoalTransform;
-			(*i)->GoalTransform = (*i)->GetTransform();
+			(*i)->OnGameStep(delta);
 		}
 	}
 

@@ -13,7 +13,7 @@ public:
 
 	void OnFrameUpdate(const float delta)
 	{
-		Mat4 transform = GetFrameTransform() 
+		Mat4 transform = GetInterpTransform() 
 			* glm::scale(Mat4(1.f), Vector3(Vector2(SpriteImage->GetSize()), 1.f));
 
 		Renderer::Submit({ transform, Tint, SpriteBounds, SpriteImage, SpriteShader, ZIndex });
