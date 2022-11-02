@@ -94,6 +94,7 @@
     <ClCompile Include="src\core\graphics\buffers\frame.cpp" />
     <ClCompile Include="src\core\graphics\buffers\vao.cpp" />
     <ClCompile Include="src\core\graphics\renderer.cpp" />
+    <ClCompile Include="src\core\resource\types\model.cpp" />
     <ClCompile Include="src\core\resource\types\shader.cpp" />
     <ClCompile Include="src\core\resource\types\audio.cpp" />
     <ClCompile Include="src\core\resource\types\image.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="src\core\resource\resource.hpp" />
     <ClInclude Include="src\core\resource\types\audio.h" />
     <ClInclude Include="src\core\resource\resource_service.hpp" />
+    <ClInclude Include="src\core\resource\types\model.h" />
     <ClInclude Include="src\core\scene\scene.h" />
     <ClInclude Include="src\dependencies\stb\stb_truetype.h" />
     <ClInclude Include="src\dependencies\stb\stb_vorbis.h" />

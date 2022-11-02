@@ -20,8 +20,6 @@ public:
 		sprite->SetParent(this);
 		sprite->Position = Vector2(0.f, -16.f);
 
-		Scale = Vector2(2.f, 2.f);
-
 		SpriteImage = ResourceService::Fetch<Image>("assets/textures/white.png");
 	}
 

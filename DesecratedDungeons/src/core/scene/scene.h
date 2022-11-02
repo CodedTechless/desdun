@@ -3,6 +3,8 @@
 #include <core/object/object.h>
 #include <core/object/derived/visual/camera.hpp>
 
+#include <core/resource/types/model.h>
+
 #include <uuid.hpp>
 #include <libraries.hpp>
 
@@ -39,6 +41,11 @@ namespace Desdun
 			NewObject->OnAwake();
 
 			return NewObject;
+		}
+
+		Object* Instance(const Model& model)
+		{
+
 		}
 
 	private:
