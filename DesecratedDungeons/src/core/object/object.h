@@ -53,8 +53,12 @@ namespace Desdun
 
 		// Object operations
 
-		void SetParent(Object* instance);
+		void SetParent(Object* object);
 		Object* FindChild(const std::string& name);
+
+		void Save(const std::string& path);
+		virtual void Serialise(std::ofstream& stream) {};
+		virtual void Deserialise(std::ifstream& stream) {};
 
 		// Getters
 

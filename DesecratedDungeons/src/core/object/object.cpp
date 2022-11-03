@@ -18,6 +18,16 @@ namespace Desdun
 		}
 	}
 
+	void Object::Save(const std::string& path)
+	{
+		std::ofstream Out;
+		Out.open(path + ".dd", std::ios::binary | std::ios::out);
+
+		Serialise(Out);
+
+		Out.close();
+	}
+
 	void Object::RemoveChild(Object* instance)
 	{
 		for (auto it = Children.begin(); it != Children.end(); ++it)

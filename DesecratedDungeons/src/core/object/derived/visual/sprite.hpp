@@ -11,7 +11,7 @@ class Sprite : public Object
 public:
 	Sprite() = default;
 
-	void OnFrameUpdate(const float delta)
+	void OnFrameUpdate(const float delta) override
 	{
 		Mat4 transform = GetInterpTransform() 
 			* glm::scale(Mat4(1.f), Vector3(Vector2(SpriteImage->GetSize()), 1.f));

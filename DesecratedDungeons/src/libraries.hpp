@@ -19,6 +19,8 @@
 #include <array>
 #include <algorithm>
 
+#include <fstream>
+
 #include <functional>
 
 #include <core/debug/debug.h>
