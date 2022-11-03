@@ -21,11 +21,24 @@ namespace Desdun
 	void Object::Save(const std::string& path)
 	{
 		std::ofstream Out;
-		Out.open(path + ".dd", std::ios::binary | std::ios::out);
+		Out.open(path + ".res", std::ios::binary | std::ios::out);
 
 		Serialise(Out);
 
 		Out.close();
+	}
+
+	void Object::Serialise(std::ofstream& stream)
+	{
+		stream.write((char*)&Position, sizeof(Vector2));
+		stream.write((char*)&Scale, sizeof(Vector2));
+		stream.write((char*)&Rotation, sizeof(float));
+		stream.write()
+	}
+
+	void Object::Deserialise(std::ifstream& stream)
+	{
+		
 	}
 
 	void Object::RemoveChild(Object* instance)

@@ -57,8 +57,8 @@ namespace Desdun
 		Object* FindChild(const std::string& name);
 
 		void Save(const std::string& path);
-		virtual void Serialise(std::ofstream& stream) {};
-		virtual void Deserialise(std::ifstream& stream) {};
+		virtual void Serialise(std::ofstream& stream);
+		virtual void Deserialise(std::ifstream& stream);
 
 		// Getters
 
