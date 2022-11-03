@@ -33,12 +33,18 @@ namespace Desdun
 		stream.write((char*)&Position, sizeof(Vector2));
 		stream.write((char*)&Scale, sizeof(Vector2));
 		stream.write((char*)&Rotation, sizeof(float));
-		stream.write()
+
+		stream.write((char*)((uint)Children.size()), sizeof(uint));
+
+		for (Object* child : Children)
+		{
+			child->Serialise(stream);
+		}
 	}
 
 	void Object::Deserialise(std::ifstream& stream)
 	{
-		
+		stream.read((char*)&Position, sizeof(Vector2));
 	}
 
 	void Object::RemoveChild(Object* instance)

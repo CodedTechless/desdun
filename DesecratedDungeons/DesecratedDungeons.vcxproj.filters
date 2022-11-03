@@ -108,6 +108,9 @@
     <ClCompile Include="src\core\resource\types\model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\serial\byte_file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\app.h">
@@ -1116,6 +1119,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\resource\types\model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\serial\byte_file.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
