@@ -9,10 +9,10 @@ namespace Desdun
 	class ByteFile
 	{
 	public:
-		ByteFile() = default;
-		~ByteFile();
+		ByteFile(const std::string& name)
+			: Name(name) {};
 
-		void Open(const std::string& Name);
+		~ByteFile();
 
 		void Write(void* Buffer, uint Size);
 		void ReadTo(void* Location, uint Size);
@@ -37,12 +37,19 @@ namespace Desdun
 			Write((void*)ptr, sizeof(T));
 		}
 
-		void Close();
+		template<typename T>
+		void operator<<(T var)
+		{
+			Write((void*)&var, sizeof(T));
+		}
 
 	private:
 
+		std::string Name;
+
 		std::ofstream OutputStream;
 		std::ifstream InputStream;
+
 	};
 
 }

@@ -6,6 +6,13 @@
 
 using namespace Desdun;
 
+enum class Desdun::ObjectType
+{
+	Actor = 1
+};
+
+
+
 class Actor : public Sprite
 {
 public:
@@ -13,6 +20,7 @@ public:
 
 	void OnAwake()
 	{
+
 		sprite = GetScene()->CreateObject<Sprite>();
 		sprite->Name = "Body";
 

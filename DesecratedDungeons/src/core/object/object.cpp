@@ -18,23 +18,13 @@ namespace Desdun
 		}
 	}
 
-	void Object::Save(const std::string& path)
+	void Object::Serialise(ByteFile& stream)
 	{
-		std::ofstream Out;
-		Out.open(path + ".res", std::ios::binary | std::ios::out);
+		stream << &Position;
+		stream << &Scale;
+		stream << &Rotation;
 
-		Serialise(Out);
-
-		Out.close();
-	}
-
-	void Object::Serialise(std::ofstream& stream)
-	{
-		stream.write((char*)&Position, sizeof(Vector2));
-		stream.write((char*)&Scale, sizeof(Vector2));
-		stream.write((char*)&Rotation, sizeof(float));
-
-		stream.write((char*)((uint)Children.size()), sizeof(uint));
+		stream << Children.size();
 
 		for (Object* child : Children)
 		{
@@ -42,9 +32,19 @@ namespace Desdun
 		}
 	}
 
-	void Object::Deserialise(std::ifstream& stream)
+	void Object::Deserialise(ByteFile& stream)
 	{
-		stream.read((char*)&Position, sizeof(Vector2));
+		stream >> &Position;
+		stream >> &Scale;
+		stream >> &Rotation;
+
+		size_t Size;
+		stream >> &Size;
+
+		for (size_t i = 0; i < Size; i++)
+		{
+
+		}
 	}
 
 	void Object::RemoveChild(Object* instance)

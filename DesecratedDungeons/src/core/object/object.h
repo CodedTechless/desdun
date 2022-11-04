@@ -14,10 +14,18 @@
 #include <glm/gtx/matrix_interpolation.hpp>
 #include <glm/gtx/compatibility.hpp>
 
+#include <core/serial/byte_file.h>
+
 #include <libraries.hpp>
 
 namespace Desdun
 {
+
+	enum class ObjectType
+	{
+		Object = 0
+	};
+
 
 	class Scene;
 
@@ -56,9 +64,8 @@ namespace Desdun
 		void SetParent(Object* object);
 		Object* FindChild(const std::string& name);
 
-		void Save(const std::string& path);
-		virtual void Serialise(std::ofstream& stream);
-		virtual void Deserialise(std::ifstream& stream);
+		virtual void Serialise(ByteFile& stream);
+		virtual void Deserialise(ByteFile& stream);
 
 		// Getters
 
