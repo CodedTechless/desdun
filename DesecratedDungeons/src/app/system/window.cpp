@@ -4,8 +4,8 @@
 #include <app/input/input.h>
 #include <app/input/event.h>
 
-#include <core/debug/debug.h>
-#include <core/graphics/renderer.h>
+#include <debug/debug.h>
+#include <graphics/renderer.h>
 
 #include <app/app.h>
 

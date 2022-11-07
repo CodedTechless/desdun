@@ -2,11 +2,11 @@
 #include <GL/glew.h>
 #include <glfw3.h>
 
-#include <core/resource/resource_service.hpp>
+#include <debug/debug.h>
+#include <graphics/renderer.h>
+#include <resource/resource_service.hpp>
 
-#include <core/debug/debug.h>
-#include <core/graphics/renderer.h>
-#include <game/layers/game.h>
+#include <app/layers/game/game.h>
 
 #include "app.h"
 

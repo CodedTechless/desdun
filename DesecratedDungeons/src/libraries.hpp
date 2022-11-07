@@ -23,7 +23,7 @@
 
 #include <functional>
 
-#include <core/debug/debug.h>
+#include <debug/debug.h>
 #include <glm/glm.hpp>
 
 namespace fs = std::filesystem;

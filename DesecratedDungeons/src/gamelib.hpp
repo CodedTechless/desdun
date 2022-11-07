@@ -4,24 +4,29 @@
 one big include file filled with everything game related
 */
 
-
 // Debugging
 
-#include <core/debug/debug.h>
+#include <debug/debug.h>
 
 // Resources
 
-#include <core/resource/resource_service.hpp>
+#include <resource/resource_service.hpp>
+
+#include <resource/types/audio.h>
+#include <resource/types/image.h>
+#include <resource/types/model.h>
+#include <resource/types/shader.h>
 
 // Graphics and Rendering
 
-#include <core/graphics/renderer.h>
+#include <graphics/renderer.h>
+
+// Scene and Objects
+
+#include <scene/scene.h>
+#include <object/index.hpp>
 
 // Input
 
 #include <app/input/input.h>
 #include <app/input/event.h>
-
-// Objects
-
-#include <core/object/index.hpp>
