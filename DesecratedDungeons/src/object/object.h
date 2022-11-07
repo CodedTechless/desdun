@@ -18,9 +18,6 @@
 
 #include <libraries.hpp>
 
-#define CLASS_ID(n) static constexpr int ClassID = n
-#define CLASS_NAME(n) static constexpr char ClassName[] = n
-
 namespace Desdun
 {
 
@@ -29,10 +26,6 @@ namespace Desdun
 	class Object
 	{
 	public:
-
-		CLASS_ID(0);
-		CLASS_NAME("Object");
-
 		~Object();
 		
 		std::string Name = "Object";
@@ -63,12 +56,6 @@ namespace Desdun
 		void SetParent(Object* object);
 		Object* FindChild(const std::string& name);
 
-		virtual void Serialise(ByteFile& stream);
-		virtual void Deserialise(ByteFile& stream);
-
-		void SerialiseChildren(ByteFile& stream);
-		void DeserialiseChildren(ByteFile& stream);
-
 		// Getters
 
 		std::string GetObjectID() const { return ID; };
@@ -90,7 +77,12 @@ namespace Desdun
 		
 		// Static
 
-		static Object* CreateClassByID(const int id);
+		static Object* CreateClassByName(const std::string& name);
+
+	protected:
+
+		virtual void SerialiseTo(ByteFile& stream);
+		virtual void DeserialiseTo(ByteFile& stream);
 
 	private:
 
@@ -110,6 +102,7 @@ namespace Desdun
 		// Children
 
 		std::vector<Object*> Children = {};
+
 		void RemoveChild(Object* instance);
 
 		friend class Scene;

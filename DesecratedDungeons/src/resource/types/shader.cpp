@@ -5,7 +5,7 @@
 
 #include <GL/glew.h>
 
-#include <debug/debug.h>
+#include <app/debug/debug.h>
 
 #include "shader.h"
 

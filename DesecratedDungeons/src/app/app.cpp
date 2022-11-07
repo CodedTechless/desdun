@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 #include <glfw3.h>
 
-#include <debug/debug.h>
+#include <app/debug/debug.h>
 #include <graphics/renderer.h>
 #include <resource/resource_service.hpp>
 

@@ -1,5 +1,5 @@
 
-#include <debug/debug.h>
+#include <app/debug/debug.h>
 
 #include <resource/resource_service.hpp>
 

@@ -15,7 +15,7 @@ namespace Desdun
 			OutputStream.close();
 	}
 
-	void ByteFile::Write(void* Buffer, uint Size)
+	void ByteFile::Write(void* Buffer, size_t Size)
 	{
 		if (InputStream.is_open() == true)
 			InputStream.close();

@@ -9,7 +9,18 @@ using namespace Desdun;
 class Sprite : public Object
 {
 public:
-	Sprite() = default;
+
+	Image* SpriteImage = nullptr;
+	Color4 Tint = { 1.f, 1.f, 1.f, 1.f };
+
+	Shader* SpriteShader = nullptr;
+
+	float ZIndex = 0;
+
+	ImageBounds SpriteBounds = {
+		{ 0.f, 0.f },
+		{ 1.f, 1.f }
+	};
 
 	void OnFrameUpdate(const float delta) override
 	{
@@ -19,19 +30,12 @@ public:
 		Renderer::Submit({ transform, Tint, SpriteBounds, SpriteImage, SpriteShader, ZIndex });
 	}
 
-	Image* SpriteImage = nullptr;
-	Color4 Tint = { 1.f, 1.f, 1.f, 1.f };
+	void Serialise(ByteFile& stream)
+	{
+		stream << ClassID;
 
-	Shader* SpriteShader = nullptr;
-	
-	float ZIndex = 0;
 
-private:
+	}
 
-	
-	ImageBounds SpriteBounds = {
-		{ 0.f, 0.f },
-		{ 1.f, 1.f }
-	};
 
 };

@@ -40,33 +40,58 @@ one big index containing every single object in the engine
 #include <frozen/unordered_map.h>
 #include <frozen/string.h>
 
-#define REGISTER_SERIAL(T) if(id == T::ClassID) { return new T(); }
+#define QUERY_TYPE(T) if (GetClassName<T>() == name) { return new T(); };
 
 namespace Desdun
 {
 
-	Object* Object::CreateClassByID(const int id)
+	static std::unordered_map<std::type_index, std::string> RuntimeTypes = {
+		{ typeid(Object), "Object" },
+
+		{ typeid(Sound), "Sound" },
+		
+		{ typeid(KinematicBody), "KinematicBody" },
+		{ typeid(StaticBody), "StaticBody" },
+		{ typeid(DynamicBody), "DynamicBody" },
+
+		{ typeid(Animator), "Animator" },
+		{ typeid(Camera), "Camera" },
+		{ typeid(Light), "Light" },
+
+		{ typeid(ParticleEmitter), "ParticleEmitter" },
+		{ typeid(Sprite), "Sprite" },
+		{ typeid(TileMap), "TileMap" }
+	};
+
+	template<typename T>
+	std::string GetClassName()
 	{
-		REGISTER_SERIAL(Object);
+		return RuntimeTypes[typeid(T)];
+	}
+
+
+	Object* Object::CreateClassByName(const std::string& name)
+	{
+		QUERY_TYPE(Object);
 		
 		// Audio
 		
-		REGISTER_SERIAL(Sound);
+		QUERY_TYPE(Sound);
 
 		// Physics
 
-		REGISTER_SERIAL(KinematicBody);
-		REGISTER_SERIAL(StaticBody);
-		REGISTER_SERIAL(DynamicBody);
+		QUERY_TYPE(KinematicBody);
+		QUERY_TYPE(StaticBody);
+		QUERY_TYPE(DynamicBody);
 
 		// Visual
 
-		REGISTER_SERIAL(Animator);
-		REGISTER_SERIAL(Camera);
-		REGISTER_SERIAL(Light);
-		REGISTER_SERIAL(ParticleEmitter);
-		REGISTER_SERIAL(Sprite);
-		REGISTER_SERIAL(TileMap);
+		QUERY_TYPE(Animator);
+		QUERY_TYPE(Camera);
+		QUERY_TYPE(Light);
+		QUERY_TYPE(ParticleEmitter);
+		QUERY_TYPE(Sprite);
+		QUERY_TYPE(TileMap);
 
 		/*
 			GAME OBJECTS
@@ -74,7 +99,7 @@ namespace Desdun
 
 		// Actors
 
-		REGISTER_SERIAL(Actor);
+		QUERY_TYPE(Actor);
 	};
 
 }

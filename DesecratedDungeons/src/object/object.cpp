@@ -1,4 +1,5 @@
 
+#include <object/index.hpp>
 
 #include "object.h"
 
@@ -18,52 +19,41 @@ namespace Desdun
 		}
 	}
 
-	void Object::Serialise(ByteFile& stream)
+	void Object::SerialiseTo(ByteFile& stream)
 	{
-		stream << ClassID;
-
 		stream << &Position;
 		stream << &Scale;
 		stream << &Rotation;
 
-		SerialiseChildren(stream);
+		stream << Children.size();
+
+		for (Object* child : Children)
+		{
+			stream.Write();
+			child->SerialiseTo(stream);
+		}
 	}
 
-	void Object::Deserialise(ByteFile& stream)
+	void Object::DeserialiseTo(ByteFile& stream)
 	{
 		stream >> &Position;
 		stream >> &Scale;
 		stream >> &Rotation;
 
-		DeserialiseChildren(stream);
-	}
-
-	void Object::SerialiseChildren(ByteFile& stream)
-	{
-		stream << Children.size();
-
-		for (Object* child : Children)
-		{
-			child->Serialise(stream);
-		}
-	};
-
-	void Object::DeserialiseChildren(ByteFile& stream) 
-	{
 		size_t ChildCount;
 		stream >> &ChildCount;
 
 		for (size_t i = 0; i < ChildCount; i++)
 		{
-			int ClassID;
+			std::string ClassID;
 			stream >> &ClassID;
 
-			Object* object = CreateClassByID(ClassID);
+			Object* object = CreateClassByName(ClassID);
 			Children.push_back(object);
 
-			object->Deserialise(stream);
+			object->DeserialiseTo(stream);
 		}
-	};
+	}
 
 	void Object::RemoveChild(Object* instance)
 	{

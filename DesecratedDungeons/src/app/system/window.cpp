@@ -4,7 +4,7 @@
 #include <app/input/input.h>
 #include <app/input/event.h>
 
-#include <debug/debug.h>
+#include <app/debug/debug.h>
 #include <graphics/renderer.h>
 
 #include <app/app.h>

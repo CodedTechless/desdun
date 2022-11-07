@@ -19,11 +19,13 @@
 #include <array>
 #include <algorithm>
 
+#include <typeindex>
+
 #include <fstream>
 
 #include <functional>
 
-#include <debug/debug.h>
+#include <app/debug/debug.h>
 #include <glm/glm.hpp>
 
 namespace fs = std::filesystem;

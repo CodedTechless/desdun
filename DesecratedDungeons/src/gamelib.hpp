@@ -6,7 +6,7 @@ one big include file filled with everything game related
 
 // Debugging
 
-#include <debug/debug.h>
+#include <app/debug/debug.h>
 
 // Resources
 
