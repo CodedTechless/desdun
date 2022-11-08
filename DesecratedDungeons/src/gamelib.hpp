@@ -10,7 +10,7 @@ one big include file filled with everything game related
 
 // Resources
 
-#include <resource/resource_service.hpp>
+#include <resource/resource.hpp>
 
 #include <resource/types/audio.h>
 #include <resource/types/image.h>

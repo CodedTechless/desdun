@@ -153,7 +153,6 @@
     <ClInclude Include="src\object\derived\visual\tile_map.hpp" />
     <ClInclude Include="src\resource\resource.hpp" />
     <ClInclude Include="src\resource\types\audio.h" />
-    <ClInclude Include="src\resource\resource_service.hpp" />
     <ClInclude Include="src\resource\types\model.h" />
     <ClInclude Include="src\scene\scene.h" />
     <ClInclude Include="src\resource\serial\byte_file.h" />

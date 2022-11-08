@@ -1,10 +1,9 @@
 
-#include <app/debug/debug.h>
-
-#include <resource/resource_service.hpp>
-
 #include <GL/glew.h>
 #include <glfw3.h>
+
+#include <app/debug/debug.h>
+#include <resource/resource.hpp>
 
 #include <libraries.hpp>
 
@@ -77,7 +76,7 @@ namespace Desdun
 		m_RenderCore.BatchArray->SetIndexBuffer(m_RenderCore.IndexBatch);
 
 		// Initialise the texture shader and import the basic shader.
-		m_RenderCore.DefaultShader = ResourceService::Fetch<Shader>("assets/shaders/basic.shader");
+		m_RenderCore.DefaultShader = Resource::Fetch<Shader>("assets/shaders/basic.shader");
 
 		m_RenderCore.TextureSamplers = new int[ALLOCATED_TEXTURE_SLOTS];
 		for (int i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)

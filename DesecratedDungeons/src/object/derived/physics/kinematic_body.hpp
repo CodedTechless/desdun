@@ -9,5 +9,6 @@ using namespace Desdun;
 class KinematicBody : public Object
 {
 public:
-	KinematicBody() = default;
+	CLASS_DEF("KinematicBody");
+
 };

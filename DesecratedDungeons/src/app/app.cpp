@@ -4,7 +4,7 @@
 
 #include <app/debug/debug.h>
 #include <graphics/renderer.h>
-#include <resource/resource_service.hpp>
+#include <resource/resource.hpp>
 
 #include <app/layers/game/game.h>
 
@@ -14,7 +14,7 @@ namespace Desdun
 {
 	Application* Application::AppObject = nullptr;
 
-    ResourceMap ResourceService::Resources = {};
+    ResourceMap Resource::Resources = {};
 
 	Application::Application()
 	{

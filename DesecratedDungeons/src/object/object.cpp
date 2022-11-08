@@ -22,16 +22,16 @@ namespace Desdun
 		}
 	}
 
-	void Object::Serialise(const std::string& path)
+	void Object::SaveToFile(const std::string& path)
 	{
 		ByteFile stream(path);
 
 		stream << GetClassName();
 
-		SerialiseTo(stream);
+		Serialise(stream);
 	}
 
-	void Object::SerialiseTo(ByteFile& stream)
+	void Object::Serialise(ByteFile& stream)
 	{
 		stream << &Position;
 		stream << &Scale;
@@ -41,8 +41,8 @@ namespace Desdun
 
 		for (Object* child : Children)
 		{
-			stream << GetClassName();
-			child->SerialiseTo(stream);
+			stream << child->GetClassName();
+			child->Serialise(stream);
 		}
 	}
 

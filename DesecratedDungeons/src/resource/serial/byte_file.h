@@ -1,10 +1,15 @@
 #pragma once
 
-#include <libraries.hpp>
+/*
+	helper class for reading binary files. manages opening/closing for you.
+*/
 
+#include <libraries.hpp>
 
 namespace Desdun
 {
+
+	
 
 	class ByteFile
 	{
@@ -14,52 +19,69 @@ namespace Desdun
 
 		~ByteFile();
 
-		void Write(void* Buffer, size_t Size);
-		void ReadTo(void* Location, uint Size);
-
-		template<typename T>
-		T&& Read(uint count = 1)
+		enum class Mode
 		{
-			T object;
-			ReadTo(&object, sizeof(T) * count);
+			Read,
+			Write
+		};
 
-			return std::move(object);
-		}
-
-		template<typename T>
-		void operator>>(T* ptr)
+		enum class ByteType
 		{
-			ReadTo((void*)ptr, sizeof(T));
-		}
+			Null,
+			String,
+			Char,
+			UnsignedChar,
+			Int16,
+			UnsignedInt16,
+			Int32,
+			UnsignedInt32,
+			Int64,
+			UnsignedInt64,
+			Float,
+			Double,
+			Boolean
+		};
 
-		void operator>>(std::string& ptr)
+		struct BufferByte
 		{
-			size_t length = Read<size_t>();
-			char* arr = new char[length]();
-			ReadTo((void*)arr, length);
+			BufferByte(std::ifstream* stream) 
+				: InputStream(stream) {};
 
-			ptr.assign(arr, length);
-		}
+			ByteType Type = ByteType::Null;
 
-		void operator<<(const std::string& str)
+			template<typename T>
+			T get()
+			{
+				return InputStream->read
+			}
+
+		private:
+
+			std::ifstream* InputStream;
+		};
+
+		void operator>>(char8_t val) { Write((char8_t)ByteType::Char); Write(val); };
+
+		void operator>>(int16_t val) { Write((char8_t)ByteType::Int16); Write(val); };
+		void operator>>(int32_t val) { Write((char8_t)ByteType::Int32); Write(val); };
+		void operator>>(int64_t val) { Write((char8_t)ByteType::Int64); Write(val); };
+		
+		void operator>>(uint16_t val) { Write((char8_t)ByteType::UnsignedInt16); Write(val); };
+		void operator>>(uint32_t val) { Write((char8_t)ByteType::UnsignedInt32); Write(val); };
+		void operator>>(uint64_t val) { Write((char8_t)ByteType::UnsignedInt64); Write(val); };
+
+		void operator>>(float_t val) { Write((char8_t)ByteType::Float); Write(val); };
+		void operator>>(double_t val) { Write((char8_t)ByteType::Double); Write(val); };
+
+		void operator>>(bool val) { Write((char8_t)ByteType::Boolean); Write(val); };
+
+		void operator>>(void*) { Write((char8_t)ByteType::Null); };
+
+		BufferByte next()
 		{
-			const char* arr = str.c_str();
-			int size = str.size();
+			BufferByte nextByte(&InputStream);
 
-			Write((void*)&size, sizeof(int));
-			Write((void*)arr, size * sizeof(char));
-		}
 
-		template<typename T>
-		void operator<<(T* ptr)
-		{
-			Write((void*)ptr, sizeof(T));
-		}
-
-		template<typename T>
-		void operator<<(T var)
-		{
-			Write((void*)&var, sizeof(T));
 		}
 
 	private:
@@ -68,6 +90,26 @@ namespace Desdun
 
 		std::ofstream OutputStream;
 		std::ifstream InputStream;
+
+		void SetMode(Mode streamMode);
+
+		template<typename T>
+		void Write(const T& value)
+		{
+			Write((void*)&value, sizeof(value));
+		}
+
+		template<typename T>
+		T Read()
+		{
+			BufferByte newByte;
+			Read((void*)&newByte.Type, sizeof(char8_t));
+
+			return newByte.get<T>();
+		}
+
+		void Write(void* buffer, size_t bytes);
+		void Read(void* location, size_t bytes);
 
 	};
 

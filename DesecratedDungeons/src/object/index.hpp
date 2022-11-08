@@ -1,11 +1,7 @@
 #pragma once
 
 /*
-one big index containing every single object in the engine
-*/
-
-/*
-	CORE OBJECTS
+	one big index containing every single object type in the game
 */
 
 #include "object.h"
@@ -58,7 +54,9 @@ namespace Desdun
 
 		{ typeid(ParticleEmitter), "ParticleEmitter" },
 		{ typeid(Sprite), "Sprite" },
-		{ typeid(TileMap), "TileMap" }
+		{ typeid(TileMap), "TileMap" },
+
+		{ typeid(Actor), "Actor" }
 	};
 
 	template<class T>

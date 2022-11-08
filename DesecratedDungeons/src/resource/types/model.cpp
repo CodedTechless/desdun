@@ -18,8 +18,8 @@ namespace Desdun
 		// down the tree. models are formatted like so, in byte form:
 		// [SERIAL ID * 2][Object BASE...][Derived...Final Type]
 
-		std::string ClassID;
-		stream >> &ClassID;
+		std::string ClassID = {};
+		stream >> ClassID;
 
 		m_ModelObject = Object::CreateClassByName(ClassID);
 		m_ModelObject->Deserialise(stream);

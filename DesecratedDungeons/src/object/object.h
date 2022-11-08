@@ -28,12 +28,6 @@ namespace Desdun
 	class Object
 	{
 	public:
-		Object() = default;
-		Object(Object&&) = delete;
-		Object(const Object& object)
-		{
-
-		}
 
 		// Properties
 
@@ -47,7 +41,13 @@ namespace Desdun
 
 		bool Visible = true;
 
-	public:
+		Object() = default;
+		Object(Object&&) = delete;
+		
+		Object(const Object& object)
+		{
+
+		}
 
 		~Object();
 
@@ -69,7 +69,7 @@ namespace Desdun
 		void SetParent(Object* object);
 		Object* FindChild(const std::string& name);
 
-		void Serialise(const std::string& path);
+		void SaveToFile(const std::string& path);
 
 		// Getters
 
@@ -79,10 +79,8 @@ namespace Desdun
 		const std::vector<Object*>& GetChildren() const { return Children; };
 		Object* GetParent() const { return Parent; };
 		
-		Object* operator[](uint idx)
-		{
-			return Children[idx];
-		}
+		Object* operator[](uint idx) { return Children[idx]; };
+		Object* operator[](const std::string& name) { return FindChild(name); };
 
 		// Transforms
 
@@ -96,7 +94,7 @@ namespace Desdun
 
 	protected:
 
-		virtual void SerialiseTo(ByteFile& stream);
+		virtual void Serialise(ByteFile& stream);
 		virtual void Deserialise(ByteFile& stream);
 
 	private:

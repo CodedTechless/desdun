@@ -6,5 +6,6 @@ using namespace Desdun;
 
 class Sound : public Object
 {
-
+public:
+	CLASS_DEF("Sound");
 };

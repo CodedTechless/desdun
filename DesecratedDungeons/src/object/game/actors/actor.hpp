@@ -9,6 +9,7 @@ using namespace Desdun;
 class Actor : public Sprite	
 {
 public:
+	CLASS_DEF("Actor");
 
 	void OnAwake()
 	{
@@ -16,13 +17,15 @@ public:
 		sprite = GetScene()->CreateObject<Sprite>();
 		sprite->Name = "Body";
 
-		sprite->SpriteImage = ResourceService::Fetch<Image>("assets/textures/white.png");
+		sprite->SpriteImage = Resource::Fetch<Image>("assets/textures/white.png");
 		sprite->SetParent(this);
 		sprite->Position = Vector2(0.f, -16.f);
 
-		SpriteImage = ResourceService::Fetch<Image>("assets/textures/white.png");
+		SpriteImage = Resource::Fetch<Image>("assets/textures/white.png");
 
-		Serialise("assets/models/hello.res");
+		SaveToFile("assets/models/hello.res");
+
+		Resource::Fetch<Model>("assets/models/hello.res");
 	}
 
 	void OnGameStep(const float Delta)
