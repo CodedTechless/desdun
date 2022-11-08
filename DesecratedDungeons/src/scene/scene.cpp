@@ -7,6 +7,11 @@
 namespace Desdun
 {
 
+	Object* Scene::Instance(Model* model)
+	{
+		return nullptr;
+	}
+
 	void Scene::OnGameStep(const float delta)
 	{
 		for (auto i = Objects.begin(); i < Objects.begin() + ObjectCount; ++i)
@@ -20,7 +25,14 @@ namespace Desdun
 
 		for (auto i = Objects.begin(); i < Objects.begin() + ObjectCount; ++i)
 		{
-			(*i)->OnGameStep(delta);
+			Object* object = (*i);
+
+			if (object->Active == false)
+			{
+				object->Active = true;
+			}
+
+			object->OnGameStep(delta);
 		}
 	}
 
@@ -32,7 +44,12 @@ namespace Desdun
 
 		for (auto i = Objects.begin(); i < Objects.begin() + ObjectCount; ++i)
 		{
-			(*i)->OnFrameUpdate(delta);
+			Object* object = (*i);
+
+			if (object->Visible && object->Active)
+			{
+				object->OnFrameUpdate(delta);
+			}
 		}
 
 		Renderer::EndScene();
@@ -44,7 +61,8 @@ namespace Desdun
 
 		for (auto i = Objects.begin(); i < Objects.begin() + ObjectCount; ++i)
 		{
-			auto res = (*i)->OnInputEvent(inputObject, processed);
+			Object* object = (*i);
+			auto res = object->OnInputEvent(inputObject, processed);
 			
 			if (res == Input::Filter::Stop)
 			{
@@ -65,7 +83,8 @@ namespace Desdun
 	{
 		for (auto i = Objects.begin(); i < Objects.begin() + ObjectCount; ++i)
 		{
-			(*i)->OnWindowEvent(windowEvent);
+			Object* object = (*i);
+			object->OnWindowEvent(windowEvent);
 		}
 	}
 

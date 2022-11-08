@@ -8,8 +8,6 @@ one big index containing every single object in the engine
 	CORE OBJECTS
 */
 
-// Base
-
 #include "object.h"
 
 // Audio
@@ -40,7 +38,7 @@ one big index containing every single object in the engine
 #include <frozen/unordered_map.h>
 #include <frozen/string.h>
 
-#define QUERY_TYPE(T) if (GetClassName<T>() == name) { return new T(); };
+#define QUERY_TYPE(T) if (GetGlobalClassName<T>() == name) { return new T(); }
 
 namespace Desdun
 {
@@ -63,12 +61,11 @@ namespace Desdun
 		{ typeid(TileMap), "TileMap" }
 	};
 
-	template<typename T>
-	std::string GetClassName()
+	template<class T>
+	std::string GetGlobalClassName()
 	{
 		return RuntimeTypes[typeid(T)];
 	}
-
 
 	Object* Object::CreateClassByName(const std::string& name)
 	{

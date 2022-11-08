@@ -2,6 +2,8 @@
 
 #include <resource/resource.hpp>
 
+#include <object/object.h>
+
 namespace Desdun
 {
 
@@ -14,7 +16,7 @@ namespace Desdun
 
 	private:
 
-		static Object* Deconstruct(ByteFile& stream);
+		Object* m_ModelObject = nullptr;
 	};
 
 

@@ -27,6 +27,8 @@ namespace Desdun
 		Input::Filter OnInputEvent(InputEvent InputObject, bool Processed);
 		void OnWindowEvent(WindowEvent windowEvent);
 
+		Object* Instance(Model* model);
+
 		template<typename T>
 		T* CreateObject()
 		{
@@ -43,10 +45,7 @@ namespace Desdun
 			return NewObject;
 		}
 
-		Object* Instance(const Model& model)
-		{
-
-		}
+		
 
 	private:
 

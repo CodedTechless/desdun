@@ -18,6 +18,8 @@
 
 #include <libraries.hpp>
 
+#define CLASS_DEF(v) std::string GetClassName() const { return v; };
+
 namespace Desdun
 {
 
@@ -26,11 +28,16 @@ namespace Desdun
 	class Object
 	{
 	public:
-		~Object();
-		
-		std::string Name = "Object";
+		Object() = default;
+		Object(Object&&) = delete;
+		Object(const Object& object)
+		{
+
+		}
 
 		// Properties
+
+		std::string Name = "Object";
 
 		Vector2 Position = { 0.f, 0.f };
 		Vector2 Scale = { 1.f, 1.f };
@@ -40,7 +47,13 @@ namespace Desdun
 
 		bool Visible = true;
 
+	public:
+
+		~Object();
+
 		// Virtuals
+
+		virtual CLASS_DEF("Object");
 
 		virtual void OnAwake() {};
 		virtual void OnDestroyed() {};
@@ -55,6 +68,8 @@ namespace Desdun
 
 		void SetParent(Object* object);
 		Object* FindChild(const std::string& name);
+
+		void Serialise(const std::string& path);
 
 		// Getters
 
@@ -82,9 +97,11 @@ namespace Desdun
 	protected:
 
 		virtual void SerialiseTo(ByteFile& stream);
-		virtual void DeserialiseTo(ByteFile& stream);
+		virtual void Deserialise(ByteFile& stream);
 
 	private:
+
+		bool Active = false;
 
 		// Transforms
 
@@ -96,12 +113,11 @@ namespace Desdun
 
 		Scene* m_ActiveScene = nullptr;
 		Object* Parent = nullptr;
+		std::vector<Object*> Children = {};
 		
 		std::string ID;
 
 		// Children
-
-		std::vector<Object*> Children = {};
 
 		void RemoveChild(Object* instance);
 

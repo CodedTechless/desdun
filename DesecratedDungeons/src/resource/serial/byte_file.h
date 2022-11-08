@@ -21,8 +21,9 @@ namespace Desdun
 		T&& Read(uint count = 1)
 		{
 			T object;
+			ReadTo(&object, sizeof(T) * count);
 
-			return ReadTo(&object, sizeof(T) * count);
+			return std::move(object);
 		}
 
 		template<typename T>
@@ -43,10 +44,10 @@ namespace Desdun
 		void operator<<(const std::string& str)
 		{
 			const char* arr = str.c_str();
-			size_t size = str.size();
+			int size = str.size();
 
-			Write((void*)&size, sizeof(size_t));
-			Write((void*)arr, size);
+			Write((void*)&size, sizeof(int));
+			Write((void*)arr, size * sizeof(char));
 		}
 
 		template<typename T>

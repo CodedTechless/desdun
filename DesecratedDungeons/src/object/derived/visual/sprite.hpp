@@ -30,12 +30,4 @@ public:
 		Renderer::Submit({ transform, Tint, SpriteBounds, SpriteImage, SpriteShader, ZIndex });
 	}
 
-	void Serialise(ByteFile& stream)
-	{
-		stream << ClassID;
-
-
-	}
-
-
 };

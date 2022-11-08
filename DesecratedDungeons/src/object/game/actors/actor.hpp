@@ -21,6 +21,8 @@ public:
 		sprite->Position = Vector2(0.f, -16.f);
 
 		SpriteImage = ResourceService::Fetch<Image>("assets/textures/white.png");
+
+		Serialise("assets/models/hello.res");
 	}
 
 	void OnGameStep(const float Delta)

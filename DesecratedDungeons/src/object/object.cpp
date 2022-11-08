@@ -1,6 +1,4 @@
 
-#include <object/index.hpp>
-
 #include "object.h"
 
 namespace Desdun
@@ -8,6 +6,11 @@ namespace Desdun
 
 	Object::~Object()
 	{
+		if (Active)
+		{
+			OnDestroyed();
+		}
+
 		for (auto instance : Children)
 		{
 			delete instance;
@@ -17,6 +20,15 @@ namespace Desdun
 		{
 			Parent->RemoveChild(this);
 		}
+	}
+
+	void Object::Serialise(const std::string& path)
+	{
+		ByteFile stream(path);
+
+		stream << GetClassName();
+
+		SerialiseTo(stream);
 	}
 
 	void Object::SerialiseTo(ByteFile& stream)
@@ -29,12 +41,12 @@ namespace Desdun
 
 		for (Object* child : Children)
 		{
-			stream.Write();
+			stream << GetClassName();
 			child->SerialiseTo(stream);
 		}
 	}
 
-	void Object::DeserialiseTo(ByteFile& stream)
+	void Object::Deserialise(ByteFile& stream)
 	{
 		stream >> &Position;
 		stream >> &Scale;
@@ -51,7 +63,7 @@ namespace Desdun
 			Object* object = CreateClassByName(ClassID);
 			Children.push_back(object);
 
-			object->DeserialiseTo(stream);
+			object->Deserialise(stream);
 		}
 	}
 
