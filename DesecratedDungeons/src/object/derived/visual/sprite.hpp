@@ -25,8 +25,14 @@ public:
 
 	void OnFrameUpdate(const float delta) override
 	{
-		Mat4 transform = GetInterpTransform() 
-			* glm::scale(Mat4(1.f), Vector3(Vector2(SpriteImage->GetSize()), 1.f));
+		Mat4 transform;
+		
+		if (Interpolate)
+		{
+			transform = GetInterpTransform()
+				* glm::scale(Mat4(1.f), Vector3(Vector2(SpriteImage->GetSize()), 1.f));
+		}
+
 
 		Renderer::Submit({ transform, Tint, SpriteBounds, SpriteImage, SpriteShader, ZIndex });
 	}
@@ -38,12 +44,12 @@ private:
 		if (SpriteImage)
 			stream << SpriteImage->GetPath();
 		else
-			stream << "";
+			stream << std::string("");
 
 		if (SpriteShader)
 			stream << SpriteShader->GetPath();
 		else
-			stream << "";
+			stream << std::string("");
 
 		stream << &Tint;
 		stream << &ZIndex;
@@ -54,13 +60,13 @@ private:
 
 	void Deserialise(ByteFile& stream)
 	{
-		std::string imagePath = "";
+		std::string imagePath;
 		stream >> imagePath;
 
 		if (imagePath != "")
 			SpriteImage = Resource::Fetch<Image>(imagePath);
 
-		std::string shaderPath = "";
+		std::string shaderPath;
 		stream >> shaderPath;
 
 		if (shaderPath != "")

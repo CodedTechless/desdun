@@ -40,14 +40,10 @@ namespace Desdun
 		float ZIndex = 0.f;
 
 		bool Visible = true;
+		bool Interpolate = true;
 
 		Object() = default;
 		Object(Object&&) = delete;
-		
-		Object(const Object& object)
-		{
-
-		}
 
 		~Object();
 
@@ -90,7 +86,7 @@ namespace Desdun
 		
 		// Static
 
-		static Object* CreateClassByName(const std::string& name);
+		static Object* CreateObjectByName(const std::string& name);
 
 	protected:
 
@@ -100,6 +96,7 @@ namespace Desdun
 	private:
 
 		bool Active = false;
+
 
 		// Transforms
 

@@ -21,7 +21,7 @@ namespace Desdun
 		std::string ClassID = {};
 		stream >> ClassID;
 
-		m_ModelObject = Object::CreateClassByName(ClassID);
+		m_ModelObject = Object::CreateObjectByName(ClassID);
 		m_ModelObject->Deserialise(stream);
 	}
 }

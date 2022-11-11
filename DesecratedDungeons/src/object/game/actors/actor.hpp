@@ -55,6 +55,14 @@ public:
 		sprite->Rotation += 90 * Delta;
 	}
 
+	Input::Filter OnInputEvent(InputEvent input, bool processed)
+	{
+		if (input.)
+		{
+
+		}
+	}
+
 private:
 
 	Sprite* sprite = nullptr;

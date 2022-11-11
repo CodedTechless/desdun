@@ -31,70 +31,62 @@
 
 #include "game/actors/actor.hpp"
 
-#include <frozen/unordered_map.h>
-#include <frozen/string.h>
 
-#define QUERY_TYPE(T) if (GetGlobalClassName<T>() == name) { return new T(); }
+#define TYPENAME(T) { typeid(T), #T }
+#define CONSTRUCTOR(T) { #T, []() -> Object* { return new T(); } }
 
 namespace Desdun
 {
 
 	static std::unordered_map<std::type_index, std::string> RuntimeTypes = {
-		{ typeid(Object), "Object" },
+		TYPENAME(Object),
 
-		{ typeid(Sound), "Sound" },
-		
-		{ typeid(KinematicBody), "KinematicBody" },
-		{ typeid(StaticBody), "StaticBody" },
-		{ typeid(DynamicBody), "DynamicBody" },
+		TYPENAME(Sound),
 
-		{ typeid(Animator), "Animator" },
-		{ typeid(Camera), "Camera" },
-		{ typeid(Light), "Light" },
+		TYPENAME(KinematicBody),
+		TYPENAME(StaticBody),
+		TYPENAME(DynamicBody),
 
-		{ typeid(ParticleEmitter), "ParticleEmitter" },
-		{ typeid(Sprite), "Sprite" },
-		{ typeid(TileMap), "TileMap" },
+		TYPENAME(Animator),
+		TYPENAME(Camera),
+		TYPENAME(Light),
 
-		{ typeid(Actor), "Actor" }
+		TYPENAME(ParticleEmitter),
+		TYPENAME(Sprite),
+		TYPENAME(TileMap),
+
+		TYPENAME(Actor)
+	};
+
+	static std::unordered_map<std::string, std::function<Object*()>> RuntimeConstructor = {
+		CONSTRUCTOR(Object),
+
+		CONSTRUCTOR(Sound),
+
+		CONSTRUCTOR(KinematicBody),
+		CONSTRUCTOR(StaticBody),
+		CONSTRUCTOR(DynamicBody),
+
+		CONSTRUCTOR(Animator),
+		CONSTRUCTOR(Camera),
+		CONSTRUCTOR(Light),
+
+		CONSTRUCTOR(ParticleEmitter),
+		CONSTRUCTOR(Sprite),
+		CONSTRUCTOR(TileMap),
+
+		CONSTRUCTOR(Actor)
 	};
 
 	template<class T>
-	std::string GetGlobalClassName()
+	std::string GetObjectClassName()
 	{
 		return RuntimeTypes[typeid(T)];
 	}
 
-	Object* Object::CreateClassByName(const std::string& name)
+	Object* Object::CreateObjectByName(const std::string& name)
 	{
-		QUERY_TYPE(Object);
-		
-		// Audio
-		
-		QUERY_TYPE(Sound);
-
-		// Physics
-
-		QUERY_TYPE(KinematicBody);
-		QUERY_TYPE(StaticBody);
-		QUERY_TYPE(DynamicBody);
-
-		// Visual
-
-		QUERY_TYPE(Animator);
-		QUERY_TYPE(Camera);
-		QUERY_TYPE(Light);
-		QUERY_TYPE(ParticleEmitter);
-		QUERY_TYPE(Sprite);
-		QUERY_TYPE(TileMap);
-
-		/*
-			GAME OBJECTS
-		*/
-
-		// Actors
-
-		QUERY_TYPE(Actor);
+		return RuntimeConstructor[name]();
 	};
 
 }

@@ -58,9 +58,9 @@ namespace Desdun
 		for (size_t i = 0; i < ChildCount; i++)
 		{
 			std::string ClassID;
-			stream >> &ClassID;
+			stream >> ClassID;
 
-			Object* object = CreateClassByName(ClassID);
+			Object* object = CreateObjectByName(ClassID);
 			Children.push_back(object);
 
 			object->Deserialise(stream);
