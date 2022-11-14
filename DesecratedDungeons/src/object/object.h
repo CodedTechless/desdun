@@ -44,7 +44,6 @@ namespace Desdun
 
 		Object() = default;
 		Object(Object&&) = delete;
-		Object(const Object& object);
 
 		~Object();
 
@@ -64,20 +63,41 @@ namespace Desdun
 		// Object operations
 
 		void SetParent(Object* object);
-		Object* FindChild(const std::string& name);
+		Object* FindChild(const std::string& name) const;
 
-		void SaveToFile(const std::string& path);
+		void SaveToFile(const std::string& path) const;
+
+		// Subclass
+
+		struct HierarchyMember
+		{
+			HierarchyMember() = default;
+			HierarchyMember(const HierarchyMember&) {};
+
+			HierarchyMember& operator=(const HierarchyMember&)
+			{
+				return *this;
+			};
+
+		private:
+
+			Object* m_Parent = nullptr;
+			std::vector<Object*> m_Container = {};
+
+			friend class Object;
+
+		};
 
 		// Getters
 
 		std::string GetObjectID() const { return ID; };
 		Scene* GetScene() const { return m_ActiveScene; };
 
-		const std::vector<Object*>& GetChildren() const { return Children; };
-		Object* GetParent() const { return Parent; };
+		const std::vector<Object*>& GetChildren() const { return m_Relation.m_Container; };
+		Object* GetParent() const { return m_Relation.m_Parent; };
 		
-		Object* operator[](uint idx) { return Children[idx]; };
-		Object* operator[](const std::string& name) { return FindChild(name); };
+		Object* operator[](uint idx) const { return m_Relation.m_Container[idx]; };
+		Object* operator[](const std::string& name) const { return FindChild(name); };
 
 		// Transforms
 
@@ -91,7 +111,7 @@ namespace Desdun
 
 	protected:
 
-		virtual void Serialise(ByteFile& stream);
+		virtual void Serialise(ByteFile& stream) const;
 		virtual void Deserialise(ByteFile& stream);
 
 	private:
@@ -107,11 +127,10 @@ namespace Desdun
 
 		// Game
 
-		Scene* m_ActiveScene = nullptr;
-		Object* Parent = nullptr;
-		std::vector<Object*> Children = {};
-		
 		std::string ID;
+		Scene* m_ActiveScene = nullptr;
+		
+		HierarchyMember m_Relation = {};
 
 		// Children
 

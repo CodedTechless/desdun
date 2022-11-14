@@ -4,11 +4,6 @@
 namespace Desdun
 {
 
-	Object::Object(const Object& object)
-	{
-
-	}
-
 
 	Object::~Object()
 	{
@@ -17,18 +12,18 @@ namespace Desdun
 			OnDestroyed();
 		}
 
-		for (auto instance : Children)
+		for (auto instance : GetChildren())
 		{
 			delete instance;
 		}
 
-		if (Parent)
+		if (GetParent())
 		{
-			Parent->RemoveChild(this);
+			GetParent()->RemoveChild(this);
 		}
 	}
 
-	void Object::SaveToFile(const std::string& path)
+	void Object::SaveToFile(const std::string& path) const
 	{
 		ByteFile stream(path);
 
@@ -37,7 +32,7 @@ namespace Desdun
 		Serialise(stream);
 	}
 
-	void Object::Serialise(ByteFile& stream)
+	void Object::Serialise(ByteFile& stream) const
 	{
 		stream << Name;
 
@@ -50,9 +45,9 @@ namespace Desdun
 		stream << &Visible;
 		stream << &Interpolate;
 
-		stream << Children.size();
+		stream << GetChildren().size();
 
-		for (Object* child : Children)
+		for (Object* child : GetChildren())
 		{
 			stream << child->GetClassName();
 			child->Serialise(stream);
@@ -74,7 +69,7 @@ namespace Desdun
 			stream >> ClassID;
 
 			Object* object = CreateObjectByName(ClassID);
-			Children.push_back(object);
+			m_Relation.m_Container.push_back(object);
 
 			object->Deserialise(stream);
 		}
@@ -82,19 +77,19 @@ namespace Desdun
 
 	void Object::RemoveChild(Object* instance)
 	{
-		for (auto it = Children.begin(); it != Children.end(); ++it)
+		for (auto it = m_Relation.m_Container.begin(); it != m_Relation.m_Container.end(); ++it)
 		{
 			if ((*it)->ID == instance->ID)
 			{
-				Children.erase(it);
+				m_Relation.m_Container.erase(it);
 				break;
 			}
 		}
 	}
 
-	Object* Object::FindChild(const std::string& name)
+	Object* Object::FindChild(const std::string& name) const
 	{
-		for (auto instance : Children)
+		for (auto instance : GetChildren())
 		{
 			if (instance->Name == name)
 			{
@@ -107,11 +102,14 @@ namespace Desdun
 
 	void Object::SetParent(Object* instance)
 	{
-		if (Parent) Parent->RemoveChild(this);
+		if (GetParent())
+		{
+			GetParent()->RemoveChild(this);
+		}
 
-		Parent = instance;
+		m_Relation.m_Parent = instance;
 
-		Parent->Children.push_back(this);
+		m_Relation.m_Parent->m_Relation.m_Container.push_back(this);
 	};
 
 	/*
@@ -145,9 +143,9 @@ namespace Desdun
 			* glm::rotate(Mat4(1.f), rot, Vector3(0.f, 0.f, 1.f))
 			* glm::scale(Mat4(1.f), Vector3(scale, 1.f));
 
-		if (Parent != nullptr)
+		if (GetParent() != nullptr)
 		{
-			frame = Parent->GetInterpTransform() * frame;
+			frame = GetParent()->GetInterpTransform() * frame;
 		}
 
 		return frame;
@@ -164,9 +162,9 @@ namespace Desdun
 	{
 		Mat4 transform = GetTransform();
 
-		if (Parent != nullptr)
+		if (GetParent() != nullptr)
 		{
-			transform = Parent->GetGlobalTransform() * transform;
+			transform = GetParent()->GetGlobalTransform() * transform;
 		}
 
 		return transform;
