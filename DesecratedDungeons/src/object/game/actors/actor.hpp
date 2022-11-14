@@ -57,10 +57,7 @@ public:
 
 	Input::Filter OnInputEvent(InputEvent input, bool processed)
 	{
-		if (input.)
-		{
-
-		}
+		return Input::Filter::Ignore;
 	}
 
 private:

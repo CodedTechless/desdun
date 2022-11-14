@@ -44,6 +44,7 @@ namespace Desdun
 
 		Object() = default;
 		Object(Object&&) = delete;
+		Object(const Object& object);
 
 		~Object();
 

@@ -4,6 +4,12 @@
 namespace Desdun
 {
 
+	Object::Object(const Object& object)
+	{
+
+	}
+
+
 	Object::~Object()
 	{
 		if (Active)
@@ -33,9 +39,16 @@ namespace Desdun
 
 	void Object::Serialise(ByteFile& stream)
 	{
+		stream << Name;
+
 		stream << &Position;
 		stream << &Scale;
 		stream << &Rotation;
+
+		stream << &ZIndex;
+
+		stream << &Visible;
+		stream << &Interpolate;
 
 		stream << Children.size();
 
@@ -106,6 +119,11 @@ namespace Desdun
 	*/
 	Mat4 Object::GetInterpTransform() const
 	{
+		if (Interpolate == false)
+		{
+			return GetGlobalTransform();
+		}
+
 		float alpha = Application::GetApplication()->GetInterpolationFraction();
 
 		// scale
@@ -115,7 +133,7 @@ namespace Desdun
 		float rad = glm::radians(Rotation);
 		float lastrad = glm::radians(LastRotation);
 
-		float max = PI * 2;
+		float max = PI * 2.f;
 		float da = std::fmod(rad - lastrad, max);
 
 		float rot = lastrad + (std::fmod(2 * da, max) - da) * alpha;
