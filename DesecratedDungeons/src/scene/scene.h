@@ -1,7 +1,7 @@
 #pragma once
 
-#include <object/object.h>
-#include <object/derived/visual/camera.hpp>
+#include <object/instance.h>
+#include <object/types/visual/camera.hpp>
 
 #include <resource/types/model.h>
 
@@ -45,11 +45,15 @@ namespace Desdun
 			return NewObject;
 		}
 
-		
+		template<typename T>
+		T* CloneObject(T* objectToClone)
+		{
+
+		};
 
 	private:
 
-		std::array<Object*, MAX_OBJECTS> Objects = {};
+		std::array<Instance*, MAX_OBJECTS> SceneInstances = {};
 		uint ObjectCount = 0;
 
 	};

@@ -1,57 +1,23 @@
 
+#include <scene/scene.h>
+
 #include "object.h"
 
 namespace Desdun
 {
 
-
-	Object::~Object()
-	{
-		if (Active)
-		{
-			OnDestroyed();
-		}
-
-		for (auto instance : GetChildren())
-		{
-			delete instance;
-		}
-
-		if (GetParent())
-		{
-			GetParent()->RemoveChild(this);
-		}
-	}
-
-	void Object::SaveToFile(const std::string& path) const
-	{
-		ByteFile stream(path);
-
-		stream << GetClassName();
-
-		Serialise(stream);
-	}
-
 	void Object::Serialise(ByteFile& stream) const
 	{
-		stream << Name;
-
 		stream << &Position;
 		stream << &Scale;
 		stream << &Rotation;
 
 		stream << &ZIndex;
-
 		stream << &Visible;
+
 		stream << &Interpolate;
 
-		stream << GetChildren().size();
-
-		for (Object* child : GetChildren())
-		{
-			stream << child->GetClassName();
-			child->Serialise(stream);
-		}
+		Instance::Serialise(stream);
 	}
 
 	void Object::Deserialise(ByteFile& stream)
@@ -60,57 +26,13 @@ namespace Desdun
 		stream >> &Scale;
 		stream >> &Rotation;
 
-		size_t ChildCount;
-		stream >> &ChildCount;
+		stream >> &ZIndex;
+		stream >> &Visible;
 
-		for (size_t i = 0; i < ChildCount; i++)
-		{
-			std::string ClassID;
-			stream >> ClassID;
+		stream >> &Interpolate;
 
-			Object* object = CreateObjectByName(ClassID);
-			m_Relation.m_Container.push_back(object);
-
-			object->Deserialise(stream);
-		}
+		Instance::Deserialise(stream);
 	}
-
-	void Object::RemoveChild(Object* instance)
-	{
-		for (auto it = m_Relation.m_Container.begin(); it != m_Relation.m_Container.end(); ++it)
-		{
-			if ((*it)->ID == instance->ID)
-			{
-				m_Relation.m_Container.erase(it);
-				break;
-			}
-		}
-	}
-
-	Object* Object::FindChild(const std::string& name) const
-	{
-		for (auto instance : GetChildren())
-		{
-			if (instance->Name == name)
-			{
-				return instance;
-			}
-		}
-
-		return nullptr;
-	}
-
-	void Object::SetParent(Object* instance)
-	{
-		if (GetParent())
-		{
-			GetParent()->RemoveChild(this);
-		}
-
-		m_Relation.m_Parent = instance;
-
-		m_Relation.m_Parent->m_Relation.m_Container.push_back(this);
-	};
 
 	/*
 		breaks down the transform into its components, then reconstructs it as an interpolation of Last[component] and [component]
@@ -142,6 +64,10 @@ namespace Desdun
 		Mat4 frame = glm::translate(Mat4(1.f), Vector3(pos, 0.f))
 			* glm::rotate(Mat4(1.f), rot, Vector3(0.f, 0.f, 1.f))
 			* glm::scale(Mat4(1.f), Vector3(scale, 1.f));
+
+		Instance* Next = GetParent();
+
+
 
 		if (GetParent() != nullptr)
 		{

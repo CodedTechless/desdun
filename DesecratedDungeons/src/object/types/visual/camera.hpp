@@ -4,7 +4,7 @@
 an object but also sort of a wrapper class for RenderCamera
 */
 
-#include <object/object.h>
+#include <object/types/object.h>
 #include <graphics/render_camera.h>
 
 using namespace Desdun;

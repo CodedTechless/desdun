@@ -4,26 +4,27 @@
 	one big index containing every single object type in the game
 */
 
-#include "object.h"
+#include "instance.h"
+#include "types/object.h"
 
 // Audio
 
-#include "derived/audio/sound.hpp"
+#include "types/audio/sound.hpp"
 
 // Physics
 
-#include "derived/physics/kinematic_body.hpp"
-#include "derived/physics/static_body.hpp"
-#include "derived/physics/dynamic_body.hpp"
+#include "types/physics/kinematic_body.hpp"
+#include "types/physics/static_body.hpp"
+#include "types/physics/dynamic_body.hpp"
 
 // Visual
 
-#include "derived/visual/animator.hpp"
-#include "derived/visual/camera.hpp"
-#include "derived/visual/light.hpp"
-#include "derived/visual/particle_emitter.hpp"
-#include "derived/visual/sprite.hpp"
-#include "derived/visual/tile_map.hpp"
+#include "types/visual/animator.hpp"
+#include "types/visual/camera.hpp"
+#include "types/visual/light.hpp"
+#include "types/visual/particle_emitter.hpp"
+#include "types/visual/sprite.hpp"
+#include "types/visual/tile_map.hpp"
 
 /*
 	GAME OBJECTS
@@ -33,7 +34,7 @@
 
 
 #define TYPENAME(T) { typeid(T), #T }
-#define CONSTRUCTOR(T) { #T, []() -> Object* { return new T(); } }
+#define CONSTRUCTOR(T) { #T, []<typename ...Args>(Args&& ...args) -> Object* { return new T(std::forward<Args>(args)...); } }
 
 namespace Desdun
 {
@@ -78,15 +79,19 @@ namespace Desdun
 		CONSTRUCTOR(Actor)
 	};
 
-	template<class T>
-	std::string GetObjectClassName()
+	struct RuntimeObject
 	{
-		return RuntimeTypes[typeid(T)];
-	}
+		template<typename T>
+		static const std::string GetName()
+		{
+			return RuntimeTypes[typeid(T)];
+		}
 
-	Object* Object::CreateObjectByName(const std::string& name)
-	{
-		return RuntimeConstructor[name]();
+		template<typename ...Args>
+		static Object* Create(const std::string& name, Args&& ...args)
+		{
+			return RuntimeConstructor[name](std::forward<Args>(args)...);
+		};
 	};
 
 }

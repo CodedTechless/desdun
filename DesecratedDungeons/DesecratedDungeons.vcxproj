@@ -57,7 +57,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\GLFW\include\GLFW;$(SolutionDir)dependencies\GLEW\include;$(ProjectDir)src;$(ProjectDir)src\dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\GLFW\include\GLFW;$(SolutionDir)dependencies\GLEW\include;$(ProjectDir)src;$(ProjectDir)src\dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -94,6 +94,7 @@
     <ClCompile Include="src\graphics\buffers\frame.cpp" />
     <ClCompile Include="src\graphics\buffers\vao.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
+    <ClCompile Include="src\object\instance.cpp" />
     <ClCompile Include="src\resource\types\model.cpp" />
     <ClCompile Include="src\resource\types\shader.cpp" />
     <ClCompile Include="src\resource\types\audio.cpp" />
@@ -103,7 +104,7 @@
     <ClCompile Include="src\graphics\buffers\index.cpp" />
     <ClCompile Include="src\graphics\buffers\vertex.cpp" />
     <ClCompile Include="src\app\input\input.cpp" />
-    <ClCompile Include="src\object\object.cpp" />
+    <ClCompile Include="src\object\types\object.cpp" />
     <ClCompile Include="src\app\layers\layer.cpp" />
     <ClCompile Include="src\app\layers\layer_collection.cpp" />
     <ClCompile Include="src\app\system\window.cpp" />
@@ -141,16 +142,17 @@
     <ClInclude Include="src\dependencies\frozen\string.h" />
     <ClInclude Include="src\dependencies\frozen\unordered_map.h" />
     <ClInclude Include="src\dependencies\frozen\unordered_set.h" />
-    <ClInclude Include="src\object\derived\visual\animator.hpp" />
-    <ClInclude Include="src\object\derived\physics\kinematic_body.hpp" />
-    <ClInclude Include="src\object\derived\visual\camera.hpp" />
-    <ClInclude Include="src\object\derived\visual\particle_emitter.hpp" />
-    <ClInclude Include="src\object\derived\physics\dynamic_body.hpp" />
-    <ClInclude Include="src\object\derived\visual\light.hpp" />
-    <ClInclude Include="src\object\derived\audio\sound.hpp" />
-    <ClInclude Include="src\object\derived\physics\static_body.hpp" />
-    <ClInclude Include="src\object\derived\visual\sprite.hpp" />
-    <ClInclude Include="src\object\derived\visual\tile_map.hpp" />
+    <ClInclude Include="src\object\instance.h" />
+    <ClInclude Include="src\object\types\visual\animator.hpp" />
+    <ClInclude Include="src\object\types\physics\kinematic_body.hpp" />
+    <ClInclude Include="src\object\types\visual\camera.hpp" />
+    <ClInclude Include="src\object\types\visual\particle_emitter.hpp" />
+    <ClInclude Include="src\object\types\physics\dynamic_body.hpp" />
+    <ClInclude Include="src\object\types\visual\light.hpp" />
+    <ClInclude Include="src\object\types\audio\sound.hpp" />
+    <ClInclude Include="src\object\types\physics\static_body.hpp" />
+    <ClInclude Include="src\object\types\visual\sprite.hpp" />
+    <ClInclude Include="src\object\types\visual\tile_map.hpp" />
     <ClInclude Include="src\resource\resource.hpp" />
     <ClInclude Include="src\resource\types\audio.h" />
     <ClInclude Include="src\resource\types\model.h" />
@@ -160,7 +162,7 @@
     <ClInclude Include="src\dependencies\stb\stb_vorbis.h" />
     <ClInclude Include="src\object\game\actors\actor.hpp" />
     <ClInclude Include="src\object\index.hpp" />
-    <ClInclude Include="src\object\object.h" />
+    <ClInclude Include="src\object\types\object.h" />
     <ClInclude Include="src\gamelib.hpp" />
     <ClInclude Include="src\app\debug\debug.h" />
     <ClInclude Include="src\graphics\buffers\frame.h" />

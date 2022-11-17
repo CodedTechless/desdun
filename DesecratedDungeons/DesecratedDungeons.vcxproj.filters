@@ -90,7 +90,7 @@
     <ClCompile Include="src\graphics\buffers\vao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\object\object.cpp">
+    <ClCompile Include="src\object\types\object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\resource\types\audio.cpp">
@@ -109,6 +109,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\resource\serial\byte_file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\object\instance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1058,7 +1061,7 @@
     <ClInclude Include="src\graphics\buffers\vao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\object.h">
+    <ClInclude Include="src\object\types\object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\object\index.hpp">
@@ -1079,37 +1082,37 @@
     <ClInclude Include="src\dependencies\stb\stb_vorbis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\derived\physics\dynamic_body.hpp">
+    <ClInclude Include="src\object\types\physics\dynamic_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\derived\physics\kinematic_body.hpp">
+    <ClInclude Include="src\object\types\physics\kinematic_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\derived\visual\animator.hpp">
+    <ClInclude Include="src\object\types\visual\animator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\derived\visual\particle_emitter.hpp">
+    <ClInclude Include="src\object\types\visual\particle_emitter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\derived\audio\sound.hpp">
+    <ClInclude Include="src\object\types\audio\sound.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\derived\physics\static_body.hpp">
+    <ClInclude Include="src\object\types\physics\static_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\derived\visual\tile_map.hpp">
+    <ClInclude Include="src\object\types\visual\tile_map.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\derived\visual\light.hpp">
+    <ClInclude Include="src\object\types\visual\light.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\scene\scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\derived\visual\camera.hpp">
+    <ClInclude Include="src\object\types\visual\camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\derived\visual\sprite.hpp">
+    <ClInclude Include="src\object\types\visual\sprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\resource\types\model.h">
@@ -1167,6 +1170,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dependencies\frozen\unordered_set.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\object\instance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

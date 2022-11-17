@@ -2,7 +2,7 @@
 
 #include <resource/resource.hpp>
 
-#include <object/object.h>
+#include <object/types/object.h>
 
 namespace Desdun
 {

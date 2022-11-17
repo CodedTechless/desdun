@@ -1,6 +1,6 @@
 #pragma once
 
-#include <object/object.h>
+#include <object/types/object.h>
 
 #include <graphics/renderer.h>
 
