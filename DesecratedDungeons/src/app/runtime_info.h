@@ -11,29 +11,37 @@ namespace Desdun
 	{
 		RuntimeType() = default;
 
-		const std::string GetTypeName() const { return TypeName; };
+		const std::string GetTypeName() const { return m_TypeName; };
 
 	private:
 
-		std::string TypeName = {};
-		std::vector<std::type_index> Descendants = {};
+		std::string m_TypeName = {};
+		std::vector<std::type_index> m_Descendants = {};
 
-		friend class RuntimeInfo;
+		std::type_index m_Index;
 
-	};
-
-	struct BaseClassGeneric
-	{
+		friend class Runtime;
 
 	};
+
+
 
 	class Runtime
 	{
 	public:
 
-		static void Add(const std::string& name, const RuntimeType& inherits)
+		template<typename T>
+		static void Add(const std::string& name, std::initializer_list<ClassModifier> modifiers = {})
 		{
+			std::type_index Index = typeid(T);
 
+			RuntimeType newType;
+
+			newType.m_TypeName = name;
+			newType.m_Index = Index;
+
+
+			Types[Index] = newType;
 		}
 
 		template<typename T>
