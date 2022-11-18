@@ -20,7 +20,7 @@ namespace Desdun
 	class Instance
 	{
 	public:
-		std::string Name = "Object";
+		std::string Name = "Instance";
 
 		virtual std::string GetClassName() const { return "Instance"; };
 		virtual constexpr uint GetClassID() const { return 0; };

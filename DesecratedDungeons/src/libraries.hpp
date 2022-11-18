@@ -28,6 +28,8 @@
 #include <app/debug/debug.h>
 #include <glm/glm.hpp>
 
+#define MAX_INSTANCES 4196
+
 namespace fs = std::filesystem;
 
 namespace Desdun

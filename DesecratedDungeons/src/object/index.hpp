@@ -34,10 +34,15 @@
 
 
 #define TYPENAME(T) { typeid(T), #T }
-#define CONSTRUCTOR(T) { #T, []<typename ...Args>(Args&& ...args) -> Object* { return new T(std::forward<Args>(args)...); } }
+#define CONSTRUCTOR(T) { #T, []() -> Object* { return new T(); } }
 
 namespace Desdun
 {
+
+	/*
+	we really need to build runtime information on instance types because without them
+	the engine can't discern the difference between different objects!!
+	*/
 
 	static std::unordered_map<std::type_index, std::string> RuntimeTypes = {
 		TYPENAME(Object),
@@ -58,6 +63,10 @@ namespace Desdun
 
 		TYPENAME(Actor)
 	};
+
+	/*
+	allows us to build a class type based on its string name
+	*/
 
 	static std::unordered_map<std::string, std::function<Object*()>> RuntimeConstructor = {
 		CONSTRUCTOR(Object),
@@ -81,17 +90,7 @@ namespace Desdun
 
 	struct RuntimeObject
 	{
-		template<typename T>
-		static const std::string GetName()
-		{
-			return RuntimeTypes[typeid(T)];
-		}
 
-		template<typename ...Args>
-		static Object* Create(const std::string& name, Args&& ...args)
-		{
-			return RuntimeConstructor[name](std::forward<Args>(args)...);
-		};
 	};
 
 }

@@ -8,7 +8,7 @@
 #include <uuid.hpp>
 #include <libraries.hpp>
 
-#define MAX_OBJECTS 4196
+
 
 namespace Desdun
 {
@@ -52,6 +52,8 @@ namespace Desdun
 		};
 
 	private:
+
+
 
 		std::array<Instance*, MAX_OBJECTS> SceneInstances = {};
 		uint ObjectCount = 0;

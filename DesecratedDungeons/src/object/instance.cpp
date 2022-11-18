@@ -63,7 +63,7 @@ namespace Desdun
 		}
 	}
 
-	void Object::RemoveChild(Object* instance)
+	void Instance::RemoveChild(Instance* instance)
 	{
 		for (auto it = m_Relation.m_Container.begin(); it != m_Relation.m_Container.end(); ++it)
 		{
@@ -75,7 +75,7 @@ namespace Desdun
 		}
 	}
 
-	Object* Object::FindChild(const std::string& name) const
+	Instance* Instance::FindChild(const std::string& name) const
 	{
 		for (auto instance : GetChildren())
 		{
@@ -88,7 +88,7 @@ namespace Desdun
 		return nullptr;
 	}
 
-	void Object::SetParent(Object* instance)
+	void Instance::SetParent(Instance* instance)
 	{
 		if (GetParent())
 		{

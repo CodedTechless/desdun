@@ -91,6 +91,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\app\debug\debug.cpp" />
+    <ClCompile Include="src\app\runtime_info.cpp" />
     <ClCompile Include="src\graphics\buffers\frame.cpp" />
     <ClCompile Include="src\graphics\buffers\vao.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\app\runtime_info.h" />
     <ClInclude Include="src\dependencies\frozen\algorithm.h" />
     <ClInclude Include="src\dependencies\frozen\bits\algorithms.h" />
     <ClInclude Include="src\dependencies\frozen\bits\basic_types.h" />

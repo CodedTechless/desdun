@@ -14,7 +14,7 @@ namespace Desdun
 
 	void Scene::OnGameStep(const float delta)
 	{
-		for (auto i = Objects.begin(); i < Objects.begin() + ObjectCount; ++i)
+		for (auto i = SceneInstances.begin(); i < SceneInstances.begin() + ObjectCount; ++i)
 		{
 			Object* object = (*i);
 
