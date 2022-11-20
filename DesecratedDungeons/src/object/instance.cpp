@@ -47,7 +47,7 @@ namespace Desdun
 
 	void Instance::Deserialise(ByteFile& stream)
 	{
-
+		stream >> Name;
 
 		size_t ChildCount;
 		stream >> &ChildCount;

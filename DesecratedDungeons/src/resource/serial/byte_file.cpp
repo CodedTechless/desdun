@@ -5,33 +5,29 @@
 
 namespace Desdun
 {
-
-	ByteFile::~ByteFile()
+	
+	ByteOutputStream::ByteOutputStream(const std::string& name)
+		: m_Name(name)
 	{
-		if (InputStream.is_open() == true)
-			InputStream.close();
-
-		if (OutputStream.is_open() == true)
-			OutputStream.close();
+		m_Stream.open(name, std::ios_base::binary | std::ios_base::out);
 	}
 
-	void ByteFile::SetMode(Mode bufferMode)
+	ByteInputStream::ByteInputStream(const std::string& name)
+		: m_Name(name)
 	{
-		if (bufferMode == Mode::Write)
-		{
-			if (InputStream.is_open() == true)
-				InputStream.close();
-
-			if (OutputStream.is_open() == false)
-				OutputStream.open(Name, std::ios::binary | std::ios::out);
-		}
-		else if (bufferMode == Mode::Read)
-		{
-			if (OutputStream.is_open() == true)
-				OutputStream.close();
-
-			if (InputStream.is_open() == false)
-				InputStream.open(Name, std::ios::binary | std::ios::in);
-		}
+		m_Stream.open(name, std::ios_base::binary | std::ios_base::in);
 	}
+
+	ByteOutputStream::~ByteOutputStream()
+	{
+		if (m_Stream.is_open() == true)
+			m_Stream.close();
+	}
+
+	ByteInputStream::~ByteInputStream()
+	{
+		if (m_Stream.is_open() == true)
+			m_Stream.close();
+	}
+
 }

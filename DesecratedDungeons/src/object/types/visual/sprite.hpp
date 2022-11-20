@@ -33,17 +33,10 @@ namespace Desdun
 
 	private:
 
-		void Serialise(ByteFile& stream)
+		void Serialise(ByteFile& stream) const
 		{
-			if (SpriteImage)
-				stream << SpriteImage->GetPath();
-			else
-				stream | ByteFile::Type::Null;
-
-			if (SpriteShader)
-				stream << SpriteShader->GetPath();
-			else
-				stream | ByteFile::Type::Null;
+			stream << (SpriteImage ? SpriteImage->GetPath() : std::string(""));
+			stream << (SpriteShader ? SpriteShader->GetPath() : std::string(""));
 
 			stream << &Tint;
 			stream << &ZIndex;
@@ -54,13 +47,13 @@ namespace Desdun
 
 		void Deserialise(ByteFile& stream)
 		{
-			std::string imagePath;
+			std::string imagePath = "";
 			stream >> imagePath;
 
 			if (imagePath != "")
 				SpriteImage = Resource::Fetch<Image>(imagePath);
 
-			std::string shaderPath;
+			std::string shaderPath = "";
 			stream >> shaderPath;
 
 			if (shaderPath != "")
