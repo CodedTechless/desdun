@@ -2,9 +2,12 @@
 
 #include <object/types/object.h>
 
-using namespace Desdun;
-
-class TileMap : public Object
+namespace Desdun
 {
+	class TileMap : public Object
+	{
+	public:
+		RUNTIME_CLASS_DEF(TileMap);
 
-};
+	};
+}

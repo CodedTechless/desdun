@@ -9,19 +9,21 @@ an object but also sort of a wrapper class for RenderCamera
 
 using namespace Desdun;
 
-
-class Camera : public Object
+namespace Desdun
 {
-public:
+	class Camera : public Object
+	{
+	public:
+		RUNTIME_CLASS_DEF(Camera);
 
-	Camera() = default;
+		Camera() = default;
 
-	Mat4 GetProjectionTransform() const 
-	{ 
-		return m_RenderCamera.GetProjection() * glm::inverse(GetTransform());
+		Mat4 GetProjectionTransform() const
+		{
+			return m_RenderCamera.GetProjection() * glm::inverse(GetTransform());
+		};
+
+		RenderCamera m_RenderCamera{};
+
 	};
-
-	RenderCamera m_RenderCamera {};
-
-};
-
+}

@@ -3,10 +3,13 @@
 #include <glfw3.h>
 
 #include <app/debug/debug.h>
+#include <app/layers/game/game.h>
+
 #include <graphics/renderer.h>
 #include <resource/resource.hpp>
 
-#include <app/layers/game/game.h>
+#include <app/runtime_info.h>
+#include <object/index.hpp>
 
 #include "app.h"
 
@@ -20,7 +23,9 @@ namespace Desdun
 	{
 		AppObject = this;
 		
-		GameWindow = new Window("Desecrated Dungeons", { 800, 600 });
+        Runtime::Start();
+
+        GameWindow = new Window("Desecrated Dungeons", { 800, 600 });
         Renderer::Start();
 
         Layer* GameLayer = new Game("Game");

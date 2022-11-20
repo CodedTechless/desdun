@@ -21,6 +21,7 @@ namespace Desdun
 
 		LayerCollection GameLayers = {};
 		float GameSpeed = (1.f / 30.f);
+		float TimeScale = 1.f;
 
 		static Application* GetApplication() { return AppObject; };
 

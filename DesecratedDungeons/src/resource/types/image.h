@@ -38,8 +38,6 @@ namespace Desdun
 
 	private:
 
-		Enum::ResourceType Type = Enum::ResourceType::Image;
-
 		Vector2i Size = {};
 		uchar* Buffer = nullptr;
 

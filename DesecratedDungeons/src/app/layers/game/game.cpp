@@ -12,14 +12,16 @@ namespace Desdun
 	{
 		Debug::Log("beep!");
 
+		Runtime::Add<Actor>("Actor", Runtime::Get<Sprite>());
+
 		GameScene = new Scene();
 
-		auto* cam = GameScene->CreateObject<Camera>();
+		Camera* cam = GameScene->Create<Camera>();
 		cam->m_RenderCamera.SetOrthoSize({ 800, 600 });
 
 		GameScene->CurrentCamera = cam;
 
-		GameScene->CreateObject<Actor>();
+		GameScene->Create<Actor>();
 
 	}
 

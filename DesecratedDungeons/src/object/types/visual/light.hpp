@@ -2,9 +2,12 @@
 
 #include <object/types/object.h>
 
-using namespace Desdun;
-
-class Light : public Object
+namespace Desdun
 {
+	class Light : public Object
+	{
+	public:
+		RUNTIME_CLASS_DEF(Light);
 
-};
+	};
+}

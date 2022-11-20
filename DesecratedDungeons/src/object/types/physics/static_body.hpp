@@ -6,5 +6,6 @@ using namespace Desdun;
 
 class StaticBody : public Object
 {
-
+public:
+	RUNTIME_CLASS_DEF(StaticBody);
 };

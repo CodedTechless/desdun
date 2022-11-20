@@ -1,11 +1,33 @@
 
+#include <object/index.hpp>
 
 #include "runtime_info.h"
 
 namespace Desdun
 {
 
-	std::unordered_map<std::type_index, std::string> RuntimeInfo::Types = {};
-	std::unordered_map<std::string, std::function<Instance* ()>> RuntimeInfo::Constructors = {};
+	std::unordered_map<std::type_index, BaseRuntimeClass*> Runtime::TypeCollection = {};
+	std::unordered_map<std::string, BaseRuntimeClass*> Runtime::TypeNameIndexCollection = {};
 
+	void Runtime::Start()
+	{
+		Runtime::Add<Instance>("Instance");
+		{
+			Runtime::Add<Object>("Object", Runtime::Get<Instance>());
+			{
+				Runtime::Add<Sound>("Sound", Runtime::Get<Object>());
+
+				Runtime::Add<DynamicBody>("DynamicBody", Runtime::Get<Object>());
+				Runtime::Add<KinematicBody>("KinematicBody", Runtime::Get<Object>());
+				Runtime::Add<StaticBody>("StaticBody", Runtime::Get<Object>());
+
+				Runtime::Add<Animator>("Animator", Runtime::Get<Object>());
+				Runtime::Add<Camera>("Camera", Runtime::Get<Object>());
+				Runtime::Add<Light>("Light", Runtime::Get<Object>());
+				Runtime::Add<ParticleEmitter>("ParticleEmitter", Runtime::Get<Object>());
+				Runtime::Add<Sprite>("Sprite", Runtime::Get<Object>());
+				Runtime::Add<TileMap>("TileMap", Runtime::Get<Object>());
+			}
+		}
+	}
 }

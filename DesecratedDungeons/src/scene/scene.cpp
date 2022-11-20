@@ -7,32 +7,23 @@
 namespace Desdun
 {
 
-	Object* Scene::Instance(Model* model)
-	{
-		return nullptr;
-	}
-
 	void Scene::OnGameStep(const float delta)
 	{
-		for (auto i = SceneInstances.begin(); i < SceneInstances.begin() + ObjectCount; ++i)
+		for (Object* object : SceneObjects)
 		{
-			Object* object = (*i);
-
 			object->LastPosition = object->Position;
 			object->LastScale = object->Scale;
 			object->LastRotation = object->Rotation;
 		}
 
-		for (auto i = Objects.begin(); i < Objects.begin() + ObjectCount; ++i)
+		for (Instance* instance : SceneInstances)
 		{
-			Object* object = (*i);
-
-			if (object->Active == false)
+			if (instance->Active == false)
 			{
-				object->Active = true;
+				instance->Active = true;
 			}
 
-			object->OnGameStep(delta);
+			instance->OnGameStep(delta);
 		}
 	}
 
@@ -42,13 +33,11 @@ namespace Desdun
 
 		Renderer::BeginScene(CurrentCamera->m_RenderCamera, CurrentCamera->GetProjectionTransform());
 
-		for (auto i = Objects.begin(); i < Objects.begin() + ObjectCount; ++i)
+		for (Instance* instance : SceneInstances)
 		{
-			Object* object = (*i);
-
-			if (object->Visible && object->Active)
+			if (instance->Active)
 			{
-				object->OnFrameUpdate(delta);
+				instance->OnFrameUpdate(delta);
 			}
 		}
 
@@ -59,10 +48,9 @@ namespace Desdun
 	{
 		Input::Filter filter = Input::Filter::Ignore;
 
-		for (auto i = Objects.begin(); i < Objects.begin() + ObjectCount; ++i)
+		for (Instance* instance : SceneInstances)
 		{
-			Object* object = (*i);
-			auto res = object->OnInputEvent(inputObject, processed);
+			auto res = instance->OnInputEvent(inputObject, processed);
 			
 			if (res == Input::Filter::Stop)
 			{
@@ -81,10 +69,9 @@ namespace Desdun
 
 	void Scene::OnWindowEvent(WindowEvent windowEvent)
 	{
-		for (auto i = Objects.begin(); i < Objects.begin() + ObjectCount; ++i)
+		for (Instance* instance : SceneInstances)
 		{
-			Object* object = (*i);
-			object->OnWindowEvent(windowEvent);
+			instance->OnWindowEvent(windowEvent);
 		}
 	}
 

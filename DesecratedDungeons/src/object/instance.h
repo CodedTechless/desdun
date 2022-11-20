@@ -1,16 +1,17 @@
 #pragma once
 
-#define CLASS_DEF(v, n) \
-	std::string GetClassName() const { return #v; };	\
-	constexpr uint GetClassID() const { return n; };	\
-
 #include <app/app.h>
 #include <app/input/input.h>
 #include <app/input/event.h>
 
 #include <resource/serial/byte_file.h>
 
+#include <app/runtime_info.h>
+
 #include <libraries.hpp>
+
+#define RUNTIME_CLASS_DEF(x) \
+	std::type_index GetClassIndex() const override { return typeid(x); } \
 
 namespace Desdun
 {
@@ -20,10 +21,12 @@ namespace Desdun
 	class Instance
 	{
 	public:
-		std::string Name = "Instance";
+		Instance() = default;
+		~Instance();
 
-		virtual std::string GetClassName() const { return "Instance"; };
-		virtual constexpr uint GetClassID() const { return 0; };
+		virtual std::type_index GetClassIndex() const { return typeid(Instance); };
+
+		std::string Name = "Instance";
 
 		virtual void OnAwake() {};
 		virtual void OnDestroyed() {};
@@ -39,7 +42,34 @@ namespace Desdun
 		void SetParent(Instance* object);
 
 		Instance* FindChild(const std::string& name) const;
+
+		template<typename T>
+		T* FindAncestor() const
+		{
+			Instance* next = GetParent();
+
+			while (next != nullptr && next->IsA<T>() == false)
+			{
+				next = next->GetParent();
+			}
+
+			if (next == nullptr)
+			{
+				return nullptr;
+			}
+			else
+			{
+				return (T*)next;
+			}
+		}
+
 		void SaveToFile(const std::string& path) const;
+
+		template<typename T>
+		bool IsA() const
+		{
+			return Runtime::Get(GetClassIndex())->IsA<T>();
+		}
 
 		// Subclass
 

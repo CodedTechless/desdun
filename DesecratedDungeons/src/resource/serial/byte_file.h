@@ -8,9 +8,6 @@
 
 namespace Desdun
 {
-
-	
-
 	class ByteFile
 	{
 	public:
@@ -19,46 +16,96 @@ namespace Desdun
 
 		~ByteFile();
 
+		enum class Type
+		{
+			Null,
+			Int,
+			Double,
+			Bool,
+			String
+		};
+
 		enum class Mode
 		{
 			Read,
 			Write
 		};
 
-		template<typename T>
-		void operator<<(T* source) 
-		{ 
-			write(source); 
+		// Write
+
+		void operator|(Type special)
+		{
+			char identity = (char)special;
+			write_from(&identity);
 		};
 
-		template<typename T>
-		void operator<<(T val)
+		void operator<<(int64_t source) 
 		{
-			write(&val);
+			char identity = (char)Type::Int;
+			write_from(&identity);
+			write_from(&source);
+		}
+
+		void operator<<(double_t source)
+		{
+			char identity = (char)Type::Double;
+			write_from(&identity);
+			write_from(&source);
 		};
+
+		void operator<<(bool source)
+		{
+			char identity = (char)Type::Bool;
+			write_from(&identity);
+			write_from(&source);
+		};
+
+		void operator<<(const std::string& source)
+		{
+			char identity = (char)Type::String;
+			write_from(&identity);
+
+			size_t len = source.size();
+			const char* arr = source.c_str();
+
+			write_from(&len);
+
+			if (len > 0)
+			{
+				write_from(arr, len);
+			}
+		};
+
+		void operator<<(int32_t source) { operator<<(static_cast<int64_t>(source)); };
+		void operator<<(int16_t source) { operator<<(static_cast<int64_t>(source)); };
+		void operator<<(int8_t source) { operator<<(static_cast<int64_t>(source)); };
+
+		void operator<<(uint64_t source) { operator<<(static_cast<int64_t>(source)); };
+		void operator<<(uint32_t source) { operator<<(static_cast<int64_t>(source)); };
+		void operator<<(uint16_t source) { operator<<(static_cast<int64_t>(source)); };
+		void operator<<(uint8_t source) { operator<<(static_cast<int64_t>(source)); };
+
+		void operator<<(float_t source) { operator<<(static_cast<double_t>(source)); };
+
+		// Read
 
 		template<typename T>
 		void operator>>(T* destination) 
 		{ 
-			read_to(destination); 
+			// if we're doing an explicit read, we skip the type id. this is dangerous!!
+			SetMode(ByteFile::Mode::Read);
+			
+			InputStream.seekg(1, std::ios_base::cur);
+			read_to(destination);
 		};
-
-		void operator<<(const std::string& val)
-		{
-			size_t len = val.size();
-			const char* arr = val.c_str();
-
-			write(&len);
-
-			if (len > 0)
-				write(arr, len);
-		}
 
 		void operator>>(std::string& destination)
 		{
-			size_t len;
-			read_to(&len);
+			SetMode(ByteFile::Mode::Read);
 
+			InputStream.seekg(1, std::ios_base::cur);
+
+			size_t len = read<size_t>();
 			if (len > 0)
 			{
 				char* arr = new char[len]();
@@ -69,13 +116,39 @@ namespace Desdun
 		}
 
 		template<typename T>
-		void write(T* buffer, size_t count = 1)
+		T&& read()
+		{
+			SetMode(ByteFile::Mode::Read);
+
+			T newObject;
+			InputStream.read((char*)&newObject, sizeof(T));
+
+			return std::move(newObject);
+		}
+
+		bool next_is(Type type)
+		{
+			SetMode(ByteFile::Mode::Read);
+
+			int next = read<char>();
+			InputStream.seekg(-1, std::ios_base::cur);
+
+			return type == (Type)next;
+		}
+
+	private:
+
+		template<typename T>
+		void write_from(T* buffer, size_t count = 1)
 		{
 			SetMode(ByteFile::Mode::Write);
 
 			OutputStream.write((char*)buffer, sizeof(T) * count);
 		}
 
+		/*
+			reads from file to a destination buffer for sizeof(T) x count
+		*/
 		template<typename T>
 		void read_to(T* destination, size_t count = 1)
 		{
@@ -84,7 +157,7 @@ namespace Desdun
 			InputStream.read((char*)destination, sizeof(T) * count);
 		}
 
-	private:
+
 
 		std::string Name;
 

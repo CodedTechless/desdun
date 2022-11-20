@@ -16,7 +16,7 @@ namespace Desdun
 
 	private:
 
-		Object* m_ModelObject = nullptr;
+		Instance* m_Model = nullptr;
 	};
 
 

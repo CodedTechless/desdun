@@ -1,4 +1,5 @@
 
+#include <app/runtime_info.h>
 
 #include "instance.h"
 
@@ -26,7 +27,7 @@ namespace Desdun
 	{
 		ByteFile stream(path);
 
-		stream << GetClassName();
+		stream << Runtime::Get(GetClassIndex())->GetTypeName();
 
 		Serialise(stream);
 	}
@@ -39,7 +40,7 @@ namespace Desdun
 
 		for (Instance* child : GetChildren())
 		{
-			stream << child->GetClassName();
+			stream << Runtime::Get(child->GetClassIndex())->GetTypeName();
 			child->Serialise(stream);
 		}
 	}
@@ -56,7 +57,7 @@ namespace Desdun
 			std::string ClassID;
 			stream >> ClassID;
 
-			Instance* object = CreateObjectByName(ClassID);
+			Instance* object = Runtime::Get(ClassID)->New();
 			m_Relation.m_Container.push_back(object);
 
 			object->Deserialise(stream);

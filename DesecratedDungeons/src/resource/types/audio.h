@@ -4,7 +4,6 @@
 
 namespace Desdun
 {
-
 	class Audio : public Resource
 	{
 	public:
@@ -12,11 +11,5 @@ namespace Desdun
 		~Audio();
 
 		void Load(const std::string& path);
-
-	private:
-
-		Enum::ResourceType Type = Enum::ResourceType::Audio;
 	};
-
-
 }

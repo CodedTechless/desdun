@@ -9,6 +9,6 @@ using namespace Desdun;
 class KinematicBody : public Object
 {
 public:
-	CLASS_DEF("KinematicBody");
+	RUNTIME_CLASS_DEF(KinematicBody);
 
 };

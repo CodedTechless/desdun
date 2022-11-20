@@ -8,8 +8,6 @@
 #include <uuid.hpp>
 #include <libraries.hpp>
 
-
-
 namespace Desdun
 {
 
@@ -27,36 +25,31 @@ namespace Desdun
 		Input::Filter OnInputEvent(InputEvent InputObject, bool Processed);
 		void OnWindowEvent(WindowEvent windowEvent);
 
-		Object* Instance(Model* model);
+//		Instance* Instantiate(Model* model);
 
 		template<typename T>
-		T* CreateObject()
+		T* Create()
 		{
-			std::string NewID = UUID::Generate();
+			T* instance = new T();
+			instance->m_ActiveScene = this;
+			instance->ID = UUID::Generate();
 
-			T* NewObject = new T();
-			NewObject->m_ActiveScene = this;
-			NewObject->ID = NewID;
+			SceneInstances.push_back((Instance*)instance);
 
-			Objects[ObjectCount++] = (Object*)NewObject;
+			if (Runtime::Get<T>()->IsA<Object>())
+			{
+				SceneObjects.push_back((Object*)instance);
+			}
 
-			NewObject->OnAwake();
+			instance->OnAwake();
 
-			return NewObject;
+			return instance;
 		}
-
-		template<typename T>
-		T* CloneObject(T* objectToClone)
-		{
-
-		};
 
 	private:
 
-
-
-		std::array<Instance*, MAX_OBJECTS> SceneInstances = {};
-		uint ObjectCount = 0;
+		std::vector<Instance*> SceneInstances = {};
+		std::vector<Object*> SceneObjects = {};
 
 	};
 

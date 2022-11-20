@@ -5,21 +5,8 @@
 
 namespace Desdun
 {
-
-	namespace Enum
-	{
-		enum class ResourceType
-		{
-			None = 0,
-			Image = 1,
-			Audio = 2,
-			Shader = 3
-		};
-	}
-
 	class Resource;
-
-	using ResourceMap = std::unordered_map<std::string, std::unordered_map<std::string, Resource*>>;
+	using ResourceMap = std::unordered_map<std::type_index, std::unordered_map<std::string, Resource*>>;
 
 	class Resource
 	{
@@ -31,6 +18,8 @@ namespace Desdun
 
 		std::string GetPath() const { return Path; };
 
+		// Static fetch function for resources
+		
 		template<typename T>
 		static T* Fetch(const std::string& path)
 		{
@@ -38,28 +27,30 @@ namespace Desdun
 
 			if (!fs::exists(Location))
 			{
-				Debug::Error("No such resource as '" + path + "'!");
-				return nullptr;
+				throw Exception("Resource " + Location.generic_string() + " does not exist!");
 			}
 
-			std::string Name = Location.generic_string();
-			std::string Type = (std::string)typeid(T).name();
+			std::type_index Type = typeid(T);
+			std::string PathString = Location.generic_string();
+			std::string Name = Type.name();
 
 			auto it = Resources[Type].find(Name);
 			if (it != Resources[Type].end())
 			{
-				Debug::Log("Found cached resource for " + Type + " " + Name);
+				Debug::Log("Found cached resource for " + std::string(Type.name()) + " " + PathString);
 				return (T*)it->second;
 			}
+			else
+			{
+				T* NewResource = new T();
+				NewResource->Load(path);
 
-			T* NewResource = new T();
-			NewResource->Load(path);
+				Debug::Log("Loaded " + std::string(Type.name()) + " " + Name);
 
-			Debug::Log("Loaded " + std::string(Type) + " " + Name);
+				Resources[Type][Name] = NewResource;
 
-			Resources[Type][Name] = NewResource;
-
-			return NewResource;
+				return NewResource;
+			}
 		}
 
 	protected:

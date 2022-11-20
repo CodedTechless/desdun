@@ -1,6 +1,10 @@
 
 #include <scene/scene.h>
 
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/matrix_interpolation.hpp>
+#include <glm/gtx/compatibility.hpp>
+
 #include "object.h"
 
 namespace Desdun
@@ -65,13 +69,19 @@ namespace Desdun
 			* glm::rotate(Mat4(1.f), rot, Vector3(0.f, 0.f, 1.f))
 			* glm::scale(Mat4(1.f), Vector3(scale, 1.f));
 
-		Instance* Next = GetParent();
-
-
-
 		if (GetParent() != nullptr)
 		{
-			frame = GetParent()->GetInterpTransform() * frame;
+			Instance* localSpaceParent = GetParent();
+
+			if (localSpaceParent->IsA<Object>() == false)
+			{
+				localSpaceParent = FindAncestor<Object>();
+			}
+
+			if (localSpaceParent != nullptr)
+			{
+				frame = ((Object*)localSpaceParent)->GetInterpTransform() * frame;
+			}
 		}
 
 		return frame;
@@ -90,7 +100,17 @@ namespace Desdun
 
 		if (GetParent() != nullptr)
 		{
-			transform = GetParent()->GetGlobalTransform() * transform;
+			Instance* localSpaceParent = GetParent();
+
+			if (localSpaceParent->IsA<Object>() == false)
+			{
+				localSpaceParent = FindAncestor<Object>();
+			}
+
+			if (localSpaceParent != nullptr)
+			{
+				transform = ((Object*)localSpaceParent)->GetTransform() * transform;
+			}
 		}
 
 		return transform;

@@ -7,20 +7,13 @@
 #include <object/instance.h>
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/matrix_interpolation.hpp>
-#include <glm/gtx/compatibility.hpp>
-
-#include <libraries.hpp>
 
 namespace Desdun
 {
-
-	class Scene;
-
 	class Object : public Instance
 	{
 	public:
+		RUNTIME_CLASS_DEF(Object);
 
 		// Properties
 
@@ -32,13 +25,6 @@ namespace Desdun
 
 		bool Visible = true;
 		bool Interpolate = true;
-
-		Object() = default;
-		Object(Object&&) = delete;
-
-		~Object();
-
-		// Virtuals
 
 		// Transforms
 
@@ -59,6 +45,7 @@ namespace Desdun
 		Vector2 LastScale = Scale;
 		float LastRotation = Rotation;
 
-	};
+		friend class Scene;
 
+	};
 }
