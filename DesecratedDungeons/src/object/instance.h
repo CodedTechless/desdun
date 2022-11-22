@@ -105,8 +105,8 @@ namespace Desdun
 
 	protected:
 
-		virtual void Serialise(ByteFile& stream) const;
-		virtual void Deserialise(ByteFile& stream);
+		virtual friend void Serialise(ByteStream& stream) const;
+		virtual friend void Deserialise(ByteStream& stream);
 
 	private:
 

@@ -16,6 +16,7 @@
 
 #include <unordered_map>
 #include <vector>
+#include <stack>
 #include <array>
 #include <algorithm>
 
@@ -44,23 +45,23 @@ namespace Desdun
 
 	using FLAG = bool;
 
-	using uint = unsigned int;
-	using uchar = unsigned char;
+	using uint = uint64_t;
+	using uchar = uint8_t;
 
-	using Vector2 = glm::vec<2, float>;
-	using Vector3 = glm::vec<3, float>;
-	using Vector4 = glm::vec<4, float>;
+	using Vector2 = glm::vec<2, double_t>;
+	using Vector3 = glm::vec<3, double_t>;
+	using Vector4 = glm::vec<4, double_t>;
 
-	using Vector2i = glm::vec<2, int>;
-	using Vector3i = glm::vec<3, int>;
-	using Vector4i = glm::vec<4, int>;
+	using Vector2i = glm::vec<2, int64_t>;
+	using Vector3i = glm::vec<3, int64_t>;
+	using Vector4i = glm::vec<4, int64_t>;
 
-	using Vector2u = glm::vec<2, uint>;
-	using Vector3u = glm::vec<3, uint>;
-	using Vector4u = glm::vec<4, uint>;
+	using Vector2u = glm::vec<2, uint64_t>;
+	using Vector3u = glm::vec<3, uint64_t>;
+	using Vector4u = glm::vec<4, uint64_t>;
 
-	using Color4 = glm::vec<4, float>;
-	using Mat4 = glm::mat<4, 4, glm::f32, glm::defaultp>;
+	using Color4 = glm::vec<4, double>;
+	using Mat4 = glm::mat<4, 4, glm::f64, glm::defaultp>;
 
 	template <typename T>
 	using ptr = std::shared_ptr<T>;
