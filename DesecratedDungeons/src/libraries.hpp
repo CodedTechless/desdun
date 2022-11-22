@@ -47,6 +47,9 @@ namespace Desdun
 
 	using uint = uint64_t;
 	using uchar = uint8_t;
+	using byte = unsigned char;
+
+	using String = std::wstring;
 
 	using Vector2 = glm::vec<2, double_t>;
 	using Vector3 = glm::vec<3, double_t>;
