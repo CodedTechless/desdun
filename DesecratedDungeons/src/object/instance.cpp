@@ -1,5 +1,6 @@
 
 #include <app/runtime_info.h>
+#include <resource/serial/json_stream.h>
 
 #include "instance.h"
 
@@ -7,7 +8,7 @@ namespace Desdun
 {
 	Instance::~Instance()
 	{
-		if (Active)
+		if (m_Active)
 		{
 			OnDestroyed();
 		}
@@ -25,27 +26,43 @@ namespace Desdun
 
 	void Instance::SaveToFile(const std::string& path) const
 	{
-		ByteFile stream(path);
+		JSONStream stream;
+		stream << this;
 
-		stream << Runtime::Get(GetClassIndex())->GetTypeName();
-
-		Serialise(stream);
+		std::ofstream filestream(path);
+		stream >> filestream;
+		
+		filestream.close();
 	}
 
-	void Instance::Serialise(ByteFile& stream) const
+	void Instance::Serialise(JSONObject& object) const
 	{
-		stream << Name;
+		object["Name"] = Name;
 
-		stream << GetChildren().size();
+	};
+
+	void Instance::Deserialise(const JSONObject& object)
+	{
+		
+	};
+
+#if 0
+	void Instance::Serialise(ByteObject& object) const
+	{
+		object << Name;
+
+		object << GetChildren().size();
 
 		for (Instance* child : GetChildren())
 		{
-			stream << Runtime::Get(child->GetClassIndex())->GetTypeName();
+			object << child;
+				
+				/*Runtime::Get(child->GetClassIndex())->GetTypeName();
 			child->Serialise(stream);
-		}
+		*/}
 	}
 
-	void Instance::Deserialise(ByteFile& stream)
+	void Instance::Deserialise(ByteObject& stream)
 	{
 		stream >> Name;
 
@@ -63,12 +80,13 @@ namespace Desdun
 			object->Deserialise(stream);
 		}
 	}
+#endif
 
 	void Instance::RemoveChild(Instance* instance)
 	{
 		for (auto it = m_Relation.m_Container.begin(); it != m_Relation.m_Container.end(); ++it)
 		{
-			if ((*it)->ID == instance->ID)
+			if ((*it)->m_ID == instance->m_ID)
 			{
 				m_Relation.m_Container.erase(it);
 				break;

@@ -108,7 +108,7 @@
     <ClCompile Include="src\resource\types\model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\resource\serial\byte_file.cpp">
+    <ClCompile Include="src\resource\serial\byte_stream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\object\instance.cpp">
@@ -1121,7 +1121,7 @@
     <ClInclude Include="src\resource\types\model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\resource\serial\byte_file.h">
+    <ClInclude Include="src\resource\serial\byte_stream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dependencies\frozen\bits\algorithms.h">

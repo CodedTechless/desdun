@@ -4,7 +4,7 @@
 #include <app/input/input.h>
 #include <app/input/event.h>
 
-#include <resource/serial/byte_file.h>
+//#include <resource/serial/byte_stream.h>
 
 #include <app/runtime_info.h>
 
@@ -24,7 +24,22 @@ namespace Desdun
 		Instance() = default;
 		~Instance();
 
-		virtual std::type_index GetClassIndex() const { return typeid(Instance); };
+		struct HierarchyMember
+		{
+			HierarchyMember() = default;
+			HierarchyMember(const HierarchyMember&) {};
+
+			HierarchyMember& operator=(const HierarchyMember&)
+			{
+				return *this;
+			};
+
+		private:
+			Instance* m_Parent = nullptr;
+			std::vector<Instance*> m_Container = {};
+
+			friend class Instance;
+		};
 
 		std::string Name = "Instance";
 
@@ -37,8 +52,11 @@ namespace Desdun
 		virtual Input::Filter OnInputEvent(InputEvent input, bool processed) { return Input::Filter::Ignore; };
 		virtual void OnWindowEvent(WindowEvent window) {};
 
+		virtual std::type_index GetClassIndex() const { return typeid(Instance); };
+
 		// Object operations
 
+		void SaveToFile(const std::string& path) const;
 		void SetParent(Instance* object);
 
 		Instance* FindChild(const std::string& name) const;
@@ -63,38 +81,15 @@ namespace Desdun
 			}
 		}
 
-		void SaveToFile(const std::string& path) const;
-
 		template<typename T>
 		bool IsA() const
 		{
 			return Runtime::Get(GetClassIndex())->IsA<T>();
 		}
 
-		// Subclass
-
-		struct HierarchyMember
-		{
-			HierarchyMember() = default;
-			HierarchyMember(const HierarchyMember&) {};
-
-			HierarchyMember& operator=(const HierarchyMember&)
-			{
-				return *this;
-			};
-
-		private:
-
-			Instance* m_Parent = nullptr;
-			std::vector<Instance*> m_Container = {};
-
-			friend class Instance;
-
-		};
-
 		// Getters
 
-		std::string GetInstanceID() const { return ID; };
+		std::string GetInstanceID() const { return m_ID; };
 		Scene* GetScene() const { return m_ActiveScene; };
 
 		const std::vector<Instance*>& GetChildren() const { return m_Relation.m_Container; };
@@ -105,26 +100,28 @@ namespace Desdun
 
 	protected:
 
-		virtual friend void Serialise(ByteStream& stream) const;
-		virtual friend void Deserialise(ByteStream& stream);
+#if 0
+		virtual void Serialise(ByteObject& object) const;
+		virtual void Deserialise(ByteObject& object);
+#endif
+
+		virtual void Serialise(JSONObject& object) const;
+		virtual void Deserialise(const JSONObject& object);
 
 	private:
 
+		void RemoveChild(Instance* instance);
+
 		// Game
 
-		bool Active = false;
-
-		std::string ID;
-		Scene* m_ActiveScene = nullptr;
-
+		std::string m_ID;
 		HierarchyMember m_Relation = {};
-
-		// Children
-
-		void RemoveChild(Instance* instance);
+		
+		Scene* m_ActiveScene = nullptr;
+		bool m_Active = false;
 
 		friend class Scene;
 		friend class Model;
-
+		friend class JSONStream;
 	};
 }

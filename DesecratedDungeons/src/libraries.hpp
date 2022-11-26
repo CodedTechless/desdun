@@ -11,6 +11,7 @@
 #include <time.h>
 
 #include <iostream>
+#include <fstream>
 #include <filesystem>
 #include <string>
 
@@ -19,22 +20,23 @@
 #include <stack>
 #include <array>
 #include <algorithm>
-
 #include <typeindex>
-
-#include <fstream>
-
 #include <functional>
 
 #include <app/debug/debug.h>
+
+#include <json/json.hpp>
 #include <glm/glm.hpp>
 
 #define MAX_INSTANCES 4196
 
 namespace fs = std::filesystem;
 
+
 namespace Desdun
 {
+
+	using json = nlohmann::json;
 
 	class Exception : public std::exception
 	{

@@ -33,6 +33,7 @@ namespace Desdun
 
 	private:
 
+#if 0
 		void Serialise(ByteFile& stream) const
 		{
 			stream << (SpriteImage ? SpriteImage->GetPath() : std::string(""));
@@ -65,6 +66,7 @@ namespace Desdun
 
 			Object::Deserialise(stream);
 		}
+#endif
 
 	};
 }

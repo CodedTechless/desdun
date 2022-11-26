@@ -34,8 +34,10 @@ namespace Desdun
 
 	protected:
 
+#if 0
 		void Serialise(ByteFile& stream) const;
 		void Deserialise(ByteFile& stream);
+#endif
 
 	private:
 
