@@ -12,18 +12,16 @@ namespace Desdun
 		RUNTIME_CLASS_DEF(Sprite);
 
 		Image* SpriteImage = nullptr;
-		Color4 Tint = { 1.f, 1.f, 1.f, 1.f };
-
 		Shader* SpriteShader = nullptr;
 
-		float ZIndex = 0;
+		Color4 Tint = { 1.0, 1.0, 1.0, 1.0 };
 
 		ImageBounds SpriteBounds = {
 			{ 0.f, 0.f },
 			{ 1.f, 1.f }
 		};
 
-		void OnFrameUpdate(const float delta) override
+		void OnFrameUpdate(const double_t delta) override
 		{
 			Mat4 transform = GetInterpTransform()
 				* glm::scale(Mat4(1.f), Vector3(Vector2(SpriteImage->GetSize()), 1.f));

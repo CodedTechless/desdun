@@ -3,10 +3,10 @@
 #include <app/app.h>
 #include <app/input/input.h>
 #include <app/input/event.h>
+#include <app/runtime_info.h>
 
 //#include <resource/serial/byte_stream.h>
-
-#include <app/runtime_info.h>
+#include <resource/serial/json_stream.h>
 
 #include <libraries.hpp>
 
@@ -41,13 +41,13 @@ namespace Desdun
 			friend class Instance;
 		};
 
-		std::string Name = "Instance";
+		string Name = L"Instance";
 
 		virtual void OnAwake() {};
 		virtual void OnDestroyed() {};
 
-		virtual void OnGameStep(const float Delta) {};
-		virtual void OnFrameUpdate(const float Delta) {};
+		virtual void OnGameStep(const double_t Delta) {};
+		virtual void OnFrameUpdate(const double_t Delta) {};
 
 		virtual Input::Filter OnInputEvent(InputEvent input, bool processed) { return Input::Filter::Ignore; };
 		virtual void OnWindowEvent(WindowEvent window) {};
@@ -56,10 +56,10 @@ namespace Desdun
 
 		// Object operations
 
-		void SaveToFile(const std::string& path) const;
+		void SaveToFile(const string& path) const;
 		void SetParent(Instance* object);
 
-		Instance* FindChild(const std::string& name) const;
+		Instance* FindChild(const string& name) const;
 
 		template<typename T>
 		T* FindAncestor() const
@@ -89,14 +89,14 @@ namespace Desdun
 
 		// Getters
 
-		std::string GetInstanceID() const { return m_ID; };
+		string GetInstanceID() const { return m_ID; };
 		Scene* GetScene() const { return m_ActiveScene; };
 
 		const std::vector<Instance*>& GetChildren() const { return m_Relation.m_Container; };
 		Instance* GetParent() const { return m_Relation.m_Parent; };
 
 		Instance* operator[](uint idx) const { return m_Relation.m_Container[idx]; };
-		Instance* operator[](const std::string& name) const { return FindChild(name); };
+		Instance* operator[](const string& name) const { return FindChild(name); };
 
 	protected:
 
@@ -114,7 +114,7 @@ namespace Desdun
 
 		// Game
 
-		std::string m_ID;
+		string m_ID;
 		HierarchyMember m_Relation = {};
 		
 		Scene* m_ActiveScene = nullptr;

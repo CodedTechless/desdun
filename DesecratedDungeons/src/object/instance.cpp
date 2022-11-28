@@ -24,10 +24,9 @@ namespace Desdun
 		}
 	}
 
-	void Instance::SaveToFile(const std::string& path) const
+	void Instance::SaveToFile(const string& path) const
 	{
-		JSONStream stream;
-		stream << this;
+		JSONStream stream(this);
 
 		std::ofstream filestream(path);
 		stream >> filestream;
@@ -38,7 +37,12 @@ namespace Desdun
 	void Instance::Serialise(JSONObject& object) const
 	{
 		object["Name"] = Name;
+		object["Children"] = json::array();
 
+		for (Instance* child : GetChildren())
+		{
+			object["Children"].push_back(object.getReferenceID(child));
+		}
 	};
 
 	void Instance::Deserialise(const JSONObject& object)
@@ -94,7 +98,7 @@ namespace Desdun
 		}
 	}
 
-	Instance* Instance::FindChild(const std::string& name) const
+	Instance* Instance::FindChild(const string& name) const
 	{
 		for (auto instance : GetChildren())
 		{

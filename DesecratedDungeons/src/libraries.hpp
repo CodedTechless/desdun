@@ -31,12 +31,71 @@
 #define MAX_INSTANCES 4196
 
 namespace fs = std::filesystem;
+using json = nlohmann::json;
 
+namespace glm
+{
+
+	void to_json(json& jsonObject, const glm::vec2& vec)
+	{
+		jsonObject = {
+			{ "x", vec.x },
+			{ "y", vec.y }
+		};
+	};
+
+	void to_json(json& jsonObject, const glm::vec3& vec)
+	{
+		jsonObject = {
+			{ "x", vec.x },
+			{ "y", vec.y },
+			{ "z", vec.z }
+		};
+	};
+
+	void to_json(json& jsonObject, const glm::vec4& vec)
+	{
+		jsonObject = {
+			{ "x", vec.x },
+			{ "y", vec.y },
+			{ "z", vec.z },
+			{ "w", vec.w }
+		};
+	};
+
+	void from_json(const json& j, glm::vec2& vec)
+	{
+		vec = glm::vec2(
+			j.at("x"), 
+			j.at("y")
+		);
+	};
+
+	void from_json(const json& j, glm::vec3& vec)
+	{
+		vec = glm::vec3(
+			j.at("x"), 
+			j.at("y"),
+			j.at("z")
+		);
+	};
+
+	void from_json(const json& j, glm::vec4& vec)
+	{
+		vec = glm::vec4(
+			j.at("x"), 
+			j.at("y"),
+			j.at("z"),
+			j.at("w")
+		);
+	};
+
+}
 
 namespace Desdun
 {
 
-	using json = nlohmann::json;
+	
 
 	class Exception : public std::exception
 	{
@@ -51,7 +110,7 @@ namespace Desdun
 	using uchar = uint8_t;
 	using byte = unsigned char;
 
-	using String = std::wstring;
+	using string = std::wstring;
 
 	using Vector2 = glm::vec<2, double_t>;
 	using Vector3 = glm::vec<3, double_t>;
@@ -65,7 +124,7 @@ namespace Desdun
 	using Vector3u = glm::vec<3, uint64_t>;
 	using Vector4u = glm::vec<4, uint64_t>;
 
-	using Color4 = glm::vec<4, double>;
+	using Color4 = Vector4;
 	using Mat4 = glm::mat<4, 4, glm::f64, glm::defaultp>;
 
 	template <typename T>

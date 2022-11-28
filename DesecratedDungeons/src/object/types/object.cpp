@@ -10,6 +10,7 @@
 namespace Desdun
 {
 
+#if 0
 	void Object::Serialise(ByteFile& stream) const
 	{
 		stream << &Position;
@@ -38,6 +39,27 @@ namespace Desdun
 		Instance::Deserialise(stream);
 	}
 
+#endif
+
+	void Object::Serialise(JSONObject& object) const
+	{
+		object["Position"] = Position;
+		object["Scale"] = Scale;
+		object["Rotation"] = Rotation;
+
+		object["ZIndex"] = ZIndex;
+		object["Visible"] = Visible;
+
+		object["Interpolate"] = Interpolate;
+
+		Instance::Serialise(object);
+	}
+
+	void Object::Deserialise(const JSONObject& object)
+	{
+
+	}
+
 	/*
 		breaks down the transform into its components, then reconstructs it as an interpolation of Last[component] and [component]
 	*/
@@ -48,19 +70,19 @@ namespace Desdun
 			return GetGlobalTransform();
 		}
 
-		float alpha = Application::GetApplication()->GetInterpolationFraction();
+		double_t alpha = Application::GetApplication()->GetInterpolationFraction();
 
 		// scale
 		Vector2 scale = glm::lerp(LastScale, Scale, alpha);
 
 		// rotation
-		float rad = glm::radians(Rotation);
-		float lastrad = glm::radians(LastRotation);
+		double_t rad = glm::radians(Rotation);
+		double_t lastrad = glm::radians(LastRotation);
 
-		float max = PI * 2.f;
-		float da = std::fmod(rad - lastrad, max);
+		double_t max = PI * 2.f;
+		double_t da = std::fmod(rad - lastrad, max);
 
-		float rot = lastrad + (std::fmod(2 * da, max) - da) * alpha;
+		double_t rot = lastrad + (std::fmod(2 * da, max) - da) * alpha;
 
 		// position
 		Vector2 pos = glm::lerp(LastPosition, Position, alpha) * scale;

@@ -17,11 +17,11 @@ namespace Desdun
 
 		// Properties
 
-		Vector2 Position = { 0.f, 0.f };
-		Vector2 Scale = { 1.f, 1.f };
-		float Rotation = 0.f;
+		Vector2 Position = { 0.0, 0.0 };
+		Vector2 Scale = { 1.0, 1.0 };
+		double_t Rotation = 0.0;
 
-		float ZIndex = 0.f;
+		double_t ZIndex = 0.0;
 
 		bool Visible = true;
 		bool Interpolate = true;
@@ -39,13 +39,16 @@ namespace Desdun
 		void Deserialise(ByteFile& stream);
 #endif
 
+		void Serialise(JSONObject& object) const;
+		void Deserialise(const JSONObject& object);
+
 	private:
 
 		// Transforms
 
 		Vector2 LastPosition = Position;
 		Vector2 LastScale = Scale;
-		float LastRotation = Rotation;
+		double_t LastRotation = Rotation;
 
 		friend class Scene;
 
