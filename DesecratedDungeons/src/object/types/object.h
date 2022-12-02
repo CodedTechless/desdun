@@ -17,20 +17,20 @@ namespace Desdun
 
 		// Properties
 
-		Vector2 Position = { 0.0, 0.0 };
-		Vector2 Scale = { 1.0, 1.0 };
-		double_t Rotation = 0.0;
+		Vector2f Position = { 0.0, 0.0 };
+		Vector2f Scale = { 1.0, 1.0 };
+		float_t Rotation = 0.0;
 
-		double_t ZIndex = 0.0;
+		float_t ZIndex = 0.0;
 
 		bool Visible = true;
 		bool Interpolate = true;
 
 		// Transforms
 
-		Mat4 GetInterpTransform() const;
-		Mat4 GetTransform() const;
-		Mat4 GetGlobalTransform() const;
+		Mat4f GetInterpTransform() const;
+		Mat4f GetTransform() const;
+		Mat4f GetGlobalTransform() const;
 
 	protected:
 
@@ -46,9 +46,9 @@ namespace Desdun
 
 		// Transforms
 
-		Vector2 LastPosition = Position;
-		Vector2 LastScale = Scale;
-		double_t LastRotation = Rotation;
+		Vector2f LastPosition = Position;
+		Vector2f LastScale = Scale;
+		float_t LastRotation = Rotation;
 
 		friend class Scene;
 

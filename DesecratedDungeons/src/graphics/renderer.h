@@ -22,25 +22,42 @@ namespace Desdun
 	// to-do: make it so we can use more than 256 of the same sized texture!!!
 	using TextureIndex = std::vector<ptr<TextureArray>>;
 
+
 	struct ImageBounds
 	{
-		Vector2 TL;
-		Vector2 BR;
+		Vector2f TL;
+		Vector2f BR;
 	};
+
+	void to_json(json& object, const ImageBounds& bounds)
+	{
+		object = json::array({
+			bounds.TL,
+			bounds.BR
+		});
+	}
+
+	void from_json(const json& object, ImageBounds& bounds)
+	{
+		bounds = {
+			object[0],
+			object[1]
+		};
+	}
 
 	struct Vertex
 	{
-		Vector3 Position;
-		Vector4 Tint;
-		Vector2 TextureCoords;
+		Vector3f Position;
+		Vector4f Tint;
+		Vector2f TextureCoords;
 		float Layer;			// "but matthew!! you could just put this float with TextureCoords" yes ik but i like this more so shut up >:(
 		float TextureIndex;
 	};
 
 	struct RenderCommand
 	{
-		Mat4 Transform{ 1.f };
-		Vector4 Tint{ 0.f };
+		Mat4f Transform{ 1.f };
+		Color4f Tint{ 0.f };
 
 		ImageBounds Bounds = {};
 
@@ -60,7 +77,7 @@ namespace Desdun
 		static void Start();
 		static void Stop();
 
-		static void BeginScene(const RenderCamera& camera, Mat4 transform);
+		static void BeginScene(const RenderCamera& camera, Mat4f transform);
 		static void EndScene();
 
 		static void Clear();
@@ -117,7 +134,7 @@ namespace Desdun
 			// Cameras
 
 			RenderCamera CurrentCamera = {};
-			Mat4 ProjectionTransform { 1.f };	// the current camera transform as stored when BeginScene is called
+			Mat4f ProjectionTransform { 1.f };	// the current camera transform as stored when BeginScene is called
 
 			// Commands
 

@@ -114,7 +114,7 @@
     <ClCompile Include="src\object\instance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\app\runtime_info.cpp">
+    <ClCompile Include="src\app\runtime\runtime_info.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\resource\serial\json_stream.cpp">
@@ -1181,7 +1181,7 @@
     <ClInclude Include="src\object\instance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\app\runtime_info.h">
+    <ClInclude Include="src\app\runtime\runtime_info.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\resource\serial\json_stream.h">

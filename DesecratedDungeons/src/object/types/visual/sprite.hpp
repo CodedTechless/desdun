@@ -14,7 +14,7 @@ namespace Desdun
 		Image* SpriteImage = nullptr;
 		Shader* SpriteShader = nullptr;
 
-		Color4 Tint = { 1.0, 1.0, 1.0, 1.0 };
+		Color4f Tint = { 1.f, 1.f, 1.f, 1.f };
 
 		ImageBounds SpriteBounds = {
 			{ 0.f, 0.f },
@@ -23,13 +23,24 @@ namespace Desdun
 
 		void OnFrameUpdate(const double_t delta) override
 		{
-			Mat4 transform = GetInterpTransform()
-				* glm::scale(Mat4(1.f), Vector3(Vector2(SpriteImage->GetSize()), 1.f));
+			Mat4f transform = GetInterpTransform()
+				* glm::scale(Mat4f(1.f), Vector3f(Vector2f(SpriteImage->GetSize()), 1.f));
 
 			Renderer::Submit({ transform, Tint, SpriteBounds, SpriteImage, SpriteShader, ZIndex });
 		}
 
 	private:
+
+		void Serialise(JSONObject& object) const override
+		{
+			object["SpriteImage"] = SpriteImage != nullptr ? SpriteImage->GetPath() : "";
+			object["SpriteShader"] = SpriteShader != nullptr ? SpriteShader->GetPath() : "";
+
+			object["Tint"] = Tint;
+			object["SpriteBounds"] = SpriteBounds;
+
+			Object::Serialise(object);
+		}
 
 #if 0
 		void Serialise(ByteFile& stream) const

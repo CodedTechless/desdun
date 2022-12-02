@@ -63,33 +63,33 @@ namespace Desdun
 	/*
 		breaks down the transform into its components, then reconstructs it as an interpolation of Last[component] and [component]
 	*/
-	Mat4 Object::GetInterpTransform() const
+	Mat4f Object::GetInterpTransform() const
 	{
 		if (Interpolate == false)
 		{
 			return GetGlobalTransform();
 		}
 
-		double_t alpha = Application::GetApplication()->GetInterpolationFraction();
+		float_t alpha = Application::GetApplication()->GetInterpolationFraction();
 
 		// scale
-		Vector2 scale = glm::lerp(LastScale, Scale, alpha);
+		Vector2f scale = glm::lerp(LastScale, Scale, alpha);
 
 		// rotation
-		double_t rad = glm::radians(Rotation);
-		double_t lastrad = glm::radians(LastRotation);
+		float_t rad = glm::radians(Rotation);
+		float_t lastrad = glm::radians(LastRotation);
 
-		double_t max = PI * 2.f;
-		double_t da = std::fmod(rad - lastrad, max);
+		float_t max = PI * 2.f;
+		float_t da = std::fmod(rad - lastrad, max);
 
-		double_t rot = lastrad + (std::fmod(2 * da, max) - da) * alpha;
+		float_t rot = lastrad + (std::fmod(2 * da, max) - da) * alpha;
 
 		// position
-		Vector2 pos = glm::lerp(LastPosition, Position, alpha) * scale;
+		Vector2f pos = glm::lerp(LastPosition, Position, alpha) * scale;
 
-		Mat4 frame = glm::translate(Mat4(1.f), Vector3(pos, 0.f))
-			* glm::rotate(Mat4(1.f), rot, Vector3(0.f, 0.f, 1.f))
-			* glm::scale(Mat4(1.f), Vector3(scale, 1.f));
+		Mat4f frame = glm::translate(Mat4f(1.f), Vector3f(pos, 0.f))
+			* glm::rotate(Mat4f(1.f), rot, Vector3f(0.f, 0.f, 1.f))
+			* glm::scale(Mat4f(1.f), Vector3f(scale, 1.f));
 
 		if (GetParent() != nullptr)
 		{
@@ -109,16 +109,16 @@ namespace Desdun
 		return frame;
 	}
 
-	Mat4 Object::GetTransform() const
+	Mat4f Object::GetTransform() const
 	{
-		return glm::translate(Mat4(1.0f), Vector3(Position, 0.f))
-			* glm::rotate(Mat4(1.0f), glm::radians(Rotation), Vector3(0.f, 0.f, 1.f))
-			* glm::scale(Mat4(1.0f), Vector3(Scale, 1.f));
+		return glm::translate(Mat4f(1.0f), Vector3f(Position, 0.f))
+			* glm::rotate(Mat4f(1.0f), glm::radians(Rotation), Vector3f(0.f, 0.f, 1.f))
+			* glm::scale(Mat4f(1.0f), Vector3f(Scale, 1.f));
 	}
 
-	Mat4 Object::GetGlobalTransform() const
+	Mat4f Object::GetGlobalTransform() const
 	{
-		Mat4 transform = GetTransform();
+		Mat4f transform = GetTransform();
 
 		if (GetParent() != nullptr)
 		{

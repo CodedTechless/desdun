@@ -2,13 +2,22 @@
 
 #include <libraries.hpp>
 
+#define RUNTIME_CLASS_DEF(x) \
+	std::type_index GetClassIndex() const override { return typeid(x); } \
+
 namespace Desdun
 {
 
-	class Runtime;
-	class Instance;
+	class RuntimeObject
+	{
+	public:
+		virtual std::type_index GetClassIndex() const = 0;
 
-	struct BaseRuntimeClass
+		virtual void Serialise(JSONObject& object) const = 0;
+		virtual void Deserialise(const JSONObject& object) = 0;
+	};
+
+	class BaseRuntimeClass
 	{
 	public:
 
@@ -16,12 +25,7 @@ namespace Desdun
 		BaseRuntimeClass(const std::string& name, std::type_index linkedType, BaseRuntimeClass* inherits = nullptr)
 			: m_TypeName(name), m_Index(linkedType), m_Inheritor(inherits) {};
 
-		virtual Instance* New() const 
-		{ 
-			throw std::runtime_error("Cannot create a blank class; type specification required.");
-
-			return nullptr;
-		};
+		virtual RuntimeObject* New() const = 0;
 
 		const std::string GetTypeName() const { return m_TypeName; };
 
@@ -55,12 +59,12 @@ namespace Desdun
 	};
 
 	template<typename T>
-	struct RuntimeClass : public BaseRuntimeClass
+	class RuntimeClass : public BaseRuntimeClass
 	{
 		RuntimeClass(const std::string& typeName, BaseRuntimeClass* inherits = nullptr)
 			: BaseRuntimeClass(typeName, typeid(T), inherits) {};
 
-		Instance* New() const
+		RuntimeObject* New() const
 		{
 			return new T();
 		}
@@ -85,7 +89,7 @@ namespace Desdun
 			if (inherits)
 				Debug::Log("Added new RuntimeClass " + typeName + " (inherited from " + inherits->m_TypeName + ")", "Runtime");
 			else
-				Debug::Log("Added new RuntimeClass " + typeName, "Instance");
+				Debug::Log("Added new RuntimeClass " + typeName, "Runtime");
 #endif
 
 			return newType;

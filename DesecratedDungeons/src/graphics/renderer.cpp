@@ -181,9 +181,9 @@ namespace Desdun
 			m_RenderCore.NextTextureSlot++;
 		}
 
-		Vector2 bounds[] = {
-			Command.Bounds.TL, Vector2(Command.Bounds.BR.x, Command.Bounds.TL.y),
-			Command.Bounds.BR, Vector2(Command.Bounds.TL.x, Command.Bounds.BR.y)
+		Vector2f bounds[] = {
+			Command.Bounds.TL, Vector2f(Command.Bounds.BR.x, Command.Bounds.TL.y),
+			Command.Bounds.BR, Vector2f(Command.Bounds.TL.x, Command.Bounds.BR.y)
 		};
 
 		for (size_t i = 0; i < 4; i++)
@@ -200,7 +200,7 @@ namespace Desdun
 		m_RenderCore.VertexBufferIndex += 6;
 	}
 
-	void Renderer::BeginScene(const RenderCamera& camera, Mat4 transform)
+	void Renderer::BeginScene(const RenderCamera& camera, Mat4f transform)
 	{
 		m_RenderCore.CurrentCamera = camera;
 		m_RenderCore.ProjectionTransform = transform;

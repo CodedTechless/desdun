@@ -10,17 +10,18 @@
 
 #include <libraries.hpp>
 
-#define RUNTIME_CLASS_DEF(x) \
-	std::type_index GetClassIndex() const override { return typeid(x); } \
+
 
 namespace Desdun
 {
 
 	class Scene;
 
-	class Instance
+	class Instance : public RuntimeObject
 	{
 	public:
+		RUNTIME_CLASS_DEF(Instance);
+
 		Instance() = default;
 		~Instance();
 
@@ -41,7 +42,7 @@ namespace Desdun
 			friend class Instance;
 		};
 
-		string Name = L"Instance";
+		std::string Name = "Instance";
 
 		virtual void OnAwake() {};
 		virtual void OnDestroyed() {};
@@ -52,14 +53,12 @@ namespace Desdun
 		virtual Input::Filter OnInputEvent(InputEvent input, bool processed) { return Input::Filter::Ignore; };
 		virtual void OnWindowEvent(WindowEvent window) {};
 
-		virtual std::type_index GetClassIndex() const { return typeid(Instance); };
-
 		// Object operations
 
-		void SaveToFile(const string& path) const;
+		void SaveToFile(const std::string& path) const;
 		void SetParent(Instance* object);
 
-		Instance* FindChild(const string& name) const;
+		Instance* FindChild(const std::string& name) const;
 
 		template<typename T>
 		T* FindAncestor() const
@@ -89,14 +88,14 @@ namespace Desdun
 
 		// Getters
 
-		string GetInstanceID() const { return m_ID; };
+		std::string GetInstanceID() const { return m_ID; };
 		Scene* GetScene() const { return m_ActiveScene; };
 
 		const std::vector<Instance*>& GetChildren() const { return m_Relation.m_Container; };
 		Instance* GetParent() const { return m_Relation.m_Parent; };
 
 		Instance* operator[](uint idx) const { return m_Relation.m_Container[idx]; };
-		Instance* operator[](const string& name) const { return FindChild(name); };
+		Instance* operator[](const std::string& name) const { return FindChild(name); };
 
 	protected:
 
@@ -105,8 +104,8 @@ namespace Desdun
 		virtual void Deserialise(ByteObject& object);
 #endif
 
-		virtual void Serialise(JSONObject& object) const;
-		virtual void Deserialise(const JSONObject& object);
+		void Serialise(JSONObject& object) const;
+		void Deserialise(const JSONObject& object);
 
 	private:
 
@@ -114,7 +113,7 @@ namespace Desdun
 
 		// Game
 
-		string m_ID;
+		std::string m_ID;
 		HierarchyMember m_Relation = {};
 		
 		Scene* m_ActiveScene = nullptr;

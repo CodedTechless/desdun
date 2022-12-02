@@ -110,11 +110,13 @@ namespace Desdun
 	using uchar = uint8_t;
 	using byte = unsigned char;
 
-	using string = std::wstring;
-
 	using Vector2 = glm::vec<2, double_t>;
 	using Vector3 = glm::vec<3, double_t>;
 	using Vector4 = glm::vec<4, double_t>;
+
+	using Vector2f = glm::vec<2, float_t>;
+	using Vector3f = glm::vec<3, float_t>;
+	using Vector4f = glm::vec<4, float_t>;
 
 	using Vector2i = glm::vec<2, int64_t>;
 	using Vector3i = glm::vec<3, int64_t>;
@@ -125,7 +127,10 @@ namespace Desdun
 	using Vector4u = glm::vec<4, uint64_t>;
 
 	using Color4 = Vector4;
+	using Color4f = Vector4f;
+
 	using Mat4 = glm::mat<4, 4, glm::f64, glm::defaultp>;
+	using Mat4f = glm::mat<4, 4, glm::f32, glm::defaultp>;
 
 	template <typename T>
 	using ptr = std::shared_ptr<T>;

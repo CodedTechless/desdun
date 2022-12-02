@@ -1,5 +1,6 @@
 #pragma once
 
+#include <app/runtime/runtime_info.h>
 #include <libraries.hpp>
 
 #define JSON_FORMAT 1
@@ -19,20 +20,18 @@ namespace Desdun
 	{
 	public:
 		
-		template<typename T>
-		JSONObject(JSONStream* owner, T* object)
+		JSONObject(JSONStream* owner, RuntimeObject* index)
 			: m_Owner(owner)
 		{
-			m_Object["type"] = Runtime::Get(object->GetClassIndex())->GetTypeName();
+			m_Object["type"] = Runtime::Get(index->GetClassIndex())->GetTypeName();
 		}
 
-		json operator[](const std::string& value)
+		json operator[](const std::string& value) const
 		{
 			return m_Object.at("properties").at(value);
 		}
 
-		template<typename pointerT>
-		uint64_t getReferenceID(pointerT* pointer)
+		uint64_t getReferenceID(RuntimeObject* pointer) const
 		{
 			return m_Owner->getObjectReference(pointer);
 		}
@@ -88,39 +87,11 @@ namespace Desdun
 			 - if the object exists, it just returns its reference index
 			 - if it doesn't, then it serialises the object and returns the new reference index
 		*/
-		template<typename pointerT>
-		uint64_t getObjectReference(pointerT* object)
-		{
-			auto it = m_ObjectIndex.find(object);
-			if (it != m_ObjectIndex.end())
-			{
-				return it->second;
-			}
-
-			return add(object);
-		}
+		uint64_t getObjectReference(RuntimeObject* object);
 
 	private:
 
-		/*
-			pushes a new object to the serialised object array
-			 - creates a new JSONObject inside of m_ObjectArray
-			 - gets that objects index and inserts it in to the m_ObjectIndex
-			 - runs the objects Serialise function (streamT must have Serialise or there's a compile-time error)
-		*/
-
-		template<typename streamT>
-		uint64_t add(streamT* object)
-		{
-			size_t index = m_ObjectArray.size();
-			m_ObjectArray.push_back(JSONObject(this, object));
-
-			JSONObject& newObject = m_ObjectArray[index];
-			m_ObjectIndex[object] = index;
-
-			object->Serialise(newObject);
-			return index;
-		};
+		uint64_t add(RuntimeObject* object);
 
 		std::vector<JSONObject> m_ObjectArray = {};
 		std::unordered_map<void*, uint64_t> m_ObjectIndex = {};
