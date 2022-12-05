@@ -1,5 +1,7 @@
 #pragma once
 
+#include <resource/serial/json_stream.h>
+
 #include <libraries.hpp>
 
 #define RUNTIME_CLASS_DEF(x) \
@@ -61,6 +63,7 @@ namespace Desdun
 	template<typename T>
 	class RuntimeClass : public BaseRuntimeClass
 	{
+	public:
 		RuntimeClass(const std::string& typeName, BaseRuntimeClass* inherits = nullptr)
 			: BaseRuntimeClass(typeName, typeid(T), inherits) {};
 

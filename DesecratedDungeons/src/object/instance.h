@@ -3,14 +3,9 @@
 #include <app/app.h>
 #include <app/input/input.h>
 #include <app/input/event.h>
-#include <app/runtime_info.h>
-
-//#include <resource/serial/byte_stream.h>
-#include <resource/serial/json_stream.h>
+#include <app/runtime/runtime_info.h>
 
 #include <libraries.hpp>
-
-
 
 namespace Desdun
 {
@@ -24,6 +19,8 @@ namespace Desdun
 
 		Instance() = default;
 		~Instance();
+
+		std::string Name = "Instance";
 
 		struct HierarchyMember
 		{
@@ -42,13 +39,11 @@ namespace Desdun
 			friend class Instance;
 		};
 
-		std::string Name = "Instance";
-
 		virtual void OnAwake() {};
 		virtual void OnDestroyed() {};
 
-		virtual void OnGameStep(const double_t Delta) {};
-		virtual void OnFrameUpdate(const double_t Delta) {};
+		virtual void OnGameStep(const float_t Delta) {};
+		virtual void OnFrameUpdate(const float_t Delta) {};
 
 		virtual Input::Filter OnInputEvent(InputEvent input, bool processed) { return Input::Filter::Ignore; };
 		virtual void OnWindowEvent(WindowEvent window) {};
@@ -121,6 +116,5 @@ namespace Desdun
 
 		friend class Scene;
 		friend class Model;
-		friend class JSONStream;
 	};
 }

@@ -1,7 +1,8 @@
 #pragma once
 
-#include <app/runtime/runtime_info.h>
 #include <libraries.hpp>
+
+#include "json_object.h"
 
 #define JSON_FORMAT 1
 
@@ -14,55 +15,11 @@ namespace Desdun
 		probably ByteStream but right now that's breaking my brain, so
 	*/
 
-	class JSONStream;
-
-	class JSONObject
-	{
-	public:
-		
-		JSONObject(JSONStream* owner, RuntimeObject* index)
-			: m_Owner(owner)
-		{
-			m_Object["type"] = Runtime::Get(index->GetClassIndex())->GetTypeName();
-		}
-
-		json operator[](const std::string& value) const
-		{
-			return m_Object.at("properties").at(value);
-		}
-
-		uint64_t getReferenceID(RuntimeObject* pointer) const
-		{
-			return m_Owner->getObjectReference(pointer);
-		}
-
-		inline friend void to_json(json& jsonObject, const JSONObject& jsonInst)
-		{
-			jsonObject = jsonInst.m_Object;
-		}
-
-		inline friend void from_json(const json& jsonObject, JSONObject& jsonInst)
-		{
-			jsonInst.m_Object = jsonObject;
-		}
-
-	private:
-
-		json m_Object = {
-			{ "type", nullptr },
-			{ "properties", json::object() }
-		};
-
-		JSONStream* m_Owner = nullptr;
-
-	};
-
 	class JSONStream
 	{
 	public:
 
-		template<typename T>
-		JSONStream(T* object)
+		JSONStream(RuntimeObject* object)
 		{
 			add(object);
 		};
@@ -79,7 +36,7 @@ namespace Desdun
 				{ "instances", m_ObjectArray }
 			};
 
-			jsonObject >> stream;
+			stream << jsonObject;
 		};
 
 		/*
@@ -87,7 +44,8 @@ namespace Desdun
 			 - if the object exists, it just returns its reference index
 			 - if it doesn't, then it serialises the object and returns the new reference index
 		*/
-		uint64_t getObjectReference(RuntimeObject* object);
+		uint64_t getReferenceFromObject(RuntimeObject* object);
+		RuntimeObject* getObjectFromReference(uint64_t reference);
 
 	private:
 

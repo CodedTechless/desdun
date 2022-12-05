@@ -32,7 +32,7 @@ namespace Desdun
 		{
 			T* instance = new T();
 			instance->m_ActiveScene = this;
-			instance->ID = UUID::Generate();
+			instance->m_ID = UUID::Generate();
 
 			SceneInstances.push_back((Instance*)instance);
 

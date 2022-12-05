@@ -27,23 +27,23 @@ namespace Desdun
 	{
 		Vector2f TL;
 		Vector2f BR;
-	};
 
-	void to_json(json& object, const ImageBounds& bounds)
-	{
-		object = json::array({
-			bounds.TL,
-			bounds.BR
-		});
-	}
-
-	void from_json(const json& object, ImageBounds& bounds)
-	{
-		bounds = {
-			object[0],
-			object[1]
+		friend void to_json(json& object, const ImageBounds& bounds)
+		{
+			object = json::array({
+				bounds.TL,
+				bounds.BR
+			});
 		};
-	}
+
+		friend void from_json(const json& object, ImageBounds& bounds)
+		{
+			bounds = {
+				object[0],
+				object[1]
+			};
+		}
+	};
 
 	struct Vertex
 	{

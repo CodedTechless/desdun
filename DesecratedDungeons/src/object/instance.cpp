@@ -1,5 +1,5 @@
 
-#include <app/runtime_info.h>
+#include <app/runtime/runtime_info.h>
 #include <resource/serial/json_stream.h>
 
 #include "instance.h"
@@ -24,9 +24,9 @@ namespace Desdun
 		}
 	}
 
-	void Instance::SaveToFile(const string& path) const
+	void Instance::SaveToFile(const std::string& path) const
 	{
-		JSONStream stream(this);
+		JSONStream stream((Instance*)this);
 
 		std::ofstream filestream(path);
 		stream >> filestream;
@@ -98,7 +98,7 @@ namespace Desdun
 		}
 	}
 
-	Instance* Instance::FindChild(const string& name) const
+	Instance* Instance::FindChild(const std::string& name) const
 	{
 		for (auto instance : GetChildren())
 		{

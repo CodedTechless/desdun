@@ -18,9 +18,9 @@ namespace Desdun
 
 		for (Instance* instance : SceneInstances)
 		{
-			if (instance->Active == false)
+			if (instance->m_Active == false)
 			{
-				instance->Active = true;
+				instance->m_Active = true;
 			}
 
 			instance->OnGameStep(delta);
@@ -35,7 +35,7 @@ namespace Desdun
 
 		for (Instance* instance : SceneInstances)
 		{
-			if (instance->Active)
+			if (instance->m_Active)
 			{
 				instance->OnFrameUpdate(delta);
 			}

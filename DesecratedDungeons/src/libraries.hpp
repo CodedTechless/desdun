@@ -36,66 +36,18 @@ using json = nlohmann::json;
 namespace glm
 {
 
-	void to_json(json& jsonObject, const glm::vec2& vec)
-	{
-		jsonObject = {
-			{ "x", vec.x },
-			{ "y", vec.y }
-		};
-	};
+	void to_json(json& jsonObject, const glm::vec2& vec);
+	void to_json(json& jsonObject, const glm::vec3& vec);
+	void to_json(json& jsonObject, const glm::vec4& vec);
 
-	void to_json(json& jsonObject, const glm::vec3& vec)
-	{
-		jsonObject = {
-			{ "x", vec.x },
-			{ "y", vec.y },
-			{ "z", vec.z }
-		};
-	};
-
-	void to_json(json& jsonObject, const glm::vec4& vec)
-	{
-		jsonObject = {
-			{ "x", vec.x },
-			{ "y", vec.y },
-			{ "z", vec.z },
-			{ "w", vec.w }
-		};
-	};
-
-	void from_json(const json& j, glm::vec2& vec)
-	{
-		vec = glm::vec2(
-			j.at("x"), 
-			j.at("y")
-		);
-	};
-
-	void from_json(const json& j, glm::vec3& vec)
-	{
-		vec = glm::vec3(
-			j.at("x"), 
-			j.at("y"),
-			j.at("z")
-		);
-	};
-
-	void from_json(const json& j, glm::vec4& vec)
-	{
-		vec = glm::vec4(
-			j.at("x"), 
-			j.at("y"),
-			j.at("z"),
-			j.at("w")
-		);
-	};
+	void from_json(const json& j, glm::vec2& vec);
+	void from_json(const json& j, glm::vec3& vec);
+	void from_json(const json& j, glm::vec4& vec);
 
 }
 
 namespace Desdun
 {
-
-	
 
 	class Exception : public std::exception
 	{
@@ -106,30 +58,30 @@ namespace Desdun
 
 	using FLAG = bool;
 
-	using uint = uint64_t;
+	using uint = uint32_t;
 	using uchar = uint8_t;
 	using byte = unsigned char;
 
-	using Vector2 = glm::vec<2, double_t>;
-	using Vector3 = glm::vec<3, double_t>;
-	using Vector4 = glm::vec<4, double_t>;
+	using Vector2 = glm::vec<2, float_t>;
+	using Vector3 = glm::vec<3, float_t>;
+	using Vector4 = glm::vec<4, float_t>;
 
 	using Vector2f = glm::vec<2, float_t>;
 	using Vector3f = glm::vec<3, float_t>;
 	using Vector4f = glm::vec<4, float_t>;
 
-	using Vector2i = glm::vec<2, int64_t>;
-	using Vector3i = glm::vec<3, int64_t>;
-	using Vector4i = glm::vec<4, int64_t>;
+	using Vector2i = glm::vec<2, int32_t>;
+	using Vector3i = glm::vec<3, int32_t>;
+	using Vector4i = glm::vec<4, int32_t>;
 
-	using Vector2u = glm::vec<2, uint64_t>;
-	using Vector3u = glm::vec<3, uint64_t>;
-	using Vector4u = glm::vec<4, uint64_t>;
+	using Vector2u = glm::vec<2, uint>;
+	using Vector3u = glm::vec<3, uint>;
+	using Vector4u = glm::vec<4, uint>;
 
 	using Color4 = Vector4;
 	using Color4f = Vector4f;
 
-	using Mat4 = glm::mat<4, 4, glm::f64, glm::defaultp>;
+	using Mat4 = glm::mat<4, 4, glm::f32, glm::defaultp>;
 	using Mat4f = glm::mat<4, 4, glm::f32, glm::defaultp>;
 
 	template <typename T>

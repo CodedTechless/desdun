@@ -57,7 +57,16 @@ namespace Desdun
 
 	void Object::Deserialise(const JSONObject& object)
 	{
+		object.at("Position").get_to(Position);
+		object.at("Scale").get_to(Scale);
+		object.at("Rotation").get_to(Rotation);
+		
+		object.at("ZIndex").get_to(ZIndex);
+		object.at("Visible").get_to(Visible);
 
+		object.at("Interpolate").get_to(Interpolate);
+		
+		Instance::Deserialise(object);
 	}
 
 	/*

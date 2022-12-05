@@ -96,6 +96,7 @@
     <ClCompile Include="src\graphics\buffers\vao.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\object\instance.cpp" />
+    <ClCompile Include="src\resource\serial\json_object.cpp" />
     <ClCompile Include="src\resource\serial\json_stream.cpp" />
     <ClCompile Include="src\resource\types\model.cpp" />
     <ClCompile Include="src\resource\types\shader.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="src\object\types\visual\sprite.hpp" />
     <ClInclude Include="src\object\types\visual\tile_map.hpp" />
     <ClInclude Include="src\resource\resource.hpp" />
+    <ClInclude Include="src\resource\serial\json_object.h" />
     <ClInclude Include="src\resource\serial\json_stream.h" />
     <ClInclude Include="src\resource\types\audio.h" />
     <ClInclude Include="src\resource\types\model.h" />

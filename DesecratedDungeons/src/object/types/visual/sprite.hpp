@@ -21,7 +21,7 @@ namespace Desdun
 			{ 1.f, 1.f }
 		};
 
-		void OnFrameUpdate(const double_t delta) override
+		void OnFrameUpdate(const float_t delta) override
 		{
 			Mat4f transform = GetInterpTransform()
 				* glm::scale(Mat4f(1.f), Vector3f(Vector2f(SpriteImage->GetSize()), 1.f));
