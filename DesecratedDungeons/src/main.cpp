@@ -6,13 +6,13 @@ ENTRY POINT BAYBEEEEEE
 BEEEEEG YOSHI
 */
 
-#include <app/app.h>
+#include <game/game_app.hpp>
 
 using namespace Desdun;
 
 int main()
 {
-	Application* game = new Application();
+	DesecratedDungeons* game = new DesecratedDungeons();
 
 	game->Start();
 
