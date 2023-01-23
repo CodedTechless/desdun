@@ -230,8 +230,8 @@ namespace Desdun
 				*/
 
 				return A.zIndex < B.zIndex ||
-					(A.zIndex == B.zIndex && A.ObjectShader->GetRenderID() < B.ObjectShader->GetRenderID()) ||
-					((A.zIndex == B.zIndex && A.ObjectShader->GetRenderID() == B.ObjectShader->GetRenderID()) && 
+					(A.zIndex == B.zIndex && A.ObjectShader->getRenderID() < B.ObjectShader->getRenderID()) ||
+					((A.zIndex == B.zIndex && A.ObjectShader->getRenderID() == B.ObjectShader->getRenderID()) && 
 					(A.ImageResource->GetAllocation().Texture->GetRenderID() < B.ImageResource->GetAllocation().Texture->GetRenderID()));
 			}
 		);
@@ -253,8 +253,8 @@ namespace Desdun
 		if (shader != m_RenderCore.RenderShader)
 			m_RenderCore.RenderShader = shader;
 		
-		m_RenderCore.RenderShader->SetUniform("Textures", m_RenderCore.TextureSamplers, ALLOCATED_TEXTURE_SLOTS);
-		m_RenderCore.RenderShader->SetUniform("Projection", m_RenderCore.ProjectionTransform);
+		m_RenderCore.RenderShader->setUniform("Textures", m_RenderCore.TextureSamplers, ALLOCATED_TEXTURE_SLOTS);
+		m_RenderCore.RenderShader->setUniform("Projection", m_RenderCore.ProjectionTransform);
 	}
 
 	void Renderer::BeginBatch(Shader* shader)
@@ -281,7 +281,7 @@ namespace Desdun
 		}
 
 		m_RenderCore.BatchArray->Bind();
-		m_RenderCore.RenderShader->Bind();
+		m_RenderCore.RenderShader->bind();
 
 		glDrawElements(GL_TRIANGLES, m_RenderCore.VertexBufferIndex, GL_UNSIGNED_INT, nullptr);
 		m_RenderCore.FrameDrawCalls++;

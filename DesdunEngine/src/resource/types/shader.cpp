@@ -17,17 +17,17 @@ namespace Desdun
         glDeleteProgram(RenderID);
     }
 
-    void Shader::Bind()
+    void Shader::bind()
     {
         glUseProgram(RenderID);
     }
 
-    void Shader::Unbind()
+    void Shader::unbind()
     {
         glUseProgram(0);
     }
 
-    unsigned int Shader::GetUniformLocation(const std::string& Name)
+    unsigned int Shader::getUniformLocation(const std::string& Name)
     {
         if (UniformCache.find(Name) != UniformCache.end())
             return UniformCache[Name];
@@ -40,7 +40,7 @@ namespace Desdun
     }
 
     // Shader importation and compilation
-    void Shader::Load(const std::string& ShaderPath)
+    void Shader::load(const std::string& ShaderPath)
     {
         ShaderSource Source = Parse(ShaderPath);
         uint Program = Create(Source.VertexSource, Source.FragmentSource);
@@ -49,34 +49,34 @@ namespace Desdun
         Path = ShaderPath;
     }
 
-    void Shader::SetUniform(const std::string& Name, const Vector4& Value)
+    void Shader::setUniform(const std::string& Name, const Vector4& Value)
     {
-        Bind();
-        glUniform4f(GetUniformLocation(Name), Value.x, Value.y, Value.z, Value.w);
+        bind();
+        glUniform4f(getUniformLocation(Name), Value.x, Value.y, Value.z, Value.w);
     }
 
-    void Shader::SetUniform(const std::string& Name, const Vector3& Value)
+    void Shader::setUniform(const std::string& Name, const Vector3& Value)
     {
-        Bind();
-        glUniform3f(GetUniformLocation(Name), Value.x, Value.y, Value.z);
+        bind();
+        glUniform3f(getUniformLocation(Name), Value.x, Value.y, Value.z);
     }
 
-    void Shader::SetUniform(const std::string& Name, int Value)
+    void Shader::setUniform(const std::string& Name, int Value)
     {
-        Bind();
-        glUniform1i(GetUniformLocation(Name), Value);
+        bind();
+        glUniform1i(getUniformLocation(Name), Value);
     }
 
-    void Shader::SetUniform(const std::string& Name, int* Values, uint Size)
+    void Shader::setUniform(const std::string& Name, int* Values, uint Size)
     {
-        Bind();
-        glUniform1iv(GetUniformLocation(Name), Size, Values);
+        bind();
+        glUniform1iv(getUniformLocation(Name), Size, Values);
     }
 
-    void Shader::SetUniform(const std::string& Name, const Mat4& Matrix)
+    void Shader::setUniform(const std::string& Name, const Mat4& Matrix)
     {
-        Bind();
-        glUniformMatrix4fv(GetUniformLocation(Name), 1, GL_FALSE, &Matrix[0][0]);
+        bind();
+        glUniformMatrix4fv(getUniformLocation(Name), 1, GL_FALSE, &Matrix[0][0]);
     }
 
     ShaderSource Shader::Parse(const std::string& FilePath)

@@ -12,7 +12,7 @@ namespace Desdun
 	public:
 		Model() = default;
 
-		void Load(const std::string& path) override;
+		void load(const std::string& path) override;
 
 	private:
 

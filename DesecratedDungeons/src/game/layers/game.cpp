@@ -27,7 +27,7 @@ namespace Desdun
 		camera->setSubject(actor);
 
 		auto* imagetest = gameScene->create<Sprite>();
-		imagetest->SpriteImage = Resource::Fetch<Image>("assets/textures/stone_brick_floor.png");
+		imagetest->image = Resource::Fetch<Image>("assets/textures/stone_brick_floor.png");
 		imagetest->setParent(gameScene->getRoot());
 
 	}

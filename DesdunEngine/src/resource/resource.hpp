@@ -14,9 +14,9 @@ namespace Desdun
 		Resource() = default;
 		virtual ~Resource() = default;
 
-		virtual void Load(const std::string& path) = 0;
+		virtual void load(const std::string& path) = 0;
 
-		std::string GetPath() const { return Path; };
+		std::string getPath() const { return Path; };
 
 		// Static fetch function for resources
 		
@@ -43,7 +43,7 @@ namespace Desdun
 			else
 			{
 				T* NewResource = new T();
-				NewResource->Load(path);
+				NewResource->load(path);
 
 				Debug::Log("Loaded " + Name + " " + PathString);
 

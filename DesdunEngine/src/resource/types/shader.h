@@ -28,26 +28,26 @@ namespace Desdun
 		Shader(const std::string& Path);
 		~Shader();
 
-		void Load(const std::string& Path);
+		void load(const std::string& Path);
 
-		void Bind();
-		void Unbind();
+		void bind();
+		void unbind();
 
-		uint GetRenderID() const { return RenderID; };
+		uint getRenderID() const { return RenderID; };
 
 	public:
-		void SetUniform(const std::string& Name, const Vector4& Value);
-		void SetUniform(const std::string& Name, const Vector3& Value);
-		void SetUniform(const std::string& Name, int Value);
-		void SetUniform(const std::string& Name, int* Values, uint Size);
-		void SetUniform(const std::string& Name, const Mat4& Matrix);
+		void setUniform(const std::string& name, const Vector4& Value);
+		void setUniform(const std::string& name, const Vector3& Value);
+		void setUniform(const std::string& name, int Value);
+		void setUniform(const std::string& name, int* Values, uint Size);
+		void setUniform(const std::string& name, const Mat4& Matrix);
 
 	private:
 		uint RenderID = 0;
 		std::string Path = "";
 
 		std::unordered_map<std::string, int> UniformCache;
-		uint GetUniformLocation(const std::string& Name);
+		uint getUniformLocation(const std::string& Name);
 
 		static ShaderSource Parse(const std::string& FilePath);
 		static uint Compile(unsigned int Type, const std::string& SourceString);

@@ -8,7 +8,11 @@ namespace Desdun
 
 	class AnimatedSprite : public Object
 	{
+	public:
 		RUNTIME_CLASS_DEF(AnimatedSprite);
+
+
+
 	};
 
 }

@@ -7,7 +7,7 @@
 namespace Desdun
 {
 
-	void Model::Load(const std::string& path)
+	void Model::load(const std::string& path)
 	{
 #if 0
 		ByteFile stream(path);

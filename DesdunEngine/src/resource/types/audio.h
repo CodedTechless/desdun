@@ -10,6 +10,6 @@ namespace Desdun
 		Audio() = default;
 		~Audio();
 
-		void Load(const std::string& path);
+		void load(const std::string& path);
 	};
 }

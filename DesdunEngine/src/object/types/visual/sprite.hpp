@@ -11,8 +11,8 @@ namespace Desdun
 	public:
 		RUNTIME_CLASS_DEF(Sprite);
 
-		Image* SpriteImage = nullptr;
-		Shader* SpriteShader = nullptr;
+		Image* image = nullptr;
+		Shader* shader = nullptr;
 
 		Color4f Tint = { 1.f, 1.f, 1.f, 1.f };
 
@@ -24,17 +24,17 @@ namespace Desdun
 		void onFrameUpdate(const float_t delta) override
 		{
 			Mat4f transform = getInterpTransform()
-				* glm::scale(Mat4f(1.f), Vector3f(Vector2f(SpriteImage->GetSize()), 1.f));
+				* glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->GetSize()), 1.f));
 
-			Renderer::Submit({ transform, Tint, SpriteBounds, SpriteImage, SpriteShader, zIndex });
+			Renderer::Submit({ transform, Tint, SpriteBounds, image, shader, zIndex });
 		}
 
 	private:
 
 		void serialise(JSONObject& object) const override
 		{
-			object["SpriteImagePath"] = SpriteImage != nullptr ? SpriteImage->GetPath() : "";
-			object["SpriteShaderPath"] = SpriteShader != nullptr ? SpriteShader->GetPath() : "";
+			object["SpriteImagePath"] = image != nullptr ? image->getPath() : "";
+			object["SpriteShaderPath"] = shader != nullptr ? shader->getPath() : "";
 
 			object["Tint"] = Tint;
 			object["SpriteBounds"] = SpriteBounds;
@@ -47,13 +47,13 @@ namespace Desdun
 			std::string spriteImage = object.at("SpriteImagePath").get<std::string>();
 			if (spriteImage != "")
 			{
-				SpriteImage = Resource::Fetch<Image>(spriteImage);
+				image = Resource::Fetch<Image>(spriteImage);
 			}
 
 			std::string shaderImage = object.at("SpriteShaderPath").get<std::string>();
 			if (shaderImage != "")
 			{
-				SpriteShader = Resource::Fetch<Shader>(shaderImage);
+				shader = Resource::Fetch<Shader>(shaderImage);
 			}
 
 			object.at("Tint").get_to(Tint);

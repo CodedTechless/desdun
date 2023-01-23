@@ -120,6 +120,9 @@
     <ClCompile Include="src\app\debug\imgui_layer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\resource\types\animated_sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\debug\debug.h">
@@ -1182,6 +1185,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\object\types\visual\animated_sprite.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource\types\animated_sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

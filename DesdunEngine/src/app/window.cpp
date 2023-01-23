@@ -23,6 +23,8 @@ namespace Desdun
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+        glfwWindowHint(GLFW_SCALE_TO_MONITOR, GLFW_TRUE);
+        
 
         windowObject = glfwCreateWindow(size.x, size.y, title.c_str(), NULL, NULL);
         if (windowObject == nullptr)
@@ -207,6 +209,19 @@ namespace Desdun
     Window::~Window()
     {
         glfwDestroyWindow(windowObject);
+    }
+
+    Vector2 Window::getContentScale() const
+    {
+        Vector2 scale = { 1.f, 1.f };
+
+        GLFWmonitor* monitor = glfwGetWindowMonitor(windowObject);
+        if (monitor)
+        {
+            glfwGetMonitorContentScale(monitor, &scale.x, &scale.y);
+        }
+
+        return scale;
     }
 
     void Window::setVsyncEnabled(bool Enabled)

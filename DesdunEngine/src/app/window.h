@@ -34,6 +34,7 @@ namespace Desdun
 
 		GLFWwindow* getContext() const { return windowObject; };
 
+		Vector2 getContentScale() const;
 		bool getFocused() const { return isFocused; };
 		Vector2 getSize() const { return size; };
 

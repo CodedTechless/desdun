@@ -58,7 +58,11 @@ namespace Desdun
 		void adjustViewport(Vector2 realSize)
 		{
 			if (getScene()->getCurrentCamera() == this)
-				Renderer::setViewportSize(realSize);
+			{
+				Window* window = Application::get()->getPrimaryWindow();
+
+				Renderer::setViewportSize(realSize * window->getContentScale());
+			}
 
 			if (adjustToAspectRatio)
 			{

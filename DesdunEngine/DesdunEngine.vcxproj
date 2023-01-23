@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\resource\types\animated_sprite.cpp" />
     <ClCompile Include="src\app\app.cpp" />
     <ClCompile Include="src\app\debug\debug.cpp" />
     <ClCompile Include="src\app\debug\imgui_layer.cpp" />
@@ -123,6 +124,7 @@
     <ClCompile Include="src\scene\scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\resource\types\animated_sprite.h" />
     <ClInclude Include="src\app\app.h" />
     <ClInclude Include="src\app\debug\debug.h" />
     <ClInclude Include="src\app\debug\imgui_layer.h" />

@@ -10,7 +10,7 @@ namespace Desdun
 
 	}
 
-	void Audio::Load(const std::string& path)
+	void Audio::load(const std::string& path)
 	{
 
 	}
