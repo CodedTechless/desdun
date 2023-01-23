@@ -18,5 +18,13 @@ namespace Desdun
 		m_Model = Runtime::Get(ClassID)->New();
 		m_Model->Deserialise(stream);
 #endif
+
+		json jsonObject;
+
+		std::ifstream filestream(path);
+		filestream >> jsonObject;
+
+		JSONStream stream(jsonObject);
+		modelObject = stream.getRoot();
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 
-#include <app/input/event.h>
+#include <app/input.h>
+#include <app/window.h>
 
 #include <core_lib.hpp>
 
@@ -13,14 +14,14 @@ namespace Desdun
 		Layer(const std::string& layerName);
 		virtual ~Layer() = default;
 
-		virtual void OnAwake() {};
-		virtual void OnDestroyed() {};
+		virtual void onAwake() {};
+		virtual void onDestroyed() {};
 
-		virtual void OnFrameUpdate(const float Delta) {};
-		virtual void OnGameStep(const float Delta) {};
+		virtual void onFrameUpdate(const float Delta) {};
+		virtual void onGameStep(const float Delta) {};
 
-		virtual Input::Filter OnInputEvent(InputEvent inputEvent, bool Processed) { return Input::Filter::Ignore; };
-		virtual void OnWindowEvent(WindowEvent inputEvent) {};
+		virtual void onInputEvent(Input::Event& inputEvent) {};
+		virtual void onWindowEvent(const Window::Event& inputEvent) {};
 
 	protected:
 		std::string LayerName = "Layer";

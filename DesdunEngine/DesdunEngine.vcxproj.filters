@@ -18,7 +18,7 @@
     <ClCompile Include="src\app\debug\debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\app\input\input.cpp">
+    <ClCompile Include="src\app\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\app\layers\layer.cpp">
@@ -27,10 +27,10 @@
     <ClCompile Include="src\app\layers\layer_collection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\app\runtime\runtime_info.cpp">
+    <ClCompile Include="src\app\runtime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\app\system\window.cpp">
+    <ClCompile Include="src\app\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\app\app.cpp">
@@ -117,15 +117,15 @@
     <ClCompile Include="src\scene\scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\app\debug\imgui_layer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\debug\debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\app\input\event.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\app\input\input.h">
+    <ClInclude Include="src\app\input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\app\layers\layer.h">
@@ -134,10 +134,10 @@
     <ClInclude Include="src\app\layers\layer_collection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\app\runtime\runtime_info.h">
+    <ClInclude Include="src\app\runtime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\app\system\window.h">
+    <ClInclude Include="src\app\window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\app\app.h">
@@ -1121,9 +1121,6 @@
     <ClInclude Include="src\object\types\physics\static_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\types\visual\animator.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\object\types\visual\camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1179,6 +1176,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core_lib.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\debug\imgui_layer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\object\types\visual\animated_sprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

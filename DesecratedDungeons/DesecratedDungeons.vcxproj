@@ -98,6 +98,8 @@
     <ClInclude Include="src\game\game_app.hpp" />
     <ClInclude Include="src\game\layers\game.h" />
     <ClInclude Include="src\game\objects\actors\actor.hpp" />
+    <ClInclude Include="src\game\objects\actors\player.hpp" />
+    <ClInclude Include="src\game\objects\game_camera.hpp" />
     <ClInclude Include="src\game\objects\index.hpp" />
   </ItemGroup>
   <ItemGroup>

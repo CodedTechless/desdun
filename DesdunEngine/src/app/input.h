@@ -11,26 +11,28 @@ namespace Desdun
 	{
 	public:
 
+		/*
 		enum class Filter
 		{
 			Ignore,
 			Continue,
 			Stop
 		};
+		*/
 
 		enum class State
 		{
-			None = -1,
+			None = 0,
 			Begin = 1,
 			Changed = 2,
-			End = 0
+			End = 3
 		};
 
 		enum class Type
 		{
 			None,
 			Mouse,
-			Scrolling,
+			MouseScrolling,
 			Keyboard
 		};
 
@@ -172,16 +174,16 @@ namespace Desdun
 
 		enum class MouseCode
 		{
-			None = -1,
+			None,
 
-			Button0 = 0,
-			Button1 = 1,
-			Button2 = 2,
-			Button3 = 3,
-			Button4 = 4,
-			Button5 = 5,
-			Button6 = 6,
-			Button7 = 7,
+			Button0,
+			Button1,
+			Button2,
+			Button3,
+			Button4,
+			Button5,
+			Button6,
+			Button7,
 
 			ButtonLast = Button7,
 			ButtonLeft = Button0,
@@ -191,10 +193,74 @@ namespace Desdun
 
 	public:
 
-		static bool KeyDown(const Input::KeyCode Key);
-		static bool MouseButtonDown(const Input::MouseCode Button);
+		struct Action
+		{
+			std::string name = "";
+			Input::Type type = Input::Type::None;
 
-		static glm::vec2 GetMousePosition();
+			Input::State state = Input::State::None;
+			Input::KeyCode keyCode = Input::KeyCode::None;
+			Input::MouseCode mouseButton = Input::MouseCode::None;
+
+			glm::vec3 position = {};
+			glm::vec3 delta = {};
+		};
+
+		struct Event
+		{
+			Input::Action action;
+			bool isRegistered = false;
+			bool absorbed = false;
+
+			bool isAction(const std::string& name, Input::State state = Input::State::Changed, bool absorb = true)
+			{
+				if (!isRegistered)
+					return false;
+
+				if (action.name == name && action.state == state)
+				{
+					if (absorb)
+						absorbed = true;
+
+					return true;
+				}
+
+				return false;
+			};
+
+			bool isPressed(Input::KeyCode keyCode)
+			{
+				return action.keyCode == keyCode && action.state == State::Begin;
+			}
+
+			bool isReleased(Input::KeyCode keyCode)
+			{
+				return action.keyCode == keyCode && action.state == State::End;
+			}
+
+			bool isPressed(Input::MouseCode mouseButton)
+			{
+				return action.mouseButton == mouseButton && action.state == State::Begin;
+			}
+
+			bool isReleased(Input::MouseCode mouseButton)
+			{
+				return action.mouseButton == mouseButton && action.state == State::End;
+			}
+
+		};
+
+		static void registerAction(const Input::Action& action)
+		{
+			registeredActions[action.name] = action;
+		}
+
+		static bool keyDown(const Input::KeyCode Key);
+		static bool mouseButtonDown(const Input::MouseCode Button);
+
+		static glm::vec2 getMousePosition();
+
+		static std::unordered_map<std::string, Action> registeredActions;
 	};
 	
 }

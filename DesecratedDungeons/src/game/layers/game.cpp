@@ -10,40 +10,46 @@
 namespace Desdun
 {
 
-	void Game::OnAwake()
+	void Game::onAwake()
 	{
-		GameScene = new Scene();
+		gameScene = new Scene();
 
-		Camera* cam = GameScene->Create<Camera>();
-		cam->SetParent(GameScene->getRoot());
-		cam->m_RenderCamera.SetOrthoSize({ 800, 600 });
+		Camera* camera = gameScene->create<GameCamera>();
+		camera->targetViewportSize = { 800, 600 };
+		camera->alpha = 15.f;
+		camera->Position = Vector2(-400.f, -300.f);
+		camera->setParent(gameScene->getRoot());
 
-		GameScene->CurrentCamera = cam;
+		gameScene->currentCamera = camera;
 
-		auto* actor = GameScene->Create<Actor>();
-		actor->SetParent(GameScene->getRoot());
+		auto* actor = gameScene->create<Player>();
+		actor->setParent(gameScene->getRoot());
 
-		cam->setSubject(actor);
+		camera->setSubject(actor);
+
+		auto* imagetest = gameScene->create<Sprite>();
+		imagetest->SpriteImage = Resource::Fetch<Image>("assets/textures/stone_brick_floor.png");
+		imagetest->setParent(gameScene->getRoot());
 
 	}
 
-	void Game::OnFrameUpdate(const float delta)
+	void Game::onFrameUpdate(const float delta)
 	{
-		GameScene->OnFrameUpdate(delta);
+		gameScene->onFrameUpdate(delta);
 	}
 
-	void Game::OnGameStep(const float Delta)
+	void Game::onGameStep(const float Delta)
 	{
-		GameScene->OnGameStep(Delta);
+		gameScene->onGameStep(Delta);
 	}
 
-	Input::Filter Game::OnInputEvent(InputEvent InputObject, bool Processed)
+	void Game::onInputEvent(Input::Event& event)
 	{
-		return GameScene->OnInputEvent(InputObject, Processed);
+		return gameScene->onInputEvent(event);
 	}
 
-	void Game::OnWindowEvent(WindowEvent WindowObject)
+	void Game::onWindowEvent(const Window::Event& event)
 	{
-		GameScene->OnWindowEvent(WindowObject);
+		gameScene->onWindowEvent(event);
 	}
 }

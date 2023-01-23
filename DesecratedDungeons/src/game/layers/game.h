@@ -3,8 +3,7 @@
 #include <scene/scene.h>
 
 #include <app/layers/layer.h>
-#include <app/input/input.h>
-#include <app/input/event.h>
+#include <app/input.h>
 
 namespace Desdun
 {
@@ -14,18 +13,18 @@ namespace Desdun
 	public:
 
 		Game() = default;
-		Game(const std::string& Name)
-			: Layer(Name) {};
+		Game(const std::string& name)
+			: Layer(name) {};
 
-		void OnAwake();
+		void onAwake() override;
 
-		void OnFrameUpdate(const float Delta);
-		void OnGameStep(const float Delta);
+		void onFrameUpdate(const float delta) override;
+		void onGameStep(const float delta) override;
 
-		Input::Filter OnInputEvent(InputEvent InputObject, bool Processed);
-		void OnWindowEvent(WindowEvent windowEvent);
+		void onInputEvent(Input::Event& inputObject) override;
+		void onWindowEvent(const Window::Event& windowEvent) override;
 
-		Scene* GameScene = nullptr;
+		Scene* gameScene = nullptr;
 
 	};
 

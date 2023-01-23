@@ -2,6 +2,12 @@
 
 #include <graphics/renderer.h>
 
+#include <object/instance.h>
+#include <object/types/object.h>
+#include <object/types/visual/camera.hpp>
+
+#include <resource/types/model.h>
+
 #include "scene.h"
 
 namespace Desdun
@@ -9,75 +15,68 @@ namespace Desdun
 
 	Scene::Scene()
 	{
-		rootInstance = Create<Instance>();
+		rootInstance = create<Instance>();
 		rootInstance->Name = "gameRoot";
 	}
 
-	void Scene::OnGameStep(const float delta)
+	Instance* Scene::instantiate(Model* model)
 	{
-		for (Object* object : SceneObjects)
+		return nullptr;
+	}
+
+	void Scene::onGameStep(const float delta)
+	{
+		for (Object* object : sceneObjects)
 		{
 			object->LastPosition = object->Position;
 			object->LastScale = object->Scale;
 			object->LastRotation = object->Rotation;
 		}
 
-		for (Instance* instance : SceneInstances)
+		for (Instance* instance : sceneInstances)
 		{
 			if (instance->m_Active == false)
 			{
 				instance->m_Active = true;
 			}
 
-			instance->OnGameStep(delta);
+			instance->onGameStep(delta);
 		}
 	}
 
-	void Scene::OnFrameUpdate(const float delta)
+	void Scene::onFrameUpdate(const float delta)
 	{
-		if (!CurrentCamera) return;
+		if (!currentCamera) return;
 
-		Renderer::BeginScene(CurrentCamera->m_RenderCamera, CurrentCamera->GetProjectionTransform());
+		Renderer::BeginScene(currentCamera->getRenderCamera(), currentCamera->getProjectionTransform());
 
-		for (Instance* instance : SceneInstances)
+		for (Instance* instance : sceneInstances)
 		{
 			if (instance->m_Active)
 			{
-				instance->OnFrameUpdate(delta);
+				instance->onFrameUpdate(delta);
 			}
 		}
 
 		Renderer::EndScene();
 	}
 
-	Input::Filter Scene::OnInputEvent(InputEvent inputObject, bool processed)
+	void Scene::onInputEvent(Input::Event& event)
 	{
-		Input::Filter filter = Input::Filter::Ignore;
-
-		for (Instance* instance : SceneInstances)
+		for (Instance* instance : sceneInstances)
 		{
-			auto res = instance->OnInputEvent(inputObject, processed);
-			
-			if (res == Input::Filter::Stop)
-			{
-				filter = res;
-				break;
-			}
-			else if (res == Input::Filter::Continue)
-			{
-				filter = res;
-				processed = true;
-			}
-		}
+			instance->onInputEvent(event);
 
-		return filter;
+			if (event.absorbed)
+				break;
+		}
 	}
 
-	void Scene::OnWindowEvent(WindowEvent windowEvent)
+	void Scene::onWindowEvent(const Window::Event& windowEvent)
 	{
-		for (Instance* instance : SceneInstances)
+		for (Instance* instance : sceneInstances)
 		{
-			instance->OnWindowEvent(windowEvent);
+			instance->onWindowEvent(windowEvent);
 		}
 	}
 

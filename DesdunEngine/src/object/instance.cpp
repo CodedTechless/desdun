@@ -1,5 +1,5 @@
 
-#include <app/runtime/runtime_info.h>
+#include <app/runtime.h>
 #include <resource/serial/json_stream.h>
 
 #include "instance.h"
@@ -47,8 +47,14 @@ namespace Desdun
 
 	void Instance::Deserialise(const JSONObject& object)
 	{
-		
-	};
+		object.at("Name").get_to(Name);
+
+		for (auto it = object.at("Children").begin(); it != object.at("Children").end(); it++)
+		{
+			auto reference = it->get<uint64_t>();
+			m_Relation.m_Container.push_back((Instance*)object.getPointer(reference));
+		};
+	}
 
 #if 0
 	void Instance::Serialise(ByteObject& object) const
@@ -111,7 +117,7 @@ namespace Desdun
 		return nullptr;
 	}
 
-	void Instance::SetParent(Instance* instance)
+	void Instance::setParent(Instance* instance)
 	{
 		if (GetParent())
 		{

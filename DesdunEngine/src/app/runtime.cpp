@@ -1,7 +1,7 @@
 
 #include <object/index.hpp>
 
-#include "runtime_info.h"
+#include "runtime.h"
 
 namespace Desdun
 {
@@ -21,11 +21,12 @@ namespace Desdun
 				Runtime::Add<KinematicBody>("KinematicBody", Runtime::Get<Object>());
 				Runtime::Add<StaticBody>("StaticBody", Runtime::Get<Object>());
 
-				Runtime::Add<Animator>("Animator", Runtime::Get<Object>());
 				Runtime::Add<Camera>("Camera", Runtime::Get<Object>());
 				Runtime::Add<Light>("Light", Runtime::Get<Object>());
 				Runtime::Add<ParticleEmitter>("ParticleEmitter", Runtime::Get<Object>());
+
 				Runtime::Add<Sprite>("Sprite", Runtime::Get<Object>());
+				Runtime::Add<AnimatedSprite>("AnimatedSprite", Runtime::Get<Object>());
 				Runtime::Add<TileMap>("TileMap", Runtime::Get<Object>());
 			}
 		}

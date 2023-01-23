@@ -1,6 +1,6 @@
 #pragma once
 
-#define PI 3.14159265358979323846   // pi
+#define PI 3.1415926536f   // pi
 
 #define _USE_MATH_DEFINES
 #include <cmath>
@@ -27,8 +27,11 @@
 
 #include <json/json.hpp>
 #include <glm/glm.hpp>
+#include <glm/gtx/compatibility.hpp>
 
 #define MAX_INSTANCES 4196
+#define RUNTIME_CLASS_DEF(x) \
+	std::type_index GetClassIndex() const override { return typeid(x); } \
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;

@@ -195,6 +195,7 @@ namespace Desdun
 			m_RenderCore.QuadsHeader->TextureIndex = TextureSlotIndex;
 
 			m_RenderCore.QuadsHeader++;
+			m_RenderCore.FrameVertices++;
 		}
 
 		m_RenderCore.VertexBufferIndex += 6;
@@ -205,6 +206,9 @@ namespace Desdun
 		m_RenderCore.CurrentCamera = camera;
 		m_RenderCore.ProjectionTransform = transform;
 		m_RenderCore.CommandIndex = 0;
+
+		m_RenderCore.FrameVertices = 0;
+		m_RenderCore.FrameDrawCalls = 0;
 		
 		BeginBatch(m_RenderCore.DefaultShader);
 	}
@@ -280,6 +284,12 @@ namespace Desdun
 		m_RenderCore.RenderShader->Bind();
 
 		glDrawElements(GL_TRIANGLES, m_RenderCore.VertexBufferIndex, GL_UNSIGNED_INT, nullptr);
+		m_RenderCore.FrameDrawCalls++;
+	}
+
+	void Renderer::setViewportSize(Vector2i size)
+	{
+		glViewport(0, 0, size.x, size.y);
 	}
 
 }

@@ -2,7 +2,7 @@
 
 #include <resource/resource.hpp>
 
-#include <object/types/object.h>
+#include <app/runtime.h>
 
 namespace Desdun
 {
@@ -12,11 +12,11 @@ namespace Desdun
 	public:
 		Model() = default;
 
-		void Load(const std::string& path);
+		void Load(const std::string& path) override;
 
 	private:
 
-		Instance* m_Model = nullptr;
+		RuntimeObject* modelObject = nullptr;
 	};
 
 

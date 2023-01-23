@@ -31,6 +31,7 @@ namespace Desdun
 		}
 
 		uint layer = alloc->PushLayer(Buffer);
+		Debug::Log(std::to_string(layer));
 
 		TextureAlloc = alloc;
 		TextureLayer = layer;

@@ -1,13 +1,12 @@
 
-#include <GL/glew.h>
-#include <glfw3.h>
+
 
 #include <app/debug/debug.h>
 
 #include <graphics/renderer.h>
 #include <resource/resource.hpp>
 
-#include <app/runtime/runtime_info.h>
+#include <app/runtime.h>
 #include <object/index.hpp>
 
 #include "app.h"
@@ -79,16 +78,17 @@ namespace Desdun
 	{
 		AppObject = this;
 		
+        Debug::Log("Starting base runtime");
         Runtime::Start();
 
         GameWindow = new Window("Desecrated Dungeons", { 800, 600 });
+        Debug::Log("Starting renderer");
         Renderer::Start();
 
+        Debug::Log("Adding imgui layer");
 
-        /*
-        ImGuiLayer = new ImGuiLayer(ImGuiIniFileName);
-        Layers.PushOverlay(a_ImGuiLayer);
-        */
+        imguiLayer = new ImGuiLayer("imgui.ini");
+        GameLayers.PushOverlay(imguiLayer);
 	}
 
 	Application::~Application()
@@ -123,7 +123,7 @@ namespace Desdun
             while (Accumulator >= GameSpeed)
             {
                 for (Layer* a_Layer : GameLayers) {
-                    a_Layer->OnGameStep(Accumulator);
+                    a_Layer->onGameStep(Accumulator);
                 }
 
                 Accumulator -= GameSpeed;
@@ -131,14 +131,16 @@ namespace Desdun
 
             StepInterpFrac = Accumulator / GameSpeed;
             
-            GameWindow->Clear();
+            GameWindow->clear();
+            imguiLayer->begin();
 
             for (auto* Layer : GameLayers)
             {
-                Layer->OnFrameUpdate(FrameTime);
+                Layer->onFrameUpdate(FrameTime);
             }
 
-            GameWindow->Update();
+            imguiLayer->end();
+            GameWindow->update();
 		}
 	}
 
@@ -147,40 +149,22 @@ namespace Desdun
 		Running = false;
 	}
 
-    void Application::PushInputEvent(const InputEvent& inputEvent)
+    void Application::pushInputEvent(Input::Event& event)
     {
-        //Debug::Log("Event " + std::to_string((int)inputEvent.InputType) + " " + std::to_string((int)inputEvent.InputState) + " " + std::to_string((int)inputEvent.KeyCode) + " " + std::to_string((int)inputEvent.MouseCode) + " (" + std::to_string(inputEvent.Delta.x) + ", " + std::to_string(inputEvent.Delta.y) + ") (" + std::to_string(inputEvent.Position.x) + ", " + std::to_string(inputEvent.Position.y) + ")", "Application");
-
-        /*
-        if (a_ImGuiLayer->GetAbsorbInputs())
-        {
-            ImGuiIO& io = ImGui::GetIO();
-            if (((inputEvent.InputType == Input::Type::Mouse || inputEvent.InputType == Input::Type::Scrolling) && io.WantCaptureMouse) ||
-                (inputEvent.InputType == Input::Type::Keyboard && io.WantCaptureKeyboard))
-            {
-                return;
-            }
-        }
-        */
-
-        bool Processed = false;
-
         for (auto i = GameLayers.rbegin(); i != GameLayers.rend(); ++i)
         {
-            Input::Filter Response = (*i)->OnInputEvent(inputEvent, Processed);
+            (*i)->onInputEvent(event);
 
-            if (Response == Input::Filter::Stop)
+            if (event.absorbed)
                 break;
-            else if (Response == Input::Filter::Continue)
-                Processed = true;
         }
     }
 
-    void Application::PushWindowEvent(const WindowEvent& windowEvent)
+    void Application::pushWindowEvent(const Window::Event& windowEvent)
     {
         for (auto* Layer : GameLayers)
         {
-            Layer->OnWindowEvent(windowEvent);
+            Layer->onWindowEvent(windowEvent);
         }
     }
 }

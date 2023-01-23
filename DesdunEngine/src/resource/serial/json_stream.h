@@ -19,10 +19,25 @@ namespace Desdun
 	{
 	public:
 
-		JSONStream(RuntimeObject* object)
+		JSONStream() = default;
+
+		JSONStream(RuntimeObject* rootObject)
 		{
-			add(object);
+			add(rootObject);
 		};
+
+		JSONStream(const json& jsonObject)
+		{
+			auto& instances = jsonObject.at("instances");
+
+			for (auto it = instances.begin(); it != instances.end(); ++it)
+			{
+				m_ObjectArray.push_back({ this, *it });
+			}
+
+			JSONObject& rootJsonObject = m_ObjectArray[0];
+			root = rootJsonObject.makeObject();
+		}
 
 		void operator<<(std::ifstream& stream)
 		{
@@ -40,21 +55,30 @@ namespace Desdun
 			stream << jsonObject;
 		};
 
+		RuntimeObject* getRoot() const
+		{
+			return root;
+		};
+
 		/*
 			gets the ref number of a serialising object
 			 - if the object exists, it just returns its reference index
 			 - if it doesn't, then it serialises the object and returns the new reference index
 		*/
 		uint64_t getReferenceFromObject(RuntimeObject* object);
-		RuntimeObject* getObjectFromReference(uint64_t referenceId);
+		RuntimeObject* getObjectFromReference(uint64_t reference);
 
 	private:
 
 		uint64_t add(RuntimeObject* object);
+		RuntimeObject* add(uint64_t reference);
+
+		RuntimeObject* root = nullptr;
 
 		std::vector<JSONObject> m_ObjectArray = {};
-		std::unordered_map<void*, uint64_t> m_ObjectReferenceIndex = {};
-		std::unordered_map<uint64_t, void*> m_ReferenceObjectIndex = {};
+
+		std::unordered_map<RuntimeObject*, uint64_t> m_ObjectReferenceIndex = {};
+		std::unordered_map<uint64_t, RuntimeObject*> m_ReferenceObjectIndex = {};
 	};
 
 }

@@ -1,5 +1,5 @@
 
-#include <app/runtime/runtime_info.h>
+#include <app/runtime.h>
 #include "json_stream.h"
 
 namespace Desdun
@@ -18,7 +18,13 @@ namespace Desdun
 
 	RuntimeObject* JSONStream::getObjectFromReference(uint64_t reference)
 	{
-		return nullptr;
+		auto it = m_ReferenceObjectIndex.find(reference);
+		if (it != m_ReferenceObjectIndex.end())
+		{
+			return it->second;
+		}
+
+		return add(reference);
 	}
 
 	/*
@@ -39,4 +45,14 @@ namespace Desdun
 		object->Serialise(newObject);
 		return index;
 	};
+
+	RuntimeObject* JSONStream::add(uint64_t reference)
+	{
+		RuntimeObject* newObject = m_ObjectArray[reference].makeObject();
+		m_ReferenceObjectIndex[reference] = newObject;
+		m_ObjectReferenceIndex[newObject] = reference;
+
+		return newObject;
+	}
+
 }

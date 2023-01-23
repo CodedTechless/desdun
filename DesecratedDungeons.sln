@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesecratedDungeons", "DesecratedDungeons\DesecratedDungeons.vcxproj", "{1056289C-3730-4ABB-8839-D321A00D1EF7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{22EC801D-9C79-4913-B498-FA7C12ED21E2} = {22EC801D-9C79-4913-B498-FA7C12ED21E2}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesdunEngine", "DesdunEngine\DesdunEngine.vcxproj", "{22EC801D-9C79-4913-B498-FA7C12ED21E2}"
 EndProject

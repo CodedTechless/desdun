@@ -4,9 +4,6 @@
 
 #include <core_lib.hpp>
 
-#define RUNTIME_CLASS_DEF(x) \
-	std::type_index GetClassIndex() const override { return typeid(x); } \
-
 namespace Desdun
 {
 

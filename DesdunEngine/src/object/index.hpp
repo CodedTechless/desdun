@@ -19,7 +19,7 @@
 
 // Visual
 
-#include "types/visual/animator.hpp"
+#include "types/visual/animated_sprite.hpp"
 #include "types/visual/camera.hpp"
 #include "types/visual/light.hpp"
 #include "types/visual/particle_emitter.hpp"

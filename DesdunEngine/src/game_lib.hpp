@@ -28,5 +28,6 @@ one big include file filled with everything game related
 
 // Input
 
-#include <app/input/input.h>
-#include <app/input/event.h>
+#include <app/app.h>
+#include <app/input.h>
+#include <app/window.h>

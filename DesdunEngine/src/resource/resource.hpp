@@ -34,10 +34,10 @@ namespace Desdun
 			std::string PathString = Location.generic_string();
 			std::string Name = Type.name();
 
-			auto it = Resources[Type].find(Name);
+			auto it = Resources[Type].find(PathString);
 			if (it != Resources[Type].end())
 			{
-				Debug::Log("Found cached resource for " + std::string(Type.name()) + " " + PathString);
+				Debug::Log("Found cached resource for " + std::string(Name) + " " + PathString);
 				return (T*)it->second;
 			}
 			else
@@ -45,9 +45,9 @@ namespace Desdun
 				T* NewResource = new T();
 				NewResource->Load(path);
 
-				Debug::Log("Loaded " + Name + " " + Location.generic_string());
+				Debug::Log("Loaded " + Name + " " + PathString);
 
-				Resources[Type][Name] = NewResource;
+				Resources[Type][PathString] = NewResource;
 
 				return NewResource;
 			}

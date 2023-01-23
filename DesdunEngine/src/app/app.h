@@ -1,8 +1,11 @@
 #pragma once
 
-#include <app/system/window.h>
-#include <app/input/event.h>
+#include <GL/glew.h>
+#include <glfw3.h>
+
+#include <app/window.h>
 #include <app/layers/layer_collection.h>
+#include <app/debug/imgui_layer.h>
 
 namespace Desdun
 {
@@ -21,14 +24,16 @@ namespace Desdun
 		float GetInterpolationFraction() const { return StepInterpFrac; };
 
 		LayerCollection GameLayers = {};
+		ImGuiLayer* imguiLayer = nullptr;
+
 		float GameSpeed = (1.f / 30.f);
 		float TimeScale = 1.f;
 
 		static Application* GetApplication() { return AppObject; };
 
 	protected:
-		void PushInputEvent(const InputEvent& inputEvent);
-		void PushWindowEvent(const WindowEvent& windowEvent);
+		void pushInputEvent(Input::Event& event);
+		void pushWindowEvent(const Window::Event& event);
 
 	private:
 		static Application* AppObject;

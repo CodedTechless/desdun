@@ -67,6 +67,12 @@ namespace Desdun
 		float ZIndex = 0;
 	};
 
+	struct FrameData
+	{
+		uint vertexCount;
+		uint drawCalls;
+	};
+
 	// we use an array for arena allocation bcos it's better than using a vector here
 	typedef std::array<RenderCommand, RENDER_QUEUE_SIZE> RenderCommandQueue;
 
@@ -79,6 +85,8 @@ namespace Desdun
 
 		static void BeginScene(const RenderCamera& camera, Mat4f transform);
 		static void EndScene();
+
+		static void setViewportSize(Vector2i size);
 
 		static void Clear();
 		static void Submit(const RenderCommand& command);
@@ -142,7 +150,16 @@ namespace Desdun
 			uint CommandIndex = 0;
 		};
 
+		static FrameData getFrameData()
+		{
+			return { 
+				m_RenderCore.FrameVertices, 
+				m_RenderCore.FrameDrawCalls
+			};
+		}
+
 	private:
+
 
 		static void Execute(RenderCommand& Command);
 		static void SetShader(Shader* shader);

@@ -8,7 +8,7 @@ namespace Desdun {
 	{
 		for (auto& Layer : Layers) 
 		{
-			Layer->OnDestroyed();
+			Layer->onDestroyed();
 			delete Layer;
 		}
 	}
@@ -18,7 +18,7 @@ namespace Desdun {
 		Layers.emplace(Layers.begin() + LayerInsertIndex, Layer);
 		LayerInsertIndex++;
 
-		Layer->OnAwake();
+		Layer->onAwake();
 	}
 
 	void LayerCollection::PopLayer(Layer* Layer)
@@ -28,7 +28,7 @@ namespace Desdun {
 		auto Iterator = std::find(Layers.begin(), Loc, Layer);
 		if (Iterator != Loc) 
 		{
-			Layer->OnDestroyed();
+			Layer->onDestroyed();
 			Layers.erase(Iterator);
 
 			LayerInsertIndex--;
@@ -38,7 +38,7 @@ namespace Desdun {
 	void LayerCollection::PushOverlay(Layer* Overlay)
 	{
 		Layers.emplace_back(Overlay);
-		Overlay->OnAwake();
+		Overlay->onAwake();
 	}
 
 	void LayerCollection::PopOverlay(Layer* Overlay)
@@ -48,7 +48,7 @@ namespace Desdun {
 		auto Iterator = std::find(Loc, Layers.end(), Overlay);
 		if (Iterator != Layers.end()) 
 		{
-			Overlay->OnDestroyed();
+			Overlay->onDestroyed();
 			Layers.erase(Iterator);
 		}
 	}

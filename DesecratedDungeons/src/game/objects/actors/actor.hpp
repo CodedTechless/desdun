@@ -7,63 +7,52 @@
 namespace Desdun
 {
 
-	class Actor : public Sprite
+	class Actor : public Object
 	{
 	public:
 		RUNTIME_CLASS_DEF(Actor);
 
-		void OnAwake()
+		float health = 100.f;
+		float maxHealth = 100.f;
+
+		void onAwake()
 		{
 
-			sprite = GetScene()->Create<Sprite>();
+			Sprite* sprite = GetScene()->create<Sprite>();
 			sprite->Name = "Body";
 
 			sprite->SpriteImage = Resource::Fetch<Image>("assets/textures/skube_idle_right.png");
-			sprite->SetParent(this);
 			sprite->Position = Vector2(0.f, -16.f);
+			sprite->ZIndex = 10.f;
+			sprite->setParent(this);
 
-			SpriteImage = Resource::Fetch<Image>("assets/textures/white.png");
+			//sprite->SpriteImage = Resource::Fetch<Image>("assets/textures/white.png");
 
 			SaveToFile("assets/models/hello.res");
 
 			Resource::Fetch<Model>("assets/models/hello.res");
-		}
+		};
 
-		void OnGameStep(const float Delta)
+		void takeDamage(float amount)
 		{
 
-			if (Input::KeyDown(Input::KeyCode::W))
-			{
-				Position -= Vector2(0.f, 10.f);
-			}
+		};
 
-			if (Input::KeyDown(Input::KeyCode::A))
-			{
-				Position -= Vector2(10.f, 0.f);
-			}
-
-			if (Input::KeyDown(Input::KeyCode::S))
-			{
-				Position += Vector2(0.f, 10.f);
-			}
-
-			if (Input::KeyDown(Input::KeyCode::D))
-			{
-				Position += Vector2(10.f, 0.f);
-			}
-
-			Rotation += 90 * Delta;
-			sprite->Rotation += 90 * Delta;
-		}
-
-		Input::Filter OnInputEvent(InputEvent input, bool processed)
+		void Serialise(JSONObject& object) const override
 		{
-			return Input::Filter::Ignore;
+			object["health"] = health;
+			object["maxHealth"] = maxHealth;
+
+			Object::Serialise(object);
 		}
 
-	private:
+		void Deserialise(const JSONObject& object) override
+		{
+			object.at("health").get_to(health);
+			object.at("maxHealth").get_to(maxHealth);
 
-		Sprite* sprite = nullptr;
+			Object::Deserialise(object);
+		}
 
 	};
 }

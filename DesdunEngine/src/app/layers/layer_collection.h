@@ -20,6 +20,7 @@ namespace Desdun {
 
 		std::vector<Layer*>::reverse_iterator rbegin() { return Layers.rbegin(); };
 		std::vector<Layer*>::reverse_iterator rend() { return Layers.rend(); };
+
 	private:
 		std::vector<Layer*> Layers;
 		unsigned short int LayerInsertIndex = 0; // this is the index that layers will be inserted

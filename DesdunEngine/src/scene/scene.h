@@ -1,9 +1,8 @@
 #pragma once
 
-#include <object/instance.h>
-#include <object/types/visual/camera.hpp>
-
-#include <resource/types/model.h>
+#include <app/input.h>
+#include <app/runtime.h>
+#include <app/window.h>
 
 #include <uuid.hpp>
 #include <core_lib.hpp>
@@ -11,37 +10,42 @@
 namespace Desdun
 {
 
+	class Camera;
+	class Instance;
+	class Object;
+	class Model;
+
 	class Scene
 	{
 	public:
 		Scene();
 		~Scene() = default;
 
-		Camera* CurrentCamera = nullptr;
+		Camera* currentCamera = nullptr;
 
-		void OnFrameUpdate(const float Delta);
-		void OnGameStep(const float Delta);
+		void onFrameUpdate(const float Delta);
+		void onGameStep(const float Delta);
 
-		Input::Filter OnInputEvent(InputEvent InputObject, bool Processed);
-		void OnWindowEvent(WindowEvent windowEvent);
+		void onInputEvent(Input::Event& event);
+		void onWindowEvent(const Window::Event& event);
 
-//		Instance* Instantiate(Model* model);
+		Instance* instantiate(Model* model);
 
 		template<typename T>
-		T* Create()
+		T* create()
 		{
 			T* instance = new T();
 			instance->m_ActiveScene = this;
 			instance->m_ID = UUID::Generate();
 
-			SceneInstances.push_back((Instance*)instance);
+			sceneInstances.push_back((Instance*)instance);
 
 			if (Runtime::Get<T>()->IsA<Object>())
 			{
-				SceneObjects.push_back((Object*)instance);
+				sceneObjects.push_back((Object*)instance);
 			}
 
-			instance->OnAwake();
+			instance->onAwake();
 
 			return instance;
 		}
@@ -52,8 +56,8 @@ namespace Desdun
 
 		Instance* rootInstance = nullptr;
 
-		std::vector<Instance*> SceneInstances = {};
-		std::vector<Object*> SceneObjects = {};
+		std::vector<Instance*> sceneInstances = {};
+		std::vector<Object*> sceneObjects = {};
 
 	};
 

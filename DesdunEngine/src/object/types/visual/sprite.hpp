@@ -21,7 +21,7 @@ namespace Desdun
 			{ 1.f, 1.f }
 		};
 
-		void OnFrameUpdate(const float_t delta) override
+		void onFrameUpdate(const float_t delta) override
 		{
 			Mat4f transform = GetInterpTransform()
 				* glm::scale(Mat4f(1.f), Vector3f(Vector2f(SpriteImage->GetSize()), 1.f));
@@ -50,7 +50,7 @@ namespace Desdun
 				SpriteImage = Resource::Fetch<Image>(spriteImage);
 			}
 
-			std::string shaderImage = object.at("ShaderImagePath").get<std::string>();
+			std::string shaderImage = object.at("SpriteShaderPath").get<std::string>();
 			if (shaderImage != "")
 			{
 				SpriteShader = Resource::Fetch<Shader>(shaderImage);

@@ -1,9 +1,8 @@
 #pragma once
 
 #include <app/app.h>
-#include <app/input/input.h>
-#include <app/input/event.h>
-#include <app/runtime/runtime_info.h>
+#include <app/input.h>
+#include <app/runtime.h>
 
 #include <core_lib.hpp>
 
@@ -39,19 +38,19 @@ namespace Desdun
 			friend class Instance;
 		};
 
-		virtual void OnAwake() {};
+		virtual void onAwake() {};
 		virtual void OnDestroyed() {};
 
-		virtual void OnGameStep(const float_t Delta) {};
-		virtual void OnFrameUpdate(const float_t Delta) {};
+		virtual void onGameStep(const float_t Delta) {};
+		virtual void onFrameUpdate(const float_t Delta) {};
 
-		virtual Input::Filter OnInputEvent(InputEvent input, bool processed) { return Input::Filter::Ignore; };
-		virtual void OnWindowEvent(WindowEvent window) {};
+		virtual void onInputEvent(Input::Event& input) { };
+		virtual void onWindowEvent(const Window::Event& window) {};
 
 		// Object operations
 
 		void SaveToFile(const std::string& path) const;
-		void SetParent(Instance* object);
+		void setParent(Instance* object);
 
 		Instance* FindChild(const std::string& name) const;
 
