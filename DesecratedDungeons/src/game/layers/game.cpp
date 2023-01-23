@@ -17,10 +17,9 @@ namespace Desdun
 		Camera* camera = gameScene->create<GameCamera>();
 		camera->targetViewportSize = { 800, 600 };
 		camera->alpha = 15.f;
-		camera->Position = Vector2(-400.f, -300.f);
 		camera->setParent(gameScene->getRoot());
 
-		gameScene->currentCamera = camera;
+		gameScene->setCurrentCamera(camera);
 
 		auto* actor = gameScene->create<Player>();
 		actor->setParent(gameScene->getRoot());

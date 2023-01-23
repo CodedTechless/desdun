@@ -8,23 +8,23 @@ namespace Desdun
 {
 	Instance::~Instance()
 	{
-		if (m_Active)
+		if (active)
 		{
 			OnDestroyed();
 		}
 
-		for (auto instance : GetChildren())
+		for (auto instance : getChildren())
 		{
 			delete instance;
 		}
 
-		if (GetParent())
+		if (getParent())
 		{
-			GetParent()->RemoveChild(this);
+			getParent()->removeChild(this);
 		}
 	}
 
-	void Instance::SaveToFile(const std::string& path) const
+	void Instance::saveToFile(const std::string& path) const
 	{
 		JSONStream stream((Instance*)this);
 
@@ -34,25 +34,25 @@ namespace Desdun
 		filestream.close();
 	}
 
-	void Instance::Serialise(JSONObject& object) const
+	void Instance::serialise(JSONObject& object) const
 	{
-		object["Name"] = Name;
+		object["name"] = name;
 		object["Children"] = json::array();
 
-		for (Instance* child : GetChildren())
+		for (Instance* child : getChildren())
 		{
 			object["Children"].push_back(object.getReferenceID(child));
 		}
 	};
 
-	void Instance::Deserialise(const JSONObject& object)
+	void Instance::deserialise(const JSONObject& object)
 	{
-		object.at("Name").get_to(Name);
+		object.at("name").get_to(name);
 
 		for (auto it = object.at("Children").begin(); it != object.at("Children").end(); it++)
 		{
 			auto reference = it->get<uint64_t>();
-			m_Relation.m_Container.push_back((Instance*)object.getPointer(reference));
+			hierarchyTree.m_Container.push_back((Instance*)object.getPointer(reference));
 		};
 	}
 
@@ -92,23 +92,23 @@ namespace Desdun
 	}
 #endif
 
-	void Instance::RemoveChild(Instance* instance)
+	void Instance::removeChild(Instance* instance)
 	{
-		for (auto it = m_Relation.m_Container.begin(); it != m_Relation.m_Container.end(); ++it)
+		for (auto it = hierarchyTree.m_Container.begin(); it != hierarchyTree.m_Container.end(); ++it)
 		{
-			if ((*it)->m_ID == instance->m_ID)
+			if ((*it)->id == instance->id)
 			{
-				m_Relation.m_Container.erase(it);
+				hierarchyTree.m_Container.erase(it);
 				break;
 			}
 		}
 	}
 
-	Instance* Instance::FindChild(const std::string& name) const
+	Instance* Instance::findChild(const std::string& name) const
 	{
-		for (auto instance : GetChildren())
+		for (auto instance : getChildren())
 		{
-			if (instance->Name == name)
+			if (instance->name == name)
 			{
 				return instance;
 			}
@@ -119,13 +119,13 @@ namespace Desdun
 
 	void Instance::setParent(Instance* instance)
 	{
-		if (GetParent())
+		if (getParent())
 		{
-			GetParent()->RemoveChild(this);
+			getParent()->removeChild(this);
 		}
 
-		m_Relation.m_Parent = instance;
+		hierarchyTree.m_Parent = instance;
 
-		m_Relation.m_Parent->m_Relation.m_Container.push_back(this);
+		hierarchyTree.m_Parent->hierarchyTree.m_Container.push_back(this);
 	};
 }

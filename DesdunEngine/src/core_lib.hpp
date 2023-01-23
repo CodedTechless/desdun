@@ -31,7 +31,7 @@
 
 #define MAX_INSTANCES 4196
 #define RUNTIME_CLASS_DEF(x) \
-	std::type_index GetClassIndex() const override { return typeid(x); } \
+	std::type_index getClassIndex() const override { return typeid(x); } \
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;

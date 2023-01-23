@@ -16,7 +16,7 @@ namespace Desdun
 	Scene::Scene()
 	{
 		rootInstance = create<Instance>();
-		rootInstance->Name = "gameRoot";
+		rootInstance->name = "gameRoot";
 	}
 
 	Instance* Scene::instantiate(Model* model)
@@ -24,20 +24,28 @@ namespace Desdun
 		return nullptr;
 	}
 
+	void Scene::setCurrentCamera(Camera* camera)
+	{
+		currentCamera = camera;
+
+		Vector2 windowSize = Application::get()->getPrimaryWindow()->getSize();
+		camera->adjustViewport(windowSize);
+	}
+
 	void Scene::onGameStep(const float delta)
 	{
 		for (Object* object : sceneObjects)
 		{
-			object->LastPosition = object->Position;
-			object->LastScale = object->Scale;
-			object->LastRotation = object->Rotation;
+			object->LastPosition = object->position;
+			object->LastScale = object->scale;
+			object->LastRotation = object->rotation;
 		}
 
 		for (Instance* instance : sceneInstances)
 		{
-			if (instance->m_Active == false)
+			if (instance->active == false)
 			{
-				instance->m_Active = true;
+				instance->active = true;
 			}
 
 			instance->onGameStep(delta);
@@ -52,7 +60,7 @@ namespace Desdun
 
 		for (Instance* instance : sceneInstances)
 		{
-			if (instance->m_Active)
+			if (instance->active)
 			{
 				instance->onFrameUpdate(delta);
 			}

@@ -21,7 +21,6 @@ namespace Desdun
 		Scene();
 		~Scene() = default;
 
-		Camera* currentCamera = nullptr;
 
 		void onFrameUpdate(const float Delta);
 		void onGameStep(const float Delta);
@@ -35,12 +34,12 @@ namespace Desdun
 		T* create()
 		{
 			T* instance = new T();
-			instance->m_ActiveScene = this;
-			instance->m_ID = UUID::Generate();
+			instance->activeScene = this;
+			instance->id = UUID::Generate();
 
 			sceneInstances.push_back((Instance*)instance);
 
-			if (Runtime::Get<T>()->IsA<Object>())
+			if (Runtime::Get<T>()->isA<Object>())
 			{
 				sceneObjects.push_back((Object*)instance);
 			}
@@ -50,10 +49,14 @@ namespace Desdun
 			return instance;
 		}
 
+		void setCurrentCamera(Camera* camera);
+
 		Instance* getRoot() const { return rootInstance; };
+		Camera* getCurrentCamera() const { return currentCamera; };
 
 	private:
-
+		
+		Camera* currentCamera = nullptr;
 		Instance* rootInstance = nullptr;
 
 		std::vector<Instance*> sceneInstances = {};

@@ -6,11 +6,18 @@ namespace Desdun {
 
 	LayerCollection::~LayerCollection()
 	{
-		for (auto& Layer : Layers) 
+		clear();
+	}
+
+	void LayerCollection::clear()
+	{
+		for (auto* Layer : Layers)
 		{
 			Layer->onDestroyed();
 			delete Layer;
 		}
+
+		Layers.clear();
 	}
 
 	void LayerCollection::PushLayer(Layer* Layer)

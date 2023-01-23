@@ -229,9 +229,9 @@ namespace Desdun
 					have to perform many texture switches, but if we do, then this optimisation may be important!
 				*/
 
-				return A.ZIndex < B.ZIndex ||
-					(A.ZIndex == B.ZIndex && A.ObjectShader->GetRenderID() < B.ObjectShader->GetRenderID()) ||
-					((A.ZIndex == B.ZIndex && A.ObjectShader->GetRenderID() == B.ObjectShader->GetRenderID()) && 
+				return A.zIndex < B.zIndex ||
+					(A.zIndex == B.zIndex && A.ObjectShader->GetRenderID() < B.ObjectShader->GetRenderID()) ||
+					((A.zIndex == B.zIndex && A.ObjectShader->GetRenderID() == B.ObjectShader->GetRenderID()) && 
 					(A.ImageResource->GetAllocation().Texture->GetRenderID() < B.ImageResource->GetAllocation().Texture->GetRenderID()));
 			}
 		);

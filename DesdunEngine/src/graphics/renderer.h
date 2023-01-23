@@ -64,7 +64,7 @@ namespace Desdun
 		Image* ImageResource = nullptr;
 		Shader* ObjectShader = nullptr;
 
-		float ZIndex = 0;
+		float zIndex = 0;
 	};
 
 	struct FrameData

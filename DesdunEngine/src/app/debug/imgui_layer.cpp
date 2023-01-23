@@ -89,7 +89,7 @@ namespace Desdun
 				ImGui::TableNextColumn();
 				ImGui::Text(std::to_string(frameData.vertexCount).c_str());
 
-				auto* window = Application::GetApplication()->GetPrimaryWindow();
+				auto* window = Application::get()->getPrimaryWindow();
 				auto size = window->getSize();
 
 				ImGui::TableNextColumn();

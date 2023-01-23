@@ -52,7 +52,7 @@ namespace Desdun
 
 			//std::cout << normalisedMovement.x << " " << normalisedMovement.y << " " << velocity.x << " " << velocity.y << std::endl;
 
-			Position += velocity * delta;
+			position += velocity * delta;
 		}
 	};
 

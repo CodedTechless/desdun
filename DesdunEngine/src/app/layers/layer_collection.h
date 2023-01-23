@@ -15,6 +15,8 @@ namespace Desdun {
 		void PopLayer(Layer* Layer);
 		void PopOverlay(Layer* Overlay);
 
+		void clear();
+
 		std::vector<Layer*>::iterator begin() { return Layers.begin(); };
 		std::vector<Layer*>::iterator end() { return Layers.end(); };
 

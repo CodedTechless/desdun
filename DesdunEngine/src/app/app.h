@@ -16,20 +16,20 @@ namespace Desdun
 		Application();
 		~Application();
 
-		virtual void Start() { Run(); };
-		void Run();
-		void End();
+		virtual void start() { run(); };
+		void run();
+		void end();
 
-		Window* GetPrimaryWindow() const { return GameWindow; };
-		float GetInterpolationFraction() const { return StepInterpFrac; };
+		Window* getPrimaryWindow() const { return gameWindow; };
+		float getInterpFraction() const { return stepInterpFrac; };
 
-		LayerCollection GameLayers = {};
+		LayerCollection gameLayers = {};
 		ImGuiLayer* imguiLayer = nullptr;
 
-		float GameSpeed = (1.f / 30.f);
-		float TimeScale = 1.f;
+		float gameSpeed = (1.f / 30.f);
+		float timeScale = 1.f;
 
-		static Application* GetApplication() { return AppObject; };
+		static Application* get() { return AppObject; };
 
 	protected:
 		void pushInputEvent(Input::Event& event);
@@ -38,10 +38,10 @@ namespace Desdun
 	private:
 		static Application* AppObject;
 
-		Window* GameWindow = nullptr;
-		bool Running = false;
+		Window* gameWindow = nullptr;
+		bool running = false;
 
-		float StepInterpFrac = 0.f;
+		float stepInterpFrac = 0.f;
 
 		friend class Window;
 	};

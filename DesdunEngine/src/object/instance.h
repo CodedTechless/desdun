@@ -14,12 +14,10 @@ namespace Desdun
 	class Instance : public RuntimeObject
 	{
 	public:
-		RUNTIME_CLASS_DEF(Instance);
 
-		Instance() = default;
-		~Instance();
+		std::string name = "Instance";
 
-		std::string Name = "Instance";
+	private:
 
 		struct HierarchyMember
 		{
@@ -38,6 +36,18 @@ namespace Desdun
 			friend class Instance;
 		};
 
+		std::string id;
+		HierarchyMember hierarchyTree = {};
+
+		Scene* activeScene = nullptr;
+		bool active = false;
+
+	public:
+		RUNTIME_CLASS_DEF(Instance);
+
+		Instance() = default;
+		~Instance();
+
 		virtual void onAwake() {};
 		virtual void OnDestroyed() {};
 
@@ -49,19 +59,19 @@ namespace Desdun
 
 		// Object operations
 
-		void SaveToFile(const std::string& path) const;
+		void saveToFile(const std::string& path) const;
 		void setParent(Instance* object);
 
-		Instance* FindChild(const std::string& name) const;
+		Instance* findChild(const std::string& name) const;
 
 		template<typename T>
-		T* FindAncestor() const
+		T* findAncestor() const
 		{
-			Instance* next = GetParent();
+			Instance* next = getParent();
 
-			while (next != nullptr && next->IsA<T>() == false)
+			while (next != nullptr && next->isA<T>() == false)
 			{
-				next = next->GetParent();
+				next = next->getParent();
 			}
 
 			if (next == nullptr)
@@ -75,43 +85,30 @@ namespace Desdun
 		}
 
 		template<typename T>
-		bool IsA() const
+		bool isA() const
 		{
-			return Runtime::Get(GetClassIndex())->IsA<T>();
+			return Runtime::Get(getClassIndex())->isA<T>();
 		}
 
 		// Getters
 
-		std::string GetInstanceID() const { return m_ID; };
-		Scene* GetScene() const { return m_ActiveScene; };
+		std::string getInstanceId() const { return id; };
+		Scene* getScene() const { return activeScene; };
 
-		const std::vector<Instance*>& GetChildren() const { return m_Relation.m_Container; };
-		Instance* GetParent() const { return m_Relation.m_Parent; };
+		const std::vector<Instance*>& getChildren() const { return hierarchyTree.m_Container; };
+		Instance* getParent() const { return hierarchyTree.m_Parent; };
 
-		Instance* operator[](uint idx) const { return m_Relation.m_Container[idx]; };
-		Instance* operator[](const std::string& name) const { return FindChild(name); };
+		Instance* operator[](uint idx) const { return hierarchyTree.m_Container[idx]; };
+		Instance* operator[](const std::string& name) const { return findChild(name); };
 
 	protected:
 
-#if 0
-		virtual void Serialise(ByteObject& object) const;
-		virtual void Deserialise(ByteObject& object);
-#endif
-
-		void Serialise(JSONObject& object) const;
-		void Deserialise(const JSONObject& object);
+		void serialise(JSONObject& object) const override;
+		void deserialise(const JSONObject& object) override;
 
 	private:
 
-		void RemoveChild(Instance* instance);
-
-		// Game
-
-		std::string m_ID;
-		HierarchyMember m_Relation = {};
-		
-		Scene* m_ActiveScene = nullptr;
-		bool m_Active = false;
+		void removeChild(Instance* instance);
 
 		friend class Scene;
 		friend class Model;

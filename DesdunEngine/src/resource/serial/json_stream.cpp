@@ -42,7 +42,7 @@ namespace Desdun
 		m_ObjectReferenceIndex[object] = index;
 		m_ReferenceObjectIndex[index] = object;
 
-		object->Serialise(newObject);
+		object->serialise(newObject);
 		return index;
 	};
 

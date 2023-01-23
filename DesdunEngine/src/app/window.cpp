@@ -42,21 +42,21 @@ namespace Desdun
         glfwSetWindowCloseCallback(windowObject,
             [](GLFWwindow* window)
             {
-                Application::GetApplication()->End();
+                Application::get()->end();
             });
 
         glfwSetWindowSizeCallback(windowObject,
             [](GLFWwindow* window, int Width, int Height)
             {
                 Window* activeWindow = (Window*)glfwGetWindowUserPointer(window);
-                activeWindow->size = glm::uvec2(Width, Height);
+                activeWindow->size = Vector2i(Width, Height);
 
                 Window::Event newEvent = {};
 
                 newEvent.size = activeWindow->size;
                 newEvent.focused = activeWindow->isFocused;
 
-                Application::GetApplication()->pushWindowEvent(newEvent);
+                Application::get()->pushWindowEvent(newEvent);
             });
 
         glfwSetWindowFocusCallback(windowObject,
@@ -70,7 +70,7 @@ namespace Desdun
                 newEvent.size = activeWindow->size;
                 newEvent.focused = activeWindow->isFocused;
 
-                Application::GetApplication()->pushWindowEvent(newEvent);
+                Application::get()->pushWindowEvent(newEvent);
             });
 
         glfwSetScrollCallback(windowObject,
@@ -98,7 +98,7 @@ namespace Desdun
 
                 newEvent.action.delta = Vector3(xOffset, yOffset, 0.f);
 
-                Application::GetApplication()->pushInputEvent(newEvent);
+                Application::get()->pushInputEvent(newEvent);
             });
 
         glfwSetCursorPosCallback(windowObject,
@@ -126,7 +126,7 @@ namespace Desdun
 
                 newEvent.action.position = Vector3(xPos, yPos, 0.f);
 
-                Application::GetApplication()->pushInputEvent(newEvent);
+                Application::get()->pushInputEvent(newEvent);
             });
 
         glfwSetMouseButtonCallback(windowObject,
@@ -164,7 +164,7 @@ namespace Desdun
 
                 newEvent.action.position = Vector3(Input::getMousePosition(), 0.f);
 
-                Application::GetApplication()->pushInputEvent(newEvent);
+                Application::get()->pushInputEvent(newEvent);
             });
 
         glfwSetKeyCallback(windowObject,
@@ -200,7 +200,7 @@ namespace Desdun
                     newEvent.action.type = Input::Type::Keyboard;
                 }
 
-                Application::GetApplication()->pushInputEvent(newEvent);
+                Application::get()->pushInputEvent(newEvent);
             });
     }
 

@@ -23,33 +23,29 @@ namespace Desdun
 		Vector2 targetViewportSize = {};
 		bool adjustToAspectRatio = true;
 
-		Camera() = default;
+		Vector2 trackingPosition = {};
+
+		void onAwake() override
+		{
+			trackingPosition = position;
+		}
 
 		void onGameStep(float delta) override
 		{
 			if (subject)
 			{
-				Vector2 position = subject->Position - (renderCamera.GetOrthoSize() / 2.f);
-
 				if (smoothFollow)
-					Position += (position - Position) * alpha * delta;
+					trackingPosition += (subject->position - trackingPosition) * alpha * delta;
 				else
-					Position = position;
+					trackingPosition = subject->position;
+
+				position = trackingPosition - (renderCamera.GetOrthoSize() * 0.5f);
 			}
 		}
 
 		void onWindowEvent(const Window::Event& event) override
 		{
-			Renderer::setViewportSize(event.size);
-
-			if (adjustToAspectRatio)
-			{
-				renderCamera.SetOrthoSize(Vector2(event.size.x / event.size.y, 1.f) * targetViewportSize.y);
-			}
-			else
-			{
-				renderCamera.SetOrthoSize(targetViewportSize);
-			}
+			adjustViewport(event.size);
 			/*
 			
 
@@ -59,19 +55,32 @@ namespace Desdun
 			setViewportSize();*/
 		}
 
+		void adjustViewport(Vector2 realSize)
+		{
+			if (getScene()->getCurrentCamera() == this)
+				Renderer::setViewportSize(realSize);
+
+			if (adjustToAspectRatio)
+			{
+				renderCamera.SetOrthoSize(Vector2(realSize.x / realSize.y, 1.f) * targetViewportSize.y);
+			}
+			else
+			{
+				renderCamera.SetOrthoSize(targetViewportSize);
+			}
+		}
+
 		void setSubject(Object* object, bool snap = true)
 		{
 			subject = object;
 
 			if (snap)
-			{
-				Position = object->Position;
-			}
+				trackingPosition = subject->position;
 		}
 		
 		Mat4 getProjectionTransform() const
 		{
-			return renderCamera.GetProjection() * glm::inverse(GetInterpTransform());
+			return renderCamera.GetProjection() * glm::inverse(getInterpTransform());
 		};
 
 		RenderCamera& getRenderCamera()

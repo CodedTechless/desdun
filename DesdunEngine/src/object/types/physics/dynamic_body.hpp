@@ -49,7 +49,7 @@ namespace Desdun
 				}
 			};
 
-			Position += velocity * delta;
+			position += velocity * delta;
 		}
 	};
 

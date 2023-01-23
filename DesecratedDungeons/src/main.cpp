@@ -14,7 +14,7 @@ int main()
 {
 	DesecratedDungeons* game = new DesecratedDungeons();
 
-	game->Start();
+	game->start();
 
 	delete game;
 	return 0;

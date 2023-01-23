@@ -81,37 +81,40 @@ namespace Desdun
         Debug::Log("Starting base runtime");
         Runtime::Start();
 
-        GameWindow = new Window("Desecrated Dungeons", { 800, 600 });
+        gameWindow = new Window("Desecrated Dungeons", { 800, 600 });
         Debug::Log("Starting renderer");
         Renderer::Start();
 
         Debug::Log("Adding imgui layer");
 
         imguiLayer = new ImGuiLayer("imgui.ini");
-        GameLayers.PushOverlay(imguiLayer);
+        gameLayers.PushOverlay(imguiLayer);
 	}
 
 	Application::~Application()
 	{
-        delete GameWindow;
+        delete gameWindow;
+
+        gameLayers.clear();
+
         Renderer::Stop();
 	}
 
-	void Application::Run()
+	void Application::run()
 	{
-		if (Running)
+		if (running)
 		{
             return;
 		}
 
-		Running = true;
+		running = true;
         float Time = 0.f;
         float CurrentTime = (float)glfwGetTime();
         float Accumulator = 0.f;
 
         size_t Frames = 0, Updates = 0;
 
-        while (Running)
+        while (running)
         {
             float NewTime = (float)glfwGetTime();
             float FrameTime = std::min(NewTime - CurrentTime, 0.25f);
@@ -120,38 +123,38 @@ namespace Desdun
             Time += FrameTime;
             Accumulator += FrameTime;
 
-            while (Accumulator >= GameSpeed)
+            while (Accumulator >= gameSpeed)
             {
-                for (Layer* a_Layer : GameLayers) {
+                for (Layer* a_Layer : gameLayers) {
                     a_Layer->onGameStep(Accumulator);
                 }
 
-                Accumulator -= GameSpeed;
+                Accumulator -= gameSpeed;
             }
 
-            StepInterpFrac = Accumulator / GameSpeed;
+            stepInterpFrac = Accumulator / gameSpeed;
             
-            GameWindow->clear();
+            gameWindow->clear();
             imguiLayer->begin();
 
-            for (auto* Layer : GameLayers)
+            for (auto* Layer : gameLayers)
             {
                 Layer->onFrameUpdate(FrameTime);
             }
 
             imguiLayer->end();
-            GameWindow->update();
+            gameWindow->update();
 		}
 	}
 
-	void Application::End()
+	void Application::end()
 	{
-		Running = false;
+		running = false;
 	}
 
     void Application::pushInputEvent(Input::Event& event)
     {
-        for (auto i = GameLayers.rbegin(); i != GameLayers.rend(); ++i)
+        for (auto i = gameLayers.rbegin(); i != gameLayers.rend(); ++i)
         {
             (*i)->onInputEvent(event);
 
@@ -162,7 +165,7 @@ namespace Desdun
 
     void Application::pushWindowEvent(const Window::Event& windowEvent)
     {
-        for (auto* Layer : GameLayers)
+        for (auto* Layer : gameLayers)
         {
             Layer->onWindowEvent(windowEvent);
         }

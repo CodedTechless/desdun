@@ -17,20 +17,20 @@ namespace Desdun
 
 		// Properties
 
-		Vector2f Position = { 0.0, 0.0 };
-		Vector2f Scale = { 1.0, 1.0 };
-		float_t Rotation = 0.0;
+		Vector2f position = { 0.0, 0.0 };
+		Vector2f scale = { 1.0, 1.0 };
+		float_t rotation = 0.0;
 
-		float_t ZIndex = 0.0;
+		float_t zIndex = 0.0;
 
-		bool Visible = true;
-		bool Interpolate = true;
+		bool visible = true;
+		bool interpolate = true;
 
 		// Transforms
 
-		Mat4f GetInterpTransform() const;
-		Mat4f GetTransform() const;
-		Mat4f GetGlobalTransform() const;
+		Mat4f getInterpTransform() const;
+		Mat4f getTransform() const;
+		Mat4f getGlobalTransform() const;
 
 	protected:
 
@@ -39,16 +39,16 @@ namespace Desdun
 		void Deserialise(ByteFile& stream);
 #endif
 
-		void Serialise(JSONObject& object) const;
+		void serialise(JSONObject& object) const;
 		void Deserialise(const JSONObject& object);
 
 	private:
 
 		// Transforms
 
-		Vector2f LastPosition = Position;
-		Vector2f LastScale = Scale;
-		float_t LastRotation = Rotation;
+		Vector2f LastPosition = position;
+		Vector2f LastScale = scale;
+		float_t LastRotation = rotation;
 
 		friend class Scene;
 

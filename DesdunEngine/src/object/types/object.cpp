@@ -41,51 +41,51 @@ namespace Desdun
 
 #endif
 
-	void Object::Serialise(JSONObject& object) const
+	void Object::serialise(JSONObject& object) const
 	{
-		object["Position"] = Position;
-		object["Scale"] = Scale;
-		object["Rotation"] = Rotation;
+		object["position"] = position;
+		object["scale"] = scale;
+		object["rotation"] = rotation;
 
-		object["ZIndex"] = ZIndex;
-		object["Visible"] = Visible;
+		object["zIndex"] = zIndex;
+		object["visible"] = visible;
 
-		object["Interpolate"] = Interpolate;
+		object["interpolate"] = interpolate;
 
-		Instance::Serialise(object);
+		Instance::serialise(object);
 	}
 
 	void Object::Deserialise(const JSONObject& object)
 	{
-		object.at("Position").get_to(Position);
-		object.at("Scale").get_to(Scale);
-		object.at("Rotation").get_to(Rotation);
+		object.at("position").get_to(position);
+		object.at("scale").get_to(scale);
+		object.at("rotation").get_to(rotation);
 		
-		object.at("ZIndex").get_to(ZIndex);
-		object.at("Visible").get_to(Visible);
+		object.at("zIndex").get_to(zIndex);
+		object.at("visible").get_to(visible);
 
-		object.at("Interpolate").get_to(Interpolate);
+		object.at("interpolate").get_to(interpolate);
 		
-		Instance::Deserialise(object);
+		Instance::deserialise(object);
 	}
 
 	/*
 		breaks down the transform into its components, then reconstructs it as an interpolation of Last[component] and [component]
 	*/
-	Mat4f Object::GetInterpTransform() const
+	Mat4f Object::getInterpTransform() const
 	{
-		if (Interpolate == false)
+		if (interpolate == false)
 		{
-			return GetGlobalTransform();
+			return getGlobalTransform();
 		}
 
-		float_t alpha = Application::GetApplication()->GetInterpolationFraction();
+		float_t alpha = Application::get()->getInterpFraction();
 
 		// scale
-		Vector2f scale = glm::lerp(LastScale, Scale, alpha);
+		Vector2f interpScale = glm::lerp(LastScale, scale, alpha);
 
 		// rotation
-		float_t rad = glm::radians(Rotation);
+		float_t rad = glm::radians(rotation);
 		float_t lastrad = glm::radians(LastRotation);
 
 		float_t max = PI * 2.f;
@@ -94,53 +94,53 @@ namespace Desdun
 		float_t rot = lastrad + (std::fmod(2 * da, max) - da) * alpha;
 
 		// position
-		Vector2f pos = glm::lerp(LastPosition, Position, alpha) * scale;
+		Vector2f pos = glm::lerp(LastPosition, position, alpha) * interpScale;
 
 		Mat4f frame = glm::translate(Mat4f(1.f), Vector3f(pos, 0.f))
 			* glm::rotate(Mat4f(1.f), rot, Vector3f(0.f, 0.f, 1.f))
-			* glm::scale(Mat4f(1.f), Vector3f(scale, 1.f));
+			* glm::scale(Mat4f(1.f), Vector3f(interpScale, 1.f));
 
-		if (GetParent() != nullptr)
+		if (getParent() != nullptr)
 		{
-			Instance* localSpaceParent = GetParent();
+			Instance* localSpaceParent = getParent();
 
-			if (localSpaceParent->IsA<Object>() == false)
+			if (localSpaceParent->isA<Object>() == false)
 			{
-				localSpaceParent = FindAncestor<Object>();
+				localSpaceParent = findAncestor<Object>();
 			}
 
 			if (localSpaceParent != nullptr)
 			{
-				frame = ((Object*)localSpaceParent)->GetInterpTransform() * frame;
+				frame = ((Object*)localSpaceParent)->getInterpTransform() * frame;
 			}
 		}
 
 		return frame;
 	}
 
-	Mat4f Object::GetTransform() const
+	Mat4f Object::getTransform() const
 	{
-		return glm::translate(Mat4f(1.0f), Vector3f(Position, 0.f))
-			* glm::rotate(Mat4f(1.0f), glm::radians(Rotation), Vector3f(0.f, 0.f, 1.f))
-			* glm::scale(Mat4f(1.0f), Vector3f(Scale, 1.f));
+		return glm::translate(Mat4f(1.0f), Vector3f(position, 0.f))
+			* glm::rotate(Mat4f(1.0f), glm::radians(rotation), Vector3f(0.f, 0.f, 1.f))
+			* glm::scale(Mat4f(1.0f), Vector3f(scale, 1.f));
 	}
 
-	Mat4f Object::GetGlobalTransform() const
+	Mat4f Object::getGlobalTransform() const
 	{
-		Mat4f transform = GetTransform();
+		Mat4f transform = getTransform();
 
-		if (GetParent() != nullptr)
+		if (getParent() != nullptr)
 		{
-			Instance* localSpaceParent = GetParent();
+			Instance* localSpaceParent = getParent();
 
-			if (localSpaceParent->IsA<Object>() == false)
+			if (localSpaceParent->isA<Object>() == false)
 			{
-				localSpaceParent = FindAncestor<Object>();
+				localSpaceParent = findAncestor<Object>();
 			}
 
 			if (localSpaceParent != nullptr)
 			{
-				transform = ((Object*)localSpaceParent)->GetTransform() * transform;
+				transform = ((Object*)localSpaceParent)->getTransform() * transform;
 			}
 		}
 

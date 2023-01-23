@@ -23,15 +23,15 @@ namespace Desdun
 
 		void onFrameUpdate(const float_t delta) override
 		{
-			Mat4f transform = GetInterpTransform()
+			Mat4f transform = getInterpTransform()
 				* glm::scale(Mat4f(1.f), Vector3f(Vector2f(SpriteImage->GetSize()), 1.f));
 
-			Renderer::Submit({ transform, Tint, SpriteBounds, SpriteImage, SpriteShader, ZIndex });
+			Renderer::Submit({ transform, Tint, SpriteBounds, SpriteImage, SpriteShader, zIndex });
 		}
 
 	private:
 
-		void Serialise(JSONObject& object) const override
+		void serialise(JSONObject& object) const override
 		{
 			object["SpriteImagePath"] = SpriteImage != nullptr ? SpriteImage->GetPath() : "";
 			object["SpriteShaderPath"] = SpriteShader != nullptr ? SpriteShader->GetPath() : "";
@@ -39,10 +39,10 @@ namespace Desdun
 			object["Tint"] = Tint;
 			object["SpriteBounds"] = SpriteBounds;
 
-			Object::Serialise(object);
+			Object::serialise(object);
 		}
 
-		void Deserialise(const JSONObject& object) override
+		void deserialise(const JSONObject& object) override
 		{
 			std::string spriteImage = object.at("SpriteImagePath").get<std::string>();
 			if (spriteImage != "")
@@ -59,7 +59,7 @@ namespace Desdun
 			object.at("Tint").get_to(Tint);
 			object.at("SpriteBounds").get_to(SpriteBounds);
 
-			Object::Deserialise(object);
+			Object::deserialise(object);
 		}
 
 #if 0

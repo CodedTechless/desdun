@@ -10,10 +10,10 @@ namespace Desdun
 	class RuntimeObject
 	{
 	public:
-		virtual std::type_index GetClassIndex() const = 0;
+		virtual std::type_index getClassIndex() const = 0;
 
-		virtual void Serialise(JSONObject& object) const = 0;
-		virtual void Deserialise(const JSONObject& object) = 0;
+		virtual void serialise(JSONObject& object) const = 0;
+		virtual void deserialise(const JSONObject& object) = 0;
 	};
 
 	class BaseRuntimeClass
@@ -29,7 +29,7 @@ namespace Desdun
 		const std::string GetTypeName() const { return m_TypeName; };
 
 		template<typename T>
-		bool IsA() const
+		bool isA() const
 		{
 			if (m_Inheritor)
 			{
@@ -39,7 +39,7 @@ namespace Desdun
 				}
 				else
 				{
-					return m_Inheritor->IsA<T>();
+					return m_Inheritor->isA<T>();
 				}
 			}
 

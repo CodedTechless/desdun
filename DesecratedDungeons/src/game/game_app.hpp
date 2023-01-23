@@ -10,7 +10,7 @@ namespace Desdun
 	{
 	public:
 
-		void Start() override;
+		void start() override;
 
 	};
 }

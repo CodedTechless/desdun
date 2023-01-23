@@ -7,7 +7,7 @@
 namespace Desdun
 {
 
-	void DesecratedDungeons::Start()
+	void DesecratedDungeons::start()
 	{
 		Runtime::Add<GameCamera>("GameCamera", Runtime::Get<Camera>());
 		Runtime::Add<Actor>("Actor", Runtime::Get<DynamicBody>());
@@ -16,9 +16,9 @@ namespace Desdun
 		}
 
 		Layer* newLayer = new Game();
-		GameLayers.PushLayer(newLayer);
+		gameLayers.PushLayer(newLayer);
 
-		Run();
+		run();
 
 	};
 
