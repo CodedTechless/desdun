@@ -37,7 +37,7 @@ namespace Desdun
 		TextureLayer = layer;
 	}
 
-	void Image::Load(const std::string& path)
+	void Image::load(const std::string& path)
 	{
 		Path = path;
 

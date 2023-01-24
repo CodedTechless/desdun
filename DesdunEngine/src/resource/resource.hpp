@@ -21,7 +21,7 @@ namespace Desdun
 		// Static fetch function for resources
 		
 		template<typename T>
-		static T* Fetch(const std::string& path)
+		static T* fetch(const std::string& path)
 		{
 			fs::path Location = fs::proximate(path);
 

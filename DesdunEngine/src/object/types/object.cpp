@@ -79,25 +79,12 @@ namespace Desdun
 			return getGlobalTransform();
 		}
 
-		float_t alpha = Application::get()->getInterpFraction();
+		Vector2f interpScale = getInterpScale();
+		Vector2f interpPos = getInterpPosition();
+		float_t interpRot = getInterpRotation();
 
-		// scale
-		Vector2f interpScale = glm::lerp(LastScale, scale, alpha);
-
-		// rotation
-		float_t rad = glm::radians(rotation);
-		float_t lastrad = glm::radians(LastRotation);
-
-		float_t max = PI * 2.f;
-		float_t da = std::fmod(rad - lastrad, max);
-
-		float_t rot = lastrad + (std::fmod(2 * da, max) - da) * alpha;
-
-		// position
-		Vector2f pos = glm::lerp(LastPosition, position, alpha) * interpScale;
-
-		Mat4f frame = glm::translate(Mat4f(1.f), Vector3f(pos, 0.f))
-			* glm::rotate(Mat4f(1.f), rot, Vector3f(0.f, 0.f, 1.f))
+		Mat4f frame = glm::translate(Mat4f(1.f), Vector3f(interpPos, 0.f))
+			* glm::rotate(Mat4f(1.f), interpRot, Vector3f(0.f, 0.f, 1.f))
 			* glm::scale(Mat4f(1.f), Vector3f(interpScale, 1.f));
 
 		if (getParent() != nullptr)
@@ -116,6 +103,31 @@ namespace Desdun
 		}
 
 		return frame;
+	}
+
+	Vector2f Object::getInterpScale() const
+	{
+		float_t alpha = Application::get()->getInterpFraction();
+		return glm::lerp(LastScale, scale, alpha);
+	}
+
+	Vector2f Object::getInterpPosition() const
+	{
+		float_t alpha = Application::get()->getInterpFraction();
+		return glm::lerp(LastPosition, position, alpha) * getInterpScale();
+	}
+
+	float Object::getInterpRotation() const
+	{
+		float_t alpha = Application::get()->getInterpFraction();
+		
+		float_t rad = glm::radians(rotation);
+		float_t lastrad = glm::radians(LastRotation);
+
+		float_t max = PI * 2.f;
+		float_t da = std::fmod(rad - lastrad, max);
+
+		return lastrad + (std::fmod(2 * da, max) - da) * alpha;
 	}
 
 	Mat4f Object::getTransform() const

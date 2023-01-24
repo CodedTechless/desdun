@@ -8,6 +8,8 @@ namespace Desdun
 	{
 	public:
 
+		void load(const std::string& path) override;
+
 	};
 }
 

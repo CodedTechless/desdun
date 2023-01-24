@@ -47,13 +47,13 @@ namespace Desdun
 			std::string spriteImage = object.at("SpriteImagePath").get<std::string>();
 			if (spriteImage != "")
 			{
-				image = Resource::Fetch<Image>(spriteImage);
+				image = Resource::fetch<Image>(spriteImage);
 			}
 
 			std::string shaderImage = object.at("SpriteShaderPath").get<std::string>();
 			if (shaderImage != "")
 			{
-				shader = Resource::Fetch<Shader>(shaderImage);
+				shader = Resource::fetch<Shader>(shaderImage);
 			}
 
 			object.at("Tint").get_to(Tint);

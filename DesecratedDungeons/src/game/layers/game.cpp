@@ -14,12 +14,12 @@ namespace Desdun
 	{
 		gameScene = new Scene();
 
-		Camera* camera = gameScene->create<GameCamera>();
+		auto* camera = gameScene->create<GameCamera>();
 		camera->targetViewportSize = { 800, 600 };
 		camera->alpha = 15.f;
 		camera->setParent(gameScene->getRoot());
 
-		gameScene->setCurrentCamera(camera);
+		gameScene->currentCamera = camera;
 
 		auto* actor = gameScene->create<Player>();
 		actor->setParent(gameScene->getRoot());
@@ -27,7 +27,7 @@ namespace Desdun
 		camera->setSubject(actor);
 
 		auto* imagetest = gameScene->create<Sprite>();
-		imagetest->image = Resource::Fetch<Image>("assets/textures/stone_brick_floor.png");
+		imagetest->image = Resource::fetch<Image>("assets/textures/stone_brick_floor.png");
 		imagetest->setParent(gameScene->getRoot());
 
 	}

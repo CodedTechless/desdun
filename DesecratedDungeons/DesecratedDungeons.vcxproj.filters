@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\basic.shader" />
+    <None Include="assets\animations\player.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\goofy.png">

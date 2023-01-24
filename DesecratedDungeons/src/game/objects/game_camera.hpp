@@ -11,7 +11,7 @@ namespace Desdun
 		RUNTIME_CLASS_DEF(GameCamera);
 
 		float zoomLevel = 1.f;
-		float zoomAlpha = 25.f;
+		float zoomAlpha = 5.f;
 
 		void onAwake() override
 		{
@@ -32,18 +32,12 @@ namespace Desdun
 			}
 		};
 
-		void onGameStep(float delta)
+		void onGameStep(float delta) override
 		{
-			absoluteZoomLevel += (zoomLevel - absoluteZoomLevel) / zoomAlpha;
-
-
+			scale += (zoomLevel - scale) / zoomAlpha;
 
 			Camera::onGameStep(delta);
-		}
-
-	private:
-
-		float absoluteZoomLevel = 1.f;
+		};
 
 	};
 

@@ -20,7 +20,7 @@ namespace Desdun
 		float alpha = 0.25f;
 		bool smoothFollow = true;
 
-		Vector2 targetViewportSize = {};
+		Vector2 targetViewportSize = { 800.f, 600.f };
 		bool adjustToAspectRatio = true;
 
 		Vector2 trackingPosition = {};
@@ -43,34 +43,24 @@ namespace Desdun
 			}
 		}
 
-		void onWindowEvent(const Window::Event& event) override
+		void onFrameUpdate(float delta) override
 		{
-			adjustViewport(event.size);
-			/*
-			
+			Window* window = Application::get()->getPrimaryWindow();
+			Vector2 windowSize = window->getSize();
 
-			Debug::Log(std::to_string(event.size.x) + " " + std::to_string(event.size.y) + " " + std::to_string(aspectRatio));
-			Debug::Log(std::to_string(currentSize.x) + " " + std::to_string(currentSize.y));
-
-			setViewportSize();*/
-		}
-
-		void adjustViewport(Vector2 realSize)
-		{
-			if (getScene()->getCurrentCamera() == this)
+			if (getScene()->currentCamera == this)
 			{
-				Window* window = Application::get()->getPrimaryWindow();
-
-				Renderer::setViewportSize(realSize * window->getContentScale());
+				Renderer::setViewportSize(windowSize * window->getContentScale());
 			}
 
 			if (adjustToAspectRatio)
 			{
-				renderCamera.SetOrthoSize(Vector2(realSize.x / realSize.y, 1.f) * targetViewportSize.y);
+				Debug::Log(std::to_string(getInterpScale().x));
+				renderCamera.SetOrthoSize(Vector2(windowSize.x / windowSize.y, 1.f) * targetViewportSize.y * getInterpScale());
 			}
 			else
 			{
-				renderCamera.SetOrthoSize(targetViewportSize);
+				renderCamera.SetOrthoSize(targetViewportSize * getInterpScale());
 			}
 		}
 

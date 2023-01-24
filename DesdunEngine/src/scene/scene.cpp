@@ -24,14 +24,6 @@ namespace Desdun
 		return nullptr;
 	}
 
-	void Scene::setCurrentCamera(Camera* camera)
-	{
-		currentCamera = camera;
-
-		Vector2 windowSize = Application::get()->getPrimaryWindow()->getSize();
-		camera->adjustViewport(windowSize);
-	}
-
 	void Scene::onGameStep(const float delta)
 	{
 		for (Object* object : sceneObjects)

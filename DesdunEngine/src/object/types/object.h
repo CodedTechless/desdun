@@ -32,6 +32,10 @@ namespace Desdun
 		Mat4f getTransform() const;
 		Mat4f getGlobalTransform() const;
 
+		Vector2f getInterpPosition() const;
+		Vector2f getInterpScale() const;
+		float getInterpRotation() const;
+
 	protected:
 
 #if 0

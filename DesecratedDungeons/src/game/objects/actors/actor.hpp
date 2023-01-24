@@ -21,7 +21,7 @@ namespace Desdun
 			Sprite* sprite = getScene()->create<Sprite>();
 			sprite->name = "Body";
 
-			sprite->image = Resource::Fetch<Image>("assets/textures/skube_idle_right.png");
+			sprite->image = Resource::fetch<Image>("assets/textures/skube_idle_right.png");
 			sprite->position = Vector2(0.f, -16.f);
 			sprite->zIndex = 10.f;
 			sprite->setParent(this);
@@ -30,7 +30,7 @@ namespace Desdun
 
 			saveToFile("assets/models/hello.res");
 
-			Resource::Fetch<Model>("assets/models/hello.res");
+			Resource::fetch<Model>("assets/models/hello.res");
 		};
 
 		void takeDamage(float amount)

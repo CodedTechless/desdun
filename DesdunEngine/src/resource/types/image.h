@@ -27,7 +27,7 @@ namespace Desdun
 			uint Layer;
 		};
 
-		void Load(const std::string& path);
+		void load(const std::string& path) override;
 
 		Vector2i GetSize() const { return Size; };
 		ImageContext GetContext() const { return { Channels, BitsPerChannel }; };

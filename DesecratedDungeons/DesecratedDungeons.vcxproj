@@ -103,6 +103,7 @@
     <ClInclude Include="src\game\objects\index.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\animations\player.json" />
     <None Include="assets\shaders\basic.shader" />
   </ItemGroup>
   <ItemGroup>
