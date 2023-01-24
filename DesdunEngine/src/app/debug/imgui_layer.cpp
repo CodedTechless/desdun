@@ -20,7 +20,7 @@ namespace Desdun
 
 		ImGuiIO& io = ImGui::GetIO();
 		io.IniFilename = NULL;
-		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_DpiEnableScaleFonts;
 
 		ImGui::LoadIniSettingsFromDisk(iniFileName.c_str());
 

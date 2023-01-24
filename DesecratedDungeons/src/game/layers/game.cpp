@@ -14,6 +14,8 @@ namespace Desdun
 	{
 		gameScene = new Scene();
 
+		Application::get()->getPrimaryWindow()->setVsyncEnabled(true);
+
 		auto* camera = gameScene->create<GameCamera>();
 		camera->targetViewportSize = { 800, 600 };
 		camera->alpha = 15.f;
@@ -24,7 +26,7 @@ namespace Desdun
 		auto* actor = gameScene->create<Player>();
 		actor->setParent(gameScene->getRoot());
 
-		camera->setSubject(actor);
+		camera->setSubject(actor, { 0.f, -16.f });
 
 		auto* imagetest = gameScene->create<Sprite>();
 		imagetest->image = Resource::fetch<Image>("assets/textures/stone_brick_floor.png");

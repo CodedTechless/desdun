@@ -18,13 +18,22 @@ namespace Desdun
 	public:
 		
 		Window() = default;
-		Window(const std::string& title, Vector2 size);
+		Window(const std::string& title, Vector2i windowSize);
 		~Window();
 
 		struct Event
 		{
-			glm::vec2 size = {};
-			bool focused = true;
+			Event(Window* window)
+			{
+				size = window->size;
+				isFocused = window->isFocused;
+				dpiScale = window->dpiScale;
+			}
+
+			Vector2 size = {};
+			Vector2 dpiScale = {};
+			
+			bool isFocused = true;
 		};
 
 		void clear();
@@ -34,18 +43,20 @@ namespace Desdun
 
 		GLFWwindow* getContext() const { return windowObject; };
 
-		Vector2 getContentScale() const;
+		Vector2 getContentScale() const { return dpiScale; };
 		bool getFocused() const { return isFocused; };
 		Vector2 getSize() const { return size; };
 
 	private:
 		std::string title = "";
 		
-		Vector2 size = {};
+		Vector2i size = { 800, 600 };
+		Vector2 dpiScale = { 1.f, 1.f };
 		bool isFocused = true;
 
 		GLFWwindow* windowObject;
 
 		friend class Input;
+		friend struct Event;
 	};
 }

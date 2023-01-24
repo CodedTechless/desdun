@@ -18,29 +18,25 @@ namespace Desdun
 		RUNTIME_CLASS_DEF(Camera);
 
 		float alpha = 0.25f;
+
 		bool smoothFollow = true;
-
-		Vector2 targetViewportSize = { 800.f, 600.f };
 		bool adjustToAspectRatio = true;
-
-		Vector2 trackingPosition = {};
-
-		void onAwake() override
-		{
-			trackingPosition = position;
-		}
+		
+		Vector2 targetViewportSize = { 800.f, 600.f };
+		Vector2 offset = { 0.f, 0.f };
 
 		void onGameStep(float delta) override
 		{
 			if (subject)
 			{
-				if (smoothFollow)
-					trackingPosition += (subject->position - trackingPosition) * alpha * delta;
-				else
-					trackingPosition = subject->position;
+				Vector2 finalPosition = subject->position + offset;
 
-				position = trackingPosition - (renderCamera.GetOrthoSize() * 0.5f);
+				if (smoothFollow)
+					position += (finalPosition - position) * alpha * delta;
+				else
+					position = finalPosition;
 			}
+
 		}
 
 		void onFrameUpdate(float delta) override
@@ -50,12 +46,11 @@ namespace Desdun
 
 			if (getScene()->currentCamera == this)
 			{
-				Renderer::setViewportSize(windowSize * window->getContentScale());
+				Renderer::setViewportSize(windowSize);
 			}
 
 			if (adjustToAspectRatio)
 			{
-				Debug::Log(std::to_string(getInterpScale().x));
 				renderCamera.SetOrthoSize(Vector2(windowSize.x / windowSize.y, 1.f) * targetViewportSize.y * getInterpScale());
 			}
 			else
@@ -64,17 +59,18 @@ namespace Desdun
 			}
 		}
 
-		void setSubject(Object* object, bool snap = true)
+		void setSubject(Object* object, Vector2 objectOffset = {}, bool snap = true)
 		{
 			subject = object;
+			offset = objectOffset;
 
 			if (snap)
-				trackingPosition = subject->position;
+				position = subject->position;
 		}
 		
 		Mat4 getProjectionTransform() const
 		{
-			return renderCamera.GetProjection() * glm::inverse(getInterpTransform());
+			return renderCamera.GetProjection() * glm::inverse(glm::translate(getInterpTransform(), { -renderCamera.GetOrthoSize() * 0.5f, 0.f }));
 		};
 
 		RenderCamera& getRenderCamera()

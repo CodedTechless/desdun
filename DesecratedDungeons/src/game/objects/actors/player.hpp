@@ -15,7 +15,7 @@ namespace Desdun
 		Vector2 velocity = { 0.f, 0.f };
 		float friction = 1200.f;
 
-		float moveAcceleration = 1200.f;
+		float moveAcceleration = 1800.f;
 		float maxVelocity = 180.f;
 
 		void onGameStep(float delta) override

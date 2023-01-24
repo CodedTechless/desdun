@@ -11,8 +11,8 @@
 namespace Desdun
 {
 
-    Window::Window(const std::string& title, Vector2 size)
-        : title(title), size(size)
+    Window::Window(const std::string& title, Vector2i windowSize)
+        : title(title), size(windowSize)
     {
         glfwSetErrorCallback(Debug::GLFWMessage);
 
@@ -37,6 +37,7 @@ namespace Desdun
         if (glewInit() != GLEW_OK)
             assert(false);
 
+
         // set up all of the input callbacks here to interface with the input system
         
         glfwSetWindowUserPointer(windowObject, (void*)this);
@@ -47,18 +48,22 @@ namespace Desdun
                 Application::get()->end();
             });
 
+        glfwSetWindowContentScaleCallback(windowObject,
+            [](GLFWwindow* window, float xScale, float yScale)
+            {
+                Window* activeWindow = (Window*)glfwGetWindowUserPointer(window);
+                activeWindow->dpiScale = Vector2(xScale, yScale);
+
+                Application::get()->pushWindowEvent({ activeWindow });
+            });
+
         glfwSetWindowSizeCallback(windowObject,
             [](GLFWwindow* window, int Width, int Height)
             {
                 Window* activeWindow = (Window*)glfwGetWindowUserPointer(window);
                 activeWindow->size = Vector2i(Width, Height);
 
-                Window::Event newEvent = {};
-
-                newEvent.size = activeWindow->size;
-                newEvent.focused = activeWindow->isFocused;
-
-                Application::get()->pushWindowEvent(newEvent);
+                Application::get()->pushWindowEvent({ activeWindow });
             });
 
         glfwSetWindowFocusCallback(windowObject,
@@ -67,12 +72,7 @@ namespace Desdun
                 Window* activeWindow = (Window*)glfwGetWindowUserPointer(window);
                 activeWindow->isFocused = (bool)Focused;
 
-                Window::Event newEvent = {};
-
-                newEvent.size = activeWindow->size;
-                newEvent.focused = activeWindow->isFocused;
-
-                Application::get()->pushWindowEvent(newEvent);
+                Application::get()->pushWindowEvent({ activeWindow });
             });
 
         glfwSetScrollCallback(windowObject,
@@ -204,24 +204,14 @@ namespace Desdun
 
                 Application::get()->pushInputEvent(newEvent);
             });
+
+        glfwGetWindowContentScale(windowObject, &dpiScale.x, &dpiScale.y);
+        glfwGetWindowSize(windowObject, &size.x, &size.y);
     }
 
     Window::~Window()
     {
         glfwDestroyWindow(windowObject);
-    }
-
-    Vector2 Window::getContentScale() const
-    {
-        Vector2 scale = { 1.f, 1.f };
-
-        GLFWmonitor* monitor = glfwGetWindowMonitor(windowObject);
-        if (monitor)
-        {
-            glfwGetMonitorContentScale(monitor, &scale.x, &scale.y);
-        }
-
-        return scale;
     }
 
     void Window::setVsyncEnabled(bool Enabled)

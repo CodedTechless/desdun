@@ -114,7 +114,7 @@ namespace Desdun
 	Vector2f Object::getInterpPosition() const
 	{
 		float_t alpha = Application::get()->getInterpFraction();
-		return glm::lerp(LastPosition, position, alpha) * getInterpScale();
+		return glm::lerp(LastPosition, position, alpha);
 	}
 
 	float Object::getInterpRotation() const
