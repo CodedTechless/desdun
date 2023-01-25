@@ -14,9 +14,9 @@ namespace Desdun
 		Image* image = nullptr;
 		Shader* shader = nullptr;
 
-		Color4f Tint = { 1.f, 1.f, 1.f, 1.f };
+		Color4f tint = { 1.f, 1.f, 1.f, 1.f };
 
-		ImageBounds SpriteBounds = {
+		ImageBounds bounds = {
 			{ 0.f, 0.f },
 			{ 1.f, 1.f }
 		};
@@ -26,38 +26,38 @@ namespace Desdun
 			Mat4f transform = getInterpTransform()
 				* glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->GetSize()), 1.f));
 
-			Renderer::Submit({ transform, Tint, SpriteBounds, image, shader, zIndex });
+			Renderer::Submit({ transform, tint, bounds, image, shader, zIndex });
 		}
 
 	private:
 
 		void serialise(JSONObject& object) const override
 		{
-			object["SpriteImagePath"] = image != nullptr ? image->getPath() : "";
-			object["SpriteShaderPath"] = shader != nullptr ? shader->getPath() : "";
+			object["imagePath"] = image != nullptr ? image->getPath() : "";
+			object["shaderPath"] = shader != nullptr ? shader->getPath() : "";
 
-			object["Tint"] = Tint;
-			object["SpriteBounds"] = SpriteBounds;
+			object["tint"] = tint;
+			object["bounds"] = bounds;
 
 			Object::serialise(object);
 		}
 
 		void deserialise(const JSONObject& object) override
 		{
-			std::string spriteImage = object.at("SpriteImagePath").get<std::string>();
+			std::string spriteImage = object.at("imagePath").get<std::string>();
 			if (spriteImage != "")
 			{
 				image = Resource::fetch<Image>(spriteImage);
 			}
 
-			std::string shaderImage = object.at("SpriteShaderPath").get<std::string>();
+			std::string shaderImage = object.at("shaderPath").get<std::string>();
 			if (shaderImage != "")
 			{
 				shader = Resource::fetch<Shader>(shaderImage);
 			}
 
-			object.at("Tint").get_to(Tint);
-			object.at("SpriteBounds").get_to(SpriteBounds);
+			object.at("tint").get_to(tint);
+			object.at("bounds").get_to(bounds);
 
 			Object::deserialise(object);
 		}

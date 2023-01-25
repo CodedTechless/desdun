@@ -13,7 +13,7 @@ namespace Desdun
 		RUNTIME_CLASS_DEF(Player);
 
 		Vector2 velocity = { 0.f, 0.f };
-		float friction = 1200.f;
+		float friction = 2000.f;
 
 		float moveAcceleration = 1800.f;
 		float maxVelocity = 180.f;

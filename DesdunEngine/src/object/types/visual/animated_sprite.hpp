@@ -6,6 +6,20 @@
 namespace Desdun
 {
 
+	struct Frame
+	{
+		Image* image;
+
+	};
+
+	struct AnimationSequence
+	{
+		float frameRate = 30.f;
+
+
+		std::vector<Frame> frames = {};
+	};
+
 	class AnimatedSprite : public Object
 	{
 	public:
@@ -13,6 +27,7 @@ namespace Desdun
 
 
 
+		std::unordered_map<std::string, AnimationSequence> animationSequences = {};
 	};
 
 }

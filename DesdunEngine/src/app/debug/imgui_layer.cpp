@@ -56,74 +56,74 @@ namespace Desdun
 		{
 			ImGui::Begin("Renderer");
 
-			if (ImGui::BeginTable("performance_table", 2))
+			if (ImGui::CollapsingHeader("Peformance"))
 			{
-				ImGui::TableSetupColumn("Name");
-				ImGui::TableSetupColumn("Stat", ImGuiTableColumnFlags_WidthFixed);
-				ImGui::TableHeadersRow();
-
-				ImGui::TableNextColumn();
-				ImGui::Text("FPS");
-				ImGui::TableNextColumn();
-				ImGui::Text(std::to_string((uint)lastFrameCount).c_str());
-				/*
-				ImGui::Text("Simulation Rate");
-				ImGui::TableNextColumn();
-				ImGui::Text(std::to_string(Runtime.SimulationRate).c_str());
-				ImGui::TableNextColumn();
-				*/
-				ImGui::TableNextColumn();
-				ImGui::Text("Frame time");
-				ImGui::TableNextColumn();
-				ImGui::Text((std::to_string(delta * 1000.f) + "ms").c_str());
-
-				auto frameData = Renderer::getFrameData();
-
-				ImGui::TableNextColumn();
-				ImGui::Text("Draw calls");
-				ImGui::TableNextColumn();
-				ImGui::Text(std::to_string(frameData.drawCalls).c_str());
-
-				ImGui::TableNextColumn();
-				ImGui::Text("Vertex count");
-				ImGui::TableNextColumn();
-				ImGui::Text(std::to_string(frameData.vertexCount).c_str());
-
-				auto* window = Application::get()->getPrimaryWindow();
-				auto size = window->getSize();
-
-				ImGui::TableNextColumn();
-				ImGui::Text("Render resolution");
-				ImGui::TableNextColumn();
-				ImGui::Text(std::string(std::to_string((uint)size.x) + "x" + std::to_string((uint)size.y)).c_str());
-
-				/*
-				ImGui::Text("Simulation Delta");
-				ImGui::TableNextColumn();
-				ImGui::Text((std::to_string(Runtime.SimulationDelta) + "ms").c_str());
-				ImGui::TableNextColumn();
-				*/
-
-
-				ImGui::EndTable();
-			}
-
-			/*
-			if (ImGui::CollapsingHeader("Script Runtime"))
-			{
-				if (ImGui::BeginTable("lua_info_table", 2))
+				if (ImGui::BeginTable("performanceTable", 2))
 				{
-					ImGui::TableNextRow();
-					ImGui::TableNextColumn();
+					ImGui::TableSetupColumn("Name");
+					ImGui::TableSetupColumn("Stat", ImGuiTableColumnFlags_WidthFixed);
+					ImGui::TableHeadersRow();
 
-					ImGui::Text("Lua VM memory usage");
 					ImGui::TableNextColumn();
-					ImGui::Text((std::to_string(std::floor(Runtime.LuaMemoryUsage / 10000.0) / 100.0) + "MB").c_str());
+					ImGui::Text("FPS");
 					ImGui::TableNextColumn();
+					ImGui::Text(std::to_string((uint)lastFrameCount).c_str());
+					/*
+					ImGui::Text("Simulation Rate");
+					ImGui::TableNextColumn();
+					ImGui::Text(std::to_string(Runtime.SimulationRate).c_str());
+					ImGui::TableNextColumn();
+					*/
+					ImGui::TableNextColumn();
+					ImGui::Text("Frame time");
+					ImGui::TableNextColumn();
+					ImGui::Text((std::to_string(delta * 1000.f) + "ms").c_str());
+
+
+
+					/*
+					ImGui::Text("Simulation Delta");
+					ImGui::TableNextColumn();
+					ImGui::Text((std::to_string(Runtime.SimulationDelta) + "ms").c_str());
+					ImGui::TableNextColumn();
+					*/
+
 
 					ImGui::EndTable();
 				}
-			}*/
+			};
+
+			if (ImGui::CollapsingHeader("Graphics"))
+			{
+				if (ImGui::BeginTable("graphicsTable", 2))
+				{
+					ImGui::TableSetupColumn("Name");
+					ImGui::TableSetupColumn("Stat", ImGuiTableColumnFlags_WidthFixed);
+					ImGui::TableHeadersRow();
+
+					auto frameData = Renderer::getFrameData();
+
+					ImGui::TableNextColumn();
+					ImGui::Text("Draw calls");
+					ImGui::TableNextColumn();
+					ImGui::Text(std::to_string(frameData.drawCalls).c_str());
+
+					ImGui::TableNextColumn();
+					ImGui::Text("Vertex count");
+					ImGui::TableNextColumn();
+					ImGui::Text(std::to_string(frameData.vertexCount).c_str());
+
+					auto* window = Application::get()->getPrimaryWindow();
+					auto size = window->getSize();
+
+					ImGui::TableNextColumn();
+					ImGui::Text("Render resolution");
+					ImGui::TableNextColumn();
+					ImGui::Text(std::string(std::to_string((uint)size.x) + "x" + std::to_string((uint)size.y)).c_str());
+
+					ImGui::EndTable();
+				}
+			};
 
 			ImGui::End();
 		}
