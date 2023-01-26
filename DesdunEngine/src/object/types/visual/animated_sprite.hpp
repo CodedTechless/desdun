@@ -1,24 +1,10 @@
 #pragma once
 
-
+#include <resource/types/image.h>
 #include <object/types/object.h>
 
 namespace Desdun
 {
-
-	struct Frame
-	{
-		Image* image;
-
-	};
-
-	struct AnimationSequence
-	{
-		float frameRate = 30.f;
-
-
-		std::vector<Frame> frames = {};
-	};
 
 	class AnimatedSprite : public Object
 	{
@@ -27,7 +13,12 @@ namespace Desdun
 
 
 
+
+
+	private:
 		std::unordered_map<std::string, AnimationSequence> animationSequences = {};
+
+		float timePosition = 0.f;
 	};
 
 }
