@@ -17,6 +17,7 @@ namespace Desdun
 		virtual void load(const std::string& path) = 0;
 
 		std::string getPath() const { return Path; };
+		static const ResourceMap& getResources() { return resources; };
 
 		// Static fetch function for resources
 		
@@ -34,10 +35,10 @@ namespace Desdun
 			std::string PathString = Location.generic_string();
 			std::string Name = Type.name();
 
-			auto it = Resources[Type].find(PathString);
-			if (it != Resources[Type].end())
+			auto it = resources[Type].find(PathString);
+			if (it != resources[Type].end())
 			{
-				Debug::Log("Found cached resource for " + std::string(Name) + " " + PathString);
+				//Debug::Log("Found cached resource for " + std::string(Name) + " " + PathString);
 				return (T*)it->second;
 			}
 			else
@@ -45,9 +46,9 @@ namespace Desdun
 				T* NewResource = new T();
 				NewResource->load(path);
 
-				Debug::Log("Loaded " + Name + " " + PathString);
+				//Debug::Log("Loaded " + Name + " " + PathString);
 
-				Resources[Type][PathString] = NewResource;
+				resources[Type][PathString] = NewResource;
 
 				return NewResource;
 			}
@@ -59,7 +60,7 @@ namespace Desdun
 		
 	private:
 
-		static ResourceMap Resources;
+		static ResourceMap resources;
 	};
 
 }

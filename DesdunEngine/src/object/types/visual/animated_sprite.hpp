@@ -1,6 +1,6 @@
 #pragma once
 
-#include <resource/types/image.h>
+#include <resource/types/animation_sequence.h>
 #include <object/types/object.h>
 
 namespace Desdun
@@ -16,7 +16,7 @@ namespace Desdun
 
 
 	private:
-		std::unordered_map<std::string, AnimationSequence> animationSequences = {};
+		std::unordered_map<std::string, AnimationSequence*> animationSequences = {};
 
 		float timePosition = 0.f;
 	};

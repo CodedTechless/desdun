@@ -24,6 +24,19 @@ namespace Desdun
 		return nullptr;
 	}
 
+	Vector2 Scene::getMouseInWorld() const
+	{
+		Vector2 windowSize = Application::get()->getPrimaryWindow()->getSize();
+		Vector2 orthoSize = currentCamera->getRenderCamera().GetOrthoSize();
+
+		Vector2 scaleFactor = orthoSize / windowSize;
+
+		Vector2 cameraPos = currentCamera->getInterpPosition() - (orthoSize / 2.f);
+		Vector2 mousePos = Input::getMousePosition();
+
+		return cameraPos + mousePos * scaleFactor;
+	}
+
 	void Scene::onGameStep(const float delta)
 	{
 		for (Object* object : sceneObjects)

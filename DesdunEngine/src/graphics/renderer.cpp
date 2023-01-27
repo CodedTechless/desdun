@@ -117,7 +117,7 @@ namespace Desdun
 				auto NewTexture = CreatePointer<TextureArray>(CommandCopy.ImageResource->Size, 256);
 				CommandCopy.ImageResource->Allocate(NewTexture);
 
-				Debug::Log("Allocted texture space of " + std::to_string(CommandCopy.ImageResource->Size.x) + "*" + std::to_string(CommandCopy.ImageResource->Size.y) + "*256");
+				Debug::Log("Allocted " + std::to_string(CommandCopy.ImageResource->Size.x) + "*" + std::to_string(CommandCopy.ImageResource->Size.y) + "*256");
 
 				TextureIndex.push_back(NewTexture);
 			}

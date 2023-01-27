@@ -31,6 +31,8 @@ namespace Desdun
 
 		Instance* instantiate(Model* model);
 
+		Vector2 getMouseInWorld() const;
+
 		template<typename T>
 		T* create()
 		{
