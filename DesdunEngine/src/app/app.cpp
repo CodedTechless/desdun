@@ -72,7 +72,7 @@ namespace Desdun
 {
 	Application* Application::AppObject = nullptr;
 
-    ResourceMap Resource::Resources = {};
+    ResourceMap Resource::resources = {};
 
 	Application::Application()
 	{
@@ -84,8 +84,6 @@ namespace Desdun
         gameWindow = new Window("Desecrated Dungeons", { 800, 600 });
         Debug::Log("Starting renderer");
         Renderer::Start();
-
-        Debug::Log("Adding imgui layer");
 
         imguiLayer = new ImGuiLayer("imgui.ini");
         gameLayers.PushOverlay(imguiLayer);

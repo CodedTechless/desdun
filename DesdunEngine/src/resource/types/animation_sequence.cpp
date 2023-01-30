@@ -10,7 +10,7 @@ namespace Desdun
 		std::ifstream stream(path);
 		json jsonObject;
 
-		jsonObject << stream;
+		stream >> jsonObject;
 
 		jsonObject.at("frameRate").get_to(frameRate);
 		jsonObject.at("frames").get_to(frames);

@@ -125,6 +125,22 @@ namespace Desdun
 				}
 			};
 
+			if (ImGui::CollapsingHeader("Resources"))
+			{
+				for (auto& [typeIndex, resourceCollection] : Resource::getResources())
+				{
+					if (ImGui::TreeNodeEx(typeIndex.name(), ImGuiTreeNodeFlags_OpenOnArrow))
+					{
+						for (auto& [path, _] : resourceCollection)
+						{
+							ImGui::Text(path.c_str());
+						}
+
+						ImGui::TreePop();
+					}
+				}
+			};
+
 			ImGui::End();
 		}
 	}
