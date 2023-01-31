@@ -9,7 +9,7 @@ namespace Desdun
 	struct Frame
 	{
 		Image* image;
-		uint length = 0;
+		uint duration = 0;
 
 		friend void from_json(const json& jsonObject, Frame& frame)
 		{
@@ -19,7 +19,7 @@ namespace Desdun
 				frame.image = Resource::fetch<Image>(imagePath);
 			}
 
-			jsonObject.at("length").get_to(frame.length);
+			jsonObject.at("duration").get_to(frame.duration);
 		};
 
 		friend void to_json(json& jsonObject, const Frame& frame)
@@ -29,7 +29,7 @@ namespace Desdun
 			else
 				jsonObject["imagePath"] = "";
 
-			jsonObject["length"] = frame.length;
+			jsonObject["duration"] = frame.duration;
 		};
 
 	};
@@ -38,13 +38,16 @@ namespace Desdun
 	{
 	public:
 
-		uint length = 0; // the total length in frames
-		float frameRate = 30.f; // the frame rate, in fps
-		
+		bool isLooped = true;
+
 		std::vector<Frame> frames = {};	// list of all included frames
-
+		
 		void load(const std::string& path) override;
+		float getDuration() const { return duration; };
 
+	private:
+
+		float duration = 0.f;
 	};
 }
 

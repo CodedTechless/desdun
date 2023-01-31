@@ -27,7 +27,7 @@ namespace Desdun
 	{
 		if (Size != alloc->GetBaseSize())
 		{
-			Debug::Error("Tried to allocate an image to a texture array that wasn't the same size.");
+			throw new Exception("Tried to allocate an image to a texture array that wasn't the same size.");
 		}
 
 		uint layer = alloc->PushLayer(Buffer);

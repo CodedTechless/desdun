@@ -1,0 +1,10 @@
+[
+	{
+		"imagePath": "assets/textures/actors/player/player_idle_left.png",
+		"duration": 500
+	},
+	{
+		"imagePath": "assets/textures/actors/player/player_idle_left2.png",
+		"duration": 500
+	}
+]

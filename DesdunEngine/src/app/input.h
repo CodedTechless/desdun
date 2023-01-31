@@ -22,10 +22,10 @@ namespace Desdun
 
 		enum class State
 		{
-			None = 0,
-			Begin = 1,
-			Changed = 2,
-			End = 3
+			None,
+			Begin,
+			Changed,
+			End
 		};
 
 		enum class Type
@@ -176,14 +176,14 @@ namespace Desdun
 		{
 			None,
 
-			Button0,
-			Button1,
-			Button2,
-			Button3,
-			Button4,
-			Button5,
-			Button6,
-			Button7,
+			Button0 = 0,
+			Button1 = 1,
+			Button2 = 2,
+			Button3 = 3,
+			Button4 = 4, 
+			Button5 = 5,
+			Button6 = 6,
+			Button7 = 7,
 
 			ButtonLast = Button7,
 			ButtonLeft = Button0,

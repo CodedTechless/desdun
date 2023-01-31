@@ -23,10 +23,13 @@ namespace Desdun
 
 		void onFrameUpdate(const float_t delta) override
 		{
-			Mat4f transform = getInterpTransform()
-				* glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->GetSize()), 1.f));
+			if (image != nullptr)
+			{
+				Mat4f transform = getInterpTransform()
+					* glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->GetSize()), 1.f));
 
-			Renderer::Submit({ transform, tint, bounds, image, shader, zIndex });
+				Renderer::Submit({ transform, tint, bounds, image, shader, zIndex });
+			}
 		}
 
 	private:

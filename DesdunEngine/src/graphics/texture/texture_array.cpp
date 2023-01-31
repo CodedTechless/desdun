@@ -43,7 +43,6 @@ namespace Desdun
 
 		glBindTexture(GL_TEXTURE_2D_ARRAY, RenderID);
 		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, ArraySize, BaseSize.x, BaseSize.y, 1, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 		
 		Array[ArraySize] = buffer;
 		

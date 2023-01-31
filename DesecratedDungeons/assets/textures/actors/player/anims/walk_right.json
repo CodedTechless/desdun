@@ -1,0 +1,18 @@
+[
+	{
+		"imagePath": "assets/textures/actors/player/player_idle_right.png",
+		"duration": 200
+	},
+	{
+		"imagePath": "assets/textures/actors/player/player_walk_right2.png",
+		"duration": 200
+	},
+	{
+		"imagePath": "assets/textures/actors/player/player_idle_right.png",
+		"duration": 200
+	},
+	{
+		"imagePath": "assets/textures/actors/player/player_walk_right4.png",
+		"duration": 200
+	}
+]

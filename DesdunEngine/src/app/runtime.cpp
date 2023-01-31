@@ -26,7 +26,9 @@ namespace Desdun
 				Runtime::Add<ParticleEmitter>("ParticleEmitter", Runtime::Get<Object>());
 
 				Runtime::Add<Sprite>("Sprite", Runtime::Get<Object>());
-				Runtime::Add<AnimatedSprite>("AnimatedSprite", Runtime::Get<Object>());
+				{
+					Runtime::Add<AnimatedSprite>("AnimatedSprite", Runtime::Get<Sprite>());
+				}
 				Runtime::Add<TileMap>("TileMap", Runtime::Get<Object>());
 			}
 		}

@@ -12,12 +12,11 @@ namespace Desdun
 
 		stream >> jsonObject;
 
-		jsonObject.at("frameRate").get_to(frameRate);
-		jsonObject.at("frames").get_to(frames);
+		jsonObject.get_to(frames);
 
 		for (Frame& frame : frames)
 		{
-			length += frame.length;
+			duration += frame.duration;
 		};
 	}
 

@@ -15,24 +15,6 @@ namespace Desdun
 		float health = 100.f;
 		float maxHealth = 100.f;
 
-		void onAwake()
-		{
-
-			Sprite* sprite = getScene()->create<Sprite>();
-			sprite->name = "Body";
-
-			sprite->image = Resource::fetch<Image>("assets/textures/skube_idle_right.png");
-			sprite->position = Vector2(0.f, -16.f);
-			sprite->zIndex = 10.f;
-			sprite->setParent(this);
-
-			//sprite->SpriteImage = Resource::Fetch<Image>("assets/textures/white.png");
-
-			saveToFile("assets/models/hello.res");
-
-			Resource::fetch<Model>("assets/models/hello.res");
-		};
-
 		void takeDamage(float amount)
 		{
 

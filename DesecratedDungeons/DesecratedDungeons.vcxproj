@@ -95,6 +95,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\game\game_app.hpp" />
     <ClInclude Include="src\game\layers\game.h" />
     <ClInclude Include="src\game\objects\actors\actor.hpp" />
@@ -105,10 +106,21 @@
   <ItemGroup>
     <None Include="assets\animations\player.json" />
     <None Include="assets\shaders\basic.shader" />
+    <None Include="assets\textures\actors\player\anims\idle_down.json" />
+    <None Include="assets\textures\actors\player\anims\idle_left.json" />
+    <None Include="assets\textures\actors\player\anims\idle_right.json" />
+    <None Include="assets\textures\actors\player\anims\idle_up.json" />
+    <None Include="assets\textures\actors\player\anims\walk_down.json" />
+    <None Include="assets\textures\actors\player\anims\walk_left.json" />
+    <None Include="assets\textures\actors\player\anims\walk_right.json" />
+    <None Include="assets\textures\actors\player\anims\walk_up.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\goofy.png" />
     <Image Include="assets\textures\white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DesecratedDungeons.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,6 +18,30 @@ namespace Desdun
 		float moveAcceleration = 1800.f;
 		float maxVelocity = 180.f;
 
+		void onAwake() override
+		{
+
+			auto* sprite = getScene()->create<AnimatedSprite>();
+			sprite->setSequences({
+				{ "idleLeft", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/idle_left.json") },
+				{ "idleRight", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/idle_right.json") },
+				{ "idleUp", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/idle_up.json") },
+				{ "idleDown", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/idle_down.json") },
+
+				{ "walkLeft", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/walk_left.json") },
+				{ "walkRight", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/walk_right.json") },
+				{ "walkUp", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/walk_up.json") },
+				{ "walkDown", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/walk_down.json") }
+			});
+			sprite->name = "body";
+			sprite->position = Vector2(0, -16);
+			sprite->zIndex = -10;
+			sprite->setParent(this);
+
+			sprite->play("idleDown");
+
+		};
+
 		void onGameStep(float delta) override
 		{
 			Vector2 movement = Vector2{
