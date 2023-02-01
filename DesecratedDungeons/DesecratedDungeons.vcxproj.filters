@@ -24,6 +24,12 @@
     <ClCompile Include="src\game\game_app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\objects\actors\actor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\objects\actors\player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\layers\game.h">
@@ -59,6 +65,7 @@
     <None Include="assets\textures\actors\player\anims\idle_down.json" />
     <None Include="assets\textures\actors\player\anims\idle_left.json" />
     <None Include="assets\textures\actors\player\anims\idle_right.json" />
+    <None Include="config\imgui.ini" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\goofy.png">

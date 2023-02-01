@@ -1,0 +1,117 @@
+
+
+#include "player.hpp"
+
+namespace Desdun
+{
+	void Player::onAwake()
+	{
+
+		auto* sprite = getScene()->create<AnimatedSprite>();
+		sprite->setSequences({
+			{ "idleLeft", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/idle_left.json") },
+			{ "idleRight", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/idle_right.json") },
+			{ "idleUp", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/idle_up.json") },
+			{ "idleDown", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/idle_down.json") },
+
+			{ "walkLeft", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/walk_left.json") },
+			{ "walkRight", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/walk_right.json") },
+			{ "walkUp", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/walk_up.json") },
+			{ "walkDown", Resource::fetch<AnimationSequence>("assets/textures/actors/player/anims/walk_down.json") }
+			});
+		sprite->name = "body";
+		sprite->position = Vector2(0, -16);
+		sprite->zIndex = 10.f;
+		sprite->setParent(this);
+
+		sprite->play("idleDown");
+
+	};
+
+	void Player::onInputEvent(Input::Event& event)
+	{
+		if (event.isPressed(Input::MouseCode::Button0))
+		{
+			Vector2 mousePos = getScene()->getMouseInWorld();
+
+			auto* newObject = getScene()->create<Sprite>();
+			newObject->zIndex = 5;
+			newObject->image = Resource::fetch<Image>("assets/textures/white.png");
+			newObject->position = mousePos;
+			newObject->setParent(getScene()->getRoot());
+;		}
+	}
+
+	void Player::onFrameUpdate(float delta)
+	{
+		float moveRatio = glm::length(moveDirection);
+		auto* sprite = (AnimatedSprite*)findChild("body");
+
+		if (moveRatio > 0.1f)
+		{
+			sprite->playbackSpeed = 1.3f;
+
+			if (moveDirection.y <= -0.70710678f)
+				sprite->play("walkUp", true);
+			else if (moveDirection.y >= 0.70710678f)
+				sprite->play("walkDown", true);
+			else if (moveDirection.x >= 0.70710678f)
+				sprite->play("walkRight", true);
+			else if (moveDirection.x <= -0.70710678f)
+				sprite->play("walkLeft", true);
+		}
+		else
+		{
+			sprite->playbackSpeed = 1.f;
+
+			if (faceDirection.y <= -0.70710678f)
+				sprite->play("idleUp");
+			else if (faceDirection.y >= 0.70710678f)
+				sprite->play("idleDown");
+			else if (faceDirection.x >= 0.70710678f)
+				sprite->play("idleRight");
+			else if (faceDirection.x <= -0.70710678f)
+				sprite->play("idleLeft");
+		}
+	}
+
+	void Player::onGameStep(float delta)
+	{
+		Vector2 movement = Vector2{
+			(float)Input::keyDown(Input::KeyCode::D) - (float)Input::keyDown(Input::KeyCode::A),
+			(float)Input::keyDown(Input::KeyCode::S) - (float)Input::keyDown(Input::KeyCode::W)
+		};
+
+		Vector2 normalisedMovement = { 0.f, 0.f };
+		if (glm::length(movement) > 0.f)
+		{
+			normalisedMovement = glm::normalize(movement);
+			faceDirection = normalisedMovement;
+		}
+
+		moveDirection = normalisedMovement;
+
+		velocity += moveAcceleration * normalisedMovement * delta;
+
+		bool isMoving = glm::length(movement) > 0.f;
+		float scalarVelocity = glm::length(velocity);
+
+		if (scalarVelocity > 0.f)
+		{
+			if (!isMoving)
+			{
+				scalarVelocity = glm::max(0.f, scalarVelocity - friction * delta);
+			}
+			else if (scalarVelocity > maxVelocity)
+			{
+				scalarVelocity = glm::max(maxVelocity, scalarVelocity - friction * delta);
+			}
+
+			velocity = glm::normalize(velocity) * scalarVelocity;
+		}
+
+		//std::cout << normalisedMovement.x << " " << normalisedMovement.y << " " << velocity.x << " " << velocity.y << std::endl;
+
+		position += velocity * delta;
+	}
+}

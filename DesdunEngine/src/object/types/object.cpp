@@ -55,7 +55,7 @@ namespace Desdun
 		Instance::serialise(object);
 	}
 
-	void Object::Deserialise(const JSONObject& object)
+	void Object::deserialise(const JSONObject& object)
 	{
 		object.at("position").get_to(position);
 		object.at("scale").get_to(scale);

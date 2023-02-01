@@ -17,6 +17,8 @@ namespace Desdun
 	public:
 		RUNTIME_CLASS_DEF(AnimatedSprite);
 
+		float playbackSpeed = 1.f;
+
 		// sets the sequence "name" to AnimationSequence
 		void setSequence(const std::string& name, AnimationSequence* sequence)
 		{
@@ -34,11 +36,6 @@ namespace Desdun
 			{
 				animationSequences[sequenceHint.name] = sequenceHint.sequence;
 			}
-		}
-
-		void setSpeed(float speed)
-		{
-
 		}
 
 		// plays the specified animation from animationSequences
@@ -126,7 +123,6 @@ namespace Desdun
 		AnimationSequence* currentSequence = nullptr;
 
 		bool isPlaying = false;
-		float playbackSpeed = 1.f;
 
 		uint frame = 0;
 		float elapsed = 0.f;

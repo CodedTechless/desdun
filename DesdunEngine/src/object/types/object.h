@@ -44,7 +44,7 @@ namespace Desdun
 #endif
 
 		void serialise(JSONObject& object) const;
-		void Deserialise(const JSONObject& object);
+		void deserialise(const JSONObject& object);
 
 	private:
 

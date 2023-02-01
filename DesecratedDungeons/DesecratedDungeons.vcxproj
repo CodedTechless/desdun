@@ -92,6 +92,8 @@
   <ItemGroup>
     <ClCompile Include="src\game\game_app.cpp" />
     <ClCompile Include="src\game\layers\game.cpp" />
+    <ClCompile Include="src\game\objects\actors\actor.cpp" />
+    <ClCompile Include="src\game\objects\actors\player.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +116,7 @@
     <None Include="assets\textures\actors\player\anims\walk_left.json" />
     <None Include="assets\textures\actors\player\anims\walk_right.json" />
     <None Include="assets\textures\actors\player\anims\walk_up.json" />
+    <None Include="config\imgui.ini" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\goofy.png" />

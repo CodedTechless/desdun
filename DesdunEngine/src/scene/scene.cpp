@@ -15,6 +15,9 @@ namespace Desdun
 
 	Scene::Scene()
 	{
+		sceneInstances.reserve(8192);
+		sceneObjects.reserve(8192);
+
 		rootInstance = create<Instance>();
 		rootInstance->name = "gameRoot";
 	}
@@ -29,12 +32,12 @@ namespace Desdun
 		Vector2 windowSize = Application::get()->getPrimaryWindow()->getSize();
 		Vector2 orthoSize = currentCamera->getRenderCamera().GetOrthoSize();
 
-		Vector2 scaleFactor = orthoSize / windowSize;
+		Vector2 cameraPos = currentCamera->getInterpPosition();
+		Vector2f mousePos = Input::getMousePosition();
 
-		Vector2 cameraPos = currentCamera->getInterpPosition() - (orthoSize / 2.f);
-		Vector2 mousePos = Input::getMousePosition();
+		std::cout << mousePos.x << " " << mousePos.y << std::endl;
 
-		return cameraPos + mousePos * scaleFactor;
+		return cameraPos - (mousePos - windowSize / 2.f) * (orthoSize / windowSize);
 	}
 
 	void Scene::onGameStep(const float delta)

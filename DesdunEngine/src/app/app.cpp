@@ -85,7 +85,7 @@ namespace Desdun
         Debug::Log("Starting renderer");
         Renderer::Start();
 
-        imguiLayer = new ImGuiLayer("imgui.ini");
+        imguiLayer = new ImGuiLayer("config/imgui.ini");
         gameLayers.PushOverlay(imguiLayer);
 	}
 

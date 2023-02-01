@@ -15,26 +15,11 @@ namespace Desdun
 		float health = 100.f;
 		float maxHealth = 100.f;
 
-		void takeDamage(float amount)
-		{
+		void takeDamage(float amount);
 
-		};
-
-		void serialise(JSONObject& object) const override
-		{
-			object["health"] = health;
-			object["maxHealth"] = maxHealth;
-
-			Object::serialise(object);
-		}
-
-		void deserialise(const JSONObject& object) override
-		{
-			object.at("health").get_to(health);
-			object.at("maxHealth").get_to(maxHealth);
-
-			Object::deserialise(object);
-		}
+	protected:
+		void serialise(JSONObject& object) const override;
+		void deserialise(const JSONObject& object) override;
 
 	};
 }
