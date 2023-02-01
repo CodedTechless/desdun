@@ -262,7 +262,6 @@ namespace Desdun
 		if (shader)
 			SetShader(shader);
 
-		m_RenderCore.NextTextureSlot = 0;
 		m_RenderCore.VertexBufferIndex = 0;
 		m_RenderCore.QuadsHeader = m_RenderCore.Quads;
 	}

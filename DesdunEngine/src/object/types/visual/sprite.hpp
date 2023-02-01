@@ -15,6 +15,7 @@ namespace Desdun
 		Shader* shader = nullptr;
 
 		Color4f tint = { 1.f, 1.f, 1.f, 1.f };
+		Vector2f tiles = { 1.f, 1.f };
 
 		ImageBounds bounds = {
 			{ 0.f, 0.f },
@@ -28,7 +29,7 @@ namespace Desdun
 				Mat4f transform = getInterpTransform()
 					* glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->GetSize()), 1.f));
 
-				Renderer::Submit({ transform, tint, bounds, image, shader, zIndex });
+				Renderer::Submit({ transform, tint, { bounds.TL * tiles, bounds.BR * tiles }, image, shader, zIndex });
 			}
 		}
 

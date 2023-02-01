@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "actor.hpp"
 
 
@@ -15,8 +14,10 @@ namespace Desdun
 		Vector2 velocity = { 0.f, 0.f };
 		float friction = 2000.f;
 
+		Vector2 faceDirection = { 0.f, 0.f };
+		Vector2 moveDirection = { 0.f, 0.f };
 		float moveAcceleration = 1800.f;
-		float maxVelocity = 180.f;
+		float maxVelocity = 125.f;
 
 		void onAwake() override
 		{
@@ -35,12 +36,41 @@ namespace Desdun
 			});
 			sprite->name = "body";
 			sprite->position = Vector2(0, -16);
-			sprite->zIndex = -10;
+			sprite->zIndex = 10.f;
 			sprite->setParent(this);
 
 			sprite->play("idleDown");
 
 		};
+
+		void onFrameUpdate(float delta) override
+		{
+			float moveRatio = glm::length(moveDirection);
+			auto* sprite = (AnimatedSprite*)findChild("body");
+			
+			if (moveRatio > 0.1f)
+			{
+				if (moveDirection.y <= -0.70710678f)
+					sprite->play("walkUp", true);
+				else if (moveDirection.y >= 0.70710678f)
+					sprite->play("walkDown", true);
+				else if (moveDirection.x >= 0.70710678f)
+					sprite->play("walkRight", true);
+				else if (moveDirection.x <= -0.70710678f)
+					sprite->play("walkLeft", true);
+			}
+			else
+			{
+				if (faceDirection.y <= -0.70710678f)
+					sprite->play("idleUp");
+				else if (faceDirection.y >= 0.70710678f)
+					sprite->play("idleDown");
+				else if (faceDirection.x >= 0.70710678f)
+					sprite->play("idleRight");
+				else if (faceDirection.x <= -0.70710678f)
+					sprite->play("idleLeft");
+			}
+		}
 
 		void onGameStep(float delta) override
 		{
@@ -53,7 +83,10 @@ namespace Desdun
 			if (glm::length(movement) > 0.f)
 			{
 				normalisedMovement = glm::normalize(movement);
+				faceDirection = normalisedMovement;
 			}
+
+			moveDirection = normalisedMovement;
 
 			velocity += moveAcceleration * normalisedMovement * delta;
 

@@ -81,7 +81,7 @@ namespace Desdun
         Debug::Log("Starting base runtime");
         Runtime::Start();
 
-        gameWindow = new Window("Desecrated Dungeons", { 800, 600 });
+        gameWindow = new Window("Desecrated Dungeons", { 1280, 720 });
         Debug::Log("Starting renderer");
         Renderer::Start();
 

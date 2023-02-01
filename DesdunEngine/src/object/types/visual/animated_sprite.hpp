@@ -36,27 +36,41 @@ namespace Desdun
 			}
 		}
 
-		// plays the specified animation from animationSequences
-		void play(const std::string& name)
+		void setSpeed(float speed)
 		{
+
+		}
+
+		// plays the specified animation from animationSequences
+		void play(const std::string& name, bool seek = false)
+		{
+			if (currentPlaying == name)
+			{
+				return;
+			}
+			
 			if (animationSequences.find(name) == animationSequences.end())
 			{
 				throw new Exception("Animation does not exist.");
 			}
-
-			frame = 0;
-			currentSequence = animationSequences[name];
+			
+			if (seek == false)
+			{
+				frame = 0;
+				elapsed = 0.f;
+			}
 
 			isPlaying = true;
+			
+			currentSequence = animationSequences[name];
+			currentPlaying = name;
 		}
 
 		// resumes the current animation
 		void play()
 		{
 			if (currentSequence == nullptr)
-			{
 				return;
-			}
 
 			isPlaying = true;
 		}
@@ -74,7 +88,7 @@ namespace Desdun
 
 				if (isPlaying == true)
 				{
-					elapsed += delta;
+					elapsed += delta * playbackSpeed;
 
 					float duration = currentFrame.duration / 1000.f;
 					if (elapsed > duration)
@@ -108,9 +122,12 @@ namespace Desdun
 	private:
 		std::unordered_map<std::string, AnimationSequence*> animationSequences = {};
 
+		std::string currentPlaying = "";
 		AnimationSequence* currentSequence = nullptr;
 
 		bool isPlaying = false;
+		float playbackSpeed = 1.f;
+
 		uint frame = 0;
 		float elapsed = 0.f;
 	};

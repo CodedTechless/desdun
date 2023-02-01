@@ -1,10 +1,6 @@
 [
 	{
-		"imagePath": "assets/textures/actors/player/player_idle_up.png",
-		"duration": 200
-	},
-	{
-		"imagePath": "assets/textures/actors/player/player_walk_up2.png",
+		"imagePath": "assets/textures/actors/player/player_walk5.png",
 		"duration": 200
 	},
 	{
@@ -12,7 +8,11 @@
 		"duration": 200
 	},
 	{
-		"imagePath": "assets/textures/actors/player/player_walk_up4.png",
+		"imagePath": "assets/textures/actors/player/player_walk7.png",
+		"duration": 200
+	},
+	{
+		"imagePath": "assets/textures/actors/player/player_idle_up.png",
 		"duration": 200
 	}
 ]
