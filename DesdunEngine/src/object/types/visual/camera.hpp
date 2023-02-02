@@ -6,6 +6,7 @@ an object but also sort of a wrapper class for RenderCamera
 
 #include <scene/scene.h>
 #include <object/types/object.h>
+#include <object/types/visual/sprite.hpp>
 
 #include <graphics/render_camera.h>
 #include <graphics/renderer.h>
@@ -24,6 +25,9 @@ namespace Desdun
 		
 		Vector2 targetViewportSize = { 800.f, 600.f };
 		Vector2 offset = { 0.f, 0.f };
+
+		RenderCamera renderCamera = {};
+		Object* subject = nullptr;
 
 		void onGameStep(float delta) override
 		{
@@ -51,37 +55,18 @@ namespace Desdun
 
 			if (adjustToAspectRatio)
 			{
-				renderCamera.SetOrthoSize(Vector2(windowSize.x / windowSize.y, 1.f) * targetViewportSize.y * getInterpScale());
+				renderCamera.setOrthoSize(Vector2(windowSize.x / windowSize.y, 1.f) * targetViewportSize.y * getInterpScale());
 			}
 			else
 			{
-				renderCamera.SetOrthoSize(targetViewportSize * getInterpScale());
+				renderCamera.setOrthoSize(targetViewportSize * getInterpScale());
 			}
-		}
-
-		void setSubject(Object* object, Vector2 objectOffset = {}, bool snap = true)
-		{
-			subject = object;
-			offset = objectOffset;
-
-			if (snap)
-				position = subject->position;
 		}
 		
 		Mat4 getProjectionTransform() const
 		{
-			return renderCamera.GetProjection() * glm::inverse(glm::translate(getInterpTransform(), { renderCamera.GetOrthoSize() * -0.5f, 0.f }));
+			return renderCamera.GetProjection() * glm::inverse(glm::translate(getInterpTransform(), { renderCamera.getOrthoSize() * -0.5f, 0.f }));
 		};
-
-		RenderCamera& getRenderCamera()
-		{
-			return renderCamera;
-		}
-
-	private:
-
-		RenderCamera renderCamera = {};
-		Object* subject = nullptr;
 
 	};
 }

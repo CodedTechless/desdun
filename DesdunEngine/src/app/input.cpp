@@ -45,18 +45,18 @@ namespace Desdun
 		return State == GLFW_PRESS;
 	}
 
-	glm::vec2 Input::getMousePosition() 
+	Vector2f Input::getMousePosition() 
 	{
 		auto* Window = Application::get()->getPrimaryWindow();
 		auto* Context = Window->getContext();
-		Vector2 Size = Window->getSize();
+		Vector2f Size = Window->getSize();
 
 		double X, Y;
 		glfwGetCursorPos(Context, &X, &Y);
 
 		return { 
-			std::min((float)Size.x, std::max(0.f, (float)X)) , 
-			std::min((float)Size.y, std::max(0.f, (float)Y))
+			std::clamp((float)X, 0.f, Size.x),
+			std::clamp((float)Y, 0.f, Size.y)
 		};
 	}
 }

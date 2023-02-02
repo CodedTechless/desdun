@@ -6,6 +6,8 @@
 #include <object/types/object.h>
 #include <object/types/visual/camera.hpp>
 
+#include <imgui/imgui.h>
+
 #include <resource/types/model.h>
 
 #include "scene.h"
@@ -29,15 +31,6 @@ namespace Desdun
 
 	Vector2 Scene::getMouseInWorld() const
 	{
-		Vector2f windowSize = Application::get()->getPrimaryWindow()->getSize();
-		Vector2f orthoSize = currentCamera->getRenderCamera().GetOrthoSize();
-
-		Vector2f cameraPos = currentCamera->getInterpPosition();
-		Vector2f mouseRatio = (Input::getMousePosition() / windowSize);
-		Vector2f mousePos = orthoSize *  - (orthoSize / 2.f);
-
-		std::cout << orthoSize.x << " " << orthoSize.y << " " << mousePos.x << " " << mousePos.y << std::endl;
-
 		return mousePos;
 	}
 
@@ -59,6 +52,13 @@ namespace Desdun
 
 			instance->onGameStep(delta);
 		}
+
+		Vector2f windowSize = Application::get()->getPrimaryWindow()->getSize();
+		Vector2f orthoSize = currentCamera->renderCamera.getOrthoSize();
+
+		Vector2f cameraPos = currentCamera->position;
+		Vector2f mouseRatio = (Input::getMousePosition() / windowSize) - 0.5f;
+		mousePos = cameraPos + orthoSize * mouseRatio * currentCamera->scale;
 	}
 
 	void Scene::onFrameUpdate(const float delta)
@@ -74,6 +74,20 @@ namespace Desdun
 				instance->onFrameUpdate(delta);
 			}
 		}
+
+		//ImGui::Begin("debugger");
+
+
+
+
+
+		//ImGui::Text(std::string(std::to_string(cameraPos.x) + " " + std::to_string(cameraPos.y)).c_str());
+		//ImGui::Text(std::string(std::to_string(mouseRatio.x) + " " + std::to_string(mouseRatio.y)).c_str());
+		//ImGui::Text(std::string(std::to_string(mousePos.x) + " " + std::to_string(mousePos.y)).c_str());
+		//ImGui::Text(std::string(std::to_string(orthoSize.x) + " " + std::to_string(orthoSize.y)).c_str());
+		//ImGui::Text(std::string(std::to_string(currentCamera->scale.x) + " " + std::to_string(currentCamera->scale.y)).c_str());
+
+		//ImGui::End();
 
 		Renderer::EndScene();
 	}

@@ -40,6 +40,8 @@ namespace Desdun
 			newObject->image = Resource::fetch<Image>("assets/textures/white.png");
 			newObject->position = mousePos;
 			newObject->setParent(getScene()->getRoot());
+
+			position = mousePos;
 ;		}
 	}
 

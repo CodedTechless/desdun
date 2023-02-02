@@ -12,20 +12,20 @@ namespace Desdun
 	public:
 		RenderCamera() = default;
 
-		void SetOrthoSize(Vector2 Size)
+		void setOrthoSize(Vector2 Size)
 		{
 			m_OrthoSize = Size;
 			CalculateProjection();
 		}
 
-		void SetOrthoZPlane(Vector2 ZPlane)
+		void setOrthoZPlane(Vector2 ZPlane)
 		{
 			m_OrthoZPlane = ZPlane;
 			CalculateProjection();
 		}
 
-		Vector2 GetOrthoSize() const { return m_OrthoSize; };
-		Vector2 GetOrthoZPlane() const { return m_OrthoZPlane; };
+		Vector2f getOrthoSize() const { return m_OrthoSize; };
+		Vector2f getOrthoZPlane() const { return m_OrthoZPlane; };
 
 		Mat4f GetProjection() const { return m_Projection; };
 

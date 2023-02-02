@@ -43,15 +43,15 @@ namespace Desdun
 
 		GLFWwindow* getContext() const { return windowObject; };
 
-		Vector2 getContentScale() const { return dpiScale; };
+		Vector2f getContentScale() const { return dpiScale; };
 		bool getFocused() const { return isFocused; };
-		Vector2 getSize() const { return size; };
+		Vector2i getSize() const { return size; };
 
 	private:
 		std::string title = "";
 		
 		Vector2i size = { 800, 600 };
-		Vector2 dpiScale = { 1.f, 1.f };
+		Vector2f dpiScale = { 1.f, 1.f };
 		bool isFocused = true;
 
 		GLFWwindow* windowObject;

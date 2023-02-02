@@ -29,7 +29,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/compatibility.hpp>
 
-#define MAX_INSTANCES 4196
+#define MAX_INSTANCES 8192
 #define RUNTIME_CLASS_DEF(x) \
 	std::type_index getClassIndex() const override { return typeid(x); } \
 

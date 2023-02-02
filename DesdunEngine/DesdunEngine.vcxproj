@@ -121,6 +121,7 @@
     <ClCompile Include="src\resource\types\image.cpp" />
     <ClCompile Include="src\resource\types\model.cpp" />
     <ClCompile Include="src\resource\types\shader.cpp" />
+    <ClCompile Include="src\scene\collector.cpp" />
     <ClCompile Include="src\scene\scene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -478,9 +479,11 @@
     <ClInclude Include="src\resource\types\image.h" />
     <ClInclude Include="src\resource\types\model.h" />
     <ClInclude Include="src\resource\types\shader.h" />
+    <ClInclude Include="src\scene\collector.h" />
     <ClInclude Include="src\scene\scene.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="src\dependencies\glm\detail\func_common.inl" />
     <None Include="src\dependencies\glm\detail\func_common_simd.inl" />
     <None Include="src\dependencies\glm\detail\func_exponential.inl" />

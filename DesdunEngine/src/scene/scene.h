@@ -56,6 +56,8 @@ namespace Desdun
 
 	private:
 		
+		Vector2f mousePos = { 0.f, 0.f };
+
 		Instance* rootInstance = nullptr;
 
 		std::vector<Instance*> sceneInstances = {};
