@@ -33,11 +33,14 @@ namespace Desdun
 		Vector2 orthoSize = currentCamera->getRenderCamera().GetOrthoSize();
 
 		Vector2 cameraPos = currentCamera->getInterpPosition();
-		Vector2f mousePos = Input::getMousePosition();
+		Vector2f mousePos = (Input::getMousePosition() / windowSize) - .5f;
 
-		std::cout << mousePos.x << " " << mousePos.y << std::endl;
+		std::cout << orthoSize.x << " " << orthoSize.y << " " << mousePos.x << " " << mousePos.y << std::endl;
 
-		return cameraPos - (mousePos - windowSize / 2.f) * (orthoSize / windowSize);
+		auto res = cameraPos + (mousePos * orthoSize);
+		std::cout << res.x << " " << res.y << std::endl;
+
+		return res;
 	}
 
 	void Scene::onGameStep(const float delta)
