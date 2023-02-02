@@ -70,7 +70,7 @@ namespace Desdun
 		
 		Mat4 getProjectionTransform() const
 		{
-			return renderCamera.GetProjection() * glm::inverse(glm::translate(getInterpTransform(), { -renderCamera.GetOrthoSize() * 0.5f, 0.f }));
+			return renderCamera.GetProjection() * glm::inverse(glm::translate(getInterpTransform(), { renderCamera.GetOrthoSize() * -0.5f, 0.f }));
 		};
 
 		RenderCamera& getRenderCamera()

@@ -33,6 +33,7 @@ namespace Desdun
 		if (event.isPressed(Input::MouseCode::Button0))
 		{
 			Vector2 mousePos = getScene()->getMouseInWorld();
+			std::cout << "player position: " << position.x << " " << position.y << std::endl;
 
 			auto* newObject = getScene()->create<Sprite>();
 			newObject->zIndex = 5;

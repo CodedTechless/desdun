@@ -228,24 +228,52 @@ namespace Desdun
 				return false;
 			};
 
-			bool isPressed(Input::KeyCode keyCode)
+			bool isPressed(Input::KeyCode keyCode, bool absorb = true)
 			{
-				return action.keyCode == keyCode && action.state == State::Begin;
+				if (action.type == Input::Type::Keyboard && action.keyCode == keyCode && action.state == State::Begin)
+				{
+					if (absorb) absorbed = true;
+
+					return true;
+				}
+
+				return false;
 			}
 
-			bool isReleased(Input::KeyCode keyCode)
+			bool isReleased(Input::KeyCode keyCode, bool absorb = true)
 			{
-				return action.keyCode == keyCode && action.state == State::End;
+				if (action.type == Input::Type::Keyboard && action.keyCode == keyCode && action.state == State::End)
+				{
+					if (absorb) absorbed = true;
+
+					return true;
+				}
+
+				return false;
 			}
 
-			bool isPressed(Input::MouseCode mouseButton)
+			bool isPressed(Input::MouseCode mouseButton, bool absorb = true)
 			{
-				return action.mouseButton == mouseButton && action.state == State::Begin;
+				if (action.type == Input::Type::Mouse && action.mouseButton == mouseButton && action.state == State::Begin)
+				{
+					if (absorb) absorbed = true;
+
+					return true;
+				}
+
+				return false;
 			}
 
-			bool isReleased(Input::MouseCode mouseButton)
+			bool isReleased(Input::MouseCode mouseButton, bool absorb = true)
 			{
-				return action.mouseButton == mouseButton && action.state == State::End;
+				if (action.type == Input::Type::Mouse && action.mouseButton == mouseButton && action.state == State::End)
+				{
+					if (absorb) absorbed = true;
+
+					return true;
+				}
+
+				return false;
 			}
 
 		};

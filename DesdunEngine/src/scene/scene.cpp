@@ -29,18 +29,16 @@ namespace Desdun
 
 	Vector2 Scene::getMouseInWorld() const
 	{
-		Vector2 windowSize = Application::get()->getPrimaryWindow()->getSize();
-		Vector2 orthoSize = currentCamera->getRenderCamera().GetOrthoSize();
+		Vector2f windowSize = Application::get()->getPrimaryWindow()->getSize();
+		Vector2f orthoSize = currentCamera->getRenderCamera().GetOrthoSize();
 
-		Vector2 cameraPos = currentCamera->getInterpPosition();
-		Vector2f mousePos = (Input::getMousePosition() / windowSize) - .5f;
+		Vector2f cameraPos = currentCamera->getInterpPosition();
+		Vector2f mouseRatio = (Input::getMousePosition() / windowSize);
+		Vector2f mousePos = orthoSize *  - (orthoSize / 2.f);
 
 		std::cout << orthoSize.x << " " << orthoSize.y << " " << mousePos.x << " " << mousePos.y << std::endl;
 
-		auto res = cameraPos + (mousePos * orthoSize);
-		std::cout << res.x << " " << res.y << std::endl;
-
-		return res;
+		return mousePos;
 	}
 
 	void Scene::onGameStep(const float delta)
@@ -67,7 +65,7 @@ namespace Desdun
 	{
 		if (!currentCamera) return;
 
-		Renderer::BeginScene(currentCamera->getRenderCamera(), currentCamera->getProjectionTransform());
+		Renderer::BeginScene(currentCamera->getProjectionTransform());
 
 		for (Instance* instance : sceneInstances)
 		{

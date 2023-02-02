@@ -201,9 +201,8 @@ namespace Desdun
 		m_RenderCore.VertexBufferIndex += 6;
 	}
 
-	void Renderer::BeginScene(const RenderCamera& camera, Mat4f transform)
+	void Renderer::BeginScene(Mat4f transform)
 	{
-		m_RenderCore.CurrentCamera = camera;
 		m_RenderCore.ProjectionTransform = transform;
 		m_RenderCore.CommandIndex = 0;
 

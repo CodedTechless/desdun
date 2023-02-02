@@ -83,7 +83,7 @@ namespace Desdun
 		static void Start();
 		static void Stop();
 
-		static void BeginScene(const RenderCamera& camera, Mat4f transform);
+		static void BeginScene(Mat4f transform);
 		static void EndScene();
 
 		static void setViewportSize(Vector2i size);

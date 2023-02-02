@@ -26,7 +26,7 @@ namespace Desdun
 		auto* actor = gameScene->create<Player>();
 		actor->setParent(gameScene->getRoot());
 
-		camera->setSubject(actor, { 0.f, -16.f });
+		//camera->setSubject(actor, { 0.f, -16.f });
 
 		auto* imagetest = gameScene->create<Sprite>();
 		imagetest->image = Resource::fetch<Image>("assets/textures/stone_brick_floor.png");
