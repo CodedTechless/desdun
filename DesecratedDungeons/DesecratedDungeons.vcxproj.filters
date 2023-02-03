@@ -21,7 +21,7 @@
     <ClCompile Include="src\game\layers\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\game_app.cpp">
+    <ClCompile Include="src\game_app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\game\objects\actors\actor.cpp">
@@ -35,7 +35,7 @@
     <ClInclude Include="src\game\layers\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\game_app.hpp">
+    <ClInclude Include="src\game_app.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\objects\actors\actor.hpp">

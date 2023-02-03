@@ -90,7 +90,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\game\game_app.cpp" />
+    <ClCompile Include="src\game_app.cpp" />
     <ClCompile Include="src\game\layers\game.cpp" />
     <ClCompile Include="src\game\objects\actors\actor.cpp" />
     <ClCompile Include="src\game\objects\actors\player.cpp" />
@@ -98,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="src\game\game_app.hpp" />
+    <ClInclude Include="src\game_app.hpp" />
     <ClInclude Include="src\game\layers\game.h" />
     <ClInclude Include="src\game\objects\actors\actor.hpp" />
     <ClInclude Include="src\game\objects\actors\player.hpp" />

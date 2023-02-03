@@ -6,7 +6,7 @@ ENTRY POINT BAYBEEEEEE
 BEEEEEG YOSHI
 */
 
-#include <game/game_app.hpp>
+#include <game_app.hpp>
 
 using namespace Desdun;
 
