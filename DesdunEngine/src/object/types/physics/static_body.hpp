@@ -1,11 +1,24 @@
 #pragma once
 
-#include <object/types/object.h>
+#include "physics_body.hpp"
 
-using namespace Desdun;
-
-class StaticBody : public Object
+namespace Desdun
 {
-public:
-	RUNTIME_CLASS_DEF(StaticBody);
-};
+	class StaticBody : public PhysicsBody
+	{
+	public:
+		RUNTIME_CLASS_DEF(StaticBody);
+
+		void onAwake() override
+		{
+			
+		}
+
+		void onDestroyed() override
+		{
+
+		}
+
+	};
+}
+

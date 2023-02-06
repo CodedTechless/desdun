@@ -123,9 +123,6 @@
     <ClCompile Include="src\resource\types\animation_sequence.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\scene\collector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\debug\debug.h">
@@ -1121,9 +1118,6 @@
     <ClInclude Include="src\object\types\physics\dynamic_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\types\physics\kinematic_body.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\object\types\physics\static_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1193,7 +1187,7 @@
     <ClInclude Include="src\resource\types\animation_sequence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\scene\collector.h">
+    <ClInclude Include="src\object\types\physics\physics_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

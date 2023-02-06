@@ -121,10 +121,10 @@
     <ClCompile Include="src\resource\types\image.cpp" />
     <ClCompile Include="src\resource\types\model.cpp" />
     <ClCompile Include="src\resource\types\shader.cpp" />
-    <ClCompile Include="src\scene\collector.cpp" />
     <ClCompile Include="src\scene\scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\object\types\physics\physics_body.hpp" />
     <ClInclude Include="src\resource\types\animation_sequence.h" />
     <ClInclude Include="src\app\app.h" />
     <ClInclude Include="src\app\debug\debug.h" />
@@ -463,7 +463,6 @@
     <ClInclude Include="src\object\types\audio\sound.hpp" />
     <ClInclude Include="src\object\types\object.h" />
     <ClInclude Include="src\object\types\physics\dynamic_body.hpp" />
-    <ClInclude Include="src\object\types\physics\kinematic_body.hpp" />
     <ClInclude Include="src\object\types\physics\static_body.hpp" />
     <ClInclude Include="src\object\types\visual\animated_sprite.hpp" />
     <ClInclude Include="src\object\types\visual\camera.hpp" />
@@ -479,7 +478,6 @@
     <ClInclude Include="src\resource\types\image.h" />
     <ClInclude Include="src\resource\types\model.h" />
     <ClInclude Include="src\resource\types\shader.h" />
-    <ClInclude Include="src\scene\collector.h" />
     <ClInclude Include="src\scene\scene.h" />
   </ItemGroup>
   <ItemGroup>

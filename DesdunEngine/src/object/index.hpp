@@ -13,7 +13,6 @@
 
 // Physics
 
-#include "types/physics/kinematic_body.hpp"
 #include "types/physics/static_body.hpp"
 #include "types/physics/dynamic_body.hpp"
 

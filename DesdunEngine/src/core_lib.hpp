@@ -17,6 +17,7 @@
 
 #include <unordered_map>
 #include <vector>
+#include <bitset>
 #include <stack>
 #include <array>
 #include <algorithm>

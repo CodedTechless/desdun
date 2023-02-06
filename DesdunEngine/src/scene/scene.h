@@ -7,13 +7,27 @@
 #include <uuid.hpp>
 #include <core_lib.hpp>
 
+#define COLLISION_MAP_SIZE 2048
+
 namespace Desdun
 {
 
-	class Camera;
 	class Instance;
 	class Object;
+	class PhysicsBody;
+	class StaticBody;
+	class DynamicBody;
+	class Camera;
 	class Model;
+
+	using CollisionMap = 
+		std::array<
+			std::array<
+				std::vector<PhysicsBody*>, 
+				COLLISION_MAP_SIZE
+			>, 
+			COLLISION_MAP_SIZE
+		>;
 
 	class Scene
 	{
@@ -21,6 +35,7 @@ namespace Desdun
 		Scene();
 		~Scene() = default;
 
+		CollisionMap collisionMap = {};
 		Camera* currentCamera = nullptr;
 
 		void onFrameUpdate(const float Delta);
@@ -31,8 +46,6 @@ namespace Desdun
 
 		Instance* instantiate(Model* model);
 
-		Vector2 getMouseInWorld() const;
-
 		template<typename T>
 		T* create()
 		{
@@ -42,27 +55,22 @@ namespace Desdun
 
 			sceneInstances.push_back((Instance*)instance);
 
-			if (Runtime::Get<T>()->isA<Object>())
-			{
-				sceneObjects.push_back((Object*)instance);
-			}
-
 			instance->onAwake();
 
 			return instance;
 		}
 
+		Vector2 getMouseInWorld() const;
 		Instance* getRoot() const { return rootInstance; };
 
 	private:
 		
 		Vector2f mousePos = { 0.f, 0.f };
-
 		Instance* rootInstance = nullptr;
 
 		std::vector<Instance*> sceneInstances = {};
-		std::vector<Object*> sceneObjects = {};
+
+		friend class Instance;
 
 	};
-
 }

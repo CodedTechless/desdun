@@ -2,6 +2,8 @@
 #include <app/runtime.h>
 #include <resource/serial/json_stream.h>
 
+#include "scene/scene.h"
+
 #include "instance.h"
 
 namespace Desdun
@@ -10,17 +12,23 @@ namespace Desdun
 	{
 		if (active)
 		{
-			OnDestroyed();
+			onDestroyed();
 		}
 
-		for (auto instance : getChildren())
+		auto it = std::find(getScene()->sceneInstances.begin(), getScene()->sceneInstances.end(), this);
+		if (it != getScene()->sceneInstances.end())
 		{
-			delete instance;
+			getScene()->sceneInstances.erase(it);
 		}
 
 		if (getParent())
 		{
 			getParent()->removeChild(this);
+		}
+
+		for (auto instance : getChildren())
+		{
+			delete instance;
 		}
 	}
 

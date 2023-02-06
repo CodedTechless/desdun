@@ -17,8 +17,7 @@ namespace Desdun
 
 	Scene::Scene()
 	{
-		sceneInstances.reserve(8192);
-		sceneObjects.reserve(8192);
+		sceneInstances.reserve(MAX_INSTANCES);
 
 		rootInstance = create<Instance>();
 		rootInstance->name = "gameRoot";
@@ -36,11 +35,16 @@ namespace Desdun
 
 	void Scene::onGameStep(const float delta)
 	{
-		for (Object* object : sceneObjects)
+		for (Instance* instance : sceneInstances)
 		{
-			object->LastPosition = object->position;
-			object->LastScale = object->scale;
-			object->LastRotation = object->rotation;
+			if (instance->isA<Object>())
+			{
+				auto* object = (Object*)instance;
+
+				object->LastPosition = object->position;
+				object->LastScale = object->scale;
+				object->LastRotation = object->rotation;
+			}
 		}
 
 		for (Instance* instance : sceneInstances)
@@ -74,20 +78,6 @@ namespace Desdun
 				instance->onFrameUpdate(delta);
 			}
 		}
-
-		//ImGui::Begin("debugger");
-
-
-
-
-
-		//ImGui::Text(std::string(std::to_string(cameraPos.x) + " " + std::to_string(cameraPos.y)).c_str());
-		//ImGui::Text(std::string(std::to_string(mouseRatio.x) + " " + std::to_string(mouseRatio.y)).c_str());
-		//ImGui::Text(std::string(std::to_string(mousePos.x) + " " + std::to_string(mousePos.y)).c_str());
-		//ImGui::Text(std::string(std::to_string(orthoSize.x) + " " + std::to_string(orthoSize.y)).c_str());
-		//ImGui::Text(std::string(std::to_string(currentCamera->scale.x) + " " + std::to_string(currentCamera->scale.y)).c_str());
-
-		//ImGui::End();
 
 		Renderer::EndScene();
 	}

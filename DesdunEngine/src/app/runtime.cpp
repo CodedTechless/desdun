@@ -17,9 +17,11 @@ namespace Desdun
 			{
 				Runtime::Add<Sound>("Sound", Runtime::Get<Object>());
 
-				Runtime::Add<DynamicBody>("DynamicBody", Runtime::Get<Object>());
-				Runtime::Add<KinematicBody>("KinematicBody", Runtime::Get<Object>());
-				Runtime::Add<StaticBody>("StaticBody", Runtime::Get<Object>());
+				Runtime::Add<PhysicsBody>("PhysicsBody", Runtime::Get<Object>());
+				{
+					Runtime::Add<DynamicBody>("DynamicBody", Runtime::Get<Object>());
+					Runtime::Add<StaticBody>("StaticBody", Runtime::Get<Object>());
+				}
 
 				Runtime::Add<Camera>("Camera", Runtime::Get<Object>());
 				Runtime::Add<Light>("Light", Runtime::Get<Object>());
@@ -29,6 +31,7 @@ namespace Desdun
 				{
 					Runtime::Add<AnimatedSprite>("AnimatedSprite", Runtime::Get<Sprite>());
 				}
+
 				Runtime::Add<TileMap>("TileMap", Runtime::Get<Object>());
 			}
 		}

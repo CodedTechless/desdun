@@ -49,7 +49,7 @@ namespace Desdun
 		~Instance();
 
 		virtual void onAwake() {};
-		virtual void OnDestroyed() {};
+		virtual void onDestroyed() {};
 
 		virtual void onGameStep(const float_t Delta) {};
 		virtual void onFrameUpdate(const float_t Delta) {};
