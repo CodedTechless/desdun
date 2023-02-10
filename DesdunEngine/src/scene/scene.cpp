@@ -79,6 +79,8 @@ namespace Desdun
 			}
 		}
 
+		
+
 		Renderer::EndScene();
 	}
 

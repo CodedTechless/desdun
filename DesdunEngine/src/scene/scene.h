@@ -7,8 +7,6 @@
 #include <uuid.hpp>
 #include <core_lib.hpp>
 
-#define COLLISION_MAP_SIZE 2048
-
 namespace Desdun
 {
 
@@ -21,13 +19,7 @@ namespace Desdun
 	class Model;
 
 	using CollisionMap = 
-		std::array<
-			std::array<
-				std::vector<PhysicsBody*>, 
-				COLLISION_MAP_SIZE
-			>, 
-			COLLISION_MAP_SIZE
-		>;
+		std::array<std::array<std::vector<PhysicsBody*>, COLLISION_MAP_SIZE>, COLLISION_MAP_SIZE>;
 
 	class Scene
 	{

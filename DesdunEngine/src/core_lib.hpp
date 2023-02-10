@@ -31,6 +31,9 @@
 #include <glm/gtx/compatibility.hpp>
 
 #define MAX_INSTANCES 8192
+#define COLLISION_MAP_SIZE 2048
+#define COLLISION_MAP_CELL_SIZE 64
+
 #define RUNTIME_CLASS_DEF(x) \
 	std::type_index getClassIndex() const override { return typeid(x); } \
 
