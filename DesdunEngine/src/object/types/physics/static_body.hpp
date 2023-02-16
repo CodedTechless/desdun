@@ -26,13 +26,6 @@ namespace Desdun
 
 		}
 
-	private:
-
-		void updateBounds()
-		{
-
-		}
-
 	};
 }
 

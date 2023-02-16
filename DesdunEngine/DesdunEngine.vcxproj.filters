@@ -123,6 +123,9 @@
     <ClCompile Include="src\resource\types\animation_sequence.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\primitive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\debug\debug.h">
@@ -1188,6 +1191,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\object\types\physics\physics_body.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\primitive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

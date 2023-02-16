@@ -1,10 +1,12 @@
 
 
 #include <graphics/renderer.h>
+#include <graphics/primitive.h>
 
 #include <object/instance.h>
 #include <object/types/object.h>
 #include <object/types/visual/camera.hpp>
+#include <object/types/physics/physics_body.hpp>
 
 #include <imgui/imgui.h>
 
@@ -17,6 +19,10 @@ namespace Desdun
 
 	Scene::Scene()
 	{
+		for (int i = 0; i < COLLISION_MAP_SIZE; i++)
+		{
+			collisionMap[i].fill(std::vector<PhysicsBody*>());
+		}
 		sceneInstances.reserve(MAX_INSTANCES);
 
 		rootInstance = create<Instance>();
@@ -76,6 +82,16 @@ namespace Desdun
 			if (instance->active)
 			{
 				instance->onFrameUpdate(delta);
+
+				if (instance->isA<PhysicsBody>())
+				{
+					auto* phys = (PhysicsBody*)instance;
+
+					for (Vector2 cell : phys->getOwnedCells())
+					{
+						Primitive::drawRect(cell * (float)COLLISION_MAP_CELL_SIZE, Vector2f(COLLISION_MAP_CELL_SIZE), 100.f);
+					};
+				}
 			}
 		}
 

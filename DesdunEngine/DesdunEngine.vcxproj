@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\primitive.cpp" />
     <ClCompile Include="src\resource\types\animation_sequence.cpp" />
     <ClCompile Include="src\app\app.cpp" />
     <ClCompile Include="src\app\debug\debug.cpp" />
@@ -124,6 +125,7 @@
     <ClCompile Include="src\scene\scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\primitive.h" />
     <ClInclude Include="src\object\types\physics\physics_body.hpp" />
     <ClInclude Include="src\resource\types\animation_sequence.h" />
     <ClInclude Include="src\app\app.h" />
