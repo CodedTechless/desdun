@@ -27,7 +27,7 @@ namespace Desdun
 		Scene();
 		~Scene() = default;
 
-		CollisionMap collisionMap = {};
+		CollisionMap collisionMap;
 		Camera* currentCamera = nullptr;
 
 		void onFrameUpdate(const float Delta);

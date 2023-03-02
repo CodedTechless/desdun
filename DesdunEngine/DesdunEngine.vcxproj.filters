@@ -126,6 +126,9 @@
     <ClCompile Include="src\graphics\primitive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\object\types\physics\physics_body.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\debug\debug.h">

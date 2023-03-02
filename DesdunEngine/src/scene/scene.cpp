@@ -19,10 +19,6 @@ namespace Desdun
 
 	Scene::Scene()
 	{
-		for (int i = 0; i < COLLISION_MAP_SIZE; i++)
-		{
-			collisionMap[i].fill(std::vector<PhysicsBody*>());
-		}
 		sceneInstances.reserve(MAX_INSTANCES);
 
 		rootInstance = create<Instance>();

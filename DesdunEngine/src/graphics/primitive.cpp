@@ -7,7 +7,7 @@
 namespace Desdun
 {
 
-	void Primitive::drawRect(Vector2 position, Vector2 size, float zIndex = 0.f, float rotation = 0.f, Color4 tint = { 1.f, 1.f, 1.f, 1.f })
+	void Primitive::drawRect(Vector2 position, Vector2 size, float zIndex, float rotation, Color4 tint)
 	{
 		auto* image = Resource::fetch<Image>("assets/textures/white.png");
 
