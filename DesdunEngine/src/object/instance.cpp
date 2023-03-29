@@ -45,11 +45,11 @@ namespace Desdun
 	void Instance::serialise(JSONObject& object) const
 	{
 		object["name"] = name;
-		object["Children"] = json::array();
+		object["children"] = json::array();
 
 		for (Instance* child : getChildren())
 		{
-			object["Children"].push_back(object.getReferenceID(child));
+			object["children"].push_back(object.getReferenceID(child));
 		}
 	};
 
@@ -57,48 +57,12 @@ namespace Desdun
 	{
 		object.at("name").get_to(name);
 
-		for (auto it = object.at("Children").begin(); it != object.at("Children").end(); it++)
+		for (auto it = object.at("children").begin(); it != object.at("children").end(); it++)
 		{
 			auto reference = it->get<uint64_t>();
 			hierarchyTree.m_Container.push_back((Instance*)object.getPointer(reference));
 		};
 	}
-
-#if 0
-	void Instance::Serialise(ByteObject& object) const
-	{
-		object << Name;
-
-		object << GetChildren().size();
-
-		for (Instance* child : GetChildren())
-		{
-			object << child;
-				
-				/*Runtime::Get(child->GetClassIndex())->GetTypeName();
-			child->Serialise(stream);
-		*/}
-	}
-
-	void Instance::Deserialise(ByteObject& stream)
-	{
-		stream >> Name;
-
-		size_t ChildCount;
-		stream >> &ChildCount;
-
-		for (size_t i = 0; i < ChildCount; i++)
-		{
-			std::string ClassID;
-			stream >> ClassID;
-
-			Instance* object = Runtime::Get(ClassID)->New();
-			m_Relation.m_Container.push_back(object);
-
-			object->Deserialise(stream);
-		}
-	}
-#endif
 
 	void Instance::removeChild(Instance* instance)
 	{

@@ -20,6 +20,7 @@ namespace Desdun
 		// Getters
 
 		Vector2i GetBaseSize() const { return BaseSize; };
+		uint getDepth() const { return Layers; };
 		uint GetRenderID() const { return RenderID; };
 
 		uint Size() const;

@@ -5,22 +5,22 @@
 */
 
 #include "instance.h"
-#include "types/object.h"
+#include "object.h"
 
 // Audio
 
-#include "types/audio/sound.hpp"
+#include "audio/sound.hpp"
 
 // Physics
 
-#include "types/physics/static_body.hpp"
-#include "types/physics/dynamic_body.hpp"
+#include "physics/static_body.hpp"
+#include "physics/dynamic_body.hpp"
 
 // Visual
 
-#include "types/visual/animated_sprite.hpp"
-#include "types/visual/camera.hpp"
-#include "types/visual/light.hpp"
-#include "types/visual/particle_emitter.hpp"
-#include "types/visual/sprite.hpp"
-#include "types/visual/tile_map.hpp"
+#include "visual/animated_sprite.hpp"
+#include "visual/camera.hpp"
+#include "visual/light.hpp"
+#include "visual/particle_emitter.hpp"
+#include "visual/sprite.hpp"
+#include "visual/tile_map.hpp"

@@ -11,7 +11,7 @@ namespace Desdun
 {
 
 	class Instance;
-	class Object;
+	class WorldObject;
 	class PhysicsBody;
 	class StaticBody;
 	class DynamicBody;
@@ -53,14 +53,14 @@ namespace Desdun
 		}
 
 		Vector2 getMouseInWorld() const;
-		Instance* getRoot() const { return rootInstance; };
+		Instance* getRoot() const { return root; };
 
 	private:
 		
 		Vector2f mousePos = { 0.f, 0.f };
-		Instance* rootInstance = nullptr;
+		Instance* root = nullptr;
 
-		std::vector<Instance*> sceneInstances = {};
+		List<Instance*> sceneInstances = {};
 
 		friend class Instance;
 

@@ -21,10 +21,10 @@
     <ClCompile Include="src\app\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\app\layers\layer.cpp">
+    <ClCompile Include="src\app\layer\layer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\app\layers\layer_collection.cpp">
+    <ClCompile Include="src\app\layer\layer_collection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\app\runtime.cpp">
@@ -87,7 +87,7 @@
     <ClCompile Include="src\graphics\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\object\types\object.cpp">
+    <ClCompile Include="src\object\object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\object\instance.cpp">
@@ -117,16 +117,22 @@
     <ClCompile Include="src\scene\scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\app\debug\imgui_layer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resource\types\animation_sequence.cpp">
+    <ClCompile Include="src\app\layer\imgui_layer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\primitive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\object\types\physics\physics_body.cpp">
+    <ClCompile Include="src\object\physics\physics_body.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource\resource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource\types\animation_table.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\panel\scene_explorer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -137,10 +143,10 @@
     <ClInclude Include="src\app\input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\app\layers\layer.h">
+    <ClInclude Include="src\app\layer\layer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\app\layers\layer_collection.h">
+    <ClInclude Include="src\app\layer\layer_collection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\app\runtime.h">
@@ -1118,31 +1124,31 @@
     <ClInclude Include="src\graphics\renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\types\audio\sound.hpp">
+    <ClInclude Include="src\object\audio\sound.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\types\physics\dynamic_body.hpp">
+    <ClInclude Include="src\object\physics\dynamic_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\types\physics\static_body.hpp">
+    <ClInclude Include="src\object\physics\static_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\types\visual\camera.hpp">
+    <ClInclude Include="src\object\visual\camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\types\visual\light.hpp">
+    <ClInclude Include="src\object\visual\light.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\types\visual\particle_emitter.hpp">
+    <ClInclude Include="src\object\visual\particle_emitter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\types\visual\sprite.hpp">
+    <ClInclude Include="src\object\visual\sprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\types\visual\tile_map.hpp">
+    <ClInclude Include="src\object\visual\tile_map.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\types\object.h">
+    <ClInclude Include="src\object\object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\object\index.hpp">
@@ -1184,19 +1190,22 @@
     <ClInclude Include="src\core_lib.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\app\debug\imgui_layer.h">
+    <ClInclude Include="src\app\layer\imgui_layer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\types\visual\animated_sprite.hpp">
+    <ClInclude Include="src\object\visual\animated_sprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\resource\types\animation_sequence.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\object\types\physics\physics_body.hpp">
+    <ClInclude Include="src\object\physics\physics_body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\primitive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource\types\animation_table.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\panel\scene_explorer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

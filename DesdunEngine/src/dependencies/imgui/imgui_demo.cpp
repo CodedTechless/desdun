@@ -3582,7 +3582,7 @@ static void ShowDemoWindowPopups()
             ImGui::Combo("Combo", &item, "aaaa\0bbbb\0cccc\0dddd\0eeee\0\0");
             ImGui::ColorEdit4("color", color);
 
-            if (ImGui::Button("Add another modal.."))
+            if (ImGui::Button("registerClass another modal.."))
                 ImGui::OpenPopup("Stacked 2");
 
             // Also demonstrate passing a bool* to BeginPopupModal(), this will create a regular close button which
@@ -6574,9 +6574,9 @@ struct ExampleAppConsole
 
         // TODO: display items starting from the bottom
 
-        if (ImGui::SmallButton("Add Debug Text"))  { AddLog("%d some text", Items.Size); AddLog("some more text"); AddLog("display very important message here!"); }
+        if (ImGui::SmallButton("registerClass Debug Text"))  { AddLog("%d some text", Items.Size); AddLog("some more text"); AddLog("display very important message here!"); }
         ImGui::SameLine();
-        if (ImGui::SmallButton("Add Debug Error")) { AddLog("[error] something went wrong"); }
+        if (ImGui::SmallButton("registerClass Debug Error")) { AddLog("[error] something went wrong"); }
         ImGui::SameLine();
         if (ImGui::SmallButton("Clear"))           { ClearLog(); }
         ImGui::SameLine();
@@ -6981,7 +6981,7 @@ static void ShowExampleAppLog(bool* p_open)
     ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
     ImGui::Begin("Example: Log", p_open);
     IMGUI_DEMO_MARKER("Examples/Log");
-    if (ImGui::SmallButton("[Debug] Add 5 entries"))
+    if (ImGui::SmallButton("[Debug] registerClass 5 entries"))
     {
         static int counter = 0;
         const char* categories[3] = { "info", "warn", "error" };
@@ -7177,7 +7177,7 @@ static void ShowExampleAppLongText(bool* p_open)
     ImGui::Text("Buffer contents: %d lines, %d bytes", lines, log.size());
     if (ImGui::Button("Clear")) { log.clear(); lines = 0; }
     ImGui::SameLine();
-    if (ImGui::Button("Add 1000 lines"))
+    if (ImGui::Button("registerClass 1000 lines"))
     {
         for (int i = 0; i < 1000; i++)
             log.appendf("%i The quick brown fox jumps over the lazy dog\n", lines + i);

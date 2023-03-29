@@ -7,10 +7,21 @@
 namespace Desdun
 {
 
-	class RuntimeObject
+	class InvalidClassFetchException : public virtual Exception
 	{
 	public:
-		virtual std::type_index getClassIndex() const = 0;
+		InvalidClassFetchException(const String& name)
+			: Exception(std::format("Attempted to perform runtime class metadata fetch on {}, which does not exist.", name)) {};
+
+	};
+
+	class Serialisable
+	{
+	public:
+		virtual std::type_index getClassIndex() const
+		{
+			return typeid(Serialisable);
+		};
 
 		virtual void serialise(JSONObject& object) const = 0;
 		virtual void deserialise(const JSONObject& object) = 0;
@@ -24,7 +35,7 @@ namespace Desdun
 		BaseRuntimeClass(const std::string& name, std::type_index linkedType, BaseRuntimeClass* inherits = nullptr)
 			: m_TypeName(name), m_Index(linkedType), m_Inheritor(inherits) {};
 
-		virtual RuntimeObject* New() const = 0;
+		virtual Serialisable* New() const = 0;
 
 		const std::string GetTypeName() const { return m_TypeName; };
 
@@ -64,7 +75,13 @@ namespace Desdun
 		RuntimeClass(const std::string& typeName, BaseRuntimeClass* inherits = nullptr)
 			: BaseRuntimeClass(typeName, typeid(T), inherits) {};
 
-		RuntimeObject* New() const
+		[[deprecated("Use RuntimeClass::create instead.")]]
+		T* New() const
+		{
+			return new T();
+		}
+
+		T* create() const
 		{
 			return new T();
 		}
@@ -74,10 +91,10 @@ namespace Desdun
 	{
 	public:
 
-		static void Start();
+		static void start();
 
 		template<typename T>
-		static RuntimeClass<T>* Add(const std::string& typeName, BaseRuntimeClass* inherits = nullptr)
+		static RuntimeClass<T>* registerClass(const std::string& typeName, BaseRuntimeClass* inherits = nullptr)
 		{
 			RuntimeClass<T>* newType = new RuntimeClass<T>(typeName, inherits);
 
@@ -105,7 +122,7 @@ namespace Desdun
 			}
 			else
 			{
-				throw Exception("Class fetch failed; doesn't exist.");
+				throw InvalidClassFetchException(typeid(runtimeType).name());
 			}
 
 			return nullptr;

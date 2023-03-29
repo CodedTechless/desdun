@@ -70,19 +70,20 @@ namespace glm
 
 namespace Desdun
 {
-	Application* Application::AppObject = nullptr;
 
+    Application* Application::currentApp = nullptr;
     ResourceMap Resource::resources = {};
+}
 
+namespace Desdun
+{
 	Application::Application()
 	{
-		AppObject = this;
+        currentApp = this;
 		
-        Debug::Log("Starting base runtime");
-        Runtime::Start();
+        Runtime::start();
 
         gameWindow = new Window("Desecrated Dungeons", { 1280, 720 });
-        Debug::Log("Starting renderer");
         Renderer::Start();
 
         imguiLayer = new ImGuiLayer("config/imgui.ini");

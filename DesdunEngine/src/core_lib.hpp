@@ -1,8 +1,8 @@
 #pragma once
 
 #define PI 3.1415926536f   // pi
-
 #define _USE_MATH_DEFINES
+
 #include <cmath>
 #include <cstddef>
 
@@ -14,7 +14,6 @@
 #include <fstream>
 #include <filesystem>
 #include <string>
-
 #include <unordered_map>
 #include <vector>
 #include <bitset>
@@ -23,6 +22,7 @@
 #include <algorithm>
 #include <typeindex>
 #include <functional>
+#include <regex>
 
 #include <app/debug/debug.h>
 
@@ -34,8 +34,7 @@
 #define COLLISION_MAP_SIZE 2048
 #define COLLISION_MAP_CELL_SIZE 64
 
-#define RUNTIME_CLASS_DEF(x) \
-	std::type_index getClassIndex() const override { return typeid(x); } \
+#define serialisable(T) std::type_index getClassIndex() const override { return typeid(T); };
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;
@@ -55,19 +54,15 @@ namespace glm
 
 namespace Desdun
 {
+	template<size_t size>
+	using Flags = std::bitset<size>;
 
-	class Exception : public std::exception
-	{
-	public:
-		Exception(const std::string& what)
-			: std::exception(what.c_str()) {};
-	};
-
-	using FLAG = bool;
-
+	using Flag = bool;
 	using uint = uint32_t;
 	using uchar = uint8_t;
 	using byte = unsigned char;
+	using String = std::string;
+	using Type = std::type_index;
 
 	using Vector2 = glm::vec<2, float_t>;
 	using Vector3 = glm::vec<3, float_t>;
@@ -88,17 +83,36 @@ namespace Desdun
 	using Color4 = Vector4;
 	using Color4f = Vector4f;
 
+	template<typename k, typename v>
+	using Map = std::unordered_map<k, v>;
+
+	template<typename T>
+	using List = std::vector<T>;
+
+	template<typename T, size_t size>
+	using Array = std::array<T, size>;
+
 	using Mat4 = glm::mat<4, 4, glm::f32, glm::defaultp>;
 	using Mat4f = glm::mat<4, 4, glm::f32, glm::defaultp>;
 
-	template <typename T>
-	using ptr = std::shared_ptr<T>;
+	class Exception : public std::runtime_error
+	{
+	public:
+		explicit Exception(const String& message)
+			: std::runtime_error(message) {};
+	};
 
-	template <typename T>
-	using uptr = std::unique_ptr<T>;
+	template<typename T>
+	using Provider = std::function<T* ()>;
 
-	template <typename T, typename ...Args>
-	constexpr ptr<T> CreatePointer(Args&& ...args)
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+
+	template<typename T>
+	using StrictRef = std::unique_ptr<T>;
+
+	template<typename T, typename ...Args>
+	constexpr Ref<T> CreateRef(Args&& ...args)
 	{
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
@@ -106,5 +120,19 @@ namespace Desdun
 	template <typename T>
 	constexpr int sign(T val) {
 		return (T(0) < val) - (val < T(0));
+	}
+
+	// using Ref is preferred, this is only here for backwards compat
+	template <typename T>
+	using ptr = std::shared_ptr<T>;
+
+	template <typename T>
+	using uptr = std::unique_ptr<T>;
+
+	template <typename T, typename ...Args>
+	[[deprecated("Use 'CreateRef' instead.")]]
+	constexpr ptr<T> CreatePointer(Args&& ...args)
+	{
+		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
 }

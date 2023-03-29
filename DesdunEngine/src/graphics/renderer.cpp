@@ -18,6 +18,8 @@ namespace Desdun
 
 	void Renderer::Start()
 	{
+		Debug::Log("Initialising renderer...", "Renderer");
+
 		// Debug Output
 
 		glEnable(GL_DEBUG_OUTPUT);
@@ -32,14 +34,14 @@ namespace Desdun
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		char* Version = (char*)glGetString(GL_VERSION);
-		Debug::Log("OpenGL " + std::string(Version));
+		Debug::Log("Using OpenGL " + std::string(Version), "Renderer");
 
 		const Color4& c = m_RenderCore.TargetClearColour;
 		glClearColor(c.r, c.g, c.b, c.a);
 
 		// Batch Renderer Setup
 
-		m_RenderCore.BatchArray = std::make_shared<VertexArray>();
+		m_RenderCore.BatchArray = CreateRef<VertexArray>();
 		m_RenderCore.Quads = new Vertex[Renderer::RenderCore::MaxVertices];
 
 		uint QuadOffset = 0;
@@ -58,11 +60,11 @@ namespace Desdun
 			QuadOffset += 4;
 		}
 
-		m_RenderCore.IndexBatch = CreatePointer<IndexBuffer>(IndexBufferTemplate, Renderer::RenderCore::MaxIndices);
+		m_RenderCore.IndexBatch = CreateRef<IndexBuffer>(IndexBufferTemplate, Renderer::RenderCore::MaxIndices);
 		delete[] IndexBufferTemplate;
 
 		// Create the vertex buffer and set its layout.
-		m_RenderCore.VertexBatch = CreatePointer<VertexBuffer>(Renderer::RenderCore::MaxVertices * sizeof(Vertex));
+		m_RenderCore.VertexBatch = CreateRef<VertexBuffer>(Renderer::RenderCore::MaxVertices * sizeof(Vertex));
 		m_RenderCore.VertexBatch->SetBufferLayout({ // Create a layout for data that is held in the vertex buffer for drawing.
 			{ LayoutType::Float, 3 }, // Position
 			{ LayoutType::Float, 4 }, // Colour
@@ -85,8 +87,6 @@ namespace Desdun
 		}
 
 		SetShader(m_RenderCore.DefaultShader);
-
-		
 	}
 
 	void Renderer::Stop()
@@ -106,7 +106,7 @@ namespace Desdun
 		if (CommandCopy.ImageResource->TextureAlloc == nullptr)
 		{
 			auto it = std::find_if(TextureIndex.begin(), TextureIndex.end(), 
-				[&](ptr<TextureArray> array) 
+				[&](Ref<TextureArray> array) 
 				{ 
 					return array->GetBaseSize() == CommandCopy.ImageResource->GetSize(); 
 				}
@@ -114,10 +114,10 @@ namespace Desdun
 
 			if (it == TextureIndex.end())
 			{
-				auto NewTexture = CreatePointer<TextureArray>(CommandCopy.ImageResource->Size, 256);
+				auto NewTexture = CreateRef<TextureArray>(CommandCopy.ImageResource->Size, m_RenderCore.maxTextureArrayDepth);
 				CommandCopy.ImageResource->Allocate(NewTexture);
 
-				Debug::Log("Allocted " + std::to_string(CommandCopy.ImageResource->Size.x) + "*" + std::to_string(CommandCopy.ImageResource->Size.y) + "*256");
+				Debug::Log("Allocted a new texture array of size " + std::to_string(CommandCopy.ImageResource->Size.x) + "*" + std::to_string(CommandCopy.ImageResource->Size.y) + "*" + std::to_string(NewTexture->getDepth()));
 
 				TextureIndex.push_back(NewTexture);
 			}

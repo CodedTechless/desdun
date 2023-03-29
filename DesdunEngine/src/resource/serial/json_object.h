@@ -5,7 +5,7 @@
 namespace Desdun
 {
 	class JSONStream;
-	class RuntimeObject;
+	class Serialisable;
 
 	class JSONObject
 	{
@@ -14,7 +14,7 @@ namespace Desdun
 		JSONObject(JSONStream* owner, const json& object)
 			: m_Owner(owner), m_jsonObject(object) {};
 
-		JSONObject(JSONStream* owner, RuntimeObject* object);
+		JSONObject(JSONStream* owner, Serialisable* object);
 
 		template<typename T>
 		json::reference operator[](const T& key)
@@ -40,9 +40,9 @@ namespace Desdun
 			return m_jsonObject.at("properties").at(key);
 		}
 
-		RuntimeObject* makeObject() const;
-		uint64_t getReferenceID(RuntimeObject* pointer) const;
-		RuntimeObject* getPointer(uint64_t reference) const;
+		Serialisable* makeObject() const;
+		uint64_t getReferenceID(Serialisable* pointer) const;
+		Serialisable* getPointer(uint64_t reference) const;
 
 		friend void to_json(json& jsonObject, const JSONObject& jsonInst)
 		{

@@ -1,0 +1,114 @@
+{
+	"walk_up": [
+		{
+			"imagePath": "assets/textures/actors/player/player_walk5.png",
+			"duration": 200
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_up.png",
+			"duration": 200
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_walk7.png",
+			"duration": 200
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_up.png",
+			"duration": 200
+		}
+	],
+	"walk_right": [
+		{
+			"imagePath": "assets/textures/actors/player/player_walk1.png",
+			"duration": 200
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_right.png",
+			"duration": 200
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_walk3.png",
+			"duration": 200
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_right.png",
+			"duration": 200
+		}
+	],
+	"walk_left": [
+		{
+			"imagePath": "assets/textures/actors/player/player_walk9.png",
+			"duration": 200
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_left.png",
+			"duration": 200
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_walk11.png",
+			"duration": 200
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_left.png",
+			"duration": 200
+		}
+	],
+	"walk_down": [
+		{
+			"imagePath": "assets/textures/actors/player/player_walk13.png",
+			"duration": 200
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_down.png",
+			"duration": 200
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_walk15.png",
+			"duration": 200
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_down.png",
+			"duration": 200
+		}
+	],
+	"idle_up": [
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_up.png",
+			"duration": 500
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_up2.png",
+			"duration": 500
+		}
+	],
+	"idle_right": [
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_right.png",
+			"duration": 500
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_right2.png",
+			"duration": 500
+		}
+	],
+	"idle_left": [
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_left.png",
+			"duration": 500
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_left2.png",
+			"duration": 500
+		}
+	],
+	"idle_down": [
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_down.png",
+			"duration": 500
+		},
+		{
+			"imagePath": "assets/textures/actors/player/player_idle_down2.png",
+			"duration": 500
+		}
+	]
+}

@@ -15,57 +15,69 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
+    <ClCompile Include="src\game\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\layers\game.cpp">
+    <ClCompile Include="src\layer\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game_app.cpp">
+    <ClCompile Include="src\game\desecrated_dungeons.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\objects\actors\actor.cpp">
+    <ClCompile Include="src\object\actor\actor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\objects\actors\player.cpp">
+    <ClCompile Include="src\object\actor\player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\world\container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\game\layers\game.h">
+    <ClInclude Include="src\layer\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game_app.hpp">
+    <ClInclude Include="src\game\desecrated_dungeons.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\objects\actors\actor.hpp">
+    <ClInclude Include="src\object\actor\actor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\objects\index.hpp">
+    <ClInclude Include="src\object\index.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\objects\actors\player.hpp">
+    <ClInclude Include="src\object\actor\player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\objects\game_camera.hpp">
+    <ClInclude Include="src\object\game_camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\world\container.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\world\item.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\basic.shader" />
     <None Include="assets\animations\player.json" />
-    <None Include="assets\textures\actors\player\anims\walk_right.json" />
-    <None Include="assets\textures\actors\player\anims\walk_down.json" />
-    <None Include="assets\textures\actors\player\anims\walk_left.json" />
-    <None Include="assets\textures\actors\player\anims\walk_up.json" />
-    <None Include="assets\textures\actors\player\anims\idle_up.json" />
-    <None Include="assets\textures\actors\player\anims\idle_down.json" />
-    <None Include="assets\textures\actors\player\anims\idle_left.json" />
-    <None Include="assets\textures\actors\player\anims\idle_right.json" />
+    <None Include="assets\animations\player\walk_right.json" />
+    <None Include="assets\animations\player\walk_down.json" />
+    <None Include="assets\animations\player\walk_left.json" />
+    <None Include="assets\animations\player\walk_up.json" />
+    <None Include="assets\animations\player\idle_up.json" />
+    <None Include="assets\animations\player\idle_down.json" />
+    <None Include="assets\animations\player\idle_left.json" />
+    <None Include="assets\animations\player\idle_right.json" />
     <None Include="config\imgui.ini" />
+    <None Include="cpp.hint" />
+    <None Include="assets\lang\en-gb.json" />
+    <None Include="assets\animations\player.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\goofy.png">

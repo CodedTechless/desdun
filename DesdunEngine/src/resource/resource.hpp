@@ -6,7 +6,14 @@
 namespace Desdun
 {
 	class Resource;
-	using ResourceMap = std::unordered_map<std::type_index, std::unordered_map<std::string, Resource*>>;
+	using ResourceMap = Map<Type, Map<String, Resource*>>;
+
+	class MissingResourceException : public virtual Exception
+	{
+	public:
+		MissingResourceException(const String& name)
+			: Exception(std::format("Resource {} does not exist.", name)) {};
+	};
 
 	class Resource
 	{
@@ -15,28 +22,27 @@ namespace Desdun
 		virtual ~Resource() = default;
 
 		virtual void load(const std::string& path) = 0;
+		String getPath() const { return Path; };
 
-		std::string getPath() const { return Path; };
+		static String transformPath(const String& path);
 		static const ResourceMap& getResources() { return resources; };
 
 		// Static fetch function for resources
 		
 		template<typename T>
-		static T* fetch(const std::string& path)
+		static T* fetch(const String& rawPath)
 		{
-			fs::path Location = fs::proximate(path);
+			String path = transformPath(rawPath);
+			fs::path location = fs::proximate(path);
 
-			if (!fs::exists(Location))
-			{
-				throw Exception("Resource " + Location.generic_string() + " does not exist!");
-			}
+			if (!fs::exists(location))
+				throw MissingResourceException(rawPath);
 
-			std::type_index Type = typeid(T);
-			std::string PathString = Location.generic_string();
-			std::string Name = Type.name();
+			Type typeId = typeid(T);
+			String pathString = location.generic_string();
 
-			auto it = resources[Type].find(PathString);
-			if (it != resources[Type].end())
+			auto it = resources[typeId].find(pathString);
+			if (it != resources[typeId].end())
 			{
 				//Debug::Log("Found cached resource for " + std::string(Name) + " " + PathString);
 				return (T*)it->second;
@@ -44,22 +50,19 @@ namespace Desdun
 			else
 			{
 				T* NewResource = new T();
-				NewResource->load(path);
+				NewResource->load(pathString);
+				resources[typeId][pathString] = NewResource;
 
-				//Debug::Log("Loaded " + Name + " " + PathString);
-
-				resources[Type][PathString] = NewResource;
+				String typeName = typeId.name();
+				Debug::Log("Loaded " + typeName + " " + pathString, "Resource Manager");
 
 				return NewResource;
 			}
 		}
 
 	protected:
-
-		std::string Path = "";
-		
+		String Path = "";
 	private:
-
 		static ResourceMap resources;
 	};
 

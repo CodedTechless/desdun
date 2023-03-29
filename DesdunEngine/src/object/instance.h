@@ -11,39 +11,12 @@ namespace Desdun
 
 	class Scene;
 
-	class Instance : public RuntimeObject
+	class Instance : public Serialisable
 	{
 	public:
+		serialisable(Instance);
 
 		std::string name = "Instance";
-
-	private:
-
-		struct HierarchyMember
-		{
-			HierarchyMember() = default;
-			HierarchyMember(const HierarchyMember&) {};
-
-			HierarchyMember& operator=(const HierarchyMember&)
-			{
-				return *this;
-			};
-
-		private:
-			Instance* m_Parent = nullptr;
-			std::vector<Instance*> m_Container = {};
-
-			friend class Instance;
-		};
-
-		std::string id;
-		HierarchyMember hierarchyTree = {};
-
-		Scene* activeScene = nullptr;
-		bool active = false;
-
-	public:
-		RUNTIME_CLASS_DEF(Instance);
 
 		Instance() = default;
 		~Instance();
@@ -107,6 +80,30 @@ namespace Desdun
 		void deserialise(const JSONObject& object) override;
 
 	private:
+
+		std::string id;
+
+		Scene* activeScene = nullptr;
+		bool active = false;
+
+		struct HierarchyMember
+		{
+			HierarchyMember() = default;
+			HierarchyMember(const HierarchyMember&) {};
+
+			HierarchyMember& operator=(const HierarchyMember&)
+			{
+				return *this;
+			};
+
+		private:
+			Instance* m_Parent = nullptr;
+			std::vector<Instance*> m_Container = {};
+
+			friend class Instance;
+		};
+
+		HierarchyMember hierarchyTree = {};
 
 		void removeChild(Instance* instance);
 

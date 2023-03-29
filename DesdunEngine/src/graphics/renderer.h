@@ -18,10 +18,9 @@
 namespace Desdun
 {
 
-	using TextureMap = std::unordered_map<std::string, ptr<TextureArray>>;
+	using TextureMap = Map<String, Ref<TextureArray>>;
 	// to-do: make it so we can use more than 256 of the same sized texture!!!
-	using TextureIndex = std::vector<ptr<TextureArray>>;
-
+	using TextureIndex = List<Ref<TextureArray>>;
 
 	struct ImageBounds
 	{
@@ -74,7 +73,7 @@ namespace Desdun
 	};
 
 	// we use an array for arena allocation bcos it's better than using a vector here
-	typedef std::array<RenderCommand, RENDER_QUEUE_SIZE> RenderCommandQueue;
+	typedef Array<RenderCommand, RENDER_QUEUE_SIZE> RenderCommandQueue;
 
 	class Renderer
 	{
@@ -105,7 +104,7 @@ namespace Desdun
 
 			Shader* DefaultShader = nullptr;
 			Shader* RenderShader = nullptr;
-			ptr<FrameBuffer> RenderTarget = nullptr;
+			Ref<FrameBuffer> RenderTarget = nullptr;
 
 			Color4 TargetClearColour = Color4(0.1f, 0.1f, 0.1f, 1.f);
 
@@ -114,13 +113,13 @@ namespace Desdun
 			Vertex* Quads = nullptr;
 			Vertex* QuadsHeader = nullptr;
 
-			ptr<VertexBuffer> VertexBatch = nullptr;
-			ptr<IndexBuffer> IndexBatch = nullptr;
+			Ref<VertexBuffer> VertexBatch = nullptr;
+			Ref<IndexBuffer> IndexBatch = nullptr;
 
-			ptr<VertexArray> BatchArray = nullptr;
+			Ref<VertexArray> BatchArray = nullptr;
 
 			uint VertexBufferIndex = 0;
-			Vector4 VertexNormal[4] = { // for caching purposes
+			Vector4 VertexNormal[4] = {
 				{ -0.5f,  0.5f, 0.f, 1.f },
 				{  0.5f,  0.5f, 0.f, 1.f },
 				{  0.5f, -0.5f, 0.f, 1.f },
@@ -137,7 +136,9 @@ namespace Desdun
 			int* TextureSamplers = nullptr; // a pointer to an array of samplers (16 by default)
 
 			uint NextTextureSlot = 0;
-			std::array<ptr<TextureArray>, ALLOCATED_TEXTURE_SLOTS> Textures;
+			Array<Ref<TextureArray>, ALLOCATED_TEXTURE_SLOTS> Textures;
+
+			uint maxTextureArrayDepth = 256;
 
 			// Cameras
 

@@ -4,9 +4,9 @@
 #include <graphics/primitive.h>
 
 #include <object/instance.h>
-#include <object/types/object.h>
-#include <object/types/visual/camera.hpp>
-#include <object/types/physics/physics_body.hpp>
+#include <object/object.h>
+#include <object/visual/camera.hpp>
+#include <object/physics/physics_body.hpp>
 
 #include <imgui/imgui.h>
 
@@ -21,8 +21,8 @@ namespace Desdun
 	{
 		sceneInstances.reserve(MAX_INSTANCES);
 
-		rootInstance = create<Instance>();
-		rootInstance->name = "gameRoot";
+		root = create<Instance>();
+		root->name = "root";
 	}
 
 	Instance* Scene::instantiate(Model* model)
@@ -39,9 +39,9 @@ namespace Desdun
 	{
 		for (Instance* instance : sceneInstances)
 		{
-			if (instance->isA<Object>())
+			if (instance->isA<WorldObject>())
 			{
-				auto* object = (Object*)instance;
+				auto* object = (WorldObject*)instance;
 
 				object->LastPosition = object->position;
 				object->LastScale = object->scale;

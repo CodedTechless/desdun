@@ -9,30 +9,32 @@ namespace Desdun
 	std::unordered_map<std::type_index, BaseRuntimeClass*> Runtime::TypeCollection = {};
 	std::unordered_map<std::string, BaseRuntimeClass*> Runtime::TypeNameIndexCollection = {};
 
-	void Runtime::Start()
+	void Runtime::start()
 	{
-		Runtime::Add<Instance>("Instance");
+		Debug::Log("Registering engine classes...", "Runtime");
+
+		Runtime::registerClass<Instance>("Instance");
 		{
-			Runtime::Add<Object>("Object", Runtime::Get<Instance>());
+			Runtime::registerClass<WorldObject>("WorldObject", Runtime::Get<Instance>());
 			{
-				Runtime::Add<Sound>("Sound", Runtime::Get<Object>());
+				Runtime::registerClass<Sound>("Sound", Runtime::Get<WorldObject>());
 
-				Runtime::Add<PhysicsBody>("PhysicsBody", Runtime::Get<Object>());
+				Runtime::registerClass<PhysicsBody>("PhysicsBody", Runtime::Get<WorldObject>());
 				{
-					Runtime::Add<DynamicBody>("DynamicBody", Runtime::Get<Object>());
-					Runtime::Add<StaticBody>("StaticBody", Runtime::Get<Object>());
+					Runtime::registerClass<DynamicBody>("DynamicBody", Runtime::Get<WorldObject>());
+					Runtime::registerClass<StaticBody>("StaticBody", Runtime::Get<WorldObject>());
 				}
 
-				Runtime::Add<Camera>("Camera", Runtime::Get<Object>());
-				Runtime::Add<Light>("Light", Runtime::Get<Object>());
-				Runtime::Add<ParticleEmitter>("ParticleEmitter", Runtime::Get<Object>());
+				Runtime::registerClass<Camera>("Camera", Runtime::Get<WorldObject>());
+				Runtime::registerClass<Light>("Light", Runtime::Get<WorldObject>());
+				Runtime::registerClass<ParticleEmitter>("ParticleEmitter", Runtime::Get<WorldObject>());
 
-				Runtime::Add<Sprite>("Sprite", Runtime::Get<Object>());
+				Runtime::registerClass<Sprite>("Sprite", Runtime::Get<WorldObject>());
 				{
-					Runtime::Add<AnimatedSprite>("AnimatedSprite", Runtime::Get<Sprite>());
+					Runtime::registerClass<AnimatedSprite>("AnimatedSprite", Runtime::Get<Sprite>());
 				}
 
-				Runtime::Add<TileMap>("TileMap", Runtime::Get<Object>());
+				Runtime::registerClass<TileMap>("TileMap", Runtime::Get<WorldObject>());
 			}
 		}
 	}

@@ -4,8 +4,8 @@
 #include <glfw3.h>
 
 #include <app/window.h>
-#include <app/layers/layer_collection.h>
-#include <app/debug/imgui_layer.h>
+#include <app/layer/layer_collection.h>
+#include <app/layer/imgui_layer.h>
 
 namespace Desdun
 {
@@ -29,14 +29,14 @@ namespace Desdun
 		float gameSpeed = (1.f / 30.f);
 		float timeScale = 1.f;
 
-		static Application* get() { return AppObject; };
+		static Application* get() { return currentApp; };
 
 	protected:
 		void pushInputEvent(Input::Event& event);
 		void pushWindowEvent(const Window::Event& event);
 
 	private:
-		static Application* AppObject;
+		static Application* currentApp;
 
 		Window* gameWindow = nullptr;
 		bool running = false;

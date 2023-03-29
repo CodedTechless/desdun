@@ -16,7 +16,7 @@ namespace Desdun
 
 	private:
 
-		RuntimeObject* modelObject = nullptr;
+		Serialisable* modelObject = nullptr;
 	};
 
 
