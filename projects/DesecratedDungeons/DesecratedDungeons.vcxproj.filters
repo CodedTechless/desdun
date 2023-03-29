@@ -53,9 +53,6 @@
     <ClInclude Include="src\object\game_camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\world\container.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -64,32 +61,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\shaders\basic.shader" />
     <None Include="assets\animations\player.json" />
-    <None Include="assets\animations\player\walk_right.json" />
-    <None Include="assets\animations\player\walk_down.json" />
-    <None Include="assets\animations\player\walk_left.json" />
-    <None Include="assets\animations\player\walk_up.json" />
-    <None Include="assets\animations\player\idle_up.json" />
-    <None Include="assets\animations\player\idle_down.json" />
-    <None Include="assets\animations\player\idle_left.json" />
-    <None Include="assets\animations\player\idle_right.json" />
-    <None Include="config\imgui.ini" />
-    <None Include="cpp.hint" />
-    <None Include="assets\lang\en-gb.json" />
-    <None Include="assets\animations\player.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\textures\goofy.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets\textures\white.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="DesecratedDungeons.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>
