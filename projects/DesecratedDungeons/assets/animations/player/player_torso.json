@@ -1,0 +1,16 @@
+{
+    "torso_idle" : {
+        "isLooped" : true,
+        "frames" : [
+            {
+                "imagePath" : "textures:actors/torso.png",
+                "duration" : 450
+            },
+            {
+                "imagePath" : "textures:actors/torso_exhale.png",
+                "duration" : 450
+            }
+        ]
+    }
+
+}

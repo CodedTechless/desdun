@@ -8,6 +8,8 @@ one big include file filled with everything game related
 
 #include <app/debug/debug.h>
 
+#include <app/panel/scene_explorer.h>
+
 // Resources
 
 #include <resource/resource.hpp>

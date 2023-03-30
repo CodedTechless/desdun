@@ -89,6 +89,9 @@ namespace Desdun
 	template<typename T>
 	using List = std::vector<T>;
 
+	template<typename T>
+	using InitList = std::initializer_list<T>;
+
 	template<typename T, size_t size>
 	using Array = std::array<T, size>;
 

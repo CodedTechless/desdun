@@ -1,0 +1,25 @@
+{
+    "legs_idle" : {
+        "isLooped" : true,
+        "frames" : [
+            {
+                "imagePath" : "textures:actors/legs.png",
+                "duration" : 1000
+            }
+        ]
+    },
+    "legs_walk" : {
+        "isLooped" : true,
+        "frames" : [
+            {
+                "imagePath" : "textures:actors/legs_walk_a.png",
+                "duration" : 250
+            },
+            {
+                "imagePath" : "textures:actors/legs_walk_b.png",
+                "duration" : 250
+            }
+        ]
+    }
+
+}

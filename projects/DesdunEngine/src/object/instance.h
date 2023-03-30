@@ -60,7 +60,7 @@ namespace Desdun
 		template<typename T>
 		bool isA() const
 		{
-			return Runtime::Get(getClassIndex())->isA<T>();
+			return Runtime::get(getClassIndex())->isA<T>();
 		}
 
 		// Getters

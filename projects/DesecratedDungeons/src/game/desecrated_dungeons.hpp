@@ -1,7 +1,6 @@
 #pragma once
 
-#include <app/app.h>
-#include <src/layer/game.h>
+#include <game_lib.hpp>
 
 namespace Desdun
 {

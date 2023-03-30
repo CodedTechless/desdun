@@ -42,7 +42,7 @@ namespace Desdun
 				elapsed = 0.f;
 			}
 
-			isPlaying = true;
+			playing = true;
 			
 			currentSequence = animTable->animations[name];
 			currentPlaying = name;
@@ -54,12 +54,12 @@ namespace Desdun
 			if (currentSequence == nullptr)
 				return;
 
-			isPlaying = true;
+			playing = true;
 		}
 
 		void pause()
 		{
-			isPlaying = false;
+			playing = false;
 		}
 
 		void onFrameUpdate(float delta) override
@@ -68,7 +68,7 @@ namespace Desdun
 			{
 				Frame currentFrame = currentSequence->frames[frame];
 
-				if (isPlaying == true)
+				if (playing == true)
 				{
 					elapsed += delta * playbackSpeed;
 
@@ -83,7 +83,7 @@ namespace Desdun
 
 							if (currentSequence->isLooped == false)
 							{
-								isPlaying = false;
+								playing = false;
 							}
 						}
 						else
@@ -99,7 +99,11 @@ namespace Desdun
 			};
 
 			Sprite::onFrameUpdate(delta);
-		}
+		};
+
+		uint getFrame() const { return frame; };
+		bool isPlaying() const { return playing; };
+		AnimationTable* getAnimationTable() const { return animTable; };
 
 	private:
 		AnimationTable* animTable = nullptr;
@@ -107,7 +111,7 @@ namespace Desdun
 		std::string currentPlaying = "";
 		Ref<AnimationSequence> currentSequence = nullptr;
 
-		bool isPlaying = false;
+		bool playing = false;
 
 		uint frame = 0;
 		float elapsed = 0.f;

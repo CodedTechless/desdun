@@ -1,0 +1,23 @@
+{
+    "eye_idle" : {
+        "isLooped" : true,
+        "frames" : [
+            {
+                "imagePath" : "textures:actors/eye_closed.png",
+                "duration" : 100
+            },
+            {
+                "imagePath" : "textures:actors/eye_open.png",
+                "duration" : 4500
+            },
+            {
+                "imagePath" : "textures:actors/eye_closed.png",
+                "duration" : 100
+            },
+            {
+                "imagePath" : "textures:actors/eye_open.png",
+                "duration" : 5200
+            }
+        ]
+    }
+}

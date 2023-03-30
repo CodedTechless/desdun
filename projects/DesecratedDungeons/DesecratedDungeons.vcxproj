@@ -45,11 +45,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)-$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)-$(Platform)\int</IntDir>
+    <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)-$(Platform)\int\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)-$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)-$(Platform)\int</IntDir>
+    <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)-$(Platform)\int\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -58,12 +58,12 @@
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\GLFW\include\GLFW;$(SolutionDir)dependencies\GLEW\include;$(SolutionDir)projects\DesdunEngine\src;$(SolutionDir)projects\DesdunEngine\src\dependencies;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\GLFW\include\GLFW;$(SolutionDir)dependencies\GLEW\include;$(SolutionDir)projects\DesdunEngine\src;$(SolutionDir)projects\DesdunEngine\src\dependencies;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\GLEW\lib\Release\x64;$(SolutionDir)dependencies\GLFW\lib;$(SolutionDir)build\DesdunEngine\Debug\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\GLEW\lib\Release\x64;$(SolutionDir)dependencies\GLFW\lib;$(SolutionDir)build\DesdunEngine\Debug-x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>engine.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
@@ -77,35 +77,40 @@
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\GLFW\include\GLFW;$(SolutionDir)dependencies\GLEW\include;$(SolutionDir)projects\DesdunEngine\src;$(SolutionDir)projects\DesdunEngine\src\dependencies;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\GLFW\include\GLFW;$(SolutionDir)dependencies\GLEW\include;$(SolutionDir)projects\DesdunEngine\src;$(SolutionDir)projects\DesdunEngine\src\dependencies;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\GLEW\lib\Release\x64;$(SolutionDir)dependencies\GLFW\lib;$(SolutionDir)build\DesdunEngine\Debug\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\GLEW\lib\Release\x64;$(SolutionDir)dependencies\GLFW\lib;$(SolutionDir)build\DesdunEngine\Debug-x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>engine.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\world\container.cpp" />
+    <ClCompile Include="src\game\world\actor\model\humanoid_body_controller.cpp" />
+    <ClCompile Include="src\game\world\actor\model\humanoid_body_controller.h" />
+    <ClCompile Include="src\game\world\actor\move_controller.cpp" />
+    <ClCompile Include="src\game\world\item\container.cpp" />
     <ClCompile Include="src\game\desecrated_dungeons.cpp" />
-    <ClCompile Include="src\layer\game.cpp" />
-    <ClCompile Include="src\object\actor\actor.cpp" />
-    <ClCompile Include="src\object\actor\player.cpp" />
+    <ClCompile Include="src\game\layer\game.cpp" />
+    <ClCompile Include="src\game\object\actor\actor.cpp" />
+    <ClCompile Include="src\game\object\actor\player.cpp" />
     <ClCompile Include="src\game\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\world\container.hpp" />
-    <ClInclude Include="src\world\item.hpp" />
+    <ClInclude Include="src\game\world\actor\move_controller.hpp" />
+    <ClInclude Include="src\game\world\item\container.hpp" />
+    <ClInclude Include="src\game\world\item\item.hpp" />
     <ClInclude Include="src\game\desecrated_dungeons.hpp" />
-    <ClInclude Include="src\layer\game.h" />
-    <ClInclude Include="src\object\actor\actor.hpp" />
-    <ClInclude Include="src\object\actor\player.hpp" />
-    <ClInclude Include="src\object\game_camera.hpp" />
-    <ClInclude Include="src\object\index.hpp" />
+    <ClInclude Include="src\game\layer\game.h" />
+    <ClInclude Include="src\game\object\actor\actor.hpp" />
+    <ClInclude Include="src\game\object\actor\player.hpp" />
+    <ClInclude Include="src\game\object\game_camera.hpp" />
+    <ClInclude Include="src\game\object\index.hpp" />
+    <ClInclude Include="src\game\world\item\item_slot.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

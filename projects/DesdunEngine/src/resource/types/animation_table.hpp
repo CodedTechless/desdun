@@ -8,7 +8,7 @@ namespace Desdun
 
 	struct Frame
 	{
-		Image* image;
+		Image* image = nullptr;
 		uint duration = 0;
 
 		friend void from_json(const json& jsonObject, Frame& frame)
@@ -45,7 +45,8 @@ namespace Desdun
 
 		friend void from_json(const json& object, AnimationSequence& sequence)
 		{
-			object.get_to(sequence.frames);
+			object.at("isLooped").get_to(sequence.isLooped);
+			object.at("frames").get_to(sequence.frames);
 
 			for (Frame& frame : sequence.frames)
 			{
@@ -55,7 +56,10 @@ namespace Desdun
 
 		friend void to_json(json& object, const AnimationSequence& sequence)
 		{
-			object = sequence.frames;
+			object = json{
+				{"isLooped", sequence.isLooped},
+				{"frames", sequence.frames}
+			};
 		}
 
 	private:

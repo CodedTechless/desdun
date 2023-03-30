@@ -24,7 +24,7 @@ namespace Desdun
 		float_t zIndex = 0.0;
 
 		bool visible = true;
-		bool interpolate = true;
+		bool interpolate = false;
 
 		// Transforms
 

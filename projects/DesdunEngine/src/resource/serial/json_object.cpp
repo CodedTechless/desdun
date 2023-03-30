@@ -11,7 +11,7 @@ namespace Desdun
 	JSONObject::JSONObject(JSONStream* owner, Serialisable* object)
 		: m_Owner(owner)
 	{
-		m_jsonObject["type"] = Runtime::Get(object->getClassIndex())->GetTypeName();
+		m_jsonObject["type"] = Runtime::get(object->getClassIndex())->getTypeName();
 	}
 
 	uint64_t JSONObject::getReferenceID(Serialisable* pointer) const
@@ -28,7 +28,7 @@ namespace Desdun
 	{
 		std::string typeName = m_jsonObject.at("type").get<std::string>();
 
-		Serialisable* newObject = Runtime::Get(typeName)->New();
+		Serialisable* newObject = Runtime::get(typeName)->create();
 		newObject->deserialise(*this);
 
 		return newObject;

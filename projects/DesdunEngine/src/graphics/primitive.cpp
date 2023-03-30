@@ -9,7 +9,7 @@ namespace Desdun
 
 	void Primitive::drawRect(Vector2 position, Vector2 size, float zIndex, float rotation, Color4 tint)
 	{
-		auto* image = Resource::fetch<Image>("assets/textures/white.png");
+		auto* image = Resource::fetch<Image>("textures:dev/white.png");
 
 		Mat4f transform = glm::translate(Mat4(1.f), Vector3f(position, 1.f))
 			* glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->GetSize()), 1.f))

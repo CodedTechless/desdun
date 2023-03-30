@@ -18,49 +18,61 @@
     <ClCompile Include="src\game\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\layer\game.cpp">
+    <ClCompile Include="src\game\layer\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\game\desecrated_dungeons.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\object\actor\actor.cpp">
+    <ClCompile Include="src\game\object\actor\actor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\object\actor\player.cpp">
+    <ClCompile Include="src\game\object\actor\player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\world\container.cpp">
+    <ClCompile Include="src\game\world\item\container.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\world\actor\model\humanoid_body_controller.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\world\actor\move_controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\world\actor\model\humanoid_body_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\layer\game.h">
+    <ClInclude Include="src\game\layer\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\desecrated_dungeons.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\actor\actor.hpp">
+    <ClInclude Include="src\game\object\actor\actor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\index.hpp">
+    <ClInclude Include="src\game\object\index.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\actor\player.hpp">
+    <ClInclude Include="src\game\object\actor\player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\object\game_camera.hpp">
+    <ClInclude Include="src\game\object\game_camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\world\container.hpp">
+    <ClInclude Include="src\game\world\item\container.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\world\item.hpp">
+    <ClInclude Include="src\game\world\item\item.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\animations\player.json" />
+    <ClInclude Include="src\game\world\item\item_slot.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\world\actor\move_controller.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

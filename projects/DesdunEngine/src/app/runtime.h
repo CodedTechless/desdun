@@ -23,8 +23,13 @@ namespace Desdun
 			return typeid(Serialisable);
 		};
 
+	protected:
+
 		virtual void serialise(JSONObject& object) const = 0;
 		virtual void deserialise(const JSONObject& object) = 0;
+
+		friend class JSONStream;
+		friend class JSONObject;
 	};
 
 	class BaseRuntimeClass
@@ -35,9 +40,9 @@ namespace Desdun
 		BaseRuntimeClass(const std::string& name, std::type_index linkedType, BaseRuntimeClass* inherits = nullptr)
 			: m_TypeName(name), m_Index(linkedType), m_Inheritor(inherits) {};
 
-		virtual Serialisable* New() const = 0;
+		virtual Serialisable* create() const = 0;
 
-		const std::string GetTypeName() const { return m_TypeName; };
+		const std::string getTypeName() const { return m_TypeName; };
 
 		template<typename T>
 		bool isA() const
@@ -75,12 +80,6 @@ namespace Desdun
 		RuntimeClass(const std::string& typeName, BaseRuntimeClass* inherits = nullptr)
 			: BaseRuntimeClass(typeName, typeid(T), inherits) {};
 
-		[[deprecated("Use RuntimeClass::create instead.")]]
-		T* New() const
-		{
-			return new T();
-		}
-
 		T* create() const
 		{
 			return new T();
@@ -113,7 +112,7 @@ namespace Desdun
 		}
 
 		template<typename runtimeType>
-		static RuntimeClass<runtimeType>* Get()
+		static RuntimeClass<runtimeType>* get()
 		{
 			auto it = TypeCollection.find(typeid(runtimeType));
 			if (it != TypeCollection.end())
@@ -128,12 +127,12 @@ namespace Desdun
 			return nullptr;
 		}
 
-		static BaseRuntimeClass* Get(const std::string& typeName)
+		static BaseRuntimeClass* get(const std::string& typeName)
 		{
 			return TypeNameIndexCollection[typeName];
 		}
 
-		static BaseRuntimeClass* Get(std::type_index typeIndex)
+		static BaseRuntimeClass* get(std::type_index typeIndex)
 		{
 			return TypeCollection[typeIndex];
 		}

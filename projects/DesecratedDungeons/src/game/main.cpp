@@ -8,7 +8,7 @@ ENTRY POINT BAYBEEEEEE
 BEEEEEG YOSHI
 */
 
-#include <src/game/desecrated_dungeons.hpp>
+#include <game/desecrated_dungeons.hpp>
 
 using namespace Desdun;
 
