@@ -38,23 +38,31 @@ namespace Desdun
 		Instance* findChild(const std::string& name) const;
 
 		template<typename T>
-		T* findAncestor() const
+		T* findChildOfType() const
+		{
+			for (auto* child : getChildren())
+			{
+				if (child->isA<T>())
+					return child;
+			}
+
+			return nullptr;
+		}
+
+		template<typename T>
+		T* findAncestorOfType() const
 		{
 			Instance* next = getParent();
 
-			while (next != nullptr && next->isA<T>() == false)
+			while (next and next->isA<T>() == false)
 			{
 				next = next->getParent();
 			}
 
 			if (next == nullptr)
-			{
 				return nullptr;
-			}
 			else
-			{
 				return (T*)next;
-			}
 		}
 
 		template<typename T>
@@ -75,6 +83,8 @@ namespace Desdun
 		Instance* operator[](const std::string& name) const { return findChild(name); };
 
 	protected:
+
+		virtual void markDirty();
 
 		void serialise(JSONObject& object) const override;
 		void deserialise(const JSONObject& object) override;

@@ -42,10 +42,7 @@ namespace Desdun
 			if (instance->isA<WorldObject>())
 			{
 				auto* object = (WorldObject*)instance;
-
-				object->LastPosition = object->position;
-				object->LastScale = object->scale;
-				object->LastRotation = object->rotation;
+				object->ageLocalTransform();
 			}
 		}
 
@@ -57,6 +54,15 @@ namespace Desdun
 			}
 
 			instance->onGameStep(delta);
+
+			// we may have a problem here
+			// what if an object changes another objects position that already got recalculated??
+			// then it'd just be wrong...
+			if (instance->isA<WorldObject>())
+			{
+				auto* object = (WorldObject*)instance;
+				object->checkDirty();
+			}
 		}
 
 		Vector2f windowSize = Application::get()->getPrimaryWindow()->getSize();
@@ -70,6 +76,15 @@ namespace Desdun
 	void Scene::onFrameUpdate(const float delta)
 	{
 		if (!currentCamera) return;
+		
+		for (Instance* inst : sceneInstances)
+		{
+			if (inst->isA<WorldObject>())
+			{
+				auto* object = (WorldObject*)inst;
+				object->markInterpDirty();
+			}
+		}
 
 		Renderer::BeginScene(currentCamera->getProjectionTransform());
 

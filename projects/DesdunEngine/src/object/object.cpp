@@ -38,94 +38,149 @@ namespace Desdun
 		Instance::deserialise(object);
 	}
 
-	/*
-		breaks down the transform into its components, then reconstructs it as an interpolation of Last[component] and [component]
-	*/
-	Mat4f WorldObject::getInterpTransform() const
+	void WorldObject::checkDirty()
 	{
-		if (interpolate == false)
+		if (position != positionLast or scale != scaleLast or rotation != rotationLast)
 		{
-			return getGlobalTransform();
+			markDirty();
+		}
+	}
+
+	void WorldObject::markDirty()
+	{
+		dirtyGlobal = true;
+		Instance::markDirty();
+	}
+
+	void WorldObject::markInterpDirty()
+	{
+		dirtyInterp = true;
+	}
+
+	void WorldObject::ageLocalTransform()
+	{
+		positionLast = position;
+		scaleLast = scale;
+		rotationLast = rotation;
+	}
+
+	void WorldObject::bakeGlobalTransform()
+	{
+		if (not dirtyGlobal)
+			return;
+
+		auto* ancestor = findAncestorOfType<WorldObject>();
+		if (ancestor)
+		{
+			ancestor->bakeGlobalTransform();
+
+			scaleGlobal = scale * ancestor->scaleGlobal;
+			rotationGlobal = ancestor->rotationGlobal + rotation;
+
+			float_t s = std::sin(ancestor->rotationGlobal);
+			float_t c = std::cos(ancestor->rotationGlobal);
+
+			positionGlobal = ancestor->positionGlobal;
+			positionGlobal += ancestor->scaleGlobal * Vector2f(position.x * c - position.y * s, position.x * s + position.y * c);
+		}
+		else
+		{
+			positionGlobal = position;
+			scaleGlobal = scale;
+			rotationGlobal = rotation;
 		}
 
-		Vector2f interpScale = getInterpScale();
-		Vector2f interpPos = getInterpPosition();
-		float_t interpRot = getInterpRotation();
+		transformGlobal = glm::translate(Mat4f(1.f), Vector3f(positionGlobal, 0.f))
+			* glm::rotate(Mat4f(1.f), rotationGlobal, Vector3f(0.f, 0.f, 1.f))
+			* glm::scale(Mat4f(1.f), Vector3f(scaleGlobal, 1.f));
 
-		Mat4f frame = glm::translate(Mat4f(1.f), Vector3f(interpPos, 0.f))
-			* glm::rotate(Mat4f(1.f), interpRot, Vector3f(0.f, 0.f, 1.f))
-			* glm::scale(Mat4f(1.f), Vector3f(interpScale, 1.f));
+		dirtyGlobal = false;
+	}
 
-		if (getParent() != nullptr)
+	void WorldObject::bakeInterpolatedTransform()
+	{
+		// TODO - remove unnecessary interpolation calc
+
+		if (not dirtyInterp)
 		{
-			Instance* localSpaceParent = getParent();
-
-			if (localSpaceParent->isA<WorldObject>() == false)
-			{
-				localSpaceParent = findAncestor<WorldObject>();
-			}
-
-			if (localSpaceParent != nullptr)
-			{
-				frame = ((WorldObject*)localSpaceParent)->getInterpTransform() * frame;
-			}
+			return;
 		}
 
-		return frame;
-	}
-
-	Vector2f WorldObject::getInterpScale() const
-	{
-		float_t alpha = Application::get()->getInterpFraction();
-		return glm::lerp(LastScale, scale, alpha);
-	}
-
-	Vector2f WorldObject::getInterpPosition() const
-	{
-		float_t alpha = Application::get()->getInterpFraction();
-		return glm::lerp(LastPosition, position, alpha);
-	}
-
-	float WorldObject::getInterpRotation() const
-	{
-		float_t alpha = Application::get()->getInterpFraction();
-		
-		float_t rad = glm::radians(rotation);
-		float_t lastrad = glm::radians(LastRotation);
-
-		float_t max = PI * 2.f;
-		float_t da = std::fmod(rad - lastrad, max);
-
-		return lastrad + (std::fmod(2 * da, max) - da) * alpha;
-	}
-
-	Mat4f WorldObject::getTransform() const
-	{
-		return glm::translate(Mat4f(1.0f), Vector3f(position, 0.f))
-			* glm::rotate(Mat4f(1.0f), glm::radians(rotation), Vector3f(0.f, 0.f, 1.f))
-			* glm::scale(Mat4f(1.0f), Vector3f(scale, 1.f));
-	}
-
-	Mat4f WorldObject::getGlobalTransform() const
-	{
-		Mat4f transform = getTransform();
-
-		if (getParent() != nullptr)
+		if (interpolate)
 		{
-			Instance* localSpaceParent = getParent();
+			float_t factor = Application::get()->getInterpFraction();
 
-			if (localSpaceParent->isA<WorldObject>() == false)
-			{
-				localSpaceParent = findAncestor<WorldObject>();
-			}
-
-			if (localSpaceParent != nullptr)
-			{
-				transform = ((WorldObject*)localSpaceParent)->getTransform() * transform;
-			}
+			positionInterp = glm::lerp(positionLast, position, factor);
+			scaleInterp = glm::lerp(scaleLast, scale, factor);
+			rotationInterp = math::rlerp(rotationLast, rotation, factor);
+		}
+		else
+		{
+			positionInterp = position;
+			scaleInterp = scale;
+			rotationInterp = rotation;
 		}
 
-		return transform;
+		Mat4f transformLocal = glm::translate(Mat4f(1.f), Vector3f(positionInterp, 0.f))
+			* glm::rotate(Mat4f(1.f), rotationInterp, Vector3f(0.f, 0.f, 1.f))
+			* glm::scale(Mat4f(1.f), Vector3f(scaleInterp, 1.f));
+
+		WorldObject* ancestor = findAncestorOfType<WorldObject>();
+		if (ancestor)
+		{
+			transformLocal = ancestor->getRenderTransform() * transformLocal;
+		}
+
+		transformRender = transformLocal;
+
+		dirtyInterp = false;
 	}
 
+	Mat4f WorldObject::getGlobalTransform()
+	{
+		bakeGlobalTransform();
+		return transformGlobal;
+	}
+
+	Vector2f WorldObject::getGlobalPosition()
+	{
+		bakeGlobalTransform();
+		return positionGlobal;
+	}
+
+	Vector2f WorldObject::getGlobalScale()
+	{
+		bakeGlobalTransform();
+		return scaleGlobal;
+	}
+
+	float_t WorldObject::getGlobalRotation()
+	{
+		bakeGlobalTransform();
+		return rotationGlobal;
+	}
+
+	Mat4f WorldObject::getRenderTransform()
+	{
+		bakeInterpolatedTransform();
+		return transformRender;
+	}
+
+	Vector2f WorldObject::getLocalInterpPosition()
+	{
+		bakeInterpolatedTransform();
+		return positionGlobal;
+	}
+
+	Vector2f WorldObject::getLocalInterpScale()
+	{
+		bakeInterpolatedTransform();
+		return scaleInterp;
+	}
+
+	float_t WorldObject::getLocalInterpRotation()
+	{
+		bakeInterpolatedTransform();
+		return rotationInterp;
+	}
 }

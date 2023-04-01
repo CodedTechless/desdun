@@ -26,33 +26,64 @@ namespace Desdun
 		bool visible = true;
 		bool interpolate = false;
 
-		// Transforms
+		Vector2f getGlobalPosition();
+		Vector2f getGlobalScale();
+		float_t getGlobalRotation();
 
-		Mat4f getInterpTransform() const;
-		Mat4f getTransform() const;
-		Mat4f getGlobalTransform() const;
-
-		Vector2f getInterpPosition() const;
-		Vector2f getInterpScale() const;
-		float getInterpRotation() const;
+		Mat4f getGlobalTransform();
 
 	protected:
 
-#if 0
-		void Serialise(ByteFile& stream) const;
-		void Deserialise(ByteFile& stream);
-#endif
+		Mat4f getRenderTransform();
+
+		Vector2f getLocalInterpPosition();
+		Vector2f getLocalInterpScale();
+		float_t getLocalInterpRotation();
 
 		void serialise(JSONObject& object) const;
 		void deserialise(const JSONObject& object);
 
 	private:
 
+		Vector2f positionLast = position; // local space
+		Vector2f scaleLast = scale; // local space
+		float_t rotationLast = rotation; // local space
+
+		Vector2f positionInterp = position;
+		Vector2f scaleInterp = scale;
+		float_t rotationInterp = rotation;
+
+		Vector2f positionGlobal = position;
+		Vector2f scaleGlobal = scale;
+		float_t rotationGlobal = rotation;
+		
 		// Transforms
 
-		Vector2f LastPosition = position;
-		Vector2f LastScale = scale;
-		float_t LastRotation = rotation;
+		FLAG dirtyGlobal = true;
+		FLAG dirtyInterp = true;
+
+		FLAG interpolateThisStep = false;
+
+		// this transform is the actual rendered position of the object in the world,
+		// while the other values (xGlobal) represent the global position as of the last step
+		Mat4f transformRender { 1.f };
+		Mat4f transformGlobal { 1.f };
+
+		// runs a dirty check. if any of the position, scale or rotation values have changed since
+		// the last step, dirtyGlobal will be set to true and so will interpolateThisStep
+		void checkDirty();
+ 
+		// this marks the *global* pos, scale and rot dirty, meaning that if they are fetched again
+		// then they should be recalculated.
+		void markDirty() override;
+		void markInterpDirty();
+
+		// ages up the transform (copies the current transform info into transformGlobalLast)
+		void ageLocalTransform();
+
+		// bakes the transform, which updates global pos, scale and rot and then bakes it into transformGlobal
+		void bakeGlobalTransform();
+		void bakeInterpolatedTransform();
 
 		friend class Scene;
 

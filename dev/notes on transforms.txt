@@ -1,0 +1,18 @@
+start the step
+iterate through all objects
+	store the last transform and pos, rot and scale in global space
+	store the last transform in local space
+	run onGameStep
+		if this object changes its local pos, scale or rot
+			mark its information as "dirty", which means it's inaccurate and needs to be recalculated
+		if this object runs a getGlobalX() function
+			then calculate the global pos, scale and rot, if the current information is "dirty"
+			calculate the transform as well
+end the step
+
+start the frame
+iterate through all objects
+	getInterpolatedTransform()
+		take the last global transform and the current global transform
+		interpolate them
+		return the result

@@ -23,84 +23,12 @@ namespace Desdun
 			{ 1.f, 1.f }
 		};
 
-		void onFrameUpdate(const float_t delta) override
-		{
-			if (image != nullptr)
-			{
-				Mat4f transform = glm::translate(Mat4f(1.f), Vector3(offset, 0.f)) * getInterpTransform()
-					* glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->GetSize()), 1.f));
+		void onFrameUpdate(const float_t delta) override;
 
-				Renderer::Submit({ transform, tint, { bounds.TL * tiles, bounds.BR * tiles }, image, shader, zIndex });
-			}
-		}
+	protected:
 
-	private:
-
-		void serialise(JSONObject& object) const override
-		{
-			object["imagePath"] = image != nullptr ? image->getPath() : "";
-			object["shaderPath"] = shader != nullptr ? shader->getPath() : "";
-
-			object["tint"] = tint;
-			object["bounds"] = bounds;
-
-			WorldObject::serialise(object);
-		}
-
-		void deserialise(const JSONObject& object) override
-		{
-			std::string spriteImage = object.at("imagePath").get<std::string>();
-			if (spriteImage != "")
-			{
-				image = Resource::fetch<Image>(spriteImage);
-			}
-
-			std::string shaderImage = object.at("shaderPath").get<std::string>();
-			if (shaderImage != "")
-			{
-				shader = Resource::fetch<Shader>(shaderImage);
-			}
-
-			object.at("tint").get_to(tint);
-			object.at("bounds").get_to(bounds);
-
-			WorldObject::deserialise(object);
-		}
-
-#if 0
-		void Serialise(ByteFile& stream) const
-		{
-			stream << (SpriteImage ? SpriteImage->GetPath() : std::string(""));
-			stream << (SpriteShader ? SpriteShader->GetPath() : std::string(""));
-
-			stream << &Tint;
-			stream << &ZIndex;
-			stream << &SpriteBounds;
-
-			Object::Serialise(stream);
-		}
-
-		void Deserialise(ByteFile& stream)
-		{
-			std::string imagePath = "";
-			stream >> imagePath;
-
-			if (imagePath != "")
-				SpriteImage = Resource::Fetch<Image>(imagePath);
-
-			std::string shaderPath = "";
-			stream >> shaderPath;
-
-			if (shaderPath != "")
-				SpriteShader = Resource::Fetch<Shader>(shaderPath);
-
-			stream >> &Tint;
-			stream >> &ZIndex;
-			stream >> &SpriteBounds;
-
-			Object::Deserialise(stream);
-		}
-#endif
+		void serialise(JSONObject& object) const override;
+		void deserialise(const JSONObject& object) override;
 
 	};
 }

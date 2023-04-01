@@ -55,9 +55,9 @@ namespace glm
 namespace Desdun
 {
 	template<size_t size>
-	using Flags = std::bitset<size>;
+	using FLAG_SET = std::bitset<size>;
 
-	using Flag = bool;
+	using FLAG = bool;
 	using uint = uint32_t;
 	using uchar = uint8_t;
 	using byte = unsigned char;
@@ -121,7 +121,8 @@ namespace Desdun
 	}
 
 	template <typename T>
-	constexpr int sign(T val) {
+	constexpr int sign(T val)
+	{
 		return (T(0) < val) - (val < T(0));
 	}
 
@@ -138,4 +139,18 @@ namespace Desdun
 	{
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
+
+	namespace math
+	{
+		constexpr float_t PI2 = PI * 2.f;
+
+		template <typename T = float>
+		T rlerp(T b, T a, T alpha)
+		{
+			T da = std::fmod(a - b, PI2);
+			return b + (std::fmod(2.f * da, PI2) - da) * alpha;
+		}
+	}
+
+	
 }

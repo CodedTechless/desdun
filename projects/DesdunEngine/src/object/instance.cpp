@@ -32,6 +32,14 @@ namespace Desdun
 		}
 	}
 
+	void Instance::markDirty()
+	{
+		for (auto* child : getChildren())
+		{
+			child->markDirty();
+		}
+	}
+
 	void Instance::saveToFile(const std::string& path) const
 	{
 		JSONStream stream((Instance*)this);

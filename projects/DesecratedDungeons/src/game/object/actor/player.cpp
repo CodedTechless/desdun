@@ -12,15 +12,15 @@ namespace Desdun
 
 		auto* legs = getScene()->create<AnimatedSprite>();
 		legs->setAnimationTable(Resource::fetch<AnimationTable>("animations:player/player_legs.json"));
+		legs->interpolate = true;
 		legs->name = "legs";
-		legs->position = Vector2(0, -16);
+		legs->position = Vector2(0.f, -16.f);
 		legs->zIndex = 10.f;
 		legs->setParent(this);
 
-		
-
 		auto* torso = getScene()->create<AnimatedSprite>();
 		torso->setAnimationTable(Resource::fetch<AnimationTable>("animations:player/player_torso.json"));
+		torso->interpolate = true;
 		torso->name = "torso";
 		torso->position = Vector2(0.f, -16.f);
 		torso->zIndex = 10.f;
@@ -29,13 +29,15 @@ namespace Desdun
 		auto* leftEye = getScene()->create<AnimatedSprite>();
 		leftEye->setAnimationTable(Resource::fetch<AnimationTable>("animations:player/player_eye.json"));
 		leftEye->name = "leftEye";
-		leftEye->position = Vector2(3.f, -5.f);
+		leftEye->interpolate = false;
+		leftEye->position = Vector2(3.f, -15.f);
 		leftEye->scale = Vector2(-1.f, 1.f);
 		leftEye->zIndex = 11.f;
 		leftEye->setParent(torso);
 
 		auto* rightEye = getScene()->create<AnimatedSprite>();
 		rightEye->setAnimationTable(Resource::fetch<AnimationTable>("animations:player/player_eye.json"));
+		rightEye->interpolate = false;
 		rightEye->name = "rightEye";
 		rightEye->position = Vector2(-3.f, -5.f);
 		rightEye->zIndex = 11.f;

@@ -4,7 +4,7 @@
 interface class for the GLFW window
 */
 
-#include <dependencies/glm/glm.hpp>
+#include <glm/glm.hpp>
 
 #include <GL/glew.h>
 #include <glfw3.h>
