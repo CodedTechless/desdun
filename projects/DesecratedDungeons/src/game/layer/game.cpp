@@ -37,7 +37,7 @@ namespace Desdun
 			auto* imagetest = gameScene->create<Sprite>();
 			imagetest->image = Resource::fetch<Image>("textures:dev/stone_brick_floor.png");
 			imagetest->tiles = { 10.f, 10.f };
-			imagetest->scale = { 10.f, 10.f };
+			imagetest->setScale({ 10.f, 10.f });
 			imagetest->setParent(gameScene->getRoot());
 		}
 

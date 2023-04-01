@@ -11,39 +11,61 @@ namespace Desdun
 		name = "Player";
 
 		auto* legs = getScene()->create<AnimatedSprite>();
+		legs->name = "legs";
 		legs->setAnimationTable(Resource::fetch<AnimationTable>("animations:player/player_legs.json"));
 		legs->interpolate = true;
-		legs->name = "legs";
-		legs->position = Vector2(0.f, -16.f);
+		legs->setPosition(Vector2(0.f, -16.f));
 		legs->zIndex = 10.f;
 		legs->setParent(this);
 
 		auto* torso = getScene()->create<AnimatedSprite>();
+		torso->name = "torso";
 		torso->setAnimationTable(Resource::fetch<AnimationTable>("animations:player/player_torso.json"));
 		torso->interpolate = true;
-		torso->name = "torso";
-		torso->position = Vector2(0.f, -16.f);
+		torso->setPosition(Vector2(0.f, -16.f));
 		torso->zIndex = 10.f;
 		torso->setParent(this);
 
 		auto* leftEye = getScene()->create<AnimatedSprite>();
-		leftEye->setAnimationTable(Resource::fetch<AnimationTable>("animations:player/player_eye.json"));
 		leftEye->name = "leftEye";
+		leftEye->setAnimationTable(Resource::fetch<AnimationTable>("animations:player/player_eye.json"));
 		leftEye->interpolate = false;
-		leftEye->position = Vector2(3.f, -15.f);
-		leftEye->scale = Vector2(-1.f, 1.f);
+		leftEye->setPosition(Vector2(3.f, -15.f));
+		leftEye->setScale(Vector2(-1.f, 1.f));
 		leftEye->zIndex = 11.f;
 		leftEye->setParent(torso);
 
 		auto* rightEye = getScene()->create<AnimatedSprite>();
+		rightEye->name = "rightEye";
 		rightEye->setAnimationTable(Resource::fetch<AnimationTable>("animations:player/player_eye.json"));
 		rightEye->interpolate = false;
-		rightEye->name = "rightEye";
-		rightEye->position = Vector2(-3.f, -5.f);
+		rightEye->setPosition(Vector2(-3.f, -5.f));
 		rightEye->zIndex = 11.f;
 		rightEye->setParent(torso);
 
+		auto* shoulders = getScene()->create<WorldObject>();
+		shoulders->name = "shoulders";
+		shoulders->setParent(torso);
+
+		auto* leftHand = getScene()->create<Sprite>();
+		leftHand->name = "leftHand";
+		leftHand->image = Resource::fetch<Image>("textures:actors/hand.png");
+		leftHand->setPosition(Vector2(16.f, 0.f));
+		leftHand->interpolate = false;
+		leftHand->zIndex = 10.f;
+		leftHand->setParent(shoulders);
+
+		auto* rightHand = getScene()->create<Sprite>();
+		rightHand->name = "rightHand";
+		rightHand->image = Resource::fetch<Image>("textures:actors/hand.png");
+		rightHand->setPosition(Vector2(-16.f, 0.f));
+		rightHand->interpolate = false;
+		rightHand->zIndex = 10.f;
+		rightHand->setParent(shoulders);
+
 		bodyController.start();
+
+		saveToFile("models:player.json");
 	};
 
 	void Player::onInputEvent(Input::Event& event)

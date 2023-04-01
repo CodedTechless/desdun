@@ -15,26 +15,27 @@ namespace Desdun
 
 	void DesecratedDungeons::start()
 	{
+		Application::start();
+
 		Debug::Log("Initialising the game...", "Game");
 
 		{
 			Debug::Log("Registering classes to runtime...", "Game");
 
-			Runtime::registerClass<GameCamera>("GameCamera", Runtime::get<Camera>());
-			Runtime::registerClass<Actor>("Actor", Runtime::get<DynamicBody>());
+			Runtime::add<GameCamera>({ "GameCamera", Runtime::get<Camera>() });
+			Runtime::add<Actor>({ "Actor", Runtime::get<DynamicBody>() });
 			{
-				Runtime::registerClass<Player>("Player", Runtime::get<Actor>());
+				Runtime::add<Player>({ "Player", Runtime::get<Actor>() });
 			}
 
-			Runtime::registerClass<Container>("Container");
-			Runtime::registerClass<ItemSlot>("ItemSlot");
+			Runtime::add<Container>({ "Container" });
+			Runtime::add<ItemSlot>({ "ItemSlot" });
 		}
 
 		Layer* newLayer = new Game();
 		gameLayers.PushLayer(newLayer);
 
 		run();
-
 	};
 
 }

@@ -1,5 +1,6 @@
 
-#include <app/runtime.h>
+#include <runtime/runtime.h>
+#include <resource/resource.hpp>
 #include <resource/serial/json_stream.h>
 
 #include "scene/scene.h"
@@ -44,7 +45,7 @@ namespace Desdun
 	{
 		JSONStream stream((Instance*)this);
 
-		std::ofstream filestream(path);
+		std::ofstream filestream(Resource::transformPath(path));
 		stream >> filestream;
 		
 		filestream.close();

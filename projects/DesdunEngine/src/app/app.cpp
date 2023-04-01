@@ -6,7 +6,7 @@
 #include <graphics/renderer.h>
 #include <resource/resource.hpp>
 
-#include <app/runtime.h>
+#include <runtime/runtime.h>
 #include <object/index.hpp>
 
 #include "app.h"
@@ -80,14 +80,6 @@ namespace Desdun
 	Application::Application()
 	{
         currentApp = this;
-		
-        Runtime::start();
-
-        gameWindow = new Window("Desecrated Dungeons", { 1280, 720 });
-        Renderer::Start();
-
-        imguiLayer = new ImGuiLayer("config/imgui.ini");
-        gameLayers.PushOverlay(imguiLayer);
 	}
 
 	Application::~Application()
@@ -95,9 +87,38 @@ namespace Desdun
         delete gameWindow;
 
         gameLayers.clear();
-
-        Renderer::Stop();
+        Renderer::stop();
 	}
+
+    void Application::start()
+    {
+        Debug::Log("Registering engine classes...", "Runtime");
+
+        Runtime::add<Instance>({ "Instance" });
+        {
+            Runtime::add<WorldObject>({ "WorldObject", Runtime::get<Instance>() });
+            {
+                Runtime::add<Sound>({ "Sound", Runtime::get<WorldObject>() });
+
+                Runtime::add<PhysicsBody>({ "PhysicsBody", Runtime::get<WorldObject>() });
+                {
+                    Runtime::add<DynamicBody>({ "DynamicBody", Runtime::get<WorldObject>() });
+                    Runtime::add<StaticBody>({ "StaticBody", Runtime::get<WorldObject>() });
+                }
+
+                Runtime::add<Camera>({ "Camera", Runtime::get<WorldObject>() });
+                Runtime::add<Light>({ "Light", Runtime::get<WorldObject>() });
+                Runtime::add<ParticleEmitter>({ "ParticleEmitter", Runtime::get<WorldObject>() });
+
+                Runtime::add<Sprite>({ "Sprite", Runtime::get<WorldObject>() });
+                {
+                    Runtime::add<AnimatedSprite>({ "AnimatedSprite", Runtime::get<Sprite>() });
+                }
+
+                Runtime::add<TileMap>({ "TileMap", Runtime::get<WorldObject>() });
+            }
+        }
+    }
 
 	void Application::run()
 	{
@@ -105,6 +126,12 @@ namespace Desdun
 		{
             return;
 		}
+
+        gameWindow = new Window("Desecrated Dungeons", { 1280, 720 });
+        Renderer::start();
+
+        imguiLayer = new ImGuiLayer("config/imgui.ini");
+        gameLayers.PushOverlay(imguiLayer);
 
 		running = true;
         float Time = 0.f;

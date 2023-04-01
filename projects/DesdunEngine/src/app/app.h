@@ -16,7 +16,7 @@ namespace Desdun
 		Application();
 		~Application();
 
-		virtual void start() { run(); };
+		virtual void start();
 		void run();
 		void end();
 

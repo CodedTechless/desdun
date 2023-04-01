@@ -8,12 +8,12 @@ namespace Desdun
 	{
 		if (subject)
 		{
-			Vector2 finalPosition = subject->position + offset;
+			Vector2 finalPosition = subject->getPosition() + offset;
 
 			if (smoothFollow)
-				position += (finalPosition - position) * alpha * delta;
+				translate((finalPosition - getPosition()) * alpha * delta);
 			else
-				position = finalPosition;
+				setPosition(finalPosition);
 		}
 
 	}

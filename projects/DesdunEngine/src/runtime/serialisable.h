@@ -1,0 +1,23 @@
+#pragma once
+
+#include <core_lib.hpp>
+#include <resource/serial/json_object.h>
+
+namespace Desdun
+{
+
+	class Serialisable
+	{
+	public:
+		virtual Type getClassIndex() const;
+
+	protected:
+
+		virtual void serialise(JSONObject& object) const = 0;
+		virtual void deserialise(const JSONObject& object) = 0;
+
+		friend class JSONStream;
+		friend class JSONObject;
+	};
+
+}

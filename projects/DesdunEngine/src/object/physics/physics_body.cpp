@@ -24,10 +24,10 @@ namespace Desdun
 
 		// figure out what new cells we have to take up
 
-		Vector2 fullSize = collisionShape.size * scale;
+		Vector2 fullSize = collisionShape.size * getScale();
 
-		Vector2 start = glm::floor((position - fullSize / 2.f) / (float)COLLISION_MAP_CELL_SIZE);
-		Vector2 end = glm::ceil((position + fullSize / 2.f) / (float)COLLISION_MAP_CELL_SIZE);
+		Vector2 start = glm::floor((getPosition() - fullSize / 2.f) / (float)COLLISION_MAP_CELL_SIZE);
+		Vector2 end = glm::ceil((getPosition() + fullSize / 2.f) / (float)COLLISION_MAP_CELL_SIZE);
 
 		for (float ix = 0; ix < end.x - start.x; ix++)
 		{

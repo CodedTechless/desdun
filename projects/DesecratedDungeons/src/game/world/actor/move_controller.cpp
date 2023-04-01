@@ -24,7 +24,7 @@ namespace Desdun
 			velocity = glm::normalize(velocity) * scalarVelocity;
 		}
 
-		object->position += velocity * delta;
+		object->translate(velocity * delta);
 		moveVector *= 0.f;
 	}
 

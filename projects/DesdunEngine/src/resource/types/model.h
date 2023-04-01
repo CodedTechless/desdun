@@ -2,7 +2,7 @@
 
 #include <resource/resource.hpp>
 
-#include <app/runtime.h>
+#include <runtime/runtime.h>
 
 namespace Desdun
 {

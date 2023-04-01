@@ -1,8 +1,8 @@
 #pragma once
 
 #include <app/input.h>
-#include <app/runtime.h>
 #include <app/window.h>
+#include <runtime/runtime.h>
 
 #include <uuid.hpp>
 #include <core_lib.hpp>
@@ -19,7 +19,7 @@ namespace Desdun
 	class Model;
 
 	using CollisionMap = 
-		std::array<std::array<std::vector<PhysicsBody*>, COLLISION_MAP_SIZE>, COLLISION_MAP_SIZE>;
+		Array<Array<List<PhysicsBody*>, COLLISION_MAP_SIZE>, COLLISION_MAP_SIZE>;
 
 	class Scene
 	{

@@ -90,6 +90,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\object\game_camera.cpp" />
     <ClCompile Include="src\game\world\actor\model\humanoid_body_controller.cpp" />
     <ClCompile Include="src\game\world\actor\model\humanoid_body_controller.h" />
     <ClCompile Include="src\game\world\actor\move_controller.cpp" />

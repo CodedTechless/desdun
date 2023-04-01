@@ -142,6 +142,56 @@ namespace Desdun
 		return transformGlobal;
 	}
 
+	void WorldObject::setPosition(const Vector2f& newPos)
+	{
+		position = newPos;
+		checkDirty();
+	}
+
+	void WorldObject::setScale(const Vector2f& newScale)
+	{
+		scale = newScale;
+		checkDirty();
+	}
+
+	void WorldObject::setRotation(float_t newRot)
+	{
+		rotation = newRot;
+		checkDirty();
+	}
+
+	void WorldObject::translate(const Vector2f& translation)
+	{
+		position += translation;
+		checkDirty();
+	}
+
+	void WorldObject::resize(const Vector2f& size)
+	{
+		scale += size;
+	}
+
+	void WorldObject::rotate(float_t rotationAmount)
+	{
+		rotation = std::fmod(rotation + rotationAmount, math::PI2);
+		checkDirty();
+	}
+
+	Vector2f WorldObject::getPosition() const
+	{
+		return position;
+	}
+
+	Vector2f WorldObject::getScale() const
+	{
+		return scale;
+	}
+
+	float_t WorldObject::getRotation() const
+	{
+		return rotation;
+	}
+
 	Vector2f WorldObject::getGlobalPosition()
 	{
 		bakeGlobalTransform();

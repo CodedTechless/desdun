@@ -33,8 +33,8 @@ namespace Desdun
 
 		Vector2 eyeOffsetModifier = Vector2(0.f, (float)body->getFrame());
 
-		leftEye->position = eyeOffset + eyeOffsetModifier;
-		rightEye->position = eyeOffset * Vector2(-1.f, 1.f) + eyeOffsetModifier;
+		leftEye->setPosition(eyeOffset + eyeOffsetModifier);
+		rightEye->setPosition(eyeOffset * Vector2(-1.f, 1.f) + eyeOffsetModifier);
 
 		auto* legs = (AnimatedSprite*)adornee->findChild("legs");
 		legs->playbackSpeed = 1.f * animateSpeedModifier;

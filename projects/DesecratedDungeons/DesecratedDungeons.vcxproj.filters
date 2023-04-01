@@ -42,6 +42,9 @@
     <ClCompile Include="src\game\world\actor\model\humanoid_body_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\object\game_camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\layer\game.h">

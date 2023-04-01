@@ -2,7 +2,7 @@
 
 #include <app/app.h>
 #include <app/input.h>
-#include <app/runtime.h>
+#include <runtime/runtime.h>
 
 #include <core_lib.hpp>
 

@@ -16,7 +16,7 @@ namespace Desdun
 	TextureMap Renderer::Textures = {};
 	TextureIndex Renderer::TextureIndex = {};
 
-	void Renderer::Start()
+	void Renderer::start()
 	{
 		Debug::Log("Initialising renderer...", "Renderer");
 
@@ -89,7 +89,7 @@ namespace Desdun
 		SetShader(m_RenderCore.DefaultShader);
 	}
 
-	void Renderer::Stop()
+	void Renderer::stop()
 	{
 		glfwTerminate();
 	}

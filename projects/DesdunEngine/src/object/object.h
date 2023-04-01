@@ -17,14 +17,22 @@ namespace Desdun
 
 		// Properties
 
-		Vector2f position = { 0.0, 0.0 };
-		Vector2f scale = { 1.0, 1.0 };
-		float_t rotation = 0.0;
-
 		float_t zIndex = 0.0;
 
 		bool visible = true;
 		bool interpolate = false;
+
+		void setPosition(const Vector2f& newPos);
+		void setScale(const Vector2f& newScale);
+		void setRotation(float_t newRot);
+
+		void translate(const Vector2f& pos);
+		void resize(const Vector2f& size);
+		void rotate(float_t rot);
+
+		Vector2f getPosition() const;
+		Vector2f getScale() const;
+		float_t getRotation() const;
 
 		Vector2f getGlobalPosition();
 		Vector2f getGlobalScale();
@@ -44,6 +52,10 @@ namespace Desdun
 		void deserialise(const JSONObject& object);
 
 	private:
+
+		Vector2f position = { 0.0, 0.0 };
+		Vector2f scale = { 1.0, 1.0 };
+		float_t rotation = 0.0;
 
 		Vector2f positionLast = position; // local space
 		Vector2f scaleLast = scale; // local space

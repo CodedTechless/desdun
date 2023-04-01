@@ -79,8 +79,8 @@ namespace Desdun
 	{
 	public:
 
-		static void Start();
-		static void Stop();
+		static void start();
+		static void stop();
 
 		static void BeginScene(Mat4f transform);
 		static void EndScene();
