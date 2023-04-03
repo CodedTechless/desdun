@@ -36,7 +36,7 @@ namespace Desdun
 		void onInputEvent(Input::Event& event);
 		void onWindowEvent(const Window::Event& event);
 
-		Instance* instantiate(Model* model);
+		Instance* make(Model* model);
 
 		template<typename T>
 		T* create()

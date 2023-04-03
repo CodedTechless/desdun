@@ -70,9 +70,7 @@ namespace glm
 
 namespace Desdun
 {
-
     Application* Application::currentApp = nullptr;
-    ResourceMap Resource::resources = {};
 }
 
 namespace Desdun

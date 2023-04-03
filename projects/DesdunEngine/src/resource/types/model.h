@@ -12,11 +12,13 @@ namespace Desdun
 	public:
 		Model() = default;
 
-		void load(const std::string& path) override;
 
 	private:
 
 		Serialisable* modelObject = nullptr;
+		
+		void load() override;
+		void unload() override;
 	};
 
 

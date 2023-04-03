@@ -8,12 +8,16 @@
 namespace Desdun
 {
 
+	class AllocationMismatchException : public virtual Exception
+	{
+	public:
+		AllocationMismatchException(Vector2 source, Vector2 dest)
+			: Exception(std::format("Image allocation base expected {}x{}, got {}x{}", source.x, source.y, dest.x, dest.y)) {};
+	};
+
 	class Image : public Resource
 	{
 	public:
-
-		Image() = default;
-		~Image();
 
 		struct ImageContext
 		{
@@ -27,25 +31,26 @@ namespace Desdun
 			uint Layer;
 		};
 
-		void load(const std::string& path) override;
-
-		Vector2i GetSize() const { return Size; };
-		ImageContext GetContext() const { return { Channels, BitsPerChannel }; };
-		uchar* GetBuffer() const { return Buffer; };
-
-		void Allocate(ptr<TextureArray> alloc);
-		Allocation GetAllocation() { return { TextureAlloc, TextureLayer }; };
+		Vector2i getSize() const;
+		uchar* getBuffer() const;
+		ImageContext getContext() const;
+		Allocation getAllocation() const;
 
 	private:
 
-		Vector2i Size = {};
-		uchar* Buffer = nullptr;
+		Vector2i size = {};
+		uchar* buffer = nullptr;
 
-		int Channels = 0;
-		int BitsPerChannel = 8;
+		int channels = 0;
+		int bitsPerChannel = 8;
 
-		ptr<TextureArray> TextureAlloc = nullptr;
-		uint TextureLayer = 0;
+		ptr<TextureArray> textureAlloc = nullptr;
+		uint textureLayer = 0;
+
+		void load() override;
+		void unload() override;
+
+		void allocate(ptr<TextureArray> alloc);
 
 		friend class Renderer;
 

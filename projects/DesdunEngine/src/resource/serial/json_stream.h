@@ -13,6 +13,11 @@ namespace Desdun
 		26/11/22
 		this is just a substitution for whatever i use to solve the same problem in the future
 		probably ByteStream but right now that's breaking my brain, so
+
+		02/04/2023
+		omg it's been like a billion months but we ain't doing byte stuff any time soon so
+		wooee
+		on a plane back from cyprus rn gonna be a long flight fellas
 	*/
 
 	class JSONStream
@@ -21,44 +26,11 @@ namespace Desdun
 
 		JSONStream() = default;
 
-		JSONStream(Serialisable* rootObject)
-		{
-			add(rootObject);
-		};
+		void operator<<(std::ifstream& stream);
+		void operator>>(std::ofstream& stream);
 
-		JSONStream(const json& jsonObject)
-		{
-			auto& instances = jsonObject.at("instances");
-
-			for (auto it = instances.begin(); it != instances.end(); ++it)
-			{
-				m_ObjectArray.push_back({ this, *it });
-			}
-
-			JSONObject& rootJsonObject = m_ObjectArray[0];
-			root = rootJsonObject.makeObject();
-		}
-
-		void operator<<(std::ifstream& stream)
-		{
-			json jsonObject;
-			stream >> jsonObject;
-		}
-
-		void operator>>(std::ofstream& stream)
-		{
-			json jsonObject = {
-				{ "format", JSON_FORMAT },
-				{ "instances", m_ObjectArray }
-			};
-
-			stream << jsonObject;
-		};
-
-		Serialisable* getRoot() const
-		{
-			return root;
-		};
+		void blueprintOf(Serialisable* rootObject);
+		Serialisable* get() const;
 
 		/*
 			gets the ref number of a serialising object
@@ -70,15 +42,15 @@ namespace Desdun
 
 	private:
 
-		uint64_t add(Serialisable* object);
-		Serialisable* add(uint64_t reference);
-
 		Serialisable* root = nullptr;
 
-		std::vector<JSONObject> m_ObjectArray = {};
+		List<JSONObject*> m_ObjectArray = {};
 
-		std::unordered_map<Serialisable*, uint64_t> m_ObjectReferenceIndex = {};
-		std::unordered_map<uint64_t, Serialisable*> m_ReferenceObjectIndex = {};
+		Map<Serialisable*, uint64_t> m_ObjectReferenceIndex = {};
+		Map<uint64_t, Serialisable*> m_ReferenceObjectIndex = {};
+
+		uint64_t add(Serialisable* object);
+		Serialisable* add(uint64_t reference);
 	};
 
 }

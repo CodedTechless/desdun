@@ -43,7 +43,8 @@ namespace Desdun
 
 	void Instance::saveToFile(const std::string& path) const
 	{
-		JSONStream stream((Instance*)this);
+		JSONStream stream;
+		stream.blueprintOf((Instance*)this);
 
 		std::ofstream filestream(Resource::transformPath(path));
 		stream >> filestream;

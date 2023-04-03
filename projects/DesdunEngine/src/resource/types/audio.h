@@ -7,9 +7,9 @@ namespace Desdun
 	class Audio : public Resource
 	{
 	public:
-		Audio() = default;
-		~Audio();
 
-		void load(const std::string& path);
+	private:
+		void load() override;
+		void unload() override;
 	};
 }

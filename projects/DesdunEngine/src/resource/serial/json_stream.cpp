@@ -36,23 +36,67 @@ namespace Desdun
 	uint64_t JSONStream::add(Serialisable* object)
 	{
 		size_t index = m_ObjectArray.size();
-		m_ObjectArray.push_back(JSONObject(this, object));
+		JSONObject* newObject = new JSONObject(this, object);
+		m_ObjectArray.push_back(newObject);
 
-		JSONObject& newObject = m_ObjectArray[index];
 		m_ObjectReferenceIndex[object] = index;
 		m_ReferenceObjectIndex[index] = object;
 
-		object->serialise(newObject);
+		object->serialise(*newObject);
 		return index;
 	};
 
 	Serialisable* JSONStream::add(uint64_t reference)
 	{
-		Serialisable* newObject = m_ObjectArray[reference].makeObject();
+		Serialisable* newObject = m_ObjectArray[reference]->makeObject();
+
 		m_ReferenceObjectIndex[reference] = newObject;
 		m_ObjectReferenceIndex[newObject] = reference;
 
 		return newObject;
+	}
+
+	void JSONStream::operator<<(std::ifstream& stream)
+	{
+		json jsonObject;
+		stream >> jsonObject;
+
+		auto& instances = jsonObject.at("instances");
+
+		for (auto it = instances.begin(); it != instances.end(); ++it)
+		{
+			m_ObjectArray.push_back(new JSONObject(this, *it));
+		}
+
+		JSONObject* rootJsonObject = m_ObjectArray[0];
+		root = rootJsonObject->makeObject();
+	}
+
+	void JSONStream::operator>>(std::ofstream& stream)
+	{
+		json jsonObject = {
+			{ "format", JSON_FORMAT },
+			{ "instances", json::array() }
+		};
+
+		json& instances = jsonObject["instances"];
+		for (auto* jsonObject : m_ObjectArray)
+		{
+			instances.push_back(*jsonObject);
+		}
+
+		stream << jsonObject;
+	};
+
+	void JSONStream::blueprintOf(Serialisable* object)
+	{
+		root = object;
+		add(object);
+	};
+
+	Serialisable* JSONStream::get() const
+	{
+		return root;
 	}
 
 }

@@ -65,14 +65,17 @@ namespace Desdun
 
 		bodyController.start();
 
-		saveToFile("models:player.json");
+
+
 	};
 
 	void Player::onInputEvent(Input::Event& event)
 	{
-		if (event.isPressed(Input::MouseCode::Button0))
+		if (event.isPressed(Input::KeyCode::G))
 		{
-			
+			Debug::Log("kowabunga!");
+			saveToFile("models:player.json");
+			auto* testLoad = Resource::fetch<Model>("models:player.json");
 ;		}
 	}
 

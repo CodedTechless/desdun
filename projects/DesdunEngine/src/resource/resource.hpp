@@ -19,51 +19,106 @@ namespace Desdun
 	{
 	public:
 		Resource() = default;
-		virtual ~Resource() = default;
+		~Resource();
 
-		virtual void load(const std::string& path) = 0;
-		String getPath() const { return Path; };
+		String getPath() const;
 
 		static String transformPath(const String& path);
-		static const ResourceMap& getResources() { return resources; };
 
-		// Static fetch function for resources
-		
+		static void reloadAll()
+		{
+			for (auto& resType : resources)
+			{
+				for (auto& res : resType.second)
+				{
+					res.second->reload();
+				}
+
+				Debug::Log("Reloaded " + std::string(resType.first.name()), "Resource Manager");
+			}
+
+			Debug::Log("Reloaded all assets", "Resource Manager");
+		}
+				
 		template<typename T>
-		static T* fetch(const String& rawPath)
+		static T* fetch(const String& rawPath, bool forceReload = false)
 		{
 			String path = transformPath(rawPath);
+
 			fs::path location = fs::proximate(path);
-
-			if (!fs::exists(location))
-				throw MissingResourceException(rawPath);
-
-			Type typeId = typeid(T);
 			String pathString = location.generic_string();
 
+			Type typeId = typeid(T);
 			auto it = resources[typeId].find(pathString);
+
 			if (it != resources[typeId].end())
 			{
-				//Debug::Log("Found cached resource for " + std::string(Name) + " " + PathString);
-				return (T*)it->second;
+				T* res = (T*)it->second;
+
+				if (forceReload)
+				{
+					res->reload();
+					Debug::Log("Reloaded " + std::string(typeId.name()) + " " + pathString, "Resource Manager");
+				}
+				
+				return res;
 			}
 			else
 			{
-				T* NewResource = new T();
-				NewResource->load(pathString);
-				resources[typeId][pathString] = NewResource;
+				T* res = new T();
+
+				if (fs::exists(location))
+				{
+					res->path = pathString;
+				}
+				else if (placeholders.find(typeId) != placeholders.end())
+				{
+					res->path = getPlaceholder<T>();
+					Debug::Log("Missing " + typeName + " " + pathString, "Resource Manager");
+				}
+				else
+				{
+					throw MissingResourceException(path);
+				}
+
+				res->reload();
+
+				resources[typeId][pathString] = res;
 
 				String typeName = typeId.name();
 				Debug::Log("Loaded " + typeName + " " + pathString, "Resource Manager");
 
-				return NewResource;
+				return res;
 			}
 		}
 
-	protected:
-		String Path = "";
-	private:
-		static ResourceMap resources;
-	};
+		template<typename T>
+		static void getPlaceholder()
+		{
+			return placeholders[typeid(T)];
+		}
 
+	protected:
+
+		bool loaded = false;
+
+		void reload();
+		virtual void load() = 0;
+		virtual void unload() = 0;
+
+	private:
+
+		String path = "";
+		static ResourceMap resources;
+		static Map<Type, String> placeholders;
+
+		template<typename T>
+		static void setPlaceholder(const String& rawPath)
+		{
+			placeholders[typeid(T)] = rawPath;
+		}
+
+		friend class Application;
+
+	};
 }

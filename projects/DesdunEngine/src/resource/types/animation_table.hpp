@@ -72,6 +72,8 @@ namespace Desdun
 	public:
 		Map<String, Ref<AnimationSequence>> animations = {};
 
-		void load(const String& path);
+	private:
+		void load() override;
+		void unload() override;
 	};
 }

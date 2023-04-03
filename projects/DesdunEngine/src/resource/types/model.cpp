@@ -7,24 +7,17 @@
 namespace Desdun
 {
 
-	void Model::load(const std::string& path)
+	void Model::load()
 	{
-#if 0
-		ByteFile stream(path);
+		std::ifstream filestream(getPath());
 
-		std::string ClassID = {};
-		stream >> ClassID;
+		JSONStream stream;
+		stream << filestream;
+		modelObject = stream.get();
+	}
 
-		m_Model = Runtime::Get(ClassID)->New();
-		m_Model->Deserialise(stream);
-#endif
-
-		json jsonObject;
-
-		std::ifstream filestream(path);
-		filestream >> jsonObject;
-
-		JSONStream stream(jsonObject);
-		modelObject = stream.getRoot();
+	void Model::unload()
+	{
+		delete modelObject;
 	}
 }

@@ -15,7 +15,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesdunEditor", "projects\De
 		{22EC801D-9C79-4913-B498-FA7C12ED21E2} = {22EC801D-9C79-4913-B498-FA7C12ED21E2}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{B02DF63C-AC9C-4B8B-8FAC-79ED04915848}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{B02DF63C-AC9C-4B8B-8FAC-79ED04915848}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{C5A5411B-09F9-4C52-92F7-81EC9FC2882D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,7 +42,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{1056289C-3730-4ABB-8839-D321A00D1EF7} = {B02DF63C-AC9C-4B8B-8FAC-79ED04915848}
+		{1056289C-3730-4ABB-8839-D321A00D1EF7} = {C5A5411B-09F9-4C52-92F7-81EC9FC2882D}
 		{5E278792-7C1E-48B9-A8A3-45B7CC3B16A0} = {B02DF63C-AC9C-4B8B-8FAC-79ED04915848}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

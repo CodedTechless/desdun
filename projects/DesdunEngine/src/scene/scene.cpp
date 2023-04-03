@@ -25,7 +25,7 @@ namespace Desdun
 		root->name = "root";
 	}
 
-	Instance* Scene::instantiate(Model* model)
+	Instance* Scene::make(Model* model)
 	{
 		return nullptr;
 	}

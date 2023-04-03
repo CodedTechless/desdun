@@ -5,12 +5,12 @@
 namespace Desdun
 {
 
-	Audio::~Audio()
+	void Audio::load()
 	{
 
 	}
 
-	void Audio::load(const std::string& path)
+	void Audio::unload()
 	{
 
 	}

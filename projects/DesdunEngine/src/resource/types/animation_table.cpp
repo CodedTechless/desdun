@@ -6,9 +6,14 @@
 namespace Desdun
 {
 
-	void AnimationTable::load(const String& path)
+	void AnimationTable::unload()
 	{
-		std::ifstream stream(path);
+		animations.clear();
+	}
+
+	void AnimationTable::load()
+	{
+		std::ifstream stream(getPath());
 		json jsonObject;
 
 		stream >> jsonObject;
