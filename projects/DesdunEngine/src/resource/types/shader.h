@@ -25,10 +25,9 @@ namespace Desdun
 	{
 	public:
 		Shader() = default;
-		Shader(const std::string& Path);
-		~Shader();
 
-		void load(const std::string& Path);
+		void load() override;
+		void unload() override;
 
 		void bind();
 		void unbind();
@@ -44,7 +43,6 @@ namespace Desdun
 
 	private:
 		uint RenderID = 0;
-		std::string Path = "";
 
 		std::unordered_map<std::string, int> UniformCache;
 		uint getUniformLocation(const std::string& Name);
@@ -52,5 +50,7 @@ namespace Desdun
 		static ShaderSource Parse(const std::string& FilePath);
 		static uint Compile(unsigned int Type, const std::string& SourceString);
 		static uint Create(const std::string& VertexShaderSource, const std::string& FragmentShaderSource);
+
+		friend class Resource;
 	};
 }

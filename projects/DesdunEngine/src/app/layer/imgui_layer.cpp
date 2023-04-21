@@ -124,7 +124,7 @@ namespace Desdun
 					ImGui::EndTable();
 				}
 			};
-
+			
 			if (ImGui::CollapsingHeader("Resources"))
 			{
 				for (auto& [typeIndex, resourceCollection] : Resource::getResources())

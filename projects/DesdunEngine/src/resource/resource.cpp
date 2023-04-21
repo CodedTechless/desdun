@@ -16,11 +16,7 @@ namespace Desdun
 
 	void Resource::reload()
 	{
-		if (loaded)
-		{
-			unload();
-		}
-
+		if (loaded) unload();
 		load();
 	}
 

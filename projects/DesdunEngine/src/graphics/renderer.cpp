@@ -103,27 +103,27 @@ namespace Desdun
 	{
 		RenderCommand CommandCopy { Command };
 
-		if (CommandCopy.ImageResource->TextureAlloc == nullptr)
+		if (CommandCopy.ImageResource->textureAlloc == nullptr)
 		{
 			auto it = std::find_if(TextureIndex.begin(), TextureIndex.end(), 
 				[&](Ref<TextureArray> array) 
 				{ 
-					return array->GetBaseSize() == CommandCopy.ImageResource->GetSize(); 
+					return array->GetBaseSize() == CommandCopy.ImageResource->getSize(); 
 				}
 			);
 
 			if (it == TextureIndex.end())
 			{
-				auto NewTexture = CreateRef<TextureArray>(CommandCopy.ImageResource->Size, m_RenderCore.maxTextureArrayDepth);
-				CommandCopy.ImageResource->Allocate(NewTexture);
+				auto NewTexture = CreateRef<TextureArray>(CommandCopy.ImageResource->size, m_RenderCore.maxTextureArrayDepth);
+				CommandCopy.ImageResource->allocate(NewTexture);
 
-				Debug::Log("Allocted a new texture array of size " + std::to_string(CommandCopy.ImageResource->Size.x) + "*" + std::to_string(CommandCopy.ImageResource->Size.y) + "*" + std::to_string(NewTexture->getDepth()));
+				Debug::Log("Allocted a new texture array of size " + std::to_string(CommandCopy.ImageResource->size.x) + "*" + std::to_string(CommandCopy.ImageResource->size.y) + "*" + std::to_string(NewTexture->getDepth()));
 
 				TextureIndex.push_back(NewTexture);
 			}
 			else
 			{
-				CommandCopy.ImageResource->Allocate(*it);
+				CommandCopy.ImageResource->allocate(*it);
 			}
 		}
 
@@ -152,7 +152,7 @@ namespace Desdun
 			BeginBatch(Command.ObjectShader);
 		}
 
-		Image::Allocation texture = Command.ImageResource->GetAllocation();
+		Image::Allocation texture = Command.ImageResource->getAllocation();
 
 		uint32_t TextureSlotIndex = 0;
 		bool HasSlot = false;
@@ -231,7 +231,7 @@ namespace Desdun
 				return A.zIndex < B.zIndex ||
 					(A.zIndex == B.zIndex && A.ObjectShader->getRenderID() < B.ObjectShader->getRenderID()) ||
 					((A.zIndex == B.zIndex && A.ObjectShader->getRenderID() == B.ObjectShader->getRenderID()) && 
-					(A.ImageResource->GetAllocation().Texture->GetRenderID() < B.ImageResource->GetAllocation().Texture->GetRenderID()));
+					(A.ImageResource->getAllocation().Texture->GetRenderID() < B.ImageResource->getAllocation().Texture->GetRenderID()));
 			}
 		);
 

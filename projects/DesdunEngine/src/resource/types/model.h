@@ -19,6 +19,8 @@ namespace Desdun
 		
 		void load() override;
 		void unload() override;
+
+		friend class Resource;
 	};
 
 

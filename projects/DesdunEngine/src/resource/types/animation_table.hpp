@@ -75,5 +75,7 @@ namespace Desdun
 	private:
 		void load() override;
 		void unload() override;
+
+		friend class Resource;
 	};
 }

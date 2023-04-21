@@ -53,6 +53,7 @@ namespace Desdun
 		void allocate(ptr<TextureArray> alloc);
 
 		friend class Renderer;
+		friend class Resource;
 
 	};
 

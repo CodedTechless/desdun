@@ -11,7 +11,7 @@ namespace Desdun
 		{
 			Mat4f transform = glm::translate(Mat4f(1.f), Vector3(offset, 0.f));
 			transform *= getRenderTransform();
-			transform *= glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->GetSize()), 1.f));
+			transform *= glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->getSize()), 1.f));
 
 			Renderer::Submit({ transform, tint, { bounds.TL * tiles, bounds.BR * tiles }, image, shader, zIndex });
 		}

@@ -39,6 +39,11 @@ namespace Desdun
 
 			Debug::Log("Reloaded all assets", "Resource Manager");
 		}
+
+		static const ResourceMap& getResources()
+		{
+			return resources;
+		}
 				
 		template<typename T>
 		static T* fetch(const String& rawPath, bool forceReload = false)
@@ -58,7 +63,7 @@ namespace Desdun
 				if (forceReload)
 				{
 					res->reload();
-					Debug::Log("Reloaded " + std::string(typeId.name()) + " " + pathString, "Resource Manager");
+					Debug::Log(std::format("Reloaded {} {}", typeId.name(), pathString), "Resource Manager");
 				}
 				
 				return res;
@@ -74,7 +79,7 @@ namespace Desdun
 				else if (placeholders.find(typeId) != placeholders.end())
 				{
 					res->path = getPlaceholder<T>();
-					Debug::Log("Missing " + typeName + " " + pathString, "Resource Manager");
+					Debug::Log(std::format("Missing {} {}", typeId.name(), pathString), "Resource Manager");
 				}
 				else
 				{
@@ -82,18 +87,16 @@ namespace Desdun
 				}
 
 				res->reload();
-
 				resources[typeId][pathString] = res;
 
-				String typeName = typeId.name();
-				Debug::Log("Loaded " + typeName + " " + pathString, "Resource Manager");
+				Debug::Log(std::format("Loaded {} {}", typeId.name(), pathString), "Resource Manager");
 
 				return res;
 			}
 		}
 
 		template<typename T>
-		static void getPlaceholder()
+		static String getPlaceholder()
 		{
 			return placeholders[typeid(T)];
 		}
@@ -103,8 +106,8 @@ namespace Desdun
 		bool loaded = false;
 
 		void reload();
-		virtual void load() = 0;
-		virtual void unload() = 0;
+		virtual void load() {};
+		virtual void unload() {};
 
 	private:
 
