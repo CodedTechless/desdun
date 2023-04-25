@@ -93,9 +93,6 @@
     <ClCompile Include="src\object\instance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\resource\serial\byte_stream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\resource\serial\json_object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1119,9 +1116,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\object\instance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource\serial\byte_stream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\resource\serial\json_object.h">

@@ -120,7 +120,6 @@
     <ClCompile Include="src\graphics\texture\texture_array.cpp" />
     <ClCompile Include="src\object\instance.cpp" />
     <ClCompile Include="src\object\object.cpp" />
-    <ClCompile Include="src\resource\serial\byte_stream.cpp" />
     <ClCompile Include="src\resource\serial\json_object.cpp" />
     <ClCompile Include="src\resource\serial\json_stream.cpp" />
     <ClCompile Include="src\resource\types\animation_table.cpp" />
@@ -465,7 +464,6 @@
     <ClInclude Include="src\object\visual\sprite.hpp" />
     <ClInclude Include="src\object\visual\tile_map.hpp" />
     <ClInclude Include="src\resource\resource.hpp" />
-    <ClInclude Include="src\resource\serial\byte_stream.h" />
     <ClInclude Include="src\resource\serial\json_object.h" />
     <ClInclude Include="src\resource\serial\json_stream.h" />
     <ClInclude Include="src\resource\types\animation_table.hpp" />

@@ -103,6 +103,7 @@ namespace Desdun
 
 	protected:
 
+		String path = "";
 		bool loaded = false;
 
 		void reload();
@@ -111,7 +112,6 @@ namespace Desdun
 
 	private:
 
-		String path = "";
 		static ResourceMap resources;
 		static Map<Type, String> placeholders;
 
