@@ -47,8 +47,6 @@ namespace Desdun
 
 			sceneInstances.push_back((Instance*)instance);
 
-			instance->onAwake();
-
 			return instance;
 		}
 

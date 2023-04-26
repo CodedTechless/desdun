@@ -50,6 +50,7 @@ namespace Desdun
 		{
 			if (instance->active == false)
 			{
+				instance->onAwake();
 				instance->active = true;
 			}
 

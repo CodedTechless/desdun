@@ -40,7 +40,7 @@ namespace Desdun
 			return m_jsonObject.at("properties").at(key);
 		}
 
-		Serialisable* makeObject() const;
+		Serialisable* makeObject();
 		uint64_t getReferenceID(Serialisable* pointer) const;
 		Serialisable* getPointer(uint64_t reference) const;
 

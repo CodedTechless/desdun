@@ -33,6 +33,16 @@ namespace Desdun
 		}
 	}
 
+	/*
+		
+	*/
+	Instance* Instance::clone(Scene* scene) const
+	{
+		
+
+		return object;
+	}
+
 	void Instance::markDirty()
 	{
 		for (auto* child : getChildren())

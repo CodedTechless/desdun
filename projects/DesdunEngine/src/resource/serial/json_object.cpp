@@ -24,14 +24,14 @@ namespace Desdun
 		return m_Owner->getObjectFromReference(reference);
 	}
 
-	Serialisable* JSONObject::makeObject() const
+	Serialisable* JSONObject::makeObject()
 	{
 		std::string typeName = m_jsonObject.at("type").get<std::string>();
 
-		Serialisable* newObject = Runtime::get(typeName)->create();
-		newObject->deserialise(*this);
+		auto* object = Runtime::get(typeName)->create();
+		object->deserialise(*this);
 
-		return newObject;
+		return object;
 	}
 
 }

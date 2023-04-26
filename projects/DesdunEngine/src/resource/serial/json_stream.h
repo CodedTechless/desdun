@@ -25,6 +25,7 @@ namespace Desdun
 	public:
 
 		JSONStream() = default;
+		~JSONStream();
 
 		void operator<<(std::ifstream& stream);
 		void operator>>(std::ofstream& stream);
@@ -45,6 +46,7 @@ namespace Desdun
 		Serialisable* root = nullptr;
 
 		List<JSONObject*> m_ObjectArray = {};
+		List<Serialisable*> objects = {};
 
 		Map<Serialisable*, uint64_t> m_ObjectReferenceIndex = {};
 		Map<uint64_t, Serialisable*> m_ReferenceObjectIndex = {};

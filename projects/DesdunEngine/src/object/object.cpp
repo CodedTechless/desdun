@@ -10,6 +10,15 @@
 namespace Desdun
 {
 
+	WorldObject* WorldObject::clone(Scene* scene) const
+	{
+		WorldObject* object = scene->create<WorldObject>();
+
+
+
+		Instance::clone(scene);
+	}
+
 	void WorldObject::serialise(JSONObject& object) const
 	{
 		object["position"] = position;

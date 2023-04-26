@@ -27,7 +27,7 @@ namespace Desdun
 		virtual void onGameStep(const float_t Delta) {};
 		virtual void onFrameUpdate(const float_t Delta) {};
 
-		virtual void onInputEvent(Input::Event& input) { };
+		virtual void onInputEvent(Input::Event& input) {};
 		virtual void onWindowEvent(const Window::Event& window) {};
 
 		// Object operations
@@ -76,11 +76,13 @@ namespace Desdun
 		std::string getInstanceId() const { return id; };
 		Scene* getScene() const { return activeScene; };
 
-		const std::vector<Instance*>& getChildren() const { return hierarchyTree.m_Container; };
+		const List<Instance*>& getChildren() const { return hierarchyTree.m_Container; };
 		Instance* getParent() const { return hierarchyTree.m_Parent; };
 
 		Instance* operator[](uint idx) const { return hierarchyTree.m_Container[idx]; };
 		Instance* operator[](const std::string& name) const { return findChild(name); };
+
+		Instance* clone(Scene* scene = nullptr) const;
 
 	protected:
 

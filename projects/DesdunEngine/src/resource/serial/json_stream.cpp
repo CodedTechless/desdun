@@ -5,6 +5,14 @@
 namespace Desdun
 {
 
+	JSONStream::~JSONStream()
+	{
+		for (auto* obj : m_ObjectArray)
+		{
+			delete obj;
+		}
+	}
+
 	uint64_t JSONStream::getReferenceFromObject(Serialisable* object)
 	{
 		auto it = m_ObjectReferenceIndex.find(object);
