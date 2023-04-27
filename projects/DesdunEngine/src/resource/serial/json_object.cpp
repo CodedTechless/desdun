@@ -24,14 +24,4 @@ namespace Desdun
 		return m_Owner->getObjectFromReference(reference);
 	}
 
-	Serialisable* JSONObject::makeObject()
-	{
-		std::string typeName = m_jsonObject.at("type").get<std::string>();
-
-		auto* object = Runtime::get(typeName)->create();
-		object->deserialise(*this);
-
-		return object;
-	}
-
 }

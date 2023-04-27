@@ -7,7 +7,7 @@ namespace Desdun
 
 	JSONStream::~JSONStream()
 	{
-		for (auto* obj : m_ObjectArray)
+		for (auto* obj : jsonObjects)
 		{
 			delete obj;
 		}
@@ -37,18 +37,18 @@ namespace Desdun
 
 	/*
 		pushes a new object to the serialised object array
-		 - creates a new JSONObject inside of m_ObjectArray
+		 - creates a new JSONObject inside of jsonObjects
 		 - gets that objects index and inserts it in to the m_ObjectIndex
 		 - runs the objects Serialise function (streamT must have Serialise or there's a compile-time error)
 	*/
 	uint64_t JSONStream::add(Serialisable* object)
 	{
-		size_t index = m_ObjectArray.size();
-		JSONObject* newObject = new JSONObject(this, object);
-		m_ObjectArray.push_back(newObject);
+		size_t index = jsonObjects.size();
 
-		m_ObjectReferenceIndex[object] = index;
-		m_ReferenceObjectIndex[index] = object;
+		JSONObject* newObject = new JSONObject(this, object);
+		jsonObjects.push_back(newObject);
+
+		emplace(object, index);
 
 		object->serialise(*newObject);
 		return index;
@@ -56,12 +56,52 @@ namespace Desdun
 
 	Serialisable* JSONStream::add(uint64_t reference)
 	{
-		Serialisable* newObject = m_ObjectArray[reference]->makeObject();
+		JSONObject* newObject = jsonObjects[reference];
+		std::string typeName = newObject->m_jsonObject.at("type").get<std::string>();
 
-		m_ReferenceObjectIndex[reference] = newObject;
-		m_ObjectReferenceIndex[newObject] = reference;
+		auto* object = Runtime::get(typeName)->create();
+		emplace(object, reference);
 
-		return newObject;
+		object->deserialise(*newObject);
+		return object;
+	}
+
+	void JSONStream::emplace(Serialisable* object, uint64_t reference)
+	{
+		m_ReferenceObjectIndex[reference] = object;
+		m_ObjectReferenceIndex[object] = reference;
+
+		serialObjects.push_back(object);
+	}
+
+	void JSONStream::blueprintOf(Serialisable* object)
+	{
+		add(object);
+	};
+
+	Serialisable* JSONStream::make()
+	{
+		// as we're technically remaking the object, clear everything but the JSON data
+		root = nullptr;
+
+		m_ReferenceObjectIndex.clear();
+		m_ObjectReferenceIndex.clear();
+		serialObjects.clear();
+
+		JSONObject* rootJsonObject = jsonObjects[0];
+		root = add((uint64_t)0);
+
+		return root;
+	}
+
+	const List<Serialisable*>& JSONStream::getSerialObjects() const
+	{
+		return serialObjects;
+	}
+
+	Serialisable* JSONStream::get() const
+	{
+		return root;
 	}
 
 	void JSONStream::operator<<(std::ifstream& stream)
@@ -73,11 +113,8 @@ namespace Desdun
 
 		for (auto it = instances.begin(); it != instances.end(); ++it)
 		{
-			m_ObjectArray.push_back(new JSONObject(this, *it));
+			jsonObjects.push_back(new JSONObject(this, *it));
 		}
-
-		JSONObject* rootJsonObject = m_ObjectArray[0];
-		root = rootJsonObject->makeObject();
 	}
 
 	void JSONStream::operator>>(std::ofstream& stream)
@@ -88,23 +125,11 @@ namespace Desdun
 		};
 
 		json& instances = jsonObject["instances"];
-		for (auto* jsonObject : m_ObjectArray)
+		for (auto* jsonObject : jsonObjects)
 		{
 			instances.push_back(*jsonObject);
 		}
 
 		stream << jsonObject;
 	};
-
-	void JSONStream::blueprintOf(Serialisable* object)
-	{
-		root = object;
-		add(object);
-	};
-
-	Serialisable* JSONStream::get() const
-	{
-		return root;
-	}
-
 }

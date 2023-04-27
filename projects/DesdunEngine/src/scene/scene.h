@@ -36,7 +36,7 @@ namespace Desdun
 		void onInputEvent(Input::Event& event);
 		void onWindowEvent(const Window::Event& event);
 
-		Instance* make(Model* model);
+		Instance* instance(Model* model);
 
 		template<typename T>
 		T* create()
@@ -59,6 +59,8 @@ namespace Desdun
 		Instance* root = nullptr;
 
 		List<Instance*> sceneInstances = {};
+
+		void add(Instance* instance);
 
 		friend class Instance;
 

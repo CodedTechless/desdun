@@ -33,16 +33,25 @@ namespace Desdun
 		}
 	}
 
-	/*
-		
-	*/
-	Instance* Instance::clone(Scene* scene) const
+	Instance* Instance::clone() const
 	{
-		
+		if (!activeScene)
+		{
+			throw NoActiveSceneException(id);
+		}
 
-		return object;
+		JSONStream stream;
+		stream.blueprintOf((Serialisable*)this);
+		stream.make();
+
+		for (auto* instance : stream.getSerialObjects())
+		{
+			activeScene->add((Instance*)instance);
+		}
+
+		return (Instance*)stream.get();
 	}
-
+	
 	void Instance::markDirty()
 	{
 		for (auto* child : getChildren())

@@ -20,20 +20,16 @@ namespace Desdun
 		
 		float playbackSpeed = 1.f;
 
-		
-		void setAnimationTable(AnimationTable* anim)
-		{
-			animTable = anim;
-		}
+		void setAnimationTable(AnimationTable* anim);
+		AnimationTable* getAnimationTable() const;		
 
 		// plays the specified animation from the set AnimationTable.
 		void play(const String& name, bool seek = false);
 		void play();
 		void pause();
 
-		uint getFrame() const { return frame; };
-		bool isPlaying() const { return playing; };
-		AnimationTable* getAnimationTable() const { return animTable; };
+		uint getFrame() const;
+		bool isPlaying() const;
 		
 		void onFrameUpdate(float delta) override;
 

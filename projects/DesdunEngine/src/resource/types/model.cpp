@@ -1,23 +1,23 @@
 
 
-#include <resource/serial/json_stream.h>
 
 #include "model.h"
 
 namespace Desdun
 {
 
+	JSONStream& Model::get()
+	{
+		return model;
+	}
+
 	void Model::load()
 	{
 		std::ifstream filestream(getPath());
-
-		JSONStream stream;
-		stream << filestream;
-		modelObject = stream.get();
+		model << filestream;
 	}
 
 	void Model::unload()
 	{
-		delete modelObject;
 	}
 }

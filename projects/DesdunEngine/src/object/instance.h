@@ -9,6 +9,16 @@
 namespace Desdun
 {
 
+	// TODO: remove need for instance to be in a scene for cloning
+
+	class NoActiveSceneException : public virtual Exception
+	{
+	public:
+		NoActiveSceneException(const String& id)
+			: Exception("Cannot clone instance {} as it doesn't exist in any active scene.") {};
+
+	};
+
 	class Scene;
 
 	class Instance : public Serialisable
@@ -82,7 +92,7 @@ namespace Desdun
 		Instance* operator[](uint idx) const { return hierarchyTree.m_Container[idx]; };
 		Instance* operator[](const std::string& name) const { return findChild(name); };
 
-		Instance* clone(Scene* scene = nullptr) const;
+		Instance* clone() const;
 
 	protected:
 

@@ -10,6 +10,7 @@ namespace Desdun
 
 		name = "Player";
 
+		
 		auto* legs = getScene()->create<AnimatedSprite>();
 		legs->name = "legs";
 		legs->setAnimationTable(Resource::fetch<AnimationTable>("animations:player/player_legs.json"));
@@ -74,9 +75,14 @@ namespace Desdun
 		if (event.isPressed(Input::KeyCode::G))
 		{
 			Debug::Log("kowabunga!");
-			saveToFile("models:player.json");
-			auto* testLoad = Resource::fetch<Model>("models:player.json");
+			auto* newMe = (Player*)clone();
+			newMe->setPosition({ 0.f, 0.f });
 ;		}
+		else if (event.isPressed(Input::KeyCode::H))
+		{
+			Debug::Log("boom!");
+			saveToFile("models:player.json");
+		}
 	}
 
 	void Player::onFrameUpdate(float delta)

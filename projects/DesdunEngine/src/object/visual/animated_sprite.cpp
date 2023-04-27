@@ -5,6 +5,11 @@
 namespace Desdun
 {
 
+	void AnimatedSprite::setAnimationTable(AnimationTable* anim)
+	{
+		animTable = anim;
+	}
+
 	void AnimatedSprite::play()
 	{
 		if (currentSequence == nullptr)
@@ -81,14 +86,35 @@ namespace Desdun
 
 	void AnimatedSprite::serialise(JSONObject& object) const
 	{
+		if (animTable)
+			object["animTable"] = animTable->getPath();
 
+		object["currentPlaying"] = currentPlaying;
+		object["playbackSpeed"] = playbackSpeed;
 
 		Sprite::serialise(object);
 	}
 
 	void AnimatedSprite::deserialise(const JSONObject& object)
 	{
+		
+
 		Sprite::deserialise(object);
 	}
+
+	uint AnimatedSprite::getFrame() const 
+	{ 
+		return frame; 
+	};
+
+	bool AnimatedSprite::isPlaying() const 
+	{ 
+		return playing;
+	};
+
+	AnimationTable* AnimatedSprite::getAnimationTable() const 
+	{ 
+		return animTable;
+	};
 
 }

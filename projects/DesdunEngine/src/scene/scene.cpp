@@ -8,9 +8,10 @@
 #include <object/visual/camera.hpp>
 #include <object/physics/physics_body.hpp>
 
-#include <imgui/imgui.h>
-
 #include <resource/types/model.h>
+#include <resource/serial/json_stream.h>
+
+#include <imgui/imgui.h>
 
 #include "scene.h"
 
@@ -25,9 +26,28 @@ namespace Desdun
 		root->name = "root";
 	}
 
-	Instance* Scene::make(Model* model)
+	void Scene::add(Instance* instance)
 	{
-		return nullptr;
+		instance->activeScene = this;
+		instance->id = UUID::Generate();
+
+		sceneInstances.push_back((Instance*)instance);
+	}
+
+	Instance* Scene::instance(Model* model)
+	{
+		auto& stream = model->get();
+		stream.make();
+
+		for (auto* instance : stream.getSerialObjects())
+		{
+			add((Instance*)instance);
+		}
+
+		auto* modelRoot = (Instance*)stream.get();
+		modelRoot->setParent(root);
+
+		return modelRoot;
 	}
 
 	Vector2 Scene::getMouseInWorld() const

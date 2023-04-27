@@ -1,6 +1,7 @@
 #pragma once
 
 #include <resource/resource.hpp>
+#include <resource/serial/json_stream.h>
 
 #include <runtime/runtime.h>
 
@@ -12,10 +13,11 @@ namespace Desdun
 	public:
 		Model() = default;
 
+		JSONStream& get();
 
 	private:
 
-		Serialisable* modelObject = nullptr;
+		JSONStream model = {};
 		
 		void load() override;
 		void unload() override;
