@@ -77,9 +77,10 @@ namespace Desdun
 	void JSONStream::blueprintOf(Serialisable* object)
 	{
 		add(object);
+		flush();
 	};
 
-	Serialisable* JSONStream::make()
+	void JSONStream::flush()
 	{
 		// as we're technically remaking the object, clear everything but the JSON data
 		root = nullptr;
@@ -87,6 +88,11 @@ namespace Desdun
 		m_ReferenceObjectIndex.clear();
 		m_ObjectReferenceIndex.clear();
 		serialObjects.clear();
+	}
+
+	Serialisable* JSONStream::makeFrom()
+	{
+		flush();
 
 		JSONObject* rootJsonObject = jsonObjects[0];
 		root = add((uint64_t)0);
@@ -97,11 +103,6 @@ namespace Desdun
 	const List<Serialisable*>& JSONStream::getSerialObjects() const
 	{
 		return serialObjects;
-	}
-
-	Serialisable* JSONStream::get() const
-	{
-		return root;
 	}
 
 	void JSONStream::operator<<(std::ifstream& stream)

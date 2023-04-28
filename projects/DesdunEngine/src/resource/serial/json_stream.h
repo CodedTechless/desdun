@@ -42,9 +42,7 @@ namespace Desdun
 		void operator>>(std::ofstream& stream);
 
 		void blueprintOf(Serialisable* rootObject);
-		Serialisable* make();
-
-		Serialisable* get() const;
+		Serialisable* makeFrom();
 
 		/*
 			gets the ref number of a serialising object
@@ -65,6 +63,8 @@ namespace Desdun
 
 		Map<Serialisable*, uint64_t> m_ObjectReferenceIndex = {};
 		Map<uint64_t, Serialisable*> m_ReferenceObjectIndex = {};
+
+		void flush();
 
 		uint64_t add(Serialisable* object);
 		Serialisable* add(uint64_t reference);

@@ -91,13 +91,24 @@ namespace Desdun
 
 		object["currentPlaying"] = currentPlaying;
 		object["playbackSpeed"] = playbackSpeed;
+		object["playing"] = playing;
 
 		Sprite::serialise(object);
 	}
 
 	void AnimatedSprite::deserialise(const JSONObject& object)
 	{
-		
+		String path = object.at("animTable").get<String>();
+		if (path != "")
+		{
+			setAnimationTable(Resource::fetch<AnimationTable>(path));
+		}
+
+		if (object.at("playing").get<bool>() == true)
+		{
+			play(object.at("currentPlaying").get<String>());
+		}
+		object.at("playbackSpeed").get_to(playbackSpeed);
 
 		Sprite::deserialise(object);
 	}

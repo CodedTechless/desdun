@@ -37,15 +37,13 @@ namespace Desdun
 	Instance* Scene::instance(Model* model)
 	{
 		auto& stream = model->get();
-		stream.make();
+		auto* modelRoot = (Instance*)stream.makeFrom();
+		modelRoot->setParent(root);
 
 		for (auto* instance : stream.getSerialObjects())
 		{
 			add((Instance*)instance);
 		}
-
-		auto* modelRoot = (Instance*)stream.get();
-		modelRoot->setParent(root);
 
 		return modelRoot;
 	}

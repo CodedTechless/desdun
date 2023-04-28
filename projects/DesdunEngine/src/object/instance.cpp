@@ -42,14 +42,15 @@ namespace Desdun
 
 		JSONStream stream;
 		stream.blueprintOf((Serialisable*)this);
-		stream.make();
+		
+		auto* root = stream.makeFrom();
 
 		for (auto* instance : stream.getSerialObjects())
 		{
 			activeScene->add((Instance*)instance);
 		}
 
-		return (Instance*)stream.get();
+		return (Instance*)root;
 	}
 	
 	void Instance::markDirty()
@@ -89,7 +90,8 @@ namespace Desdun
 		for (auto it = object.at("children").begin(); it != object.at("children").end(); it++)
 		{
 			auto reference = it->get<uint64_t>();
-			hierarchyTree.m_Container.push_back((Instance*)object.getPointer(reference));
+			auto* instance = (Instance*)object.getPointer(reference);
+			instance->setParent(this);
 		};
 	}
 

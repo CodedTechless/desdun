@@ -28,13 +28,13 @@ namespace Desdun
 
 			gameScene->currentCamera = camera;
 
+#if 0
 			auto* actor = gameScene->create<Player>();
 			actor->setParent(gameScene->getRoot());
+#endif
 
-#if 0
 			auto* playerPrefab = Resource::fetch<Model>("models:player.json");
 			auto* actor = (WorldObject*)gameScene->instance(playerPrefab);
-#endif
 
 			camera->offset = { 0.f, -16.f };
 			camera->subject = actor;

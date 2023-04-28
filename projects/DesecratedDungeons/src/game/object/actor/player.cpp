@@ -6,11 +6,11 @@ namespace Desdun
 {
 	void Player::onAwake()
 	{
+		/*
 		interpolate = true;
 
 		name = "Player";
 
-		
 		auto* legs = getScene()->create<AnimatedSprite>();
 		legs->name = "legs";
 		legs->setAnimationTable(Resource::fetch<AnimationTable>("animations:player/player_legs.json"));
@@ -64,6 +64,8 @@ namespace Desdun
 		rightHand->zIndex = 10.f;
 		rightHand->setParent(shoulders);
 
+		*/
+
 		bodyController.start();
 
 
@@ -76,6 +78,7 @@ namespace Desdun
 		{
 			Debug::Log("kowabunga!");
 			auto* newMe = (Player*)clone();
+			newMe->setParent(getParent());
 			newMe->setPosition({ 0.f, 0.f });
 ;		}
 		else if (event.isPressed(Input::KeyCode::H))
