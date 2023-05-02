@@ -111,8 +111,12 @@ namespace Desdun
 		{
 			if (instance->active)
 			{
-				instance->onFrameUpdate(delta);
-
+				// TODO: optimise this!! visible should be sorted into its own list
+				if (instance->isA<WorldObject>() && instance->as<WorldObject>()->visible == true)
+				{
+					instance->onFrameUpdate(delta);
+				}
+				
 				if (instance->isA<PhysicsBody>())
 				{
 					auto* phys = (PhysicsBody*)instance;
@@ -124,8 +128,6 @@ namespace Desdun
 				}
 			}
 		}
-
-		
 
 		Renderer::EndScene();
 	}

@@ -1,8 +1,6 @@
 
 
-#include <game_lib.hpp>
 #include "humanoid_body_controller.h"
-
 
 namespace Desdun
 {
@@ -20,6 +18,14 @@ namespace Desdun
 
 		rightEye->play("eye_idle");
 		leftEye->play("eye_idle");
+
+		auto* shoulders = (WorldObject*)body->findChild("shoulders");
+
+		auto* leftHand = (Sprite*)shoulders->findChild("leftHand");
+		auto* rightHand = (Sprite*)shoulders->findChild("rightHand");
+
+		leftHand->visible = false;
+		rightHand->visible = false;
 
 		update();
 	}

@@ -28,11 +28,6 @@ namespace Desdun
 
 			gameScene->currentCamera = camera;
 
-#if 0
-			auto* actor = gameScene->create<Player>();
-			actor->setParent(gameScene->getRoot());
-#endif
-
 			auto* playerPrefab = Resource::fetch<Model>("models:player.json");
 			auto* actor = (WorldObject*)gameScene->instance(playerPrefab);
 

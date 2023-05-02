@@ -11,6 +11,9 @@ namespace Desdun
 	public:
 		virtual Type getClassIndex() const;
 
+		template<typename T>
+		T* as() const { return (T*)this; };
+
 	protected:
 
 		virtual void serialise(JSONObject& object) const = 0;
