@@ -51,4 +51,12 @@ namespace Desdun
 			legs->play("legs_idle");
 	}
 
+	HumanoidBodyController::Pose HumanoidBodyController::normaliseDirection() const
+	{
+
+		if ()
+
+
+	}
+
 }
