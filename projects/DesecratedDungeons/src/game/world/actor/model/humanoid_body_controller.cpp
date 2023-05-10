@@ -42,6 +42,8 @@ namespace Desdun
 		leftEye->setPosition(eyeOffset + eyeOffsetModifier);
 		rightEye->setPosition(eyeOffset * Vector2(-1.f, 1.f) + eyeOffsetModifier);
 
+		updatePose();
+
 		auto* legs = (AnimatedSprite*)adornee->findChild("legs");
 		legs->playbackSpeed = 1.f * animateSpeedModifier;
 
@@ -51,12 +53,97 @@ namespace Desdun
 			legs->play("legs_idle");
 	}
 
-	HumanoidBodyController::Pose HumanoidBodyController::normaliseDirection() const
+	void HumanoidBodyController::updateLookNormal()
 	{
+		Vector2 dir = glm::round(lookDirection);
 
-		if ()
+		if (dir.x == -1.f)
+		{
+			if (dir.y == -1.f)
+			{
+				lookNormal = Pose::UPLEFT;
+			}
+			else if (dir.y == 0.f)
+			{
+				lookNormal = Pose::LEFT;
+			}
+			else if (dir.y == 1.f)
+			{
+				lookNormal = Pose::DOWNLEFT;
+			}
+		}
+		else if (dir.x == 0.f)
+		{
+			if (dir.y == -1.f)
+			{
+				lookNormal = Pose::UP;
+			}
+			else if (dir.y == 1.f)
+			{
+				lookNormal = Pose::DOWN;
+			}
+		}
+		else if (dir.x == 1.f)
+		{
+			if (dir.y == -1.f)
+			{
+				lookNormal = Pose::LEFT;
+			}
+			else if (dir.y == 0.f)
+			{
+				lookNormal = Pose::RIGHT;
+			}
+			else if (dir.y == 1.f)
+			{
+				lookNormal = Pose::DOWNRIGHT;
+			}
+		}
+	}
 
+	void HumanoidBodyController::updatePose()
+	{
+		switch (lookNormal)
+		{
+			case Pose::LEFT:
+			{
 
+				break;
+			}
+			case Pose::DOWNLEFT:
+			{
+				break;
+			}
+			case Pose::DOWN:
+			{
+				break;
+			}
+			case Pose::DOWNRIGHT:
+			{
+				break;
+			}
+			case Pose::RIGHT:
+			{
+				break;
+			}
+			case Pose::UPRIGHT:
+			{
+				break;
+			}
+			case Pose::UP:
+			{
+				break;
+			}
+			case Pose::UPLEFT:
+			{
+				break;
+			}
+		}
+	}
+
+	void HumanoidBodyController::setLookDirection(const Vector2 direction)
+	{
+		lookDirection = direction;
+		updateLookNormal();
 	}
 
 }

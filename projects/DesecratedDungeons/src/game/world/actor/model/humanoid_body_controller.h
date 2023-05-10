@@ -15,7 +15,7 @@ namespace Desdun
 		HumanoidBodyController(WorldObject* object)
 			: adornee(object) {};
 
-		enum Pose
+		enum class Pose
 		{
 			LEFT = 0,
 			DOWNLEFT = 1,
@@ -30,19 +30,21 @@ namespace Desdun
 		float animateSpeedModifier = 1.f;
 		float animateFactor = 0.f;
 
-		Vector2 lookDirection = { 0.f, 0.f };
-
 		Vector2 eyeOffset = { 3.f, -5.f };
+
+		void setLookDirection(const Vector2 direction);
 
 		void update();
 		void start();
 
 	private:
 
-		HumanoidBodyController::Pose normaliseDirection() const;
-
+		Pose lookNormal = Pose::LEFT;
+		Vector2 lookDirection = { 0.f, 0.f };
 		WorldObject* adornee = nullptr;
 
+		void updatePose();
+		void updateLookNormal();
 	};
 
 

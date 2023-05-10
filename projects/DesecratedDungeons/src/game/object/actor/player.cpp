@@ -104,7 +104,8 @@ namespace Desdun
 		if (glm::length(movement) > 0.f)
 		{
 			normalisedMovement = glm::normalize(movement);
-			bodyController.lookDirection = normalisedMovement;
+			bodyController.setLookDirection(normalisedMovement);
+
 			bodyController.animateSpeedModifier = glm::length(moveController.velocity) / moveController.maxVelocity;
 		}
 		else
