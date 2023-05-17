@@ -18,8 +18,7 @@ namespace Desdun
 	class Camera;
 	class Model;
 
-	using CollisionMap = 
-		Array<Array<List<PhysicsBody*>, COLLISION_MAP_SIZE>, COLLISION_MAP_SIZE>;
+	using HashMap = Map<Vector2i, List<Instance*>>;
 
 	class Scene
 	{
@@ -27,7 +26,7 @@ namespace Desdun
 		Scene();
 		~Scene() = default;
 
-		CollisionMap collisionMap;
+		HashMap level = {};
 		Camera* currentCamera = nullptr;
 
 		void onFrameUpdate(const float Delta);
