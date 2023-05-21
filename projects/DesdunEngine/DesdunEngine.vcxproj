@@ -129,6 +129,7 @@
     <ClCompile Include="src\resource\types\shader.cpp" />
     <ClCompile Include="src\runtime\runtime_class.cpp" />
     <ClCompile Include="src\runtime\serialisable.cpp" />
+    <ClCompile Include="src\runtime\spatial_hash_map.cpp" />
     <ClCompile Include="src\scene\scene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -472,6 +473,7 @@
     <ClInclude Include="src\resource\types\model.h" />
     <ClInclude Include="src\resource\types\shader.h" />
     <ClInclude Include="src\runtime\serialisable.h" />
+    <ClInclude Include="src\runtime\spatial_hash_map.hpp" />
     <ClInclude Include="src\scene\scene.h" />
   </ItemGroup>
   <ItemGroup>

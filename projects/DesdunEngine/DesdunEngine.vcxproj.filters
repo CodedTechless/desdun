@@ -147,6 +147,9 @@
     <ClCompile Include="src\runtime\serialisable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\runtime\spatial_hash_map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\debug\debug.h">
@@ -1170,6 +1173,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\runtime\serialisable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\runtime\spatial_hash_map.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
