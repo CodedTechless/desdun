@@ -1,0 +1,154 @@
+
+
+#include <src/graphics/render/renderer.h>
+#include <src/graphics/primitives/primitive.h>
+
+#include <src/instance/instance.h>
+#include <src/instance/descendants/object.h>
+#include <src/instance/descendants/visual/camera.hpp>
+#include <src/instance/descendants/physics/physics_body.hpp>
+
+#include <src/app/resource/descendants/model.h>
+#include <src/app/resource/serial/json_stream.h>
+
+#include <include/imgui/imgui.h>
+
+#include "scene.h"
+
+namespace Desdun
+{
+
+	Scene::Scene()
+	{
+		sceneInstances.reserve(MAX_INSTANCES);
+
+		root = create<Instance>();
+		root->name = "root";
+	}
+
+	void Scene::add(Instance* instance)
+	{
+		instance->activeScene = this;
+		instance->id = UUID::Generate();
+
+		sceneInstances.push_back((Instance*)instance);
+	}
+
+	Instance* Scene::instance(Model* model)
+	{
+		auto& stream = model->get();
+		auto* modelRoot = (Instance*)stream.makeFrom();
+		modelRoot->setParent(root);
+
+		for (auto* instance : stream.getSerialObjects())
+		{
+			add((Instance*)instance);
+		}
+
+		return modelRoot;
+	}
+
+	Vector2 Scene::getMouseInWorld() const
+	{
+		return mousePos;
+	}
+
+	void Scene::onGameStep(const float delta)
+	{
+		for (Instance* instance : sceneInstances)
+		{
+			if (instance->isA<WorldObject>())
+			{
+				auto* object = (WorldObject*)instance;
+				object->ageLocalTransform();
+			}
+		}
+
+		for (Instance* instance : sceneInstances)
+		{
+			if (instance->active == false)
+			{
+				instance->onAwake();
+				instance->active = true;
+			}
+
+			instance->onGameStep(delta);
+
+			// we may have a problem here
+			// what if an object changes another objects position that already got recalculated??
+			// then it'd just be wrong...
+			if (instance->isA<WorldObject>())
+			{
+				auto* object = (WorldObject*)instance;
+				object->checkDirty();
+			}
+		}
+
+		Vector2f windowSize = Application::get()->getPrimaryWindow()->getSize();
+		Vector2f orthoSize = currentCamera->renderCamera.getOrthoSize();
+
+		Vector2f cameraPos = currentCamera->position;
+		Vector2f mouseRatio = (Input::getMousePosition() / windowSize) - 0.5f;
+		mousePos = cameraPos + orthoSize * mouseRatio * currentCamera->scale;
+	}
+
+	void Scene::onFrameUpdate(const float delta)
+	{
+		if (!currentCamera) return;
+		
+		for (Instance* inst : sceneInstances)
+		{
+			if (inst->isA<WorldObject>())
+			{
+				auto* object = (WorldObject*)inst;
+				object->markInterpDirty();
+			}
+		}
+
+		Renderer::BeginScene(currentCamera->getProjectionTransform());
+
+		for (Instance* instance : sceneInstances)
+		{
+			if (instance->active)
+			{
+				// TODO: optimise this!! visible should be sorted into its own list
+				if (instance->isA<WorldObject>() && instance->as<WorldObject>()->visible == true)
+				{
+					instance->onFrameUpdate(delta);
+				}
+				
+				if (instance->isA<PhysicsBody>())
+				{
+					auto* phys = (PhysicsBody*)instance;
+
+					for (Vector2 cell : phys->getOwnedCells())
+					{
+						Primitive::drawRect(cell * (float)COLLISION_MAP_CELL_SIZE, Vector2f(COLLISION_MAP_CELL_SIZE), 100.f);
+					};
+				}
+			}
+		}
+
+		Renderer::EndScene();
+	}
+
+	void Scene::onInputEvent(Input::Event& event)
+	{
+		for (Instance* instance : sceneInstances)
+		{
+			instance->onInputEvent(event);
+
+			if (event.absorbed)
+				break;
+		}
+	}
+
+	void Scene::onWindowEvent(const Window::Event& windowEvent)
+	{
+		for (Instance* instance : sceneInstances)
+		{
+			instance->onWindowEvent(windowEvent);
+		}
+	}
+
+}

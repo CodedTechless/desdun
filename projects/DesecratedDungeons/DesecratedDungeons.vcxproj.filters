@@ -15,66 +15,66 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\game\main.cpp">
+    <ClCompile Include="desdun\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\layer\game.cpp">
+    <ClCompile Include="desdun\src\layer\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\desecrated_dungeons.cpp">
+    <ClCompile Include="desdun\src\desecrated_dungeons.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\object\actor\actor.cpp">
+    <ClCompile Include="desdun\src\object\actor\actor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\object\actor\player.cpp">
+    <ClCompile Include="desdun\src\object\actor\player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\world\item\container.cpp">
+    <ClCompile Include="desdun\src\world\item\container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\world\actor\model\humanoid_body_controller.h">
+    <ClCompile Include="desdun\src\world\actor\model\humanoid_body_controller.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\world\actor\move_controller.cpp">
+    <ClCompile Include="desdun\src\world\actor\move_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\world\actor\model\humanoid_body_controller.cpp">
+    <ClCompile Include="desdun\src\world\actor\model\humanoid_body_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\object\game_camera.cpp">
+    <ClCompile Include="desdun\src\object\game_camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\game\layer\game.h">
+    <ClInclude Include="desdun\src\layer\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\desecrated_dungeons.hpp">
+    <ClInclude Include="desdun\src\desecrated_dungeons.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\object\actor\actor.hpp">
+    <ClInclude Include="desdun\src\object\actor\actor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\object\index.hpp">
+    <ClInclude Include="desdun\src\object\index.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\object\actor\player.hpp">
+    <ClInclude Include="desdun\src\object\actor\player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\object\game_camera.hpp">
+    <ClInclude Include="desdun\src\object\game_camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\world\item\container.hpp">
+    <ClInclude Include="desdun\src\world\item\container.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\world\item\item.hpp">
+    <ClInclude Include="desdun\src\world\item\item.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\world\item\item_slot.hpp">
+    <ClInclude Include="desdun\src\world\item\item_slot.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\world\actor\move_controller.hpp">
+    <ClInclude Include="desdun\src\world\actor\move_controller.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
