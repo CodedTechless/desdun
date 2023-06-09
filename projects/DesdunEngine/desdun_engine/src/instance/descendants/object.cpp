@@ -1,11 +1,11 @@
 
-#include <scene/scene.h>
+#include <desdun_engine/src/app/scene/scene.h>
 
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/matrix_interpolation.hpp>
-#include <glm/gtx/compatibility.hpp>
+#include <desdun_engine/include/glm/gtc/matrix_transform.hpp>
+#include <desdun_engine/include/glm/gtx/matrix_interpolation.hpp>
+#include <desdun_engine/include/glm/gtx/compatibility.hpp>
 
-#include "object.h"
+#include "object.hpp"
 
 namespace Desdun
 {

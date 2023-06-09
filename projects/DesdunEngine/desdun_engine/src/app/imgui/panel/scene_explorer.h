@@ -1,6 +1,6 @@
 #pragma once
 
-#include <src/app/scene/scene.h>
+#include <desdun_engine/src/app/scene/scene.h>
 
 namespace Desdun
 {

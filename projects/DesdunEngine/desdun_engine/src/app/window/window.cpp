@@ -1,12 +1,10 @@
 
+#include <desdun_engine/src/app/app.h>
+#include <desdun_engine/src/app/debug/debug.h>
+#include <desdun_engine/src/graphics/render/renderer.h>
+
 #include "window.h"
-
-#include <app/input.h>
-
-#include <app/debug/debug.h>
-#include <graphics/renderer.h>
-
-#include <app/app.h>
+#include "input.h"
 
 namespace Desdun
 {

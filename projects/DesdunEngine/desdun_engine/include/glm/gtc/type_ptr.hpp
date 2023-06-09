@@ -19,7 +19,7 @@
 ///
 /// Example:
 /// @code
-/// #include <include/glm/glm.hpp>
+/// #include <desdun_engine/include/glm/glm.hpp>
 /// #include <glm/gtc/type_ptr.hpp>
 ///
 /// glm::vec3 aVector(3);

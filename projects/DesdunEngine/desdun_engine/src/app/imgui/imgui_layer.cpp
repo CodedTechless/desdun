@@ -1,11 +1,12 @@
 #pragma once
 
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_opengl3.h>
-#include <imgui/imgui_impl_glfw.h>
+#include <desdun_engine/include/imgui/imgui.h>
+#include <desdun_engine/include/imgui/imgui_impl_opengl3.h>
+#include <desdun_engine/include/imgui/imgui_impl_glfw.h>
+#include <desdun_engine/include/desdun_core.hpp>
 
-
-#include <game_lib.hpp>
+#include <desdun_engine/src/app/app.h>
+#include <desdun_engine/src/graphics/render/renderer.h>
 
 #include "imgui_layer.h"
 

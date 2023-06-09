@@ -1,16 +1,16 @@
 #pragma once
 
-#include <src/graphics/render/render_camera.h>
-#include <src/graphics/texture/texture_array.h>
-#include <src/graphics/buffers/vertex.h>
-#include <src/graphics/buffers/vao.h>
-#include <src/graphics/buffers/index.h>
-#include <src/graphics/buffers/frame.h>
+#include <desdun_engine/src/graphics/render/render_camera.h>
+#include <desdun_engine/src/graphics/texture/texture_array.h>
+#include <desdun_engine/src/graphics/buffers/vertex.h>
+#include <desdun_engine/src/graphics/buffers/vao.h>
+#include <desdun_engine/src/graphics/buffers/index.h>
+#include <desdun_engine/src/graphics/buffers/frame.h>
 
-#include <src/app/resource/descendants/shader.h>
-#include <src/app/resource/descendants/image.h>
+#include <desdun_engine/src/app/resource/descendants/shader.h>
+#include <desdun_engine/src/app/resource/descendants/image.h>
 
-#include <include/desdun_engine.hpp>
+#include <desdun_engine/include/desdun_core.hpp>
 
 #define RENDER_QUEUE_SIZE 8192
 #define ALLOCATED_TEXTURE_SLOTS 16

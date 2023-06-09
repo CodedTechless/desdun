@@ -1,14 +1,13 @@
 
 
-#include <windows.h>
-
 /*
 ENTRY POINT BAYBEEEEEE
 
 BEEEEEG YOSHI
 */
 
-#include <game/desecrated_dungeons.hpp>
+#include <desdun/src/app/desdun_app.hpp>
+#include <windows.h>
 
 using namespace Desdun;
 

@@ -3,9 +3,9 @@
 #include <fstream>
 #include <sstream>
 
-#include <GL/glew.h>
+#include <desdun_engine/include/glew/glew.h>
 
-#include <app/debug/debug.h>
+#include <desdun_engine/src/app/debug/debug.h>
 
 #include "shader.h"
 

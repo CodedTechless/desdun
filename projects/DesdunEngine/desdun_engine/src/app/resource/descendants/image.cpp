@@ -1,6 +1,6 @@
 
 
-#include <stb/stb_image.h>
+#include <desdun_engine/include/stb/stb_image.h>
 
 #include "image.h"
 

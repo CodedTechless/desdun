@@ -1,17 +1,16 @@
 
 
-#include <src/graphics/render/renderer.h>
-#include <src/graphics/primitives/primitive.h>
+#include <desdun_engine/src/graphics/render/renderer.h>
+#include <desdun_engine/src/graphics/primitives/primitive.h>
 
-#include <src/instance/instance.h>
-#include <src/instance/descendants/object.h>
-#include <src/instance/descendants/visual/camera.hpp>
-#include <src/instance/descendants/physics/physics_body.hpp>
+#include <desdun_engine/src/instance/instance.hpp>
+#include <desdun_engine/src/instance/descendants/object.hpp>
+#include <desdun_engine/src/instance/descendants/camera.hpp>
 
-#include <src/app/resource/descendants/model.h>
-#include <src/app/resource/serial/json_stream.h>
+#include <desdun_engine/src/app/resource/descendants/model.h>
+#include <desdun_engine/src/app/resource/serial/json_stream.h>
 
-#include <include/imgui/imgui.h>
+#include <desdun_engine/include/imgui/imgui.h>
 
 #include "scene.h"
 
@@ -115,16 +114,6 @@ namespace Desdun
 				if (instance->isA<WorldObject>() && instance->as<WorldObject>()->visible == true)
 				{
 					instance->onFrameUpdate(delta);
-				}
-				
-				if (instance->isA<PhysicsBody>())
-				{
-					auto* phys = (PhysicsBody*)instance;
-
-					for (Vector2 cell : phys->getOwnedCells())
-					{
-						Primitive::drawRect(cell * (float)COLLISION_MAP_CELL_SIZE, Vector2f(COLLISION_MAP_CELL_SIZE), 100.f);
-					};
 				}
 			}
 		}

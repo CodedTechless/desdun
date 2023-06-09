@@ -4,10 +4,10 @@
 interface class for the GLFW window
 */
 
-#include <include/glm/glm.hpp>
-#include <include/glew/glew.h>
-#include <include/glfw/glfw3.h>
-#include <include/desdun_core.hpp>
+#include <desdun_engine/include/glm/glm.hpp>
+#include <desdun_engine/include/glew/glew.h>
+#include <desdun_engine/include/glfw/glfw3.h>
+#include <desdun_engine/include/desdun_core.hpp>
 
 namespace Desdun
 {

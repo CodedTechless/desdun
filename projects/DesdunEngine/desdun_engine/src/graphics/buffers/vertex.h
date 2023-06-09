@@ -1,7 +1,7 @@
 #pragma once
 
-#include <include/glew/glew.h>
-#include <include/desdun_engine.hpp>
+#include <desdun_engine/include/glew/glew.h>
+#include <desdun_engine/include/desdun_core.hpp>
 
 namespace Desdun 
 {

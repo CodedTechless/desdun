@@ -1,11 +1,9 @@
 
-#include <GL/glew.h>
-#include <glfw3.h>
+#include <desdun_engine/src/app/debug/debug.h>
+#include <desdun_engine/src/app/resource/resource.hpp>
 
-#include <app/debug/debug.h>
-#include <src/app/resource/resource.hpp>
-
-#include <include/desdun_engine.hpp>
+#include <desdun_engine/include/glew/glew.h>
+#include <desdun_engine/include/glfw/glfw3.h>
 
 #include "renderer.h"
 

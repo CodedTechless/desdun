@@ -1,5 +1,5 @@
 
-#include <GL/glew.h>
+#include <desdun_engine/include/glew/glew.h>
 
 #include "vao.h"
 

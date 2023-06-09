@@ -120,9 +120,6 @@
     <ClCompile Include="desdun_engine\src\graphics\primitives\primitive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\instance\descendants\physics\physics_body.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="desdun_engine\src\app\resource\resource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -132,13 +129,13 @@
     <ClCompile Include="desdun_engine\src\app\imgui\panel\scene_explorer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\instance\descendants\visual\sprite.cpp">
+    <ClCompile Include="desdun_engine\src\instance\descendants\sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\instance\descendants\visual\animated_sprite.cpp">
+    <ClCompile Include="desdun_engine\src\instance\descendants\animated_sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\instance\descendants\visual\camera.cpp">
+    <ClCompile Include="desdun_engine\src\instance\descendants\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="desdun_engine\src\app\runtime\base\runtime_obj.cpp">
@@ -148,6 +145,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="desdun_engine\include\ddlib\spatial_hash_map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="desdun_engine\src\instance\descendants\tile_map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="desdun_engine\src\instance\descendants\sound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="desdun_engine\include\desdun_core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1088,37 +1094,31 @@
     <ClInclude Include="desdun_engine\src\graphics\render\renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\instance\descendants\audio\sound.hpp">
+    <ClInclude Include="desdun_engine\src\instance\descendants\sound.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\instance\descendants\physics\dynamic_body.hpp">
+    <ClInclude Include="desdun_engine\src\instance\descendants\camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\instance\descendants\physics\static_body.hpp">
+    <ClInclude Include="desdun_engine\src\instance\descendants\light.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\instance\descendants\visual\camera.hpp">
+    <ClInclude Include="desdun_engine\src\instance\descendants\particle_emitter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\instance\descendants\visual\light.hpp">
+    <ClInclude Include="desdun_engine\src\instance\descendants\sprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\instance\descendants\visual\particle_emitter.hpp">
+    <ClInclude Include="desdun_engine\src\instance\descendants\tile_map.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\instance\descendants\visual\sprite.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="desdun_engine\src\instance\descendants\visual\tile_map.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="desdun_engine\src\instance\descendants\object.h">
+    <ClInclude Include="desdun_engine\src\instance\descendants\object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\src\instance\index.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\instance\instance.h">
+    <ClInclude Include="desdun_engine\src\instance\instance.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\src\app\resource\serial\json_object.h">
@@ -1145,7 +1145,7 @@
     <ClInclude Include="desdun_engine\src\app\scene\scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\include\desdun_engine.hpp">
+    <ClInclude Include="desdun_engine\desdun_engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\include\desdun_core.hpp">
@@ -1154,10 +1154,7 @@
     <ClInclude Include="desdun_engine\src\app\imgui\imgui_layer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\instance\descendants\visual\animated_sprite.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="desdun_engine\src\instance\descendants\physics\physics_body.hpp">
+    <ClInclude Include="desdun_engine\src\instance\descendants\animated_sprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\src\graphics\primitives\primitive.h">

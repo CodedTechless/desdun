@@ -1,27 +1,33 @@
 #pragma once
 
-#include <include/desdun_core.hpp>
-#include <include/glew/glew.h>
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <functional>
+
+#include <desdun_engine/include/glew/glew.h>
 
 namespace Desdun 
 {
 
 	struct LogMessage
 	{
-		std::string Time;
-		std::string Type;
-		std::string Header;
-		std::string Contents;
+		std::string time;
+		std::string type;
+		std::string header;
+		std::string contents;
 	};
 
 	class Debug
 	{
 	public:
-		static void Log(const std::string& String, const std::string& Type, const std::string& Header);
-		static void Log(const std::string& String, const std::string& Header = "");
+		static std::string getTimeAsString();
 
-		static void Warn(const std::string& String, const std::string& Header = "");
-		static void Error(const std::string& String, const std::string& Header = "");
+		static void Log(const std::string& string, const std::string& type, const std::string& header);
+		static void Log(const std::string& string, const std::string& header = "");
+
+		static void Warn(const std::string& string, const std::string& header = "");
+		static void Error(const std::string& string, const std::string& header = "");
 
 		static void OpenGLMessage(GLenum Source, GLenum Type, GLuint ID, GLenum Severity, GLsizei Length, const GLchar* Message, const void* UserParam);
 		static void GLFWMessage(int error, const char* msg);

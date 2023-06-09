@@ -1,9 +1,9 @@
 #pragma once
 
-#include <src/app/resource/resource.hpp>
-#include <src/graphics/texture/texture_array.h>
+#include <desdun_engine/src/app/resource/resource.hpp>
+#include <desdun_engine/src/graphics/texture/texture_array.h>
 
-#include <include/desdun_engine.hpp>
+#include <desdun_engine/include/desdun_core.hpp>
 
 namespace Desdun
 {

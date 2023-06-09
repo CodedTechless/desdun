@@ -1,9 +1,9 @@
 #pragma once
 
-#include <src/app/resource/resource.hpp>
-#include <src/app/resource/serial/json_stream.h>
+#include <desdun_engine/src/app/resource/resource.hpp>
+#include <desdun_engine/src/app/resource/serial/json_stream.h>
 
-#include <src/app/runtime/runtime.h>
+#include <desdun_engine/src/app/runtime/runtime.h>
 
 namespace Desdun
 {

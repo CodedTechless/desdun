@@ -1,6 +1,6 @@
 
-#include <include/imgui/imgui.h>
-#include <src/instance/instance.h>
+#include <desdun_engine/include/imgui/imgui.h>
+#include <desdun_engine/src/instance/instance.hpp>
 
 #include "scene_explorer.h"
 

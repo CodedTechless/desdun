@@ -1,6 +1,6 @@
 #pragma once
 
-#include <src/app/resource/resource.hpp>
+#include <desdun_engine/src/app/resource/resource.hpp>
 
 namespace Desdun
 {

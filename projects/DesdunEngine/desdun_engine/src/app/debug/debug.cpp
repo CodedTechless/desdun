@@ -1,11 +1,16 @@
 
+#include <ctime>
+#include <chrono>
+#include <iostream>
+
 #include "debug.h"
 
 namespace Desdun
 {
 	std::vector<LogMessage> Debug::MessageLog = {};
 
-	std::string GetTimeAsString() {
+	std::string Debug::getTimeAsString()
+	{
 		const time_t TimeNow = time(nullptr);
 		struct tm Time;
 
@@ -22,23 +27,41 @@ namespace Desdun
 		if (second.length() == 1) 
 			second = "0" + second;
 
-		std::string TimeStr = hour + ":" + minute + ":" + second;
+		//TODO fix this ugly ass shit wtf is this
 
-		return TimeStr;
+		using namespace std::chrono;
+		uint64_t milli_epoch = duration_cast<milliseconds>(
+			system_clock::now().time_since_epoch()
+		).count();
+
+		auto highres = (double_t)milli_epoch / 1000.0;
+		auto sec = std::floor(highres);
+		auto milli = std::to_string((uint64_t)((highres - sec) * 1000.0));
+
+		if (milli.length() == 1)
+		{
+			milli = "00" + milli;
+		}
+		else if (milli.length() == 2)
+		{
+			milli = "0" + milli;
+		}
+
+		return std::format("{}:{}:{}.{}", hour, minute, second, milli);
 	}
 
-	void Debug::Log(const std::string& String, const std::string& Type, const std::string& Header)
+	void Debug::Log(const std::string& string, const std::string& type, const std::string& header)
 	{
-		std::string fHeader = "";
-		if (Header != "")
-			fHeader = "[" + Header + "]";
+		std::string finalHeader = "";
+		if (header != "")
+		{
+			finalHeader = std::format(" {} >", header);
+		}
 
-		std::string TimeString = GetTimeAsString();
+		std::string timeString = Debug::getTimeAsString();
 
-		std::string Final = "[" + TimeString + "][" + Type + "]" + fHeader + " " + String;
-
-		std::cout << Final << std::endl;
-		MessageLog.push_back({ TimeString, Type, Header, String });
+		std::cout << std::format("[{}][{}]{} {}", timeString, type, finalHeader, string) << std::endl;
+		MessageLog.push_back({ timeString, type, header, string });
 	}
 
 	void Debug::Log(const std::string& String, const std::string& Header)

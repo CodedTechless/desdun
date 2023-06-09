@@ -1,27 +1,5 @@
 
-/*
-	class InputEvent
-	{
-	public:
-		Input::Type InputType = Input::Type::None;
-		Input::State InputState = Input::State::None;
-
-		Input::KeyCode KeyCode = Input::KeyCode::None;
-		Input::MouseCode MouseCode = Input::MouseCode::None;
-
-		glm::vec3 Position = {};
-		glm::vec3 Delta = {};
-	};
-
-
-	struct WindowEvent
-	{
-		glm::vec2 Size = {};
-		bool Focused = true;
-	};
-*/
-
-#include <app/app.h>
+#include <desdun_engine/src/app/app.h>
 
 #include "input.h"
 

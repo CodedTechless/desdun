@@ -1,8 +1,8 @@
 #pragma once
 
-#include <include/desdun_engine.hpp>
+#include <desdun_engine/include/desdun_core.hpp>
 
-#include <object/instance.h>
+#include <object/instance.hpp>
 
 
 namespace Desdun

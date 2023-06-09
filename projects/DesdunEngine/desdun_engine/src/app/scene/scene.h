@@ -1,24 +1,19 @@
 #pragma once
 
-#include <src/app/window/input.h>
-#include <src/app/window/window.h>
-#include <src/app/runtime/runtime.h>
+#include <desdun_engine/src/app/window/input.h>
+#include <desdun_engine/src/app/window/window.h>
+#include <desdun_engine/src/app/runtime/runtime.h>
 
-#include <include/ddlib/uuid.hpp>
-#include <include/desdun_core.hpp>
+#include <desdun_engine/include/ddlib/uuid.hpp>
+#include <desdun_engine/include/desdun_core.hpp>
 
 namespace Desdun
 {
 
 	class Instance;
 	class WorldObject;
-	class PhysicsBody;
-	class StaticBody;
-	class DynamicBody;
 	class Camera;
 	class Model;
-
-	using HashMap = Map<Vector2i, List<Instance*>>;
 
 	class Scene
 	{
@@ -26,7 +21,6 @@ namespace Desdun
 		Scene();
 		~Scene() = default;
 
-		HashMap level = {};
 		Camera* currentCamera = nullptr;
 
 		void onFrameUpdate(const float Delta);

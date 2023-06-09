@@ -1,72 +1,11 @@
 
-
-
-#include <app/debug/debug.h>
-
-#include <graphics/renderer.h>
-#include <src/app/resource/resource.hpp>
-
-#include <runtime/runtime.h>
-#include <object/index.hpp>
+#include <desdun_engine/src/app/debug/debug.h>
+#include <desdun_engine/src/app/resource/resource.hpp>
+#include <desdun_engine/src/app/runtime/runtime.h>
+#include <desdun_engine/src/graphics/render/renderer.h>
+#include <desdun_engine/src/instance/index.hpp>
 
 #include "app.h"
-
-namespace glm
-{
-    void to_json(json& jsonObject, const glm::vec2& vec)
-    {
-        jsonObject = {
-            { "x", vec.x },
-            { "y", vec.y }
-        };
-    };
-
-    void to_json(json& jsonObject, const glm::vec3& vec)
-    {
-        jsonObject = {
-            { "x", vec.x },
-            { "y", vec.y },
-            { "z", vec.z }
-        };
-    };
-
-    void to_json(json& jsonObject, const glm::vec4& vec)
-    {
-        jsonObject = {
-            { "x", vec.x },
-            { "y", vec.y },
-            { "z", vec.z },
-            { "w", vec.w }
-        };
-    };
-
-    void from_json(const json& j, glm::vec2& vec)
-    {
-        vec = glm::vec2(
-            j.at("x").get<float>(),
-            j.at("y").get<float>()
-        );
-    };
-
-    void from_json(const json& j, glm::vec3& vec)
-    {
-        vec = glm::vec3(
-            j.at("x").get<float>(),
-            j.at("y").get<float>(),
-            j.at("z").get<float>()
-        );
-    };
-
-    void from_json(const json& j, glm::vec4& vec)
-    {
-        vec = glm::vec4(
-            j.at("x").get<float>(),
-            j.at("y").get<float>(),
-            j.at("z").get<float>(),
-            j.at("w").get<float>()
-        );
-    };
-}
 
 namespace Desdun
 {
@@ -97,12 +36,6 @@ namespace Desdun
             Runtime::add<WorldObject>({ "WorldObject", Runtime::get<Instance>() });
             {
                 Runtime::add<Sound>({ "Sound", Runtime::get<WorldObject>() });
-
-                Runtime::add<PhysicsBody>({ "PhysicsBody", Runtime::get<WorldObject>() });
-                {
-                    Runtime::add<DynamicBody>({ "DynamicBody", Runtime::get<WorldObject>() });
-                    Runtime::add<StaticBody>({ "StaticBody", Runtime::get<WorldObject>() });
-                }
 
                 Runtime::add<Camera>({ "Camera", Runtime::get<WorldObject>() });
                 Runtime::add<Light>({ "Light", Runtime::get<WorldObject>() });

@@ -1,6 +1,6 @@
 
-#include <graphics/renderer.h>
-#include <src/app/resource/resource.hpp>
+#include <desdun_engine/src/graphics/render/renderer.h>
+#include <desdun_engine/src/app/resource/resource.hpp>
 
 #include "primitive.h"
 

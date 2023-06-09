@@ -1,11 +1,10 @@
 
-#include <runtime/runtime.h>
-#include <src/app/resource/resource.hpp>
-#include <resource/serial/json_stream.h>
+#include <desdun_engine/src/app/scene/scene.h>
+#include <desdun_engine/src/app/runtime/runtime.h>
+#include <desdun_engine/src/app/resource/resource.hpp>
+#include <desdun_engine/src/app/resource/serial/json_stream.h>
 
-#include "scene/scene.h"
-
-#include "instance.h"
+#include "instance.hpp"
 
 namespace Desdun
 {

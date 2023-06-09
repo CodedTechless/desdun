@@ -1,9 +1,9 @@
 #pragma once
 
-#include <include/glm/glm.hpp>
-#include <include/desdun_engine.hpp>
+#include <desdun_engine/include/glm/glm.hpp>
+#include <desdun_engine/include/desdun_core.hpp>
 
-#include <src/app/resource/resource.hpp>
+#include <desdun_engine/src/app/resource/resource.hpp>
 
 namespace Desdun 
 {

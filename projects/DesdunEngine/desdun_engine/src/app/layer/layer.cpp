@@ -1,8 +1,6 @@
 
 #include "layer.h"
 
-#include <include/desdun_engine.hpp>
-
 namespace Desdun
 {
 

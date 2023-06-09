@@ -4,26 +4,21 @@
 	one big index containing every single object type in the game
 */
 
-#include "instance.h"
+#include "instance.hpp"
 
 // >> World
 
-#include "descendants/object.h"
+#include "descendants/object.hpp"
 
 // >> Audio
 
-#include "descendants/audio/sound.hpp"
-
-// >> Physics
-
-#include "descendants/physics/static_body.hpp"
-#include "descendants/physics/dynamic_body.hpp"
+#include "descendants/sound.hpp"
 
 // >> Visual
 
-#include "descendants/visual/animated_sprite.hpp"
-#include "descendants/visual/camera.hpp"
-#include "descendants/visual/light.hpp"
-#include "descendants/visual/particle_emitter.hpp"
-#include "descendants/visual/sprite.hpp"
-#include "descendants/visual/tile_map.hpp"
+#include "descendants/animated_sprite.hpp"
+#include "descendants/camera.hpp"
+#include "descendants/light.hpp"
+#include "descendants/particle_emitter.hpp"
+#include "descendants/sprite.hpp"
+#include "descendants/tile_map.hpp"

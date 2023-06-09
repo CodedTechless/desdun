@@ -1,11 +1,11 @@
 #pragma once
 
-#include <include/glew/glew.h>
-#include <include/glfw/glfw3.h>
+#include <desdun_engine/include/glew/glew.h>
+#include <desdun_engine/include/glfw/glfw3.h>
 
-#include <src/app/window/window.h>
-#include <src/app/layer/layer_collection.h>
-#include <src/app/imgui/imgui_layer.h>
+#include <desdun_engine/src/app/window/window.h>
+#include <desdun_engine/src/app/layer/layer_collection.h>
+#include <desdun_engine/src/app/imgui/imgui_layer.h>
 
 namespace Desdun
 {

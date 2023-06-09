@@ -1,8 +1,7 @@
 #pragma once
 
-#include <include/glm/glm.hpp>
-
-#include <include/desdun_core.hpp>
+#include <desdun_engine/include/glm/glm.hpp>
+#include <desdun_engine/include/desdun_core.hpp>
 
 namespace Desdun
 {
@@ -10,15 +9,6 @@ namespace Desdun
 	class Input
 	{
 	public:
-
-		/*
-		enum class Filter
-		{
-			Ignore,
-			Continue,
-			Stop
-		};
-		*/
 
 		enum class State
 		{

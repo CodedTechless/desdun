@@ -60,7 +60,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)desdun_engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -76,7 +76,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)desdun_engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -86,12 +86,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="desdun_engine\include\desdun_core.cpp" />
     <ClCompile Include="desdun_engine\src\app\imgui\panel\scene_explorer.cpp" />
     <ClCompile Include="desdun_engine\src\graphics\primitives\primitive.cpp" />
-    <ClCompile Include="desdun_engine\src\instance\descendants\physics\physics_body.cpp" />
-    <ClCompile Include="desdun_engine\src\instance\descendants\visual\animated_sprite.cpp" />
-    <ClCompile Include="desdun_engine\src\instance\descendants\visual\camera.cpp" />
-    <ClCompile Include="desdun_engine\src\instance\descendants\visual\sprite.cpp" />
+    <ClCompile Include="desdun_engine\src\instance\descendants\animated_sprite.cpp" />
+    <ClCompile Include="desdun_engine\src\instance\descendants\camera.cpp" />
+    <ClCompile Include="desdun_engine\src\instance\descendants\sound.cpp" />
+    <ClCompile Include="desdun_engine\src\instance\descendants\sprite.cpp" />
     <ClCompile Include="desdun_engine\src\app\resource\resource.cpp" />
     <ClCompile Include="desdun_engine\src\app\app.cpp" />
     <ClCompile Include="desdun_engine\src\app\debug\debug.cpp" />
@@ -118,6 +119,7 @@
     <ClCompile Include="desdun_engine\src\graphics\render\renderer.cpp" />
     <ClCompile Include="desdun_engine\src\graphics\texture\texture.cpp" />
     <ClCompile Include="desdun_engine\src\graphics\texture\texture_array.cpp" />
+    <ClCompile Include="desdun_engine\src\instance\descendants\tile_map.cpp" />
     <ClCompile Include="desdun_engine\src\instance\instance.cpp" />
     <ClCompile Include="desdun_engine\src\instance\descendants\object.cpp" />
     <ClCompile Include="desdun_engine\src\app\resource\serial\json_object.cpp" />
@@ -142,7 +144,6 @@
     <ClInclude Include="desdun_engine\src\app\imgui\panel\scene_explorer.h" />
     <ClInclude Include="desdun_engine\src\app\runtime\base\runtime_obj.h" />
     <ClInclude Include="desdun_engine\src\graphics\primitives\primitive.h" />
-    <ClInclude Include="desdun_engine\src\instance\descendants\physics\physics_body.hpp" />
     <ClInclude Include="desdun_engine\src\app\app.h" />
     <ClInclude Include="desdun_engine\src\app\debug\debug.h" />
     <ClInclude Include="desdun_engine\src\app\imgui\imgui_layer.h" />
@@ -448,7 +449,7 @@
     <ClInclude Include="desdun_engine\include\stb\stb_truetype.h" />
     <ClInclude Include="desdun_engine\include\stb\stb_vorbis.h" />
     <ClInclude Include="desdun_engine\include\ddlib\uuid.hpp" />
-    <ClInclude Include="desdun_engine\include\desdun_engine.hpp" />
+    <ClInclude Include="desdun_engine\desdun_engine.hpp" />
     <ClInclude Include="desdun_engine\src\graphics\buffers\frame.h" />
     <ClInclude Include="desdun_engine\src\graphics\buffers\index.h" />
     <ClInclude Include="desdun_engine\src\graphics\buffers\vao.h" />
@@ -459,17 +460,15 @@
     <ClInclude Include="desdun_engine\src\graphics\texture\texture_array.h" />
     <ClInclude Include="desdun_engine\include\desdun_core.hpp" />
     <ClInclude Include="desdun_engine\src\instance\index.hpp" />
-    <ClInclude Include="desdun_engine\src\instance\instance.h" />
-    <ClInclude Include="desdun_engine\src\instance\descendants\audio\sound.hpp" />
-    <ClInclude Include="desdun_engine\src\instance\descendants\object.h" />
-    <ClInclude Include="desdun_engine\src\instance\descendants\physics\dynamic_body.hpp" />
-    <ClInclude Include="desdun_engine\src\instance\descendants\physics\static_body.hpp" />
-    <ClInclude Include="desdun_engine\src\instance\descendants\visual\animated_sprite.hpp" />
-    <ClInclude Include="desdun_engine\src\instance\descendants\visual\camera.hpp" />
-    <ClInclude Include="desdun_engine\src\instance\descendants\visual\light.hpp" />
-    <ClInclude Include="desdun_engine\src\instance\descendants\visual\particle_emitter.hpp" />
-    <ClInclude Include="desdun_engine\src\instance\descendants\visual\sprite.hpp" />
-    <ClInclude Include="desdun_engine\src\instance\descendants\visual\tile_map.hpp" />
+    <ClInclude Include="desdun_engine\src\instance\instance.hpp" />
+    <ClInclude Include="desdun_engine\src\instance\descendants\sound.hpp" />
+    <ClInclude Include="desdun_engine\src\instance\descendants\object.hpp" />
+    <ClInclude Include="desdun_engine\src\instance\descendants\animated_sprite.hpp" />
+    <ClInclude Include="desdun_engine\src\instance\descendants\camera.hpp" />
+    <ClInclude Include="desdun_engine\src\instance\descendants\light.hpp" />
+    <ClInclude Include="desdun_engine\src\instance\descendants\particle_emitter.hpp" />
+    <ClInclude Include="desdun_engine\src\instance\descendants\sprite.hpp" />
+    <ClInclude Include="desdun_engine\src\instance\descendants\tile_map.hpp" />
     <ClInclude Include="desdun_engine\src\app\resource\resource.hpp" />
     <ClInclude Include="desdun_engine\src\app\resource\serial\json_object.h" />
     <ClInclude Include="desdun_engine\src\app\resource\serial\json_stream.h" />

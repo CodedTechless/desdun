@@ -24,11 +24,11 @@
 #include <functional>
 #include <regex>
 
-#include <src/app/debug/debug.h>
+#include <desdun_engine/src/app/debug/debug.h>
 
-#include <include/json/json.hpp>
-#include <include/glm/glm.hpp>
-#include <include/glm/gtx/compatibility.hpp>
+#include <desdun_engine/include/json/json.hpp>
+#include <desdun_engine/include/glm/glm.hpp>
+#include <desdun_engine/include/glm/gtx/compatibility.hpp>
 
 #define MAX_INSTANCES 8192
 #define COLLISION_MAP_SIZE 2048
