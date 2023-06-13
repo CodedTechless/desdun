@@ -99,7 +99,7 @@ namespace Desdun
 
 	void WorldObject::bakeInterpolatedTransform()
 	{
-		// TODO - remove unnecessary interpolation calc
+		// TODO: remove unnecessary interpolation calc
 
 		if (not dirtyInterp)
 		{

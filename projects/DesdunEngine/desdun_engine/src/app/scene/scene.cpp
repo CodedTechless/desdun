@@ -28,7 +28,7 @@ namespace Desdun
 	void Scene::add(Instance* instance)
 	{
 		instance->activeScene = this;
-		instance->id = UUID::Generate();
+		instance->id = uuid::generate();
 
 		sceneInstances.push_back((Instance*)instance);
 	}

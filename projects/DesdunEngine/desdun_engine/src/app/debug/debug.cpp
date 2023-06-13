@@ -27,7 +27,7 @@ namespace Desdun
 		if (second.length() == 1) 
 			second = "0" + second;
 
-		//TODO fix this ugly ass shit wtf is this
+		//TODO: fix this ugly ass shit wtf is this
 
 		using namespace std::chrono;
 		uint64_t milli_epoch = duration_cast<milliseconds>(

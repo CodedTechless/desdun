@@ -5,7 +5,7 @@
 
 namespace Desdun
 {
-	namespace UUID
+	namespace uuid
 	{
 		static std::random_device              rd;
 		static std::mt19937                    gen(rd());
@@ -14,7 +14,8 @@ namespace Desdun
 
 		// Source:
 		// https://stackoverflow.com/questions/24365331/how-can-i-generate-uuid-in-c-without-using-boost-library
-		static std::string Generate() {
+		static std::string generate() 
+		{
 			std::stringstream ss;
 			int i;
 			ss << std::hex;

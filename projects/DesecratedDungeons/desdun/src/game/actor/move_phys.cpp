@@ -1,6 +1,8 @@
 
 #include "move_phys.hpp"
 
+// TODO: remove modifiers and turn them into objects
+
 namespace Desdun
 {
 	void MoveController::step(float delta)
