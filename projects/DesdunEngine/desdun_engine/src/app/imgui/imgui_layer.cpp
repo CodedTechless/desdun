@@ -120,11 +120,16 @@ namespace Desdun
 					ImGui::TableNextColumn();
 					ImGui::Text(std::to_string(frameData.vertexCount).c_str());
 
+					ImGui::TableNextColumn();
+					ImGui::Text("Active shader");
+					ImGui::TableNextColumn();
+					ImGui::Text(frameData.shaderPath.c_str());
+
 					auto* window = Application::get()->getPrimaryWindow();
 					auto size = window->getSize();
 
 					ImGui::TableNextColumn();
-					ImGui::Text("Render resolution");
+					ImGui::Text("Window resolution");
 					ImGui::TableNextColumn();
 					ImGui::Text(std::string(std::to_string((uint)size.x) + "x" + std::to_string((uint)size.y)).c_str());
 

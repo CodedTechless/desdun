@@ -27,11 +27,11 @@ layout(location = 0) out vec4 fragColor;
 
 in vec4 tint;
 in vec2 texCoords;
-in vec2 texData;
+flat in vec2 texData;
 
-uniform sampler2DArray textures[16];
+uniform sampler2DArray samplers[16];
 
 void main()
 {
-    fragColor = tint * texture(textures[int(texData.y)], vec3(texCoords, floor(texData.x)));
+    fragColor = tint * texture(samplers[int(texData.y)], vec3(texCoords, floor(texData.x)));
 };

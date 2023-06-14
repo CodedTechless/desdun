@@ -52,6 +52,7 @@ namespace Desdun
 		{
 			uint vertexCount;
 			uint drawCalls;
+			String shaderPath;
 		};
 
 		struct Vertex
@@ -92,12 +93,15 @@ namespace Desdun
 		FrameData getFrameData() const
 		{
 			return {
+				statVertices,
 				statDrawCalls,
-				statVertices
+				activeShader ? activeShader->getPath() : "none"
 			};
 		};
 
 	private:
+
+		bool active = false;
 		
 		Shader* defaultShader = nullptr;
 		Shader* activeShader = nullptr;

@@ -117,9 +117,8 @@ namespace Desdun
 		if (activeShader != command.shader)
 		{
 			endBatch();
-
-			setShader(command.shader);
 			beginBatch();
+			setShader(command.shader);
 		}
 
 		Image::Allocation texture = command.image->getAllocation();
@@ -137,12 +136,14 @@ namespace Desdun
 			}
 		}
 
-		if (!hasSlot)
+		if (hasSlot == false)
 		{
 			if (textureNextSlot >= ALLOCATED_TEXTURE_SLOTS)
 			{
 				endBatch();
 				beginBatch();
+
+				textureNextSlot = 0;
 			}
 
 			textures[textureNextSlot] = texture.Texture;
@@ -150,6 +151,8 @@ namespace Desdun
 
 			textureNextSlot++;
 		}
+
+		
 
 		Vector2f bounds[] = {
 			command.bounds.TL, Vector2f(command.bounds.BR.x, command.bounds.TL.y),
@@ -221,18 +224,32 @@ namespace Desdun
 		if (shader != activeShader)
 			activeShader = shader;
 		
-		activeShader->setUniform("textures", samplers, ALLOCATED_TEXTURE_SLOTS);
+		activeShader->setUniform("samplers", samplers, ALLOCATED_TEXTURE_SLOTS);
 		activeShader->setUniform("projection", projection);
 	}
 
 	void Renderer::beginBatch()
 	{
+		if (active == true)
+		{
+			throw Exception("Rendering Error: Batch already active");
+		}
+
+		active = true;
+		
 		vertexBufferIndex = 0;
 		verticesHead = vertices;
 	}
 
 	void Renderer::endBatch()
 	{
+		if (active == false)
+		{
+			throw Exception("Rendering Error: Batch not active");
+		}
+
+		active = false;
+
 		if (vertexBufferIndex == 0)
 			return;
 
@@ -249,6 +266,8 @@ namespace Desdun
 
 		glDrawElements(GL_TRIANGLES, vertexBufferIndex, GL_UNSIGNED_INT, nullptr);
 		statDrawCalls++;
+
+		
 	}
 
 	void Renderer::setViewportSize(Vector2i size)
