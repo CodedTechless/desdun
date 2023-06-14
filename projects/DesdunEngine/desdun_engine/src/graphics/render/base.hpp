@@ -1,0 +1,12 @@
+
+
+
+namespace Desdun
+{
+
+	class BaseRenderer
+	{
+
+	};
+
+}

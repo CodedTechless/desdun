@@ -9,211 +9,182 @@
 
 namespace Desdun
 {
-	Renderer::RenderCore Renderer::m_RenderCore = {};
 
-	TextureMap Renderer::Textures = {};
-	TextureIndex Renderer::TextureIndex = {};
-
-	void Renderer::start()
+	Renderer::Renderer(Shader* shaderDefault)
+		: defaultShader(shaderDefault)
 	{
-		Debug::Log("Initialising renderer...", "Renderer");
-
-		// Debug Output
-
-		glEnable(GL_DEBUG_OUTPUT);
-		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-		
-		glDebugMessageCallback(Debug::OpenGLMessage, nullptr);
-		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
-
-		// Modes
-
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		char* Version = (char*)glGetString(GL_VERSION);
-		Debug::Log("Using OpenGL " + std::string(Version), "Renderer");
-
-		const Color4& c = m_RenderCore.TargetClearColour;
+		const Color4& c = targetColour;
 		glClearColor(c.r, c.g, c.b, c.a);
 
 		// Batch Renderer Setup
 
-		m_RenderCore.BatchArray = CreateRef<VertexArray>();
-		m_RenderCore.Quads = new Vertex[Renderer::RenderCore::MaxVertices];
+		batchArray = CreateRef<VertexArray>();
+		vertices = new Vertex[maxVertices];
+		verticesHead = vertices;
 
-		uint QuadOffset = 0;
-		uint* IndexBufferTemplate = new uint[Renderer::RenderCore::MaxIndices];
+		uint indexOffset = 0;
+		uint* indexBuffer = new uint[maxIndices];
 		
-		for (uint i = 0; i < Renderer::RenderCore::MaxIndices; i += 6) 
+		for (uint i = 0; i < maxIndices; i += 6) 
 		{
-			IndexBufferTemplate[i + 0] = 0 + QuadOffset;
-			IndexBufferTemplate[i + 1] = 1 + QuadOffset;
-			IndexBufferTemplate[i + 2] = 2 + QuadOffset;
+			indexBuffer[i + 0] = 0 + indexOffset;
+			indexBuffer[i + 1] = 1 + indexOffset;
+			indexBuffer[i + 2] = 2 + indexOffset;
 
-			IndexBufferTemplate[i + 3] = 0 + QuadOffset;
-			IndexBufferTemplate[i + 4] = 2 + QuadOffset;
-			IndexBufferTemplate[i + 5] = 3 + QuadOffset;
+			indexBuffer[i + 3] = 0 + indexOffset;
+			indexBuffer[i + 4] = 2 + indexOffset;
+			indexBuffer[i + 5] = 3 + indexOffset;
 
-			QuadOffset += 4;
+			indexOffset += 4;
 		}
 
-		m_RenderCore.IndexBatch = CreateRef<IndexBuffer>(IndexBufferTemplate, Renderer::RenderCore::MaxIndices);
-		delete[] IndexBufferTemplate;
+		indexBatch = CreateRef<IndexBuffer>(indexBuffer, maxIndices);
+		delete[] indexBuffer;
 
 		// Create the vertex buffer and set its layout.
-		m_RenderCore.VertexBatch = CreateRef<VertexBuffer>(Renderer::RenderCore::MaxVertices * sizeof(Vertex));
-		m_RenderCore.VertexBatch->SetBufferLayout({ // Create a layout for data that is held in the vertex buffer for drawing.
+		vertexBatch = CreateRef<VertexBuffer>(maxVertices * sizeof(Vertex));
+		vertexBatch->SetBufferLayout({ // Create a layout for data that is held in the vertex buffer for drawing.
 			{ LayoutType::Float, 3 }, // Position
 			{ LayoutType::Float, 4 }, // Colour
-			{ LayoutType::Float, 2 }, // Texture coordinates
-			{ LayoutType::Float, 1 }, // Texture Layer
-			{ LayoutType::Float, 1 }  // Texture index
+			{ LayoutType::Float, 4 }, // Texture data
 		});
 
 		// Add the vertex and index buffer to the vertex array.
-		m_RenderCore.BatchArray->PushVertexBuffer(m_RenderCore.VertexBatch);
-		m_RenderCore.BatchArray->SetIndexBuffer(m_RenderCore.IndexBatch);
+		batchArray->PushVertexBuffer(vertexBatch);
+		batchArray->SetIndexBuffer(indexBatch);
 
-		// Initialise the texture shader and import the basic shader.
-		m_RenderCore.DefaultShader = Resource::fetch<Shader>("assets/shaders/basic.shader");
-
-		m_RenderCore.TextureSamplers = new int[ALLOCATED_TEXTURE_SLOTS];
+		samplers = new int[ALLOCATED_TEXTURE_SLOTS];
 		for (int i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
 		{
-			m_RenderCore.TextureSamplers[i] = i;
+			samplers[i] = i;
 		}
 
-		SetShader(m_RenderCore.DefaultShader);
+		setShader(defaultShader);
 	}
 
-	void Renderer::stop()
-	{
-		glfwTerminate();
-	}
-
-	void Renderer::Clear()
+	void Renderer::clear()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void Renderer::Submit(const RenderCommand& Command)
+	void Renderer::enqueue(const Command& rawCommand)
 	{
-		RenderCommand CommandCopy { Command };
+		Command command { rawCommand };
 
-		if (CommandCopy.ImageResource->textureAlloc == nullptr)
+		if (command.image->textureAlloc == nullptr)
 		{
-			auto it = std::find_if(TextureIndex.begin(), TextureIndex.end(), 
+			auto it = std::find_if(textureIndex.begin(), textureIndex.end(), 
 				[&](Ref<TextureArray> array) 
 				{ 
-					return array->GetBaseSize() == CommandCopy.ImageResource->getSize(); 
+					return array->GetBaseSize() == command.image->getSize(); 
 				}
 			);
 
-			if (it == TextureIndex.end())
+			if (it == textureIndex.end())
 			{
-				auto NewTexture = CreateRef<TextureArray>(CommandCopy.ImageResource->size, m_RenderCore.maxTextureArrayDepth);
-				CommandCopy.ImageResource->allocate(NewTexture);
+				auto texture = CreateRef<TextureArray>(command.image->size, maxTextureArrayDepth);
+				command.image->allocate(texture);
 
-				Debug::Log("Allocted a new texture array of size " + std::to_string(CommandCopy.ImageResource->size.x) + "*" + std::to_string(CommandCopy.ImageResource->size.y) + "*" + std::to_string(NewTexture->getDepth()));
+				Debug::Log("Allocted a new texture array of size " + std::to_string(command.image->size.x) + "*" + std::to_string(command.image->size.y) + "*" + std::to_string(texture->getDepth()));
 
-				TextureIndex.push_back(NewTexture);
+				textureIndex.push_back(texture);
 			}
 			else
 			{
-				CommandCopy.ImageResource->allocate(*it);
+				command.image->allocate(*it);
 			}
 		}
 
-		if (CommandCopy.ObjectShader == nullptr)
+		if (command.shader == nullptr)
 		{
-			CommandCopy.ObjectShader = m_RenderCore.DefaultShader;
+			command.shader = defaultShader;
 		}
 
-		m_RenderCore.RenderQueue[m_RenderCore.CommandIndex] = std::move(CommandCopy);
-		m_RenderCore.CommandIndex++;
+		queue[queueIndex] = std::move(command);
+		queueIndex++;
 	}
 
-	void Renderer::Execute(RenderCommand& Command)
+	void Renderer::execute(Command& command)
 	{
-		if (m_RenderCore.VertexBufferIndex >= Renderer::RenderCore::MaxIndices)
+		if (vertexBufferIndex >= maxIndices)
 		{
 			// if we're exceeding the vertex quota, then reset and begin a new batch.
-			FinishBatch();
-			BeginBatch();
+			endBatch();
+			beginBatch();
 		}
 
 		// reset the batch if the shader needs changing
-		if (m_RenderCore.RenderShader != Command.ObjectShader)
+		if (activeShader != command.shader)
 		{
-			FinishBatch();
-			BeginBatch(Command.ObjectShader);
+			endBatch();
+
+			setShader(command.shader);
+			beginBatch();
 		}
 
-		Image::Allocation texture = Command.ImageResource->getAllocation();
+		Image::Allocation texture = command.image->getAllocation();
 
-		uint32_t TextureSlotIndex = 0;
-		bool HasSlot = false;
+		uint32_t slotIndex = 0;
+		bool hasSlot = false;
 		for (uint32_t i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
 		{
-			if (m_RenderCore.Textures[i] == texture.Texture)
+			if (textures[i] == texture.Texture)
 			{
-				HasSlot = true;
-				TextureSlotIndex = i;
+				hasSlot = true;
+				slotIndex = i;
 
 				break;
 			}
 		}
 
-		if (!HasSlot)
+		if (!hasSlot)
 		{
-			if (m_RenderCore.NextTextureSlot > ALLOCATED_TEXTURE_SLOTS)
+			if (textureNextSlot >= ALLOCATED_TEXTURE_SLOTS)
 			{
-				FinishBatch();
-				BeginBatch();
+				endBatch();
+				beginBatch();
 			}
 
-			m_RenderCore.Textures[m_RenderCore.NextTextureSlot] = texture.Texture;
-			TextureSlotIndex = m_RenderCore.NextTextureSlot;
+			textures[textureNextSlot] = texture.Texture;
+			slotIndex = textureNextSlot;
 
-			m_RenderCore.NextTextureSlot++;
+			textureNextSlot++;
 		}
 
 		Vector2f bounds[] = {
-			Command.Bounds.TL, Vector2f(Command.Bounds.BR.x, Command.Bounds.TL.y),
-			Command.Bounds.BR, Vector2f(Command.Bounds.TL.x, Command.Bounds.BR.y)
+			command.bounds.TL, Vector2f(command.bounds.BR.x, command.bounds.TL.y),
+			command.bounds.BR, Vector2f(command.bounds.TL.x, command.bounds.BR.y)
 		};
 
 		for (size_t i = 0; i < 4; i++)
 		{
-			m_RenderCore.QuadsHeader->Position = Command.Transform * m_RenderCore.VertexNormal[i];
-			m_RenderCore.QuadsHeader->Tint = Command.Tint;
-			m_RenderCore.QuadsHeader->TextureCoords = bounds[i];
-			m_RenderCore.QuadsHeader->Layer = texture.Layer;
-			m_RenderCore.QuadsHeader->TextureIndex = TextureSlotIndex;
+			verticesHead->position = command.transform * baseVertex[i];
+			verticesHead->tint = command.tint;
+			verticesHead->textureCoords = Vector4f(bounds[i], texture.Layer, slotIndex);
 
-			m_RenderCore.QuadsHeader++;
-			m_RenderCore.FrameVertices++;
+			verticesHead++;
+			statVertices++;
 		}
 
-		m_RenderCore.VertexBufferIndex += 6;
+		vertexBufferIndex += 6;
 	}
 
-	void Renderer::BeginScene(Mat4f transform)
+	void Renderer::begin(Mat4f transform)
 	{
-		m_RenderCore.ProjectionTransform = transform;
-		m_RenderCore.CommandIndex = 0;
+		projection = transform;
+		queueIndex = 0;
 
-		m_RenderCore.FrameVertices = 0;
-		m_RenderCore.FrameDrawCalls = 0;
+		statVertices = 0;
+		statDrawCalls = 0;
 		
-		BeginBatch(m_RenderCore.DefaultShader);
+		setShader(defaultShader);
+		beginBatch();
 	}
 
-	void Renderer::EndScene()
+	void Renderer::end()
 	{
-		std::sort(m_RenderCore.RenderQueue.begin(), m_RenderCore.RenderQueue.begin() + m_RenderCore.CommandIndex,
-			[&](const RenderCommand& A, const RenderCommand& B)
+		std::sort(queue.begin(), queue.begin() + queueIndex,
+			[&](const Command& A, const Command& B)
 			{
 				/*
 					first, check if the z-indexes are different. sort by them if they are, as they must be on the
@@ -227,60 +198,57 @@ namespace Desdun
 				*/
 
 				return A.zIndex < B.zIndex ||
-					(A.zIndex == B.zIndex && A.ObjectShader->getRenderID() < B.ObjectShader->getRenderID()) ||
-					((A.zIndex == B.zIndex && A.ObjectShader->getRenderID() == B.ObjectShader->getRenderID()) && 
-					(A.ImageResource->getAllocation().Texture->GetRenderID() < B.ImageResource->getAllocation().Texture->GetRenderID()));
+					(A.zIndex == B.zIndex && A.shader->getRenderID() < B.shader->getRenderID()) ||
+					((A.zIndex == B.zIndex && A.shader->getRenderID() == B.shader->getRenderID()) &&
+					(A.image->getAllocation().Texture->GetRenderID() < B.image->getAllocation().Texture->GetRenderID()));
 			}
 		);
 
-		for (auto i = m_RenderCore.RenderQueue.begin(); i < m_RenderCore.RenderQueue.begin() + m_RenderCore.CommandIndex; ++i)
+		for (auto i = queue.begin(); i < queue.begin() + queueIndex; ++i)
 		{
 			// execute all queued render commands
-			Execute(*i);
+			execute(*i);
 		}
 
 
 		//Debug::Log(std::to_string(m_RenderCore.CommandIndex) + " " + std::to_string(m_RenderCore.VertexBufferIndex));
 
-		FinishBatch();
+		endBatch();
 	}
 
-	void Renderer::SetShader(Shader* shader)
+	void Renderer::setShader(Shader* shader)
 	{
-		if (shader != m_RenderCore.RenderShader)
-			m_RenderCore.RenderShader = shader;
+		if (shader != activeShader)
+			activeShader = shader;
 		
-		m_RenderCore.RenderShader->setUniform("Textures", m_RenderCore.TextureSamplers, ALLOCATED_TEXTURE_SLOTS);
-		m_RenderCore.RenderShader->setUniform("Projection", m_RenderCore.ProjectionTransform);
+		activeShader->setUniform("textures", samplers, ALLOCATED_TEXTURE_SLOTS);
+		activeShader->setUniform("projection", projection);
 	}
 
-	void Renderer::BeginBatch(Shader* shader)
+	void Renderer::beginBatch()
 	{
-		if (shader)
-			SetShader(shader);
-
-		m_RenderCore.VertexBufferIndex = 0;
-		m_RenderCore.QuadsHeader = m_RenderCore.Quads;
+		vertexBufferIndex = 0;
+		verticesHead = vertices;
 	}
 
-	void Renderer::FinishBatch()
+	void Renderer::endBatch()
 	{
-		if (m_RenderCore.VertexBufferIndex == 0)
+		if (vertexBufferIndex == 0)
 			return;
 
-		auto Size = (uint32_t)((uint8_t*)m_RenderCore.QuadsHeader - (uint8_t*)m_RenderCore.Quads);
-		m_RenderCore.VertexBatch->Set(m_RenderCore.Quads, Size);
+		auto size = (uint32_t)((uint8_t*)verticesHead - (uint8_t*)vertices);
+		vertexBatch->Set(vertices, size);
 
-		for (uint i = 0; i < m_RenderCore.NextTextureSlot; i++)
+		for (uint i = 0; i < textureNextSlot; i++)
 		{
-			m_RenderCore.Textures[i]->Bind(i);
+			textures[i]->Bind(i);
 		}
 
-		m_RenderCore.BatchArray->Bind();
-		m_RenderCore.RenderShader->bind();
+		batchArray->Bind();
+		activeShader->bind();
 
-		glDrawElements(GL_TRIANGLES, m_RenderCore.VertexBufferIndex, GL_UNSIGNED_INT, nullptr);
-		m_RenderCore.FrameDrawCalls++;
+		glDrawElements(GL_TRIANGLES, vertexBufferIndex, GL_UNSIGNED_INT, nullptr);
+		statDrawCalls++;
 	}
 
 	void Renderer::setViewportSize(Vector2i size)

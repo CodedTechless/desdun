@@ -104,7 +104,10 @@ namespace Desdun
 			}
 		}
 
-		Renderer::BeginScene(currentCamera->getProjectionTransform());
+		auto* app = Application::get();
+		auto* renderer = app->getRenderer();
+
+		renderer->begin(currentCamera->getProjectionTransform());
 
 		for (Instance* instance : sceneInstances)
 		{
@@ -118,7 +121,7 @@ namespace Desdun
 			}
 		}
 
-		Renderer::EndScene();
+		renderer->end();
 	}
 
 	void Scene::onInputEvent(Input::Event& event)

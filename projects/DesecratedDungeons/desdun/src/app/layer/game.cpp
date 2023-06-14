@@ -1,7 +1,7 @@
 
 #include <desdun/src/instance/index.hpp>
 
-#include "game.h"
+#include "game.hpp"
 
 namespace Desdun
 {

@@ -263,6 +263,7 @@
     <ClCompile Include="desdun_engine\src\graphics\buffers\vao.cpp" />
     <ClCompile Include="desdun_engine\src\graphics\buffers\vertex.cpp" />
     <ClCompile Include="desdun_engine\src\graphics\primitives\primitive.cpp" />
+    <ClCompile Include="desdun_engine\src\graphics\render\base.cpp" />
     <ClCompile Include="desdun_engine\src\graphics\render\renderer.cpp" />
     <ClCompile Include="desdun_engine\src\graphics\texture\texture.cpp" />
     <ClCompile Include="desdun_engine\src\graphics\texture\texture_array.cpp" />
@@ -608,6 +609,7 @@
     <ClInclude Include="desdun_engine\src\graphics\buffers\vao.h" />
     <ClInclude Include="desdun_engine\src\graphics\buffers\vertex.h" />
     <ClInclude Include="desdun_engine\src\graphics\primitives\primitive.h" />
+    <ClInclude Include="desdun_engine\src\graphics\render\base.hpp" />
     <ClInclude Include="desdun_engine\src\graphics\render\renderer.h" />
     <ClInclude Include="desdun_engine\src\graphics\render\render_camera.h" />
     <ClInclude Include="desdun_engine\src\graphics\texture\texture.h" />

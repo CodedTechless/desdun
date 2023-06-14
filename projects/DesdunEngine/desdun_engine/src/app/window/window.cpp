@@ -43,7 +43,7 @@ namespace Desdun
         glfwSetWindowCloseCallback(windowObject,
             [](GLFWwindow* window)
             {
-                Application::get()->end();
+                Application::get()->stop();
             });
 
         glfwSetWindowContentScaleCallback(windowObject,
@@ -224,11 +224,6 @@ namespace Desdun
             Debug::Log("Vertical sync: Disabled", "Window");
             glfwSwapInterval(0);
         }
-    }
-
-    void Window::clear()
-    {
-        Renderer::Clear();
     }
 
     void Window::update()

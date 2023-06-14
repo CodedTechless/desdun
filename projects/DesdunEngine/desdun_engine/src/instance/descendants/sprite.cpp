@@ -13,7 +13,15 @@ namespace Desdun
 			transform *= getRenderTransform();
 			transform *= glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->getSize()), 1.f));
 
-			Renderer::Submit({ transform, tint, { bounds.TL * tiles, bounds.BR * tiles }, image, shader, zIndex });
+			auto* app = Application::get();
+			app->getRenderer()->enqueue({
+				transform, tint, 
+				{
+					bounds.TL * tiles, 
+					bounds.BR * tiles
+				}, 
+				image, shader, zIndex
+			});
 		}
 	}
 

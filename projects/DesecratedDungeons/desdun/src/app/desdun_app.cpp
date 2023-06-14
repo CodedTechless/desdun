@@ -5,21 +5,17 @@
 #include <desdun/src/game/item/container.hpp>
 #include <desdun/src/game/item/item_slot.hpp>
 
-#include <desdun/src/app/layer/game.h>
+#include <desdun/src/app/layer/game.hpp>
 #include <desdun/src/app/desdun_app.hpp>
 
 namespace Desdun
 {
 
-	void DesecratedDungeons::start()
+	DesecratedDungeons::DesecratedDungeons()
 	{
-		Application::start();
-
-		Debug::Log("Initialising the game...", "Game");
+		Debug::Log("initialising game objects...", "Desdun");
 
 		{
-			Debug::Log("Registering classes to runtime...", "Game");
-
 			Runtime::add<GameCamera>({ "GameCamera", Runtime::get<Camera>() });
 			Runtime::add<Actor>({ "Actor", Runtime::get<WorldObject>() });
 			{
@@ -29,11 +25,16 @@ namespace Desdun
 			Runtime::add<Container>({ "Container" });
 			Runtime::add<ItemSlot>({ "ItemSlot" });
 		}
+	}
+
+	void DesecratedDungeons::init()
+	{
+		Application::init();
 
 		Layer* newLayer = new Game();
 		gameLayers.PushLayer(newLayer);
 
-		run();
+		start();
 	};
 
 }

@@ -8,27 +8,26 @@ namespace Desdun
 	class ImGuiLayer : public Layer
 	{
 	public:
+		ImGuiLayer(const String& configName = "imgui.ini");
+		
 		bool absorbInputs = true;
-
-		ImGuiLayer(const std::string& iniFileName = "imgui.ini")
-			: Layer("ImGuiLayer"), iniFileName(iniFileName) {};
-
-		void onAwake() override;
-		void onDestroyed() override;
-
-		void onFrameUpdate(float delta) override;
 
 		void begin();
 		void end();
+		
+		void onAwake() override;
+		void onDestroyed() override;
+		void onFrameUpdate(float delta) override;
+		void onInputEvent(Input::Event& inputEvent) override;
 
 	private:
 
-		float lastFrameCount = 0.f;
+		float time = 0.f;
 		float frames = 0.f;
 
-		float time = 0.f;
+		float lastFrameCount = 0.f;
 
-		std::string iniFileName = "imgui.ini";
+		String configPath = "imgui.ini";
 	};
 
 

@@ -17,18 +17,7 @@ namespace Desdun
 	Application::Application()
 	{
         currentApp = this;
-	}
 
-	Application::~Application()
-	{
-        delete gameWindow;
-
-        gameLayers.clear();
-        Renderer::stop();
-	}
-
-    void Application::start()
-    {
         Debug::Log("Registering engine classes...", "Runtime");
 
         Runtime::add<Instance>({ "Instance" });
@@ -49,22 +38,62 @@ namespace Desdun
                 Runtime::add<TileMap>({ "TileMap", Runtime::get<WorldObject>() });
             }
         }
-    }
+	}
 
-	void Application::run()
+	Application::~Application()
 	{
-		if (running)
-		{
-            return;
-		}
+        delete gameWindow;
+
+        stop();
+        gameLayers.clear();
+
+        delete renderer;
+
+        glfwTerminate();
+	}
+
+	void Application::init()
+	{
+        Debug::Log("initialising...", "Application");
 
         gameWindow = new Window("Desecrated Dungeons", { 1280, 720 });
-        Renderer::start();
 
-        imguiLayer = new ImGuiLayer("config/imgui.ini");
+        // Start renderer
+
+
+        glEnable(GL_DEBUG_OUTPUT);
+        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+
+        glDebugMessageCallback(Debug::OpenGLMessage, nullptr);
+        glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        char* Version = (char*)glGetString(GL_VERSION);
+        Debug::Log("using OpenGL " + std::string(Version), "Application");
+
+        auto* textureShader = Resource::fetch<Shader>("shaders:tex.shader");
+        renderer = new Renderer(textureShader);
+
+        imguiLayer = new ImGuiLayer("config:imgui.ini");
         gameLayers.PushOverlay(imguiLayer);
+	}
+
+	void Application::stop()
+	{
+		running = false;
+	}
+
+    void Application::start()
+    {
+        if (running)
+        {
+            throw Exception("Game loop already active.");
+        }
 
 		running = true;
+
         float Time = 0.f;
         float CurrentTime = (float)glfwGetTime();
         float Accumulator = 0.f;
@@ -90,8 +119,8 @@ namespace Desdun
             }
 
             stepInterpFrac = Accumulator / gameSpeed;
-            
-            gameWindow->clear();
+
+            renderer->clear();
             imguiLayer->begin();
 
             for (auto* Layer : gameLayers)
@@ -101,13 +130,8 @@ namespace Desdun
 
             imguiLayer->end();
             gameWindow->update();
-		}
-	}
-
-	void Application::end()
-	{
-		running = false;
-	}
+        }
+    }
 
     void Application::pushInputEvent(Input::Event& event)
     {
@@ -127,6 +151,26 @@ namespace Desdun
             Layer->onWindowEvent(windowEvent);
         }
     }
+
+    Window* Application::getPrimaryWindow() const 
+    {
+        return gameWindow;
+    };
+    
+    float Application::getInterpFraction() const 
+    { 
+        return stepInterpFrac;
+    };
+
+    Renderer* Application::getRenderer() const 
+    { 
+        return renderer;
+    };
+    
+    Application* Application::get()
+    {
+        return currentApp; 
+    };
 }
 
 

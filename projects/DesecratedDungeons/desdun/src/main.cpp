@@ -18,7 +18,7 @@ int main()
 	try
 	{
 		game = new DesecratedDungeons();
-		game->start();
+		game->init();
 	}
 	catch (std::runtime_error err)
 	{

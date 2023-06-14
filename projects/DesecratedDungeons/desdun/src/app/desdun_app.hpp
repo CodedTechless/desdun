@@ -8,9 +8,9 @@ namespace Desdun
 	class DesecratedDungeons : public Application
 	{
 	public:
+		DesecratedDungeons();
 
-		void start() override;
-
+		void init() override;
 	};
 }
 

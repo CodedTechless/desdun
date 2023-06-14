@@ -36,6 +36,7 @@ namespace Desdun
 		{
 			T* instance = new T();
 			instance->activeScene = this;
+			instance->name = Runtime::get<T>()->getName();
 			instance->id = uuid::generate();
 
 			sceneInstances.push_back((Instance*)instance);

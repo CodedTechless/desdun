@@ -7,41 +7,49 @@
 #include <desdun_engine/src/app/layer/layer_collection.h>
 #include <desdun_engine/src/app/imgui/imgui_layer.h>
 
+#include <desdun_engine/src/graphics/render/renderer.h>
+
 namespace Desdun
 {
 
 	class Application
 	{
 	public:
+
 		Application();
 		~Application();
-
-		virtual void start();
-		void run();
-		void end();
-
-		Window* getPrimaryWindow() const { return gameWindow; };
-		float getInterpFraction() const { return stepInterpFrac; };
-
+		
 		LayerCollection gameLayers = {};
-		ImGuiLayer* imguiLayer = nullptr;
 
-		float gameSpeed = (1.f / 30.f);
-		float timeScale = 1.f;
+		virtual void init();
+		void stop();
 
-		static Application* get() { return currentApp; };
+		Window* getPrimaryWindow() const;
+		float getInterpFraction() const;
+
+		Renderer* getRenderer() const;
+		static Application* get();
 
 	protected:
+
+		void start();
+
 		void pushInputEvent(Input::Event& event);
 		void pushWindowEvent(const Window::Event& event);
 
 	private:
-		static Application* currentApp;
 
-		Window* gameWindow = nullptr;
 		bool running = false;
 
+		float gameSpeed = (1.f / 30.f);
+		float timeScale = 1.f;
 		float stepInterpFrac = 0.f;
+
+		Window* gameWindow = nullptr;
+		Renderer* renderer = nullptr;
+		ImGuiLayer* imguiLayer = nullptr;
+
+		static Application* currentApp;
 
 		friend class Window;
 	};

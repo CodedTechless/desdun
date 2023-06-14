@@ -53,7 +53,7 @@
     <ClInclude Include="desdun\src\app\desdun_app.hpp">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="desdun\src\app\layer\game.h">
+    <ClInclude Include="desdun\src\app\layer\game.hpp">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="desdun\src\instance\actor\player.hpp">
@@ -80,5 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+    <None Include="assets\shaders\line.shader" />
   </ItemGroup>
 </Project>

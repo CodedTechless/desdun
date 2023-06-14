@@ -265,7 +265,6 @@ namespace Desdun
 
 				return false;
 			}
-
 		};
 
 		static void registerAction(const Input::Action& action)
@@ -276,9 +275,9 @@ namespace Desdun
 		static bool keyDown(const Input::KeyCode Key);
 		static bool mouseButtonDown(const Input::MouseCode Button);
 
-		static glm::vec2 getMousePosition();
+		static Vector2 getMousePosition();
 
-		static std::unordered_map<std::string, Action> registeredActions;
+		static Map<String, Action> registeredActions;
 	};
 	
 }

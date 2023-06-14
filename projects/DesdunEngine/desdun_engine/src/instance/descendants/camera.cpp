@@ -20,12 +20,13 @@ namespace Desdun
 
 	void Camera::onFrameUpdate(float delta)
 	{
-		Window* window = Application::get()->getPrimaryWindow();
+		auto* app = Application::get();
+		Window* window = app->getPrimaryWindow();
 		Vector2 windowSize = window->getSize();
 
 		if (getScene()->currentCamera == this)
 		{
-			Renderer::setViewportSize(windowSize);
+			app->getRenderer()->setViewportSize(windowSize);
 		}
 
 		if (adjustToAspectRatio)

@@ -13,6 +13,12 @@
 namespace Desdun
 {
 
+	ImGuiLayer::ImGuiLayer(const String& configName)
+		: Layer("ImGuiLayer")
+	{
+		configPath = Resource::transformPath(configName);
+	}
+
 	void ImGuiLayer::onAwake()
 	{
 		// Set up ImGui for debug UI and shit like that
@@ -23,7 +29,7 @@ namespace Desdun
 		io.IniFilename = NULL;
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_DpiEnableScaleFonts;
 
-		ImGui::LoadIniSettingsFromDisk(iniFileName.c_str());
+		ImGui::LoadIniSettingsFromDisk(configPath.c_str());
 
 		ImGui::StyleColorsDark();										// sets the window colour style to dark mode
 
@@ -33,8 +39,7 @@ namespace Desdun
 
 	void ImGuiLayer::onDestroyed()
 	{
-		//		Debug::Log("Cleaned up ImGuiLayer");
-		ImGui::SaveIniSettingsToDisk(iniFileName.c_str());
+		ImGui::SaveIniSettingsToDisk(configPath.c_str());
 
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
@@ -61,7 +66,7 @@ namespace Desdun
 			{
 				if (ImGui::BeginTable("performanceTable", 2))
 				{
-					ImGui::TableSetupColumn("Name");
+					ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_WidthFixed);
 					ImGui::TableSetupColumn("Stat", ImGuiTableColumnFlags_WidthFixed);
 					ImGui::TableHeadersRow();
 
@@ -102,7 +107,8 @@ namespace Desdun
 					ImGui::TableSetupColumn("Stat", ImGuiTableColumnFlags_WidthFixed);
 					ImGui::TableHeadersRow();
 
-					auto frameData = Renderer::getFrameData();
+					auto* app = Application::get();
+					auto frameData = app->getRenderer()->getFrameData();
 
 					ImGui::TableNextColumn();
 					ImGui::Text("Draw calls");
@@ -143,6 +149,28 @@ namespace Desdun
 			};
 
 			ImGui::End();
+		}
+	}
+
+	void ImGuiLayer::onInputEvent(Input::Event& inputEvent)
+	{
+		if (!absorbInputs)
+		{
+			return;
+		}
+
+		auto& io = ImGui::GetIO();
+
+		if ((inputEvent.action.type == Input::Type::Mouse ||
+			inputEvent.action.type == Input::Type::MouseScrolling) &&
+			io.WantCaptureMouse == true)
+		{
+			inputEvent.absorbed = true;
+		}
+		else if (inputEvent.action.type == Input::Type::Keyboard &&
+			io.WantCaptureKeyboard == true)
+		{
+			inputEvent.absorbed = true;
 		}
 	}
 

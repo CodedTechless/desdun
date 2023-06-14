@@ -18,10 +18,6 @@
 namespace Desdun
 {
 
-	using TextureMap = Map<String, Ref<TextureArray>>;
-	// to-do: make it so we can use more than 256 of the same sized texture!!!
-	using TextureIndex = List<Ref<TextureArray>>;
-
 	struct ImageBounds
 	{
 		Vector2f TL;
@@ -44,134 +40,123 @@ namespace Desdun
 		}
 	};
 
-	struct Vertex
-	{
-		Vector3f Position;
-		Vector4f Tint;
-		Vector2f TextureCoords;
-		float Layer;			// "but matthew!! you could just put this float with TextureCoords" yes ik but i like this more so shut up >:(
-		float TextureIndex;
-	};
-
-	struct RenderCommand
-	{
-		Mat4f Transform{ 1.f };
-		Color4f Tint{ 0.f };
-
-		ImageBounds Bounds = {};
-
-		Image* ImageResource = nullptr;
-		Shader* ObjectShader = nullptr;
-
-		float zIndex = 0;
-	};
-
-	struct FrameData
-	{
-		uint vertexCount;
-		uint drawCalls;
-	};
-
 	// we use an array for arena allocation bcos it's better than using a vector here
-	typedef Array<RenderCommand, RENDER_QUEUE_SIZE> RenderCommandQueue;
 
 	class Renderer
 	{
 	public:
+		Renderer(Shader* shaderDefault);
+		~Renderer() = default;
 
-		static void start();
-		static void stop();
-
-		static void BeginScene(Mat4f transform);
-		static void EndScene();
-
-		static void setViewportSize(Vector2i size);
-
-		static void Clear();
-		static void Submit(const RenderCommand& command);
-
-		struct RenderCore
+		struct FrameData
 		{
-			// Render Limits
-
-			static constexpr uint MaxQuads = 20000;
-			static constexpr uint MaxVertices = MaxQuads * 4;
-			static constexpr uint MaxIndices = MaxQuads * 6;	
-			// these aren't hard limits, just here to stop us sending too much data and having to allocate buffer space unnecessarily
-			// us having to render over 20,000 quads is incredibly unlikely anyway, so...
-
-			// Shaders and Targets
-
-			Shader* DefaultShader = nullptr;
-			Shader* RenderShader = nullptr;
-			Ref<FrameBuffer> RenderTarget = nullptr;
-
-			Color4 TargetClearColour = Color4(0.1f, 0.1f, 0.1f, 1.f);
-
-			// Quads, Vertices and Indices
-
-			Vertex* Quads = nullptr;
-			Vertex* QuadsHeader = nullptr;
-
-			Ref<VertexBuffer> VertexBatch = nullptr;
-			Ref<IndexBuffer> IndexBatch = nullptr;
-
-			Ref<VertexArray> BatchArray = nullptr;
-
-			uint VertexBufferIndex = 0;
-			Vector4 VertexNormal[4] = {
-				{ -0.5f,  0.5f, 0.f, 1.f },
-				{  0.5f,  0.5f, 0.f, 1.f },
-				{  0.5f, -0.5f, 0.f, 1.f },
-				{ -0.5f, -0.5f, 0.f, 1.f }
-			};
-
-			// Frames
-
-			uint FrameDrawCalls = 0;
-			uint FrameVertices = 0;
-
-			// Textures
-
-			int* TextureSamplers = nullptr; // a pointer to an array of samplers (16 by default)
-
-			uint NextTextureSlot = 0;
-			Array<Ref<TextureArray>, ALLOCATED_TEXTURE_SLOTS> Textures;
-
-			uint maxTextureArrayDepth = 256;
-
-			// Cameras
-
-			RenderCamera CurrentCamera = {};
-			Mat4f ProjectionTransform { 1.f };	// the current camera transform as stored when BeginScene is called
-
-			// Commands
-
-			RenderCommandQueue RenderQueue = {};
-			uint CommandIndex = 0;
+			uint vertexCount;
+			uint drawCalls;
 		};
 
-		static FrameData getFrameData()
+		struct Vertex
 		{
-			return { 
-				m_RenderCore.FrameVertices, 
-				m_RenderCore.FrameDrawCalls
+			Vector3f position;
+			Vector4f tint;
+			Vector4f textureCoords; // x, y, layer, index
+		};
+
+		struct Command
+		{
+			Mat4f transform { 1.f };
+			Color4f tint { 0.f };
+			
+			ImageBounds bounds = {};
+
+			Image* image = nullptr;
+			Shader* shader = nullptr;
+
+			float zIndex = 0;
+		};
+
+		using TextureMap = Map<String, Ref<TextureArray>>;
+		// TODO: make it so we can use more than 256 of the same sized texture!!!
+		using TextureIndex = List<Ref<TextureArray>>;
+		using CommandQueue = Array<Command, RENDER_QUEUE_SIZE>;
+
+		Color4 targetColour = Color4(0.1f, 0.1f, 0.1f, 1.f);
+
+		void begin(Mat4f transform);
+		void end();
+
+		void clear();
+		void setViewportSize(Vector2i size);
+
+		void enqueue(const Command& command);
+
+		FrameData getFrameData() const
+		{
+			return {
+				statDrawCalls,
+				statVertices
 			};
-		}
+		};
 
 	private:
+		
+		Shader* defaultShader = nullptr;
+		Shader* activeShader = nullptr;
+		
+		uint maxQuads = 20000;
+		uint maxVertices = maxQuads * 4;
+		uint maxIndices = maxQuads * 6;
 
+		static constexpr Vector4 baseVertex[4] = {
+			{ -0.5f,  0.5f, 0.f, 1.f },
+			{  0.5f,  0.5f, 0.f, 1.f },
+			{  0.5f, -0.5f, 0.f, 1.f },
+			{ -0.5f, -0.5f, 0.f, 1.f }
+		};
 
-		static void Execute(RenderCommand& Command);
-		static void SetShader(Shader* shader);
+		Ref<FrameBuffer> target = nullptr;
+		
+		// quads
 
-		static void BeginBatch(Shader* shader = nullptr);
-		static void FinishBatch();
+		Vertex* vertices = nullptr;
+		Vertex* verticesHead = nullptr;
 
-		static RenderCore m_RenderCore;
+		// buffers
 
-		static TextureMap Textures;
-		static TextureIndex TextureIndex;
+		Ref<VertexBuffer> vertexBatch = nullptr;
+		Ref<IndexBuffer> indexBatch = nullptr;
+		Ref<VertexArray> batchArray = nullptr;
+
+		uint vertexBufferIndex = 0;
+
+		// stats
+
+		uint statDrawCalls = 0;
+		uint statVertices = 0;
+
+		// textures
+
+		int* samplers = nullptr;
+
+		uint maxTextureArrayDepth = 256;
+		uint textureNextSlot = 0;
+		Array<Ref<TextureArray>, ALLOCATED_TEXTURE_SLOTS> textures;
+
+		TextureMap texturesMapped = {};
+		TextureIndex textureIndex = {};
+
+		RenderCamera currentCamera = {};
+		Mat4f projection{ 1.f };
+
+		// Commands
+
+		CommandQueue queue = {};
+		uint queueIndex = 0;
+
+		void execute(Command& command);
+		void setShader(Shader* shader);
+
+		void beginBatch();
+		void endBatch();
 
 	};
 

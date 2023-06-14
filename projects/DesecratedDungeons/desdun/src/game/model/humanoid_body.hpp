@@ -1,4 +1,4 @@
-
+#pragma once
 
 #include <desdun_engine/desdun_engine.hpp>
 

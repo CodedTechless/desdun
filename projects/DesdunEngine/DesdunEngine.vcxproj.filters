@@ -561,6 +561,7 @@
     <ClCompile Include="desdun_engine\include\ddlib\util.cpp">
       <Filter>Dependencies</Filter>
     </ClCompile>
+    <ClCompile Include="desdun_engine\src\graphics\render\base.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="desdun_engine\src\app\app.h">
@@ -1602,6 +1603,7 @@
       <Filter>Dependencies</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\desdun_engine.hpp" />
+    <ClInclude Include="desdun_engine\src\graphics\render\base.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Instances">

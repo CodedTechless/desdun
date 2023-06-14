@@ -1,6 +1,7 @@
 
 #include <desdun_engine/src/graphics/render/renderer.h>
 #include <desdun_engine/src/app/resource/resource.hpp>
+#include <desdun_engine/src/app/app.h>
 
 #include "primitive.h"
 
@@ -15,7 +16,15 @@ namespace Desdun
 			* glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->getSize()), 1.f))
 			* glm::rotate(Mat4f(1.f), rotation, Vector3f(1.f, 1.f, 1.f));
 
-		Renderer::Submit({ transform, tint, { {0.f, 0.f}, { 1.f, 1.f } }, image, nullptr, zIndex });
+		auto* app = Application::get();
+		app->getRenderer()->enqueue({ 
+			transform, tint, 
+			{ 
+				{0.f, 0.f}, 
+				{ 1.f, 1.f }
+			}, 
+			image, nullptr, zIndex 
+		});
 	}
 
 }
