@@ -46,7 +46,9 @@ namespace Desdun
 		vertexBatch->SetBufferLayout({ // Create a layout for data that is held in the vertex buffer for drawing.
 			{ LayoutType::Float, 3 }, // Position
 			{ LayoutType::Float, 4 }, // Colour
-			{ LayoutType::Float, 4 }, // Texture data
+			{ LayoutType::Float, 2 },
+			{ LayoutType::Int, 1 },
+			{ LayoutType::Int, 1 }
 		});
 
 		// Add the vertex and index buffer to the vertex array.
@@ -163,7 +165,9 @@ namespace Desdun
 		{
 			verticesHead->position = command.transform * baseVertex[i];
 			verticesHead->tint = command.tint;
-			verticesHead->textureCoords = Vector4f(bounds[i], texture.Layer, slotIndex);
+			verticesHead->texCoords = bounds[i];
+			verticesHead->texLayer = texture.Layer;
+			verticesHead->texIndex = slotIndex;
 
 			verticesHead++;
 			statVertices++;

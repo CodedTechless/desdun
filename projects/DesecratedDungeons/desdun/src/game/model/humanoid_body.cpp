@@ -5,6 +5,11 @@
 namespace Desdun
 {
 
+	HumanoidBodyController::HumanoidBodyController(WorldObject* object)
+		: adornee(object) 
+	{
+	}
+
 	void HumanoidBodyController::start()
 	{
 		auto* body = (AnimatedSprite*)adornee->findChild("torso");

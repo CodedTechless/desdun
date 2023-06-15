@@ -59,7 +59,9 @@ namespace Desdun
 		{
 			Vector3f position;
 			Vector4f tint;
-			Vector4f textureCoords; // x, y, layer, index
+			Vector2f texCoords; // x, y, layer, index
+			uint texLayer;
+			uint texIndex;
 		};
 
 		struct Command
