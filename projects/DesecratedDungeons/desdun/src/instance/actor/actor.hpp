@@ -16,6 +16,7 @@ namespace Desdun
 		void takeDamage(float amount);
 
 	protected:
+
 		void serialise(JSONObject& object) const override;
 		void deserialise(const JSONObject& object) override;
 

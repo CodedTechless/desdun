@@ -34,7 +34,33 @@
 #define COLLISION_MAP_SIZE 2048
 #define COLLISION_MAP_CELL_SIZE 64
 
-#define serialisable(T) std::type_index getClassIndex() const override { return typeid(T); };
+#define serialisable(T) public: \
+const std::string getClassName() const override { return #T; }; \
+std::type_index getClassIndex() const override { return typeid(T); };
+
+#if _DEBUG
+#define dd_log(str) Debug::Log(str)
+#define dd_warn(str) Debug::Warn(str)
+#define dd_error(str) Debug::Error(str)
+
+#define dd_log_f(fmt, ...) Debug::Log(std::format(fmt, __VA_ARGS__))
+#define dd_warn_f(fmt, ...) Debug::Warn(std::format(fmt, __VA_ARGS__))
+#define dd_error_f(fmt, ...) Debug::Error(std::format(fmt, __VA_ARGS__))
+#else
+#define dd_log()
+#define dd_warn()
+#define dd_error()
+
+#define dd_log_f()
+#define dd_warn_f()
+#define dd_error_f()
+#endif
+
+#define s_errout(name, res) Debug::Error(std::format("Failed to load symbol {}: {}", #name, res), "JSONStream")
+#define s_wrap(name, op) try { op; } catch(std::exception err) { s_errout(name, err.what()); }
+
+#define s_export(name) object[#name] = name
+#define s_import(name) s_wrap(name, { object.at(#name).get_to(name); })
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;

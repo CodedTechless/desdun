@@ -91,24 +91,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="desdun\src\instance\game_camera.cpp" />
-    <ClCompile Include="desdun\src\game\model\humanoid_body.cpp" />
-    <ClCompile Include="desdun\src\game\model\humanoid_body.hpp" />
-    <ClCompile Include="desdun\src\game\actor\move_phys.cpp" />
+    <ClCompile Include="desdun\src\instance\body\humanoid_body.cpp" />
+    <ClCompile Include="desdun\src\instance\body\humanoid_body.hpp" />
+    <ClCompile Include="desdun\src\instance\physics\move_phys.cpp" />
     <ClCompile Include="desdun\src\game\item\container.cpp" />
     <ClCompile Include="desdun\src\app\desdun_app.cpp" />
     <ClCompile Include="desdun\src\app\layer\game.cpp" />
     <ClCompile Include="desdun\src\instance\actor\actor.cpp" />
-    <ClCompile Include="desdun\src\instance\actor\player.cpp" />
+    <ClCompile Include="desdun\src\instance\actor\player\player.cpp" />
     <ClCompile Include="desdun\src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="desdun\src\game\actor\move_phys.hpp" />
+    <ClInclude Include="desdun\src\instance\physics\move_phys.hpp" />
     <ClInclude Include="desdun\src\game\item\container.hpp" />
     <ClInclude Include="desdun\src\game\item\item.hpp" />
     <ClInclude Include="desdun\src\app\desdun_app.hpp" />
     <ClInclude Include="desdun\src\app\layer\game.hpp" />
     <ClInclude Include="desdun\src\instance\actor\actor.hpp" />
-    <ClInclude Include="desdun\src\instance\actor\player.hpp" />
+    <ClInclude Include="desdun\src\instance\actor\player\player.hpp" />
     <ClInclude Include="desdun\src\instance\game_camera.hpp" />
     <ClInclude Include="desdun\src\instance\index.hpp" />
     <ClInclude Include="desdun\src\game\item\item_slot.hpp" />

@@ -26,7 +26,7 @@ namespace Desdun
 	public:
 		serialisable(Instance);
 
-		std::string name = "Instance";
+		String name = "Instance";
 
 		Instance() = default;
 		~Instance();

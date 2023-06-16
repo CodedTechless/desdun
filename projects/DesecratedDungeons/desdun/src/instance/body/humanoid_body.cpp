@@ -5,26 +5,23 @@
 namespace Desdun
 {
 
-	HumanoidBodyController::HumanoidBodyController(WorldObject* object)
-		: adornee(object) 
+	void HumanoidBodyController::setupBody()
 	{
-	}
+		auto* adornee = this->getParent();
 
-	void HumanoidBodyController::start()
-	{
 		auto* body = (AnimatedSprite*)adornee->findChild("torso");
 		body->play("torso_idle");
 
 		auto* legs = (AnimatedSprite*)adornee->findChild("legs");
 		legs->play("legs_idle");
 
-		auto* leftEye = (AnimatedSprite*)body->findChild("leftEye");
-		auto* rightEye = (AnimatedSprite*)body->findChild("rightEye");
+		auto* leftEye = (AnimatedSprite*)adornee->findChild("leftEye");
+		auto* rightEye = (AnimatedSprite*)adornee->findChild("rightEye");
 
 		rightEye->play("eye_idle");
 		leftEye->play("eye_idle");
 
-		auto* shoulders = (WorldObject*)body->findChild("shoulders");
+		auto* shoulders = (WorldObject*)adornee->findChild("shoulders");
 
 		auto* leftHand = (Sprite*)shoulders->findChild("leftHand");
 		auto* rightHand = (Sprite*)shoulders->findChild("rightHand");
@@ -32,11 +29,12 @@ namespace Desdun
 		leftHand->visible = false;
 		rightHand->visible = false;
 
-		update();
+		updateBody();
 	}
 
-	void HumanoidBodyController::update()
+	void HumanoidBodyController::updateBody()
 	{
+		auto* adornee = this->getParent();
 		auto* body = (AnimatedSprite*)adornee->findChild("torso");
 
 		auto* leftEye = (AnimatedSprite*)body->findChild("leftEye");
@@ -150,5 +148,24 @@ namespace Desdun
 		lookDirection = direction;
 		updateLookNormal();
 	}
+
+
+	void HumanoidBodyController::serialise(JSONObject& object) const 
+	{
+		s_export(eyeOffset);
+		s_export(animateFactor);
+		s_export(animateSpeedModifier);
+
+		WorldObject::serialise(object);
+	};
+	
+	void HumanoidBodyController::deserialise(const JSONObject& object)
+	{
+		s_import(eyeOffset);
+		s_import(animateFactor);
+		s_import(animateSpeedModifier);
+
+		WorldObject::deserialise(object);
+	};
 
 }

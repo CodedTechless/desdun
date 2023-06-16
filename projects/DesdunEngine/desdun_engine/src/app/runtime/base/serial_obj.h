@@ -9,6 +9,7 @@ namespace Desdun
 	class Serialisable
 	{
 	public:
+		virtual const String getClassName() const;
 		virtual Type getClassIndex() const;
 
 		template<typename T>

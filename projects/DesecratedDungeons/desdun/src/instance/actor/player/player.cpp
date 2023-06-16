@@ -1,4 +1,5 @@
 
+#include <desdun/src/instance/body/humanoid_body.hpp>
 
 #include "player.hpp"
 
@@ -6,7 +7,10 @@ namespace Desdun
 {
 	void Player::onAwake()
 	{
-		bodyController.start();
+		auto* body = this->getScene()->create<HumanoidBodyController>();
+		body->setParent(this);
+		body->name = "BodyController";
+		body->setupBody();
 	};
 
 	void Player::onInputEvent(Input::Event& event)
@@ -14,7 +18,7 @@ namespace Desdun
 		if (event.isPressed(Input::KeyCode::G))
 		{
 			Debug::Log("kowabunga!");
-			auto* newMe = (Player*)clone();
+			auto* newMe = (Player*)this->clone();
 			newMe->setParent(getParent());
 			newMe->setPosition({ 0.f, 0.f });
 ;		}
@@ -27,11 +31,13 @@ namespace Desdun
 
 	void Player::onFrameUpdate(float delta)
 	{
-		bodyController.update();
+		this->findChild("BodyController")->as<HumanoidBodyController>()->updateBody();
 	}
 
 	void Player::onGameStep(float delta)
 	{
+		auto* body = this->findChild("BodyController")->as<HumanoidBodyController>();
+
 		Vector2 movement = Vector2{
 			(float)Input::keyDown(Input::KeyCode::D) - (float)Input::keyDown(Input::KeyCode::A),
 			(float)Input::keyDown(Input::KeyCode::S) - (float)Input::keyDown(Input::KeyCode::W)
@@ -41,18 +47,18 @@ namespace Desdun
 		if (glm::length(movement) > 0.f)
 		{
 			normalisedMovement = glm::normalize(movement);
-			bodyController.setLookDirection(normalisedMovement);
+			body->setLookDirection(normalisedMovement);
 
-			bodyController.animateSpeedModifier = glm::length(moveController.velocity) / moveController.maxVelocity;
+			body->animateSpeedModifier = glm::length(velocity) / maxVelocity;
 		}
 		else
 		{
-			bodyController.animateSpeedModifier = 1.f;
+			body->animateSpeedModifier = 1.f;
 		}
 
-		bodyController.animateFactor = glm::length(normalisedMovement);
+		body->animateFactor = glm::length(normalisedMovement);
 
-		moveController.applyInput(normalisedMovement);
-		moveController.step(delta);
+		move(normalisedMovement);
+		KinematicActor::onGameStep(delta);
 	}
 }

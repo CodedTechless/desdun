@@ -5,7 +5,7 @@
 
 namespace Desdun
 {
-	void MoveController::step(float delta)
+	void KinematicActor::onGameStep(const float_t delta)
 	{
 
 		velocity += moveAcceleration * moveVector * delta;
@@ -27,13 +27,33 @@ namespace Desdun
 			velocity = glm::normalize(velocity) * scalarVelocity;
 		}
 
-		object->translate(velocity * delta);
+		this->translate(velocity * delta);
 		moveVector *= 0.f;
 	}
 
-	void MoveController::applyInput(Vector2 input)
+	void KinematicActor::move(Vector2 input)
 	{
 		moveVector = input;
+	}
+
+	void KinematicActor::serialise(JSONObject& object) const
+	{
+		s_export(velocity);
+		s_export(maxVelocity);
+		s_export(friction);
+		s_export(moveAcceleration);
+
+		Actor::serialise(object);
+	}
+
+	void KinematicActor::deserialise(const JSONObject& object)
+	{
+		s_import(velocity);
+		s_import(maxVelocity);
+		s_import(friction);
+		s_import(moveAcceleration);
+
+		Actor::deserialise(object);
 	}
 
 }

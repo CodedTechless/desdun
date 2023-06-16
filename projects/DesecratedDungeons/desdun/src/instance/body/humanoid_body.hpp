@@ -5,9 +5,10 @@
 namespace Desdun
 {
 
-	class HumanoidBodyController
+	class HumanoidBodyController : public WorldObject
 	{
 	public:
+	serialisable(HumanoidBodyController)
 
 		enum class Pose
 		{
@@ -21,10 +22,6 @@ namespace Desdun
 			UPLEFT = 7
 		};
 
-		HumanoidBodyController(WorldObject* object);
-
-		WorldObject* adornee;
-
 		float animateSpeedModifier = 1.f;
 		float animateFactor = 0.f;
 
@@ -32,9 +29,14 @@ namespace Desdun
 
 		void setLookDirection(const Vector2 direction);
 
-		void update();
-		void start();
+		void updateBody();
+		void setupBody();
 
+	protected:
+		
+		void serialise(JSONObject& object) const override;
+		void deserialise(const JSONObject& object) override;
+		
 	private:
 
 		Pose lookNormal = Pose::LEFT;
