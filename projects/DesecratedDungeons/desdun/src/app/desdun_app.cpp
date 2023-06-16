@@ -16,14 +16,16 @@ namespace Desdun
 		Debug::Log("initialising game objects...", "Desdun");
 
 		{
-			Runtime::add<GameCamera>({ "GameCamera", Runtime::get<Camera>() });
-			Runtime::add<Actor>({ "Actor", Runtime::get<WorldObject>() });
+			dd_class_child(GameCamera, Camera);
+			dd_class_child(Actor, WorldObject);
 			{
-				Runtime::add<Player>({ "Player", Runtime::get<Actor>() });
+				dd_class_child(KinematicActor, Actor);
+				{
+					dd_class_child(Player, KinematicActor);
+				}
 			}
 
-			Runtime::add<Container>({ "Container" });
-			Runtime::add<ItemSlot>({ "ItemSlot" });
+			dd_class_child(HumanoidBodyController, WorldObject);
 		}
 	}
 
