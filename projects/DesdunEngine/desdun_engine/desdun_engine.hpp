@@ -11,7 +11,7 @@
 #include <desdun_engine/src/app/resource/descendants/audio.h>
 #include <desdun_engine/src/app/resource/descendants/image.h>
 #include <desdun_engine/src/app/resource/descendants/model.h>
-#include <desdun_engine/src/app/resource/descendants/shader.h>
+#include <desdun_engine/src/app/resource/descendants/shader.hpp>
 #include <desdun_engine/src/app/resource/descendants/animation_table.hpp>
 
 // >> Scene and Objects

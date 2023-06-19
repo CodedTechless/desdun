@@ -60,6 +60,8 @@ namespace Desdun
 		}
 
 		{
+			auto* app = Application::get();
+
 			ImGui::Begin("Debugger");
 
 			if (ImGui::CollapsingHeader("Peformance"))
@@ -74,26 +76,11 @@ namespace Desdun
 					ImGui::Text("FPS");
 					ImGui::TableNextColumn();
 					ImGui::Text(std::to_string((uint)lastFrameCount).c_str());
-					/*
-					ImGui::Text("Simulation Rate");
-					ImGui::TableNextColumn();
-					ImGui::Text(std::to_string(Runtime.SimulationRate).c_str());
-					ImGui::TableNextColumn();
-					*/
+
 					ImGui::TableNextColumn();
 					ImGui::Text("Frame time");
 					ImGui::TableNextColumn();
 					ImGui::Text((std::to_string(delta * 1000.f) + "ms").c_str());
-
-
-
-					/*
-					ImGui::Text("Simulation Delta");
-					ImGui::TableNextColumn();
-					ImGui::Text((std::to_string(Runtime.SimulationDelta) + "ms").c_str());
-					ImGui::TableNextColumn();
-					*/
-
 
 					ImGui::EndTable();
 				}
@@ -103,12 +90,11 @@ namespace Desdun
 			{
 				if (ImGui::BeginTable("graphicsTable", 2))
 				{
-					ImGui::TableSetupColumn("Name");
+					ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_WidthFixed);
 					ImGui::TableSetupColumn("Stat", ImGuiTableColumnFlags_WidthFixed);
 					ImGui::TableHeadersRow();
 
-					auto* app = Application::get();
-					auto frameData = app->getRenderer()->getFrameData();
+					auto frameData = app->getRenderer()->performance();
 
 					ImGui::TableNextColumn();
 					ImGui::Text("Draw calls");
@@ -119,11 +105,6 @@ namespace Desdun
 					ImGui::Text("Vertex count");
 					ImGui::TableNextColumn();
 					ImGui::Text(std::to_string(frameData.vertexCount).c_str());
-
-					ImGui::TableNextColumn();
-					ImGui::Text("Active shader");
-					ImGui::TableNextColumn();
-					ImGui::Text(frameData.shaderPath.c_str());
 
 					auto* window = Application::get()->getPrimaryWindow();
 					auto size = window->getSize();
@@ -136,6 +117,14 @@ namespace Desdun
 					ImGui::EndTable();
 				}
 			};
+
+			if (ImGui::CollapsingHeader("Layer Stack"))
+			{
+				for (auto* layer : app->gameLayers)
+				{
+					ImGui::Text(layer->name().c_str());
+				}
+			}
 			
 			if (ImGui::CollapsingHeader("Resources"))
 			{

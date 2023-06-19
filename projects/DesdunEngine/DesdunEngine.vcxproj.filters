@@ -651,7 +651,7 @@
     <ClInclude Include="desdun_engine\src\graphics\buffers\vertex.h">
       <Filter>Renderer\Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\resource\descendants\shader.h">
+    <ClInclude Include="desdun_engine\src\app\resource\descendants\shader.hpp">
       <Filter>App\Resources</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\src\instance\descendants\sound.hpp">

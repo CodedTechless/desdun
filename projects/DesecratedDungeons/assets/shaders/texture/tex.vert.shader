@@ -1,4 +1,3 @@
-#shader vertex
 #version 420 core
 
 layout(location = 0) in vec3 position;
@@ -22,21 +21,4 @@ void main()
     texIndex = v_texIndex;
 
     gl_Position = projection * vec4(position, 1.0);
-};
-
-#shader fragment
-#version 420 core
-
-layout(location = 0) out vec4 FragColor;
-
-in vec4 tint;
-in vec2 texCoords;
-flat in float texLayer;
-flat in float texIndex;
-
-uniform sampler2DArray samplers[16];
-
-void main()
-{
-    FragColor = tint * texture(samplers[int(texIndex)], vec3(texCoords, floor(texLayer)));
 };

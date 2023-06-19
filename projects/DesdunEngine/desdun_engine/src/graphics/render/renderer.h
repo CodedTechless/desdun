@@ -7,7 +7,7 @@
 #include <desdun_engine/src/graphics/buffers/index.h>
 #include <desdun_engine/src/graphics/buffers/frame.h>
 
-#include <desdun_engine/src/app/resource/descendants/shader.h>
+#include <desdun_engine/src/app/resource/descendants/shader.hpp>
 #include <desdun_engine/src/app/resource/descendants/image.h>
 
 #include <desdun_engine/include/desdun_core.hpp>
@@ -46,13 +46,12 @@ namespace Desdun
 	{
 	public:
 		Renderer(Shader* shaderDefault);
-		~Renderer() = default;
+		~Renderer();
 
-		struct FrameData
+		struct Performance
 		{
 			uint vertexCount;
 			uint drawCalls;
-			String shaderPath;
 		};
 
 		struct Vertex
@@ -82,11 +81,6 @@ namespace Desdun
 			float zIndex = 0;
 		};
 
-		using TextureMap = Map<String, Ref<TextureArray>>;
-		// TODO: make it so we can use more than 256 of the same sized texture!!!
-		using TextureIndex = List<Ref<TextureArray>>;
-		using CommandQueue = Array<Command, RENDER_QUEUE_SIZE>;
-
 		Color4 targetColour = Color4(0.1f, 0.1f, 0.1f, 1.f);
 
 		void begin(Mat4f transform);
@@ -97,22 +91,20 @@ namespace Desdun
 
 		void enqueue(const Command& command);
 
-		FrameData getFrameData() const
+		Performance performance() const
 		{
 			return {
 				statVertices,
-				statDrawCalls,
-				activeShader ? activeShader->getPath() : "none"
+				statDrawCalls
 			};
 		};
 
-	private:
+		// options
 
-		bool active = false;
-		
-		Shader* defaultShader = nullptr;
-		Shader* activeShader = nullptr;
-		
+		static constexpr uint commandQueueSize = RENDER_QUEUE_SIZE;
+		static constexpr uint allocatedTextureSlots = ALLOCATED_TEXTURE_SLOTS;
+		static constexpr uint maxTextureArrayDepth = 256;
+
 		static constexpr uint maxQuads = 20000;
 		static constexpr uint maxVertices = maxQuads * 4;
 		static constexpr uint maxIndices = maxQuads * 6;
@@ -124,14 +116,25 @@ namespace Desdun
 			{ -0.5f, -0.5f, 0.f, 1.f }
 		};
 
+	private:
+
+		bool active = false;
+
+		// shaders
+
+		Shader* defaultShader = nullptr;
+		Shader* activeShader = nullptr;
+
+		int* samplers = nullptr;
+
+		// frame buffers
+
 		Ref<FrameBuffer> target = nullptr;
 		
-		// quads
+		// buffers
 
 		Vertex* vertices = nullptr;
 		Vertex* verticesHead = nullptr;
-
-		// buffers
 
 		Ref<VertexBuffer> vertexBatch = nullptr;
 		Ref<IndexBuffer> indexBatch = nullptr;
@@ -146,25 +149,24 @@ namespace Desdun
 
 		// textures
 
-		int* samplers = nullptr;
-
-		uint maxTextureArrayDepth = 256;
 		uint textureNextSlot = 0;
-		Array<Ref<TextureArray>, ALLOCATED_TEXTURE_SLOTS> textures = {};
 
-		TextureMap texturesMapped = {};
-		TextureIndex textureIndex = {};
+		Ref<TextureArray>* textures = {};
 
-		RenderCamera currentCamera = {};
-		Mat4f projection{ 1.f };
+		Map<String, Ref<TextureArray>> texturesMapped = {};
+		List<Ref<TextureArray>> textureIndex = {};
 
-		// Commands
+		Mat4f projection { 1.f };
 
-		CommandQueue queue = {};
+		// commands
+
+		List<Command> queue = {};
 		uint queueIndex = 0;
 
 		void execute(Command& command);
 		void setShader(Shader* shader);
+
+		// batches
 
 		void beginBatch();
 		void endBatch();

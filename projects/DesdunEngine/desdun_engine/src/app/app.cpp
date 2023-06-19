@@ -73,7 +73,7 @@ namespace Desdun
         char* Version = (char*)glGetString(GL_VERSION);
         Debug::Log("using OpenGL " + std::string(Version), "Application");
 
-        auto* textureShader = Resource::fetch<Shader>("shaders:tex.shader");
+        auto* textureShader = Resource::fetch<Shader>("shaders:tex.json");
         renderer = new Renderer(textureShader);
 
         imguiLayer = new ImGuiLayer("config:imgui.ini");
@@ -111,8 +111,9 @@ namespace Desdun
 
             while (Accumulator >= gameSpeed)
             {
-                for (Layer* a_Layer : gameLayers) {
-                    a_Layer->onGameStep(Accumulator);
+                for (Layer* layer : gameLayers) 
+                {
+                    layer->onGameStep(Accumulator);
                 }
 
                 Accumulator -= gameSpeed;
@@ -123,9 +124,9 @@ namespace Desdun
             renderer->clear();
             imguiLayer->begin();
 
-            for (auto* Layer : gameLayers)
+            for (auto* layer : gameLayers)
             {
-                Layer->onFrameUpdate(FrameTime);
+                layer->onFrameUpdate(FrameTime);
             }
 
             imguiLayer->end();

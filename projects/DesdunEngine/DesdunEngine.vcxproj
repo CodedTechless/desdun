@@ -594,7 +594,7 @@
     <ClInclude Include="desdun_engine\src\app\resource\descendants\audio.h" />
     <ClInclude Include="desdun_engine\src\app\resource\descendants\image.h" />
     <ClInclude Include="desdun_engine\src\app\resource\descendants\model.h" />
-    <ClInclude Include="desdun_engine\src\app\resource\descendants\shader.h" />
+    <ClInclude Include="desdun_engine\src\app\resource\descendants\shader.hpp" />
     <ClInclude Include="desdun_engine\src\app\resource\resource.hpp" />
     <ClInclude Include="desdun_engine\src\app\resource\serial\json_object.h" />
     <ClInclude Include="desdun_engine\src\app\resource\serial\json_stream.h" />

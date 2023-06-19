@@ -4,8 +4,12 @@
 
 #include "layer.h"
 
-namespace Desdun {
-	class LayerCollection {
+namespace Desdun 
+{
+
+
+	class LayerCollection 
+	{
 	public:
 		LayerCollection() = default;
 		~LayerCollection();

@@ -46,9 +46,17 @@ std::type_index getClassIndex() const override { return typeid(T); };
 #define dd_warn(str) Debug::Warn(str)
 #define dd_error(str) Debug::Error(str)
 
+#define dd_log_h(str, header) Debug::Log(str, header)
+#define dd_warn_h(str, header) Debug::Warn(str, header)
+#define dd_error_h(str, header) Debug::Error(str, header)
+
 #define dd_log_f(fmt, ...) Debug::Log(std::format(fmt, __VA_ARGS__))
 #define dd_warn_f(fmt, ...) Debug::Warn(std::format(fmt, __VA_ARGS__))
 #define dd_error_f(fmt, ...) Debug::Error(std::format(fmt, __VA_ARGS__))
+
+#define dd_log_fh(fmt, header, ...) Debug::Log(std::format(fmt, __VA_ARGS__), header)
+#define dd_warn_fh(fmt, header, ...) Debug::Warn(std::format(fmt, __VA_ARGS__), header)
+#define dd_error_fh(fmt, header, ...) Debug::Error(std::format(fmt, __VA_ARGS__), header)
 #else
 #define dd_log()
 #define dd_warn()
@@ -57,6 +65,10 @@ std::type_index getClassIndex() const override { return typeid(T); };
 #define dd_log_f()
 #define dd_warn_f()
 #define dd_error_f()
+
+#define dd_log_fh()
+#define dd_warn_fh()
+#define dd_error_fh()
 #endif
 
 #define s_errout(name, res) Debug::Error(std::format("Failed to load symbol {}: {}", #name, res), "JSONStream")

@@ -23,8 +23,12 @@ namespace Desdun
 		virtual void onInputEvent(Input::Event& inputEvent) {};
 		virtual void onWindowEvent(const Window::Event& inputEvent) {};
 
+		const String name() const { return LayerName; };
+
 	protected:
+
 		std::string LayerName = "Layer";
 
+		friend class Application;
 	};
 }

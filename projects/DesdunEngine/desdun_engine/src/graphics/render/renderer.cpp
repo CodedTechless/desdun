@@ -61,7 +61,16 @@ namespace Desdun
 			samplers[i] = i;
 		}
 
+		textures = new Ref<TextureArray>[allocatedTextureSlots];
+		queue.reserve(commandQueueSize);
+
 		setShader(defaultShader);
+	}
+	
+	Renderer::~Renderer()
+	{
+		delete[] textures;
+		delete[] samplers;
 	}
 
 	void Renderer::clear()
@@ -102,7 +111,7 @@ namespace Desdun
 			command.shader = defaultShader;
 		}
 
-		queue[queueIndex] = command;
+		queue.push_back(command);
 		queueIndex++;
 	}
 
@@ -177,7 +186,7 @@ namespace Desdun
 	void Renderer::begin(Mat4f transform)
 	{
 		projection = transform;
-		queueIndex = 0;
+		queueI = 0;
 
 		statVertices = 0;
 		statDrawCalls = 0;
@@ -188,7 +197,7 @@ namespace Desdun
 
 	void Renderer::end()
 	{
-		std::sort(queue.begin(), queue.begin() + queueIndex,
+		std::sort(queue.begin(), queue.end(),
 			[&](const Command& A, const Command& B)
 			{
 				/*
@@ -203,16 +212,16 @@ namespace Desdun
 				*/
 
 				return A.zIndex < B.zIndex ||
-					(A.zIndex == B.zIndex && A.shader->getRenderID() < B.shader->getRenderID()) ||
-					((A.zIndex == B.zIndex && A.shader->getRenderID() == B.shader->getRenderID()) &&
+					(A.zIndex == B.zIndex && A.shader->getInternalId() < B.shader->getInternalId()) ||
+					((A.zIndex == B.zIndex && A.shader->getInternalId() == B.shader->getInternalId()) &&
 					(A.image->getAllocation().Texture->GetRenderID() < B.image->getAllocation().Texture->GetRenderID()));
 			}
 		);
 
-		for (auto i = queue.begin(); i < queue.begin() + queueIndex; ++i)
+		for (auto& command : queue)
 		{
 			// execute all queued render commands
-			execute(*i);
+			execute(command);
 		}
 
 
@@ -226,8 +235,8 @@ namespace Desdun
 		if (shader != activeShader)
 			activeShader = shader;
 		
-		activeShader->setUniform("samplers", samplers, ALLOCATED_TEXTURE_SLOTS);
-		activeShader->setUniform("projection", projection);
+		activeShader->set("samplers", samplers, allocatedTextureSlots);
+		activeShader->set("projection", projection);
 	}
 
 	void Renderer::beginBatch()
@@ -268,10 +277,13 @@ namespace Desdun
 		batchArray->Bind();
 		activeShader->bind();
 
+		if (target)
+		{
+			// do something
+		}
+
 		glDrawElements(GL_TRIANGLES, vertexBufferIndex, GL_UNSIGNED_INT, nullptr);
 		statDrawCalls++;
-
-		
 	}
 
 	void Renderer::setViewportSize(Vector2i size)

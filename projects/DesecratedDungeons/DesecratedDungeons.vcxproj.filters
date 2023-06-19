@@ -81,5 +81,7 @@
   <ItemGroup>
     <None Include="cpp.hint" />
     <None Include="assets\shaders\line.shader" />
+    <None Include="assets\shaders\texture\tex.vert.shader" />
+    <None Include="assets\shaders\texture\tex.frag.shader" />
   </ItemGroup>
 </Project>
