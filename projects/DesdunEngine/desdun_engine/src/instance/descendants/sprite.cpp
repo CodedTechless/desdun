@@ -1,7 +1,6 @@
 
 #include "sprite.hpp"
 
-
 namespace Desdun
 {
 
@@ -13,15 +12,19 @@ namespace Desdun
 			transform *= getRenderTransform();
 			transform *= glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->getSize()), 1.f));
 
+			Renderer::Command command;
+			command.transform = transform;
+			command.tint = tint;
+			command.image = image;
+			command.shader = shader;
+			command.zIndex = zIndex;
+			command.bounds = {
+				bounds.TL * tiles,
+				bounds.BR * tiles
+			};
+
 			auto* app = Application::get();
-			app->getRenderer()->enqueue({
-				transform, tint, 
-				{
-					bounds.TL * tiles, 
-					bounds.BR * tiles
-				}, 
-				image, shader, zIndex
-			});
+			app->getRenderer()->enqueue(command);
 		}
 	}
 

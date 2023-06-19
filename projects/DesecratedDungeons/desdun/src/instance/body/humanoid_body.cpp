@@ -15,13 +15,13 @@ namespace Desdun
 		auto* legs = (AnimatedSprite*)adornee->findChild("legs");
 		legs->play("legs_idle");
 
-		auto* leftEye = (AnimatedSprite*)adornee->findChild("leftEye");
-		auto* rightEye = (AnimatedSprite*)adornee->findChild("rightEye");
+		auto* leftEye = (AnimatedSprite*)body->findChild("leftEye");
+		auto* rightEye = (AnimatedSprite*)body->findChild("rightEye");
 
 		rightEye->play("eye_idle");
 		leftEye->play("eye_idle");
 
-		auto* shoulders = (WorldObject*)adornee->findChild("shoulders");
+		auto* shoulders = (WorldObject*)body->findChild("shoulders");
 
 		auto* leftHand = (Sprite*)shoulders->findChild("leftHand");
 		auto* rightHand = (Sprite*)shoulders->findChild("rightHand");

@@ -1,7 +1,9 @@
 #pragma once
 
 #include <desdun/src/game/item/item.hpp>
+
 #include <desdun_engine/desdun_engine.hpp>
+#include <desdun_engine/src/app/imgui/panel/scene_explorer.h>
 
 namespace Desdun
 {

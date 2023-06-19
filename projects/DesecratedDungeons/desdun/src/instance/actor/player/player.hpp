@@ -2,8 +2,6 @@
 
 #include <desdun/src/instance/physics/move_phys.hpp>
 
-#include <desdun/src/instance/actor/actor.hpp>
-
 namespace Desdun
 {
 

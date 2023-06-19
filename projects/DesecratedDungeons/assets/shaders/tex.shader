@@ -21,22 +21,22 @@ void main()
     texLayer = v_texLayer;
     texIndex = v_texIndex;
 
-    gl_Position = projection * vec4(position.xyz, 1.0);
+    gl_Position = projection * vec4(position, 1.0);
 };
 
 #shader fragment
 #version 420 core
 
-layout(location = 0) out vec4 fragColor;
+layout(location = 0) out vec4 FragColor;
 
 in vec4 tint;
 in vec2 texCoords;
-in float texLayer;
-in float texIndex;
+flat in float texLayer;
+flat in float texIndex;
 
 uniform sampler2DArray samplers[16];
 
 void main()
 {
-    fragColor = tint * texture(samplers[int(texIndex)], vec3(texCoords, floor(texLayer)));
+    FragColor = tint * texture(samplers[int(texIndex)], vec3(texCoords, floor(texLayer)));
 };

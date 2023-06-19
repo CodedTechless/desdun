@@ -16,15 +16,14 @@ namespace Desdun
 			* glm::scale(Mat4f(1.f), Vector3f(Vector2f(image->getSize()), 1.f))
 			* glm::rotate(Mat4f(1.f), rotation, Vector3f(1.f, 1.f, 1.f));
 
+		Renderer::Command command;
+		command.transform = transform;
+		command.tint = tint;
+		command.image = image;
+		command.zIndex = zIndex;
+
 		auto* app = Application::get();
-		app->getRenderer()->enqueue({ 
-			transform, tint, 
-			{ 
-				{0.f, 0.f}, 
-				{ 1.f, 1.f }
-			}, 
-			image, nullptr, zIndex 
-		});
+		app->getRenderer()->enqueue(command);
 	}
 
 }

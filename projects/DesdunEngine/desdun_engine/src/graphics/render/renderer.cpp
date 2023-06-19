@@ -47,8 +47,8 @@ namespace Desdun
 			{ LayoutType::Float, 3 }, // Position
 			{ LayoutType::Float, 4 }, // Colour
 			{ LayoutType::Float, 2 },
-			{ LayoutType::Int, 1 },
-			{ LayoutType::Int, 1 }
+			{ LayoutType::Float, 1 },
+			{ LayoutType::Float, 1 }
 		});
 
 		// Add the vertex and index buffer to the vertex array.
@@ -71,7 +71,7 @@ namespace Desdun
 
 	void Renderer::enqueue(const Command& rawCommand)
 	{
-		Command command { rawCommand };
+		Command command = { rawCommand };
 
 		if (command.image->textureAlloc == nullptr)
 		{
@@ -102,7 +102,7 @@ namespace Desdun
 			command.shader = defaultShader;
 		}
 
-		queue[queueIndex] = std::move(command);
+		queue[queueIndex] = command;
 		queueIndex++;
 	}
 
@@ -119,8 +119,8 @@ namespace Desdun
 		if (activeShader != command.shader)
 		{
 			endBatch();
-			beginBatch();
 			setShader(command.shader);
+			beginBatch();
 		}
 
 		Image::Allocation texture = command.image->getAllocation();
@@ -154,8 +154,6 @@ namespace Desdun
 			textureNextSlot++;
 		}
 
-		
-
 		Vector2f bounds[] = {
 			command.bounds.TL, Vector2f(command.bounds.BR.x, command.bounds.TL.y),
 			command.bounds.BR, Vector2f(command.bounds.TL.x, command.bounds.BR.y)
@@ -166,8 +164,8 @@ namespace Desdun
 			verticesHead->position = command.transform * baseVertex[i];
 			verticesHead->tint = command.tint;
 			verticesHead->texCoords = bounds[i];
-			verticesHead->texLayer = texture.Layer;
-			verticesHead->texIndex = slotIndex;
+			verticesHead->texLayer = (float_t)texture.Layer;
+			verticesHead->texIndex = (float_t)slotIndex;
 
 			verticesHead++;
 			statVertices++;
@@ -240,6 +238,8 @@ namespace Desdun
 		}
 
 		active = true;
+
+		setShader(activeShader);
 		
 		vertexBufferIndex = 0;
 		verticesHead = vertices;

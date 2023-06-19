@@ -6,8 +6,6 @@
 
 #include <desdun_engine/src/instance/instance.hpp>
 
-#include <desdun_engine/include/glm/glm.hpp>
-
 namespace Desdun
 {
 	class WorldObject : public Instance

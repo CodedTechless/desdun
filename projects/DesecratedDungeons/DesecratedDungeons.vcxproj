@@ -92,7 +92,7 @@
   <ItemGroup>
     <ClCompile Include="desdun\src\instance\game_camera.cpp" />
     <ClCompile Include="desdun\src\instance\body\humanoid_body.cpp" />
-    <ClCompile Include="desdun\src\instance\body\humanoid_body.hpp" />
+    <ClInclude Include="desdun\src\instance\body\humanoid_body.hpp" />
     <ClCompile Include="desdun\src\instance\physics\move_phys.cpp" />
     <ClCompile Include="desdun\src\game\item\container.cpp" />
     <ClCompile Include="desdun\src\app\desdun_app.cpp" />

@@ -20,8 +20,8 @@ namespace Desdun
 
 	struct ImageBounds
 	{
-		Vector2f TL;
-		Vector2f BR;
+		Vector2f TL = { 0.f, 0.f };
+		Vector2f BR = { 1.f, 1.f };
 
 		friend void to_json(json& object, const ImageBounds& bounds)
 		{
@@ -60,12 +60,17 @@ namespace Desdun
 			Vector3f position;
 			Vector4f tint;
 			Vector2f texCoords; // x, y, layer, index
-			uint texLayer;
-			uint texIndex;
+			float_t texLayer;
+			float_t texIndex;
 		};
 
 		struct Command
 		{
+			Command() = default;
+			Command(Command& object) = default;
+			Command(const Command& object) = default;
+
+
 			Mat4f transform { 1.f };
 			Color4f tint { 0.f };
 			
@@ -108,9 +113,9 @@ namespace Desdun
 		Shader* defaultShader = nullptr;
 		Shader* activeShader = nullptr;
 		
-		uint maxQuads = 20000;
-		uint maxVertices = maxQuads * 4;
-		uint maxIndices = maxQuads * 6;
+		static constexpr uint maxQuads = 20000;
+		static constexpr uint maxVertices = maxQuads * 4;
+		static constexpr uint maxIndices = maxQuads * 6;
 
 		static constexpr Vector4 baseVertex[4] = {
 			{ -0.5f,  0.5f, 0.f, 1.f },
@@ -145,7 +150,7 @@ namespace Desdun
 
 		uint maxTextureArrayDepth = 256;
 		uint textureNextSlot = 0;
-		Array<Ref<TextureArray>, ALLOCATED_TEXTURE_SLOTS> textures;
+		Array<Ref<TextureArray>, ALLOCATED_TEXTURE_SLOTS> textures = {};
 
 		TextureMap texturesMapped = {};
 		TextureIndex textureIndex = {};

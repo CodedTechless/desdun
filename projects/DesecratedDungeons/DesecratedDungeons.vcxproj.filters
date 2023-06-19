@@ -30,9 +30,6 @@
     <ClCompile Include="desdun\src\instance\body\humanoid_body.cpp">
       <Filter>Instances\Modifiers</Filter>
     </ClCompile>
-    <ClCompile Include="desdun\src\instance\body\humanoid_body.hpp">
-      <Filter>Instances\Modifiers</Filter>
-    </ClCompile>
     <ClCompile Include="desdun\src\instance\physics\move_phys.cpp">
       <Filter>Instances\Modifiers</Filter>
     </ClCompile>
@@ -76,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="desdun\src\game\item\item_slot.hpp">
       <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="desdun\src\instance\body\humanoid_body.hpp">
+      <Filter>Instances\Modifiers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

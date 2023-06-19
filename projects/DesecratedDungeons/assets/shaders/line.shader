@@ -2,17 +2,17 @@
 #version 420 core
 
 layout(location = 0) in vec3 position;
-layout(location = 1) in vec4 tint;
+layout(location = 1) in vec4 v_tint;
 
-out vec4 o_tint;
+out vec4 tint;
 
 uniform mat4 projection;
 
 void main()
 {
-    o_tint = tint;
+    tint = v_tint;
 
-    gl_Position = projection * vec4(position.xyz, 1.0);
+    gl_Position = projection * vec4(position, 1.0);
 };
 
 #shader fragment
@@ -24,5 +24,5 @@ in vec4 tint;
 
 void main()
 {
-    fragColor = Tint;
+    fragColor = tint;
 };
