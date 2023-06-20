@@ -8,6 +8,7 @@ namespace Desdun
 	class SceneExplorer
 	{
 	public:
+		SceneExplorer();
 
 		void setContextScene(Scene* scene);
 
