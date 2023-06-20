@@ -160,7 +160,7 @@ namespace Desdun
 
 		// commands
 
-		List<Command> queue = {};
+		Command* queue = nullptr;
 		uint queueIndex = 0;
 
 		void execute(Command& command);

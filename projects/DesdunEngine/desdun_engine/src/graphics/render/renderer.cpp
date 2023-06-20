@@ -18,12 +18,17 @@ namespace Desdun
 
 		// Batch Renderer Setup
 
-		batchArray = CreateRef<VertexArray>();
+		textures = new Ref<TextureArray>[allocatedTextureSlots];
+		queue = new Command[commandQueueSize];
 		vertices = new Vertex[maxVertices];
+		samplers = new int[allocatedTextureSlots];
+
+		uint* indexBuffer = new uint[maxIndices];
+
+		batchArray = CreateRef<VertexArray>();
 		verticesHead = vertices;
 
 		uint indexOffset = 0;
-		uint* indexBuffer = new uint[maxIndices];
 		
 		for (uint i = 0; i < maxIndices; i += 6) 
 		{
@@ -55,14 +60,10 @@ namespace Desdun
 		batchArray->PushVertexBuffer(vertexBatch);
 		batchArray->SetIndexBuffer(indexBatch);
 
-		samplers = new int[ALLOCATED_TEXTURE_SLOTS];
-		for (int i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
+		for (int i = 0; i < allocatedTextureSlots; i++)
 		{
 			samplers[i] = i;
 		}
-
-		textures = new Ref<TextureArray>[allocatedTextureSlots];
-		queue.reserve(commandQueueSize);
 
 		setShader(defaultShader);
 	}
@@ -70,6 +71,8 @@ namespace Desdun
 	Renderer::~Renderer()
 	{
 		delete[] textures;
+		delete[] queue;
+		delete[] vertices;
 		delete[] samplers;
 	}
 
@@ -111,7 +114,7 @@ namespace Desdun
 			command.shader = defaultShader;
 		}
 
-		queue.push_back(command);
+		queue[queueIndex] = command;
 		queueIndex++;
 	}
 
@@ -136,7 +139,7 @@ namespace Desdun
 
 		uint32_t slotIndex = 0;
 		bool hasSlot = false;
-		for (uint32_t i = 0; i < ALLOCATED_TEXTURE_SLOTS; i++)
+		for (uint32_t i = 0; i < allocatedTextureSlots; i++)
 		{
 			if (textures[i] == texture.Texture)
 			{
@@ -149,7 +152,7 @@ namespace Desdun
 
 		if (hasSlot == false)
 		{
-			if (textureNextSlot >= ALLOCATED_TEXTURE_SLOTS)
+			if (textureNextSlot >= allocatedTextureSlots)
 			{
 				endBatch();
 				beginBatch();
@@ -186,7 +189,7 @@ namespace Desdun
 	void Renderer::begin(Mat4f transform)
 	{
 		projection = transform;
-		queueI = 0;
+		queueIndex = 0;
 
 		statVertices = 0;
 		statDrawCalls = 0;
@@ -197,7 +200,7 @@ namespace Desdun
 
 	void Renderer::end()
 	{
-		std::sort(queue.begin(), queue.end(),
+		std::sort(queue, queue + queueIndex,
 			[&](const Command& A, const Command& B)
 			{
 				/*
@@ -218,14 +221,10 @@ namespace Desdun
 			}
 		);
 
-		for (auto& command : queue)
+		for (uint i = 0; i < queueIndex; i++)
 		{
-			// execute all queued render commands
-			execute(command);
+			execute(*(queue + i));
 		}
-
-
-		//Debug::Log(std::to_string(m_RenderCore.CommandIndex) + " " + std::to_string(m_RenderCore.VertexBufferIndex));
 
 		endBatch();
 	}
