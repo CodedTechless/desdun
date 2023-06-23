@@ -61,6 +61,9 @@ namespace Desdun
 		VertexBuffer(const void* Data, uint Size);
 		~VertexBuffer();
 
+		static Ref<VertexBuffer> make(uint size);
+		static Ref<VertexBuffer> make(const void* data, uint size);
+
 		void Bind();
 		void Unbind();
 

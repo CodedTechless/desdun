@@ -34,6 +34,8 @@
 #define COLLISION_MAP_SIZE 2048
 #define COLLISION_MAP_CELL_SIZE 64
 
+#define bytelen(ptrArray, ptrHead) (uint32_t)((uint8_t*)ptrHead - (uint8_t*)ptrArray)
+
 #define dd_class(T) Runtime::add<T>({ #T })
 #define dd_class_child(bT, iT) Runtime::add<bT>({ #bT, Runtime::get<iT>() })
 

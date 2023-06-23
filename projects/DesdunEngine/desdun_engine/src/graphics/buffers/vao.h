@@ -14,6 +14,8 @@ namespace Desdun
 		VertexArray();
 		~VertexArray();
 
+		static Ref<VertexArray> make();
+
 		void SetIndexBuffer(ptr<IndexBuffer> iBuffer);
 		void PushVertexBuffer(ptr<VertexBuffer> vBuffer);
 

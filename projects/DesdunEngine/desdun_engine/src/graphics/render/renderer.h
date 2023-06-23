@@ -18,29 +18,20 @@
 namespace Desdun
 {
 
-	struct ImageBounds
+	class RenderStateInvalidException : public virtual Exception
 	{
-		Vector2f TL = { 0.f, 0.f };
-		Vector2f BR = { 1.f, 1.f };
-
-		friend void to_json(json& object, const ImageBounds& bounds)
-		{
-			object = json::array({
-				bounds.TL,
-				bounds.BR
-			});
-		};
-
-		friend void from_json(const json& object, ImageBounds& bounds)
-		{
-			bounds = {
-				object[0],
-				object[1]
-			};
-		}
+	public:
+		RenderStateInvalidException(const String& pipe, bool expected)
+			: Exception(std::format("{} state incorrect. Expected {}.", pipe, expected ? "active" : "inactive")) {};
 	};
 
-	// we use an array for arena allocation bcos it's better than using a vector here
+	enum class RenderMode
+	{
+		OpenGL
+		// Vulkan
+		// Metal
+		// DirectX
+	};
 
 	class Renderer
 	{
@@ -50,8 +41,9 @@ namespace Desdun
 
 		struct Performance
 		{
-			uint vertexCount;
-			uint drawCalls;
+			uint vertexCount = 0;
+			uint lineCount = 0;
+			uint drawCalls = 0;
 		};
 
 		struct Vertex
@@ -63,6 +55,12 @@ namespace Desdun
 			float_t texIndex;
 		};
 
+		struct LineVertex
+		{
+			Vector3f position;
+			Vector4f tint;
+		};
+
 		struct Command
 		{
 			Command() = default;
@@ -70,9 +68,9 @@ namespace Desdun
 			Command(const Command& object) = default;
 
 
-			Mat4f transform { 1.f };
-			Color4f tint { 0.f };
-			
+			Mat4f transform{ 1.f };
+			Color4f tint{ 0.f };
+
 			ImageBounds bounds = {};
 
 			Image* image = nullptr;
@@ -91,12 +89,11 @@ namespace Desdun
 
 		void enqueue(const Command& command);
 
+		void drawLine(const Vector3& p0, const Vector3& p1, const Color4f& tint);
+
 		Performance performance() const
 		{
-			return {
-				statVertices,
-				statDrawCalls
-			};
+			return stats;
 		};
 
 		// options
@@ -118,12 +115,18 @@ namespace Desdun
 
 	private:
 
-		bool active = false;
+		RenderMode mode = RenderMode::OpenGL;
+
+		bool sceneActive = false;
+		bool batchActive = false;
+
+		Performance stats = {};
 
 		// shaders
 
 		Shader* defaultShader = nullptr;
 		Shader* activeShader = nullptr;
+		Shader* lineShader = nullptr;
 
 		int* samplers = nullptr;
 
@@ -133,6 +136,7 @@ namespace Desdun
 		
 		// buffers
 
+		// # quads
 		Vertex* vertices = nullptr;
 		Vertex* verticesHead = nullptr;
 
@@ -141,11 +145,15 @@ namespace Desdun
 		Ref<VertexArray> batchArray = nullptr;
 
 		uint vertexBufferIndex = 0;
+		
+		// # lines
+		Ref<VertexBuffer> lineBuffer = nullptr;
+		Ref<VertexArray> lineArray = nullptr;
 
-		// stats
+		LineVertex* lines = nullptr;
+		LineVertex* linesHead = nullptr;
 
-		uint statDrawCalls = 0;
-		uint statVertices = 0;
+		uint lineBufferIndex = 0;
 
 		// textures
 

@@ -16,54 +16,80 @@ namespace Desdun
 		const Color4& c = targetColour;
 		glClearColor(c.r, c.g, c.b, c.a);
 
-		// Batch Renderer Setup
-
-		textures = new Ref<TextureArray>[allocatedTextureSlots];
 		queue = new Command[commandQueueSize];
-		vertices = new Vertex[maxVertices];
-		samplers = new int[allocatedTextureSlots];
 
-		uint* indexBuffer = new uint[maxIndices];
+		// quad renderer
+		{
+			// index buffer setup
+			uint* indexBuffer = new uint[maxIndices];
 
-		batchArray = CreateRef<VertexArray>();
-		verticesHead = vertices;
 
-		uint indexOffset = 0;
+			uint indexOffset = 0;
+
+			for (uint i = 0; i < maxIndices; i += 6)
+			{
+				indexBuffer[i + 0] = 0 + indexOffset;
+				indexBuffer[i + 1] = 1 + indexOffset;
+				indexBuffer[i + 2] = 2 + indexOffset;
+
+				indexBuffer[i + 3] = 0 + indexOffset;
+				indexBuffer[i + 4] = 2 + indexOffset;
+				indexBuffer[i + 5] = 3 + indexOffset;
+
+				indexOffset += 4;
+			}
+
+			indexBatch = IndexBuffer::make(indexBuffer, maxIndices);
+			delete[] indexBuffer;
+
+			// vertex buffer setup
+			vertices = new Vertex[maxVertices];
+			verticesHead = vertices;
+
+			batchArray = VertexArray::make();
+
+			vertexBatch = VertexBuffer::make(maxVertices * sizeof(Vertex));
+			vertexBatch->SetBufferLayout({
+				{ LayoutType::Float, 3 },	// position
+				{ LayoutType::Float, 4 },	// tint
+				{ LayoutType::Float, 2 },	// texture coordinates
+				{ LayoutType::Float, 1 },	// texture layer
+				{ LayoutType::Float, 1 }	// texture slot index
+				});
+
+			batchArray->PushVertexBuffer(vertexBatch);
+			batchArray->SetIndexBuffer(indexBatch);
+		}
+
 		
-		for (uint i = 0; i < maxIndices; i += 6) 
+		// line renderer
 		{
-			indexBuffer[i + 0] = 0 + indexOffset;
-			indexBuffer[i + 1] = 1 + indexOffset;
-			indexBuffer[i + 2] = 2 + indexOffset;
+			lineArray = VertexArray::make();
+		
+			lineBuffer = VertexBuffer::make(maxVertices * sizeof(LineVertex));
+			lineBuffer->SetBufferLayout({
+				{ LayoutType::Float, 3 },	// position
+				{ LayoutType::Float, 4 }	// tint
+			});
 
-			indexBuffer[i + 3] = 0 + indexOffset;
-			indexBuffer[i + 4] = 2 + indexOffset;
-			indexBuffer[i + 5] = 3 + indexOffset;
-
-			indexOffset += 4;
+			lineArray->PushVertexBuffer(lineBuffer);
+			
+			lines = new LineVertex[maxVertices];
+			linesHead = lines;
 		}
 
-		indexBatch = CreateRef<IndexBuffer>(indexBuffer, maxIndices);
-		delete[] indexBuffer;
-
-		// Create the vertex buffer and set its layout.
-		vertexBatch = CreateRef<VertexBuffer>(maxVertices * sizeof(Vertex));
-		vertexBatch->SetBufferLayout({ // Create a layout for data that is held in the vertex buffer for drawing.
-			{ LayoutType::Float, 3 }, // Position
-			{ LayoutType::Float, 4 }, // Colour
-			{ LayoutType::Float, 2 },
-			{ LayoutType::Float, 1 },
-			{ LayoutType::Float, 1 }
-		});
-
-		// Add the vertex and index buffer to the vertex array.
-		batchArray->PushVertexBuffer(vertexBatch);
-		batchArray->SetIndexBuffer(indexBatch);
-
-		for (int i = 0; i < allocatedTextureSlots; i++)
+		// set up texture stuff
 		{
-			samplers[i] = i;
+			textures = new Ref<TextureArray>[allocatedTextureSlots];
+
+			samplers = new int[allocatedTextureSlots];
+			for (int i = 0; i < allocatedTextureSlots; i++)
+			{
+				samplers[i] = i;
+			}
 		}
+
+		lineShader = Resource::fetch<Shader>("shaders:line/line.shader.json");
 
 		setShader(defaultShader);
 	}
@@ -99,7 +125,7 @@ namespace Desdun
 				auto texture = CreateRef<TextureArray>(command.image->size, maxTextureArrayDepth);
 				command.image->allocate(texture);
 
-				Debug::Log("Allocted a new texture array of size " + std::to_string(command.image->size.x) + "*" + std::to_string(command.image->size.y) + "*" + std::to_string(texture->getDepth()));
+				dd_log_fh("allocated texture {}*{}*{}", "Renderer", command.image->size.x, command.image->size.y, texture->getDepth());
 
 				textureIndex.push_back(texture);
 			}
@@ -180,26 +206,50 @@ namespace Desdun
 			verticesHead->texIndex = (float_t)slotIndex;
 
 			verticesHead++;
-			statVertices++;
+			stats.vertexCount++;
 		}
 
 		vertexBufferIndex += 6;
 	}
 
+	void Renderer::drawLine(const Vector3& p0, const Vector3& p1, const Color4f& tint)
+	{
+		linesHead->position = p0;
+		linesHead->tint = tint;
+		linesHead++;
+
+		linesHead->position = p1;
+		linesHead->tint = tint;
+		linesHead++;
+
+		lineBufferIndex += 2;
+	}
+
 	void Renderer::begin(Mat4f transform)
 	{
+		if (sceneActive == true)
+			throw RenderStateInvalidException("scene", false);
+
+		sceneActive = true;
+
 		projection = transform;
 		queueIndex = 0;
 
-		statVertices = 0;
-		statDrawCalls = 0;
-		
-		setShader(defaultShader);
-		beginBatch();
+		lineBufferIndex = 0;
+
+		stats = {};
 	}
 
 	void Renderer::end()
 	{
+		if (sceneActive == false)
+			throw RenderStateInvalidException("scene", true);
+
+		sceneActive = false;
+
+
+		// TODO: swap this out for a render tree
+
 		std::sort(queue, queue + queueIndex,
 			[&](const Command& A, const Command& B)
 			{
@@ -214,19 +264,55 @@ namespace Desdun
 					have to perform many texture switches, but if we do, then this optimisation may be important!
 				*/
 
-				return A.zIndex < B.zIndex ||
-					(A.zIndex == B.zIndex && A.shader->getInternalId() < B.shader->getInternalId()) ||
-					((A.zIndex == B.zIndex && A.shader->getInternalId() == B.shader->getInternalId()) &&
-					(A.image->getAllocation().Texture->GetRenderID() < B.image->getAllocation().Texture->GetRenderID()));
+				if (A.zIndex < B.zIndex)
+				{
+					return true;
+				}
+				else if (A.zIndex == B.zIndex)
+				{
+					if (A.shader->getInternalId() < B.shader->getInternalId())
+					{
+						return true;
+					}
+					else if (A.shader->getInternalId() == B.shader->getInternalId())
+					{
+						if (A.image->getAllocation().Texture->GetRenderID() < B.image->getAllocation().Texture->GetRenderID())
+						{
+							return true;
+						}
+					}
+				}
+
+				return false;
 			}
 		);
 
-		for (uint i = 0; i < queueIndex; i++)
+		setShader(defaultShader);
+		
+		if (queueIndex > 0)
 		{
-			execute(*(queue + i));
+			beginBatch();
+
+			for (uint i = 0; i < queueIndex; i++)
+			{
+				execute(*(queue + i));
+			}
+
+			endBatch();
 		}
 
-		endBatch();
+		if (lineBufferIndex > 0)
+		{
+			lineShader->bind();
+			lineShader->set("projection", projection);
+
+			auto size = bytelen(lines, linesHead);
+			vertexBatch->Set(lines, size);
+			lineArray->Bind();
+
+			glDrawArrays(GL_LINES, 0, lineBufferIndex);
+			stats.drawCalls++;
+		}
 	}
 
 	void Renderer::setShader(Shader* shader)
@@ -240,12 +326,10 @@ namespace Desdun
 
 	void Renderer::beginBatch()
 	{
-		if (active == true)
-		{
-			throw Exception("Rendering Error: Batch already active");
-		}
+		if (batchActive == true)
+			throw RenderStateInvalidException("batch", false);
 
-		active = true;
+		batchActive = true;
 
 		setShader(activeShader);
 		
@@ -255,34 +339,27 @@ namespace Desdun
 
 	void Renderer::endBatch()
 	{
-		if (active == false)
-		{
-			throw Exception("Rendering Error: Batch not active");
-		}
+		if (batchActive == false)
+			throw RenderStateInvalidException("batch", true);
 
-		active = false;
-
-		if (vertexBufferIndex == 0)
-			return;
-
-		auto size = (uint32_t)((uint8_t*)verticesHead - (uint8_t*)vertices);
-		vertexBatch->Set(vertices, size);
+		batchActive = false;
 
 		for (uint i = 0; i < textureNextSlot; i++)
 		{
 			textures[i]->Bind(i);
 		}
 
-		batchArray->Bind();
-		activeShader->bind();
-
-		if (target)
+		if (vertexBufferIndex > 0)
 		{
-			// do something
-		}
+			auto size = bytelen(vertices, verticesHead);
+			vertexBatch->Set(vertices, size);
+			
+			activeShader->bind();
+			batchArray->Bind();
 
-		glDrawElements(GL_TRIANGLES, vertexBufferIndex, GL_UNSIGNED_INT, nullptr);
-		statDrawCalls++;
+			glDrawElements(GL_TRIANGLES, vertexBufferIndex, GL_UNSIGNED_INT, nullptr);
+			stats.drawCalls++;
+		}
 	}
 
 	void Renderer::setViewportSize(Vector2i size)

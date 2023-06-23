@@ -13,7 +13,6 @@ namespace Desdun
 			Debug::Log("Setting up the scene...", "Game");
 
 			gameScene = new Scene();
-			explorer.setContextScene(gameScene);
 
 			Application::get()->getPrimaryWindow()->setVsyncEnabled(true);
 
@@ -37,6 +36,7 @@ namespace Desdun
 			imagetest->setParent(gameScene->getRoot());
 		}
 
+#if 0
 		{
 			Debug::Log("Registering items...", "Game");
 
@@ -44,6 +44,16 @@ namespace Desdun
 
 			Debug::Log(std::format("Loaded {} items", items.size()), "Game");
 		}
+#endif
+
+#if 0
+		{
+			Debug::Log("Initialising tools");
+			explorer = new SceneExplorer();
+			explorer->setContextScene(gameScene);
+
+		}
+#endif
 
 		Debug::Log("Initialised", "Game");
 	}
@@ -51,7 +61,10 @@ namespace Desdun
 	void Game::onFrameUpdate(const float delta)
 	{
 		gameScene->onFrameUpdate(delta);
-		explorer.onImGuiRender();
+
+#if 0
+		explorer->onImGuiRender();
+#endif
 	}
 
 	void Game::onGameStep(const float Delta)

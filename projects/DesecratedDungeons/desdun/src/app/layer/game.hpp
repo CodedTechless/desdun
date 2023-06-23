@@ -30,7 +30,7 @@ namespace Desdun
 
 	private:
 
-		SceneExplorer explorer;
+		SceneExplorer* explorer = nullptr;
 
 	};
 

@@ -32,6 +32,10 @@ namespace Desdun
 	void Player::onFrameUpdate(float delta)
 	{
 		this->findChild("BodyController")->as<HumanoidBodyController>()->updateBody();
+
+		Vector2 pos = getGlobalPosition();
+		Primitive::drawRect(pos, { 1.f, 1.f }, 100.f, 0.f, { 1.f, 0.f, 0.f, 0.2f });
+		Primitive::drawLine({ 0.f, 0.f }, { 256.f, 256.f }, { 1.f, 0.f, 0.f, 1.f });
 	}
 
 	void Player::onGameStep(float delta)

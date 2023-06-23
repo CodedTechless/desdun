@@ -59,10 +59,9 @@ namespace Desdun
 			frames = 0.f;
 		}
 
+		if (ImGui::Begin("Debugger"))
 		{
-			auto* app = Application::get();
-
-			ImGui::Begin("Debugger");
+			auto* app = Application::get();	
 
 			if (ImGui::CollapsingHeader("Peformance"))
 			{

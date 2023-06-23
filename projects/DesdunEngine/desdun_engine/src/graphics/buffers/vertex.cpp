@@ -23,6 +23,16 @@ namespace Desdun
 		glDeleteBuffers(1, &RenderID);
 	}
 
+	Ref<VertexBuffer> VertexBuffer::make(uint size)
+	{
+		return CreateRef<VertexBuffer>(size);
+	}
+
+	Ref<VertexBuffer> VertexBuffer::make(const void* data, uint size)
+	{
+		return CreateRef<VertexBuffer>(data, size);
+	}
+
 	void VertexBuffer::Set(const void* Data, unsigned int Size)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, RenderID);

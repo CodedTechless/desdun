@@ -17,6 +17,11 @@ namespace Desdun
 		glDeleteBuffers(1, &RendererID);
 	}
 
+	Ref<IndexBuffer> IndexBuffer::make(const uint* data, uint count)
+	{
+		return CreateRef<IndexBuffer>(data, count);
+	}
+
 	void IndexBuffer::Bind()
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, RendererID); // binds to that buffer and specifies the type as an element array buffer

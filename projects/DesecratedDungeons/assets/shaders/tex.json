@@ -1,4 +1,0 @@
-{
-	"vertex": "shaders:texture/tex.vert.shader",
-	"fragment" :  "shaders:texture/tex.frag.shader"
-}

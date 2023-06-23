@@ -9,6 +9,17 @@
 namespace Desdun
 {
 
+	SceneExplorer::SceneExplorer()
+	{
+#if 0
+		ImGuiID id = ImGui::GetID("giraffeDock");
+		ImGui::DockSpace(id);
+
+		ImGui::DockBuilderDockWindow("giraffe", id);
+		ImGui::DockBuilderDockWindow("sceneExplorer", id);
+#endif
+	}
+
 	void SceneExplorer::setContextScene(Scene* inst)
 	{
 		scene = inst;
@@ -16,23 +27,29 @@ namespace Desdun
 
 	void SceneExplorer::onImGuiRender()
 	{
-		ImGuiID id = ImGui::GetID("giraffeDock");
-		ImGui::DockSpace(id, {})
 
-			
-		if (ImGui::Begin("giraffe™️"))
+#if 0
+		if (ImGui::Begin("GiraffeTool"))
 		{
-			ImGui::DockBuilderDockWindow()
-			if (ImGui::Begin("Scene Explorer"));
+			ImGuiID id = ImGui::GetID("GiraffeTool");
+			if (!setup)
+			{
+				ImGuiID docid = ImGui::GetID("GiraffeTool Dockspace");
+				ImGui::DockBuilderAddNode(docid);
 
+			}
+#endif
+		if (ImGui::Begin("Scene Explorer"))
+		{
 			if (scene != nullptr)
 				renderInstance(scene->getRoot());
-
-			ImGui::End();
-
+				
 			ImGui::End();
 		}
-
+#if 0
+			ImGui::End();
+		}
+#endif
 	}
 
 	void SceneExplorer::renderInstance(Instance* instance)

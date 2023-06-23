@@ -15,6 +15,28 @@ namespace Desdun
 			: Exception(std::format("Image allocation base expected {}x{}, got {}x{}", source.x, source.y, dest.x, dest.y)) {};
 	};
 
+	struct ImageBounds
+	{
+		Vector2f TL = { 0.f, 0.f };
+		Vector2f BR = { 1.f, 1.f };
+
+		friend void to_json(json& object, const ImageBounds& bounds)
+		{
+			object = json::array({
+				bounds.TL,
+				bounds.BR
+				});
+		};
+
+		friend void from_json(const json& object, ImageBounds& bounds)
+		{
+			bounds = {
+				object[0],
+				object[1]
+			};
+		}
+	};
+
 	class Image : public Resource
 	{
 	public:

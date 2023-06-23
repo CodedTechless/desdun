@@ -73,7 +73,7 @@ namespace Desdun
         char* Version = (char*)glGetString(GL_VERSION);
         Debug::Log("using OpenGL " + std::string(Version), "Application");
 
-        auto* textureShader = Resource::fetch<Shader>("shaders:tex.json");
+        auto* textureShader = Resource::fetch<Shader>("shaders:tex/tex.shader.json");
         renderer = new Renderer(textureShader);
 
         imguiLayer = new ImGuiLayer("config:imgui.ini");

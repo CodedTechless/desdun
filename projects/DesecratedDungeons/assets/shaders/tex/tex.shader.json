@@ -1,0 +1,4 @@
+{
+	"vertex": "shaders:tex/opengl/tex.vert.glsl",
+	"fragment": "shaders:tex/opengl/tex.frag.glsl"
+}

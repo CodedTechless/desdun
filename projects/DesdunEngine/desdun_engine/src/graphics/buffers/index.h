@@ -11,6 +11,8 @@ namespace Desdun
 		IndexBuffer(const uint* Data, uint Count);
 		~IndexBuffer();
 
+		static Ref<IndexBuffer> make(const uint* data, uint count);
+
 		void Bind();
 		void Unbind();
 

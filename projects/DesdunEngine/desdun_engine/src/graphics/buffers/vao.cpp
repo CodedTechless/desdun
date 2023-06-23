@@ -16,6 +16,11 @@ namespace Desdun
 		glDeleteVertexArrays(1, &RenderID);
 	}
 
+	Ref<VertexArray> VertexArray::make()
+	{
+		return CreateRef<VertexArray>();
+	}
+
 	void VertexArray::SetIndexBuffer(ptr<IndexBuffer> iBuffer)
 	{
 		Bind();

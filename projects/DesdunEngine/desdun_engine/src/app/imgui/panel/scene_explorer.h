@@ -17,6 +17,7 @@ namespace Desdun
 	private:
 
 		Scene* scene = nullptr;
+		bool setup = false;
 
 		void renderInstance(Instance* instance);
 

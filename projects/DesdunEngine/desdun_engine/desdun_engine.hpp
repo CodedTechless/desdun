@@ -29,6 +29,7 @@
 // >> Renderer	
 
 #include <desdun_engine/src/graphics/render/renderer.h>
+#include <desdun_engine/src/graphics/primitives/primitive.h>
 
 // Instance
 
