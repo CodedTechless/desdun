@@ -225,9 +225,10 @@
     <None Include="desdun_engine\include\glm\gtx\wrap.inl" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="desdun_engine\include\ddlib\spatial_hash_map.cpp" />
-    <ClCompile Include="desdun_engine\include\ddlib\util.cpp" />
-    <ClCompile Include="desdun_engine\include\desdun_core.cpp" />
+    <ClCompile Include="desdun_engine\include\ddlib\alias\colour.cpp" />
+    <ClCompile Include="desdun_engine\include\ddlib\math\math.cpp" />
+    <ClCompile Include="desdun_engine\include\ddlib\math\spatial_hash_map.cpp" />
+    <ClCompile Include="desdun_engine\include\ddlib\core.cpp" />
     <ClCompile Include="desdun_engine\include\glm\detail\glm.cpp" />
     <ClCompile Include="desdun_engine\include\imgui\imgui.cpp" />
     <ClCompile Include="desdun_engine\include\imgui\imgui_demo.cpp" />
@@ -278,10 +279,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="desdun_engine\desdun_engine.hpp" />
-    <ClInclude Include="desdun_engine\include\ddlib\spatial_hash_map.hpp" />
-    <ClInclude Include="desdun_engine\include\ddlib\util.hpp" />
-    <ClInclude Include="desdun_engine\include\ddlib\uuid.hpp" />
-    <ClInclude Include="desdun_engine\include\desdun_core.hpp" />
+    <ClInclude Include="desdun_engine\include\ddlib\alias\base.hpp" />
+    <ClInclude Include="desdun_engine\include\ddlib\alias\colour.hpp" />
+    <ClInclude Include="desdun_engine\include\ddlib\math\math.hpp" />
+    <ClInclude Include="desdun_engine\include\ddlib\math\spatial_hash_map.hpp" />
+    <ClInclude Include="desdun_engine\include\ddlib\math\uuid.hpp" />
+    <ClInclude Include="desdun_engine\include\ddlib\core.hpp" />
     <ClInclude Include="desdun_engine\include\glew\eglew.h" />
     <ClInclude Include="desdun_engine\include\glew\glew.h" />
     <ClInclude Include="desdun_engine\include\glew\glxew.h" />

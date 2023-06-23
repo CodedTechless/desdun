@@ -1,6 +1,6 @@
 #pragma once
 
-#include <desdun_engine/include/desdun_core.hpp>
+#include <desdun_engine/include/ddlib/core.hpp>
 
 
 namespace Desdun

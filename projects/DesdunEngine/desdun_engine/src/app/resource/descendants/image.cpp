@@ -20,7 +20,7 @@ namespace Desdun
 		}
 	}
 
-	void Image::allocate(ptr<TextureArray> alloc)
+	void Image::allocate(Ref<TextureArray> alloc)
 	{
 		if (size != alloc->GetBaseSize())
 		{

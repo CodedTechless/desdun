@@ -1,6 +1,7 @@
 #pragma once
 
-#include <desdun_engine/include/desdun_core.hpp>
+#if 0
+#include <desdun_engine/include/ddlib/core.hpp>
 
 #include <object/instance.hpp>
 
@@ -23,3 +24,4 @@ namespace Desdun
 
 
 }
+#endif

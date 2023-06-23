@@ -522,7 +522,7 @@
     <ClCompile Include="desdun_engine\src\app\scene\scene.cpp">
       <Filter>App\Runtime</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\include\desdun_core.cpp">
+    <ClCompile Include="desdun_engine\include\ddlib\core.cpp">
       <Filter>Dependencies</Filter>
     </ClCompile>
     <ClCompile Include="desdun_engine\include\glm\detail\glm.cpp">
@@ -549,7 +549,7 @@
     <ClCompile Include="desdun_engine\include\imgui\imgui_widgets.cpp">
       <Filter>Dependencies</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\include\ddlib\spatial_hash_map.cpp">
+    <ClCompile Include="desdun_engine\include\ddlib\math\spatial_hash_map.cpp">
       <Filter>Dependencies</Filter>
     </ClCompile>
     <ClCompile Include="desdun_engine\include\stb\stb.cpp">
@@ -558,10 +558,9 @@
     <ClCompile Include="desdun_engine\include\stb\stb_vorbis_impl.c">
       <Filter>Dependencies</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\include\ddlib\util.cpp">
-      <Filter>Dependencies</Filter>
-    </ClCompile>
     <ClCompile Include="desdun_engine\src\graphics\render\base.cpp" />
+    <ClCompile Include="desdun_engine\include\ddlib\alias\colour.cpp" />
+    <ClCompile Include="desdun_engine\include\ddlib\math\math.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="desdun_engine\src\app\app.h">
@@ -750,7 +749,7 @@
     <ClInclude Include="desdun_engine\include\glm\gtc\constants.hpp">
       <Filter>Dependencies</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\include\desdun_core.hpp">
+    <ClInclude Include="desdun_engine\include\ddlib\core.hpp">
       <Filter>Dependencies</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\include\glm\gtx\dual_quaternion.hpp">
@@ -1323,7 +1322,7 @@
     <ClInclude Include="desdun_engine\include\glm\detail\setup.hpp">
       <Filter>Dependencies</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\include\ddlib\spatial_hash_map.hpp">
+    <ClInclude Include="desdun_engine\include\ddlib\math\spatial_hash_map.hpp">
       <Filter>Dependencies</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\include\glm\gtx\spline.hpp">
@@ -1428,10 +1427,7 @@
     <ClInclude Include="desdun_engine\include\glm\gtc\ulp.hpp">
       <Filter>Dependencies</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\include\ddlib\util.hpp">
-      <Filter>Dependencies</Filter>
-    </ClInclude>
-    <ClInclude Include="desdun_engine\include\ddlib\uuid.hpp">
+    <ClInclude Include="desdun_engine\include\ddlib\math\uuid.hpp">
       <Filter>Dependencies</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\include\glm\gtx\vec_swizzle.hpp">
@@ -1604,6 +1600,9 @@
     </ClInclude>
     <ClInclude Include="desdun_engine\desdun_engine.hpp" />
     <ClInclude Include="desdun_engine\src\graphics\render\base.hpp" />
+    <ClInclude Include="desdun_engine\include\ddlib\alias\colour.hpp" />
+    <ClInclude Include="desdun_engine\include\ddlib\math\math.hpp" />
+    <ClInclude Include="desdun_engine\include\ddlib\alias\base.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Instances">

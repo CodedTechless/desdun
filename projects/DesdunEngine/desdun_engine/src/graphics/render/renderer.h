@@ -10,7 +10,7 @@
 #include <desdun_engine/src/app/resource/descendants/shader.hpp>
 #include <desdun_engine/src/app/resource/descendants/image.h>
 
-#include <desdun_engine/include/desdun_core.hpp>
+#include <desdun_engine/include/ddlib/core.hpp>
 
 #define RENDER_QUEUE_SIZE 8192
 #define ALLOCATED_TEXTURE_SLOTS 16
@@ -55,12 +55,6 @@ namespace Desdun
 			float_t texIndex;
 		};
 
-		struct LineVertex
-		{
-			Vector3f position;
-			Vector4f tint;
-		};
-
 		struct Command
 		{
 			Command() = default;
@@ -81,15 +75,12 @@ namespace Desdun
 
 		Color4 targetColour = Color4(0.1f, 0.1f, 0.1f, 1.f);
 
+		void enqueue(const Command& command);
 		void begin(Mat4f transform);
 		void end();
-
 		void clear();
+
 		void setViewportSize(Vector2i size);
-
-		void enqueue(const Command& command);
-
-		void drawLine(const Vector3& p0, const Vector3& p1, const Color4f& tint);
 
 		Performance performance() const
 		{
@@ -126,7 +117,6 @@ namespace Desdun
 
 		Shader* defaultShader = nullptr;
 		Shader* activeShader = nullptr;
-		Shader* lineShader = nullptr;
 
 		int* samplers = nullptr;
 
@@ -145,15 +135,6 @@ namespace Desdun
 		Ref<VertexArray> batchArray = nullptr;
 
 		uint vertexBufferIndex = 0;
-		
-		// # lines
-		Ref<VertexBuffer> lineBuffer = nullptr;
-		Ref<VertexArray> lineArray = nullptr;
-
-		LineVertex* lines = nullptr;
-		LineVertex* linesHead = nullptr;
-
-		uint lineBufferIndex = 0;
 
 		// textures
 

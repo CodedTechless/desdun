@@ -61,23 +61,6 @@ namespace Desdun
 			batchArray->SetIndexBuffer(indexBatch);
 		}
 
-		
-		// line renderer
-		{
-			lineArray = VertexArray::make();
-		
-			lineBuffer = VertexBuffer::make(maxVertices * sizeof(LineVertex));
-			lineBuffer->SetBufferLayout({
-				{ LayoutType::Float, 3 },	// position
-				{ LayoutType::Float, 4 }	// tint
-			});
-
-			lineArray->PushVertexBuffer(lineBuffer);
-			
-			lines = new LineVertex[maxVertices];
-			linesHead = lines;
-		}
-
 		// set up texture stuff
 		{
 			textures = new Ref<TextureArray>[allocatedTextureSlots];
@@ -88,8 +71,6 @@ namespace Desdun
 				samplers[i] = i;
 			}
 		}
-
-		lineShader = Resource::fetch<Shader>("shaders:line/line.shader.json");
 
 		setShader(defaultShader);
 	}
@@ -212,19 +193,6 @@ namespace Desdun
 		vertexBufferIndex += 6;
 	}
 
-	void Renderer::drawLine(const Vector3& p0, const Vector3& p1, const Color4f& tint)
-	{
-		linesHead->position = p0;
-		linesHead->tint = tint;
-		linesHead++;
-
-		linesHead->position = p1;
-		linesHead->tint = tint;
-		linesHead++;
-
-		lineBufferIndex += 2;
-	}
-
 	void Renderer::begin(Mat4f transform)
 	{
 		if (sceneActive == true)
@@ -234,8 +202,6 @@ namespace Desdun
 
 		projection = transform;
 		queueIndex = 0;
-
-		lineBufferIndex = 0;
 
 		stats = {};
 	}
@@ -299,19 +265,6 @@ namespace Desdun
 			}
 
 			endBatch();
-		}
-
-		if (lineBufferIndex > 0)
-		{
-			lineShader->bind();
-			lineShader->set("projection", projection);
-
-			auto size = bytelen(lines, linesHead);
-			vertexBatch->Set(lines, size);
-			lineArray->Bind();
-
-			glDrawArrays(GL_LINES, 0, lineBufferIndex);
-			stats.drawCalls++;
 		}
 	}
 

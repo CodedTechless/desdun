@@ -1,7 +1,7 @@
 #pragma once
 
 #include <desdun_engine/include/glm/gtc/matrix_transform.hpp>
-#include <desdun_engine/include/desdun_core.hpp>
+#include <desdun_engine/include/ddlib/core.hpp>
 
 namespace Desdun
 {

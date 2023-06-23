@@ -3,7 +3,7 @@
 #include <desdun_engine/src/app/window/input.h>
 #include <desdun_engine/src/app/window/window.h>
 
-#include <desdun_engine/include/desdun_core.hpp>
+#include <desdun_engine/include/ddlib/core.hpp>
 
 namespace Desdun 
 {

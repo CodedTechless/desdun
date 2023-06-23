@@ -1,5 +1,7 @@
 
-#include "desdun_core.hpp"
+#include "core.hpp"
+
+using namespace Desdun;
 
 namespace glm
 {

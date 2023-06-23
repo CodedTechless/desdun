@@ -1,6 +1,6 @@
 #pragma once
 
-#include <desdun_engine/include/desdun_core.hpp>
+#include <desdun_engine/include/ddlib/core.hpp>
 #include <desdun_engine/src/app/resource/serial/json_object.h>
 
 namespace Desdun

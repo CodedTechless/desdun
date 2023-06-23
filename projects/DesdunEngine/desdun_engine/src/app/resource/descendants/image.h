@@ -3,7 +3,7 @@
 #include <desdun_engine/src/app/resource/resource.hpp>
 #include <desdun_engine/src/graphics/texture/texture_array.h>
 
-#include <desdun_engine/include/desdun_core.hpp>
+#include <desdun_engine/include/ddlib/core.hpp>
 
 namespace Desdun
 {
@@ -49,7 +49,7 @@ namespace Desdun
 
 		struct Allocation
 		{
-			ptr<TextureArray> Texture;
+			Ref<TextureArray> Texture;
 			uint Layer;
 		};
 
@@ -66,13 +66,13 @@ namespace Desdun
 		int channels = 0;
 		int bitsPerChannel = 8;
 
-		ptr<TextureArray> textureAlloc = nullptr;
+		Ref<TextureArray> textureAlloc = nullptr;
 		uint textureLayer = 0;
 
 		void load() override;
 		void unload() override;
 
-		void allocate(ptr<TextureArray> alloc);
+		void allocate(Ref<TextureArray> alloc);
 
 		friend class Renderer;
 		friend class Resource;

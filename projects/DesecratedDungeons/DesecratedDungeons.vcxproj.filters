@@ -83,6 +83,5 @@
     <None Include="assets\shaders\line.shader" />
     <None Include="assets\shaders\texture\tex.vert.shader" />
     <None Include="assets\shaders\texture\tex.frag.shader" />
-    <None Include="assets\shaders\line\opengl\line.frag.glsl" />
   </ItemGroup>
 </Project>

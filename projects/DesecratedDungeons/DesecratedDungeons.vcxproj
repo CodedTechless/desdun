@@ -115,7 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\line.shader" />
-    <None Include="assets\shaders\line\opengl\line.frag.glsl" />
     <None Include="assets\shaders\texture\tex.frag.shader" />
     <None Include="assets\shaders\texture\tex.vert.shader" />
     <None Include="cpp.hint" />

@@ -34,7 +34,7 @@ namespace Desdun
 		Vector2f p = p0 + (diff / 2.f);
 
 		Mat4f transform = glm::translate(Mat4(1.f), Vector3f(p, 1.f))
-			* glm::rotate(Mat4f(1.f), std::atan2(diff.y, diff.x) + PI / 2, Vector3f(0.f, 0.f, 1.f))
+			* glm::rotate(Mat4f(1.f), std::atan2(diff.y, diff.x) + math::PI / 2, Vector3f(0.f, 0.f, 1.f))
 			* glm::scale(Mat4f(1.f), Vector3f(Vector2f(1.f, glm::length(diff)), 1.f));
 
 		Renderer::Command command;

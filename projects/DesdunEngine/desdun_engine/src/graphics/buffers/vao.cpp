@@ -21,7 +21,17 @@ namespace Desdun
 		return CreateRef<VertexArray>();
 	}
 
-	void VertexArray::SetIndexBuffer(ptr<IndexBuffer> iBuffer)
+	void VertexArray::Bind() const
+	{
+		glBindVertexArray(RenderID);
+	}
+
+	void VertexArray::Unbind() const
+	{
+		glBindVertexArray(0);
+	}
+
+	void VertexArray::SetIndexBuffer(Ref<IndexBuffer> iBuffer)
 	{
 		Bind();
 		iBuffer->Bind();
@@ -29,7 +39,7 @@ namespace Desdun
 		CurrentIndexBuffer = iBuffer;
 	}
 
-	void VertexArray::PushVertexBuffer(ptr<VertexBuffer> vBuffer)
+	void VertexArray::PushVertexBuffer(Ref<VertexBuffer> vBuffer)
 	{
 		Bind();
 		vBuffer->Bind(); // the arrays are now linked. apply the attributes and stuff
@@ -51,11 +61,5 @@ namespace Desdun
 		VertexBuffers.push_back(vBuffer);
 	}
 
-	void VertexArray::Bind() const {
-		glBindVertexArray(RenderID);
-	}
 
-	void VertexArray::Unbind() const {
-		glBindVertexArray(0);
-	}
 }
