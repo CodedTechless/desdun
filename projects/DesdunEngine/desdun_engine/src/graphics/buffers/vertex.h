@@ -8,10 +8,9 @@ namespace Desdun
 
 	enum class LayoutType 
 	{
+		Half = GL_HALF_FLOAT,
 		Float = GL_FLOAT,
-		Int = GL_INT,
-		UnsignedInt = GL_UNSIGNED_INT,
-		UnsignedByte = GL_UNSIGNED_BYTE
+		Int = GL_INT
 	};
 
 	struct LayoutElement 
@@ -24,10 +23,9 @@ namespace Desdun
 		{
 			switch (Type) 
 			{
+				case LayoutType::Half:			return 2;
 				case LayoutType::Float:			return 4;
 				case LayoutType::Int:			return 4;
-				case LayoutType::UnsignedInt:	return 4;
-				case LayoutType::UnsignedByte:	return 1;
 			}
 
 			return 0;

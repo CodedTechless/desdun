@@ -2,14 +2,19 @@
 
 layout(location = 0) out vec4 fragColor;
 
-in vec4 tint;
-in vec2 texCoords;
-flat in float texLayer;
-flat in float texIndex;
+struct VertexOutput
+{
+    vec4 tint;
+    vec2 texCoords;
+    float texLayer;
+    float texIndex;
+};
 
-uniform sampler2DArray samplers[16];
+layout(location = 0) in VertexOutput vertex;
+
+layout(binding = 0) uniform sampler2DArray samplers[16];
 
 void main()
 {
-    fragColor = tint * texture(samplers[int(texIndex)], vec3(texCoords, floor(texLayer)));
+    fragColor = vertex.tint * texture(samplers[int(vertex.texIndex)], vec3(vertex.texCoords, floor(vertex.texLayer)));
 };

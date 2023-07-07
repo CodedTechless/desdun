@@ -43,14 +43,14 @@ namespace Desdun
 
 		struct ImageContext
 		{
-			const int Channels;
-			const int BitsPerChannel;
+			int32_t Channels;
+			int32_t BitsPerChannel;
 		};
 
 		struct Allocation
 		{
 			Ref<TextureArray> Texture;
-			uint Layer;
+			int32_t Layer;
 		};
 
 		Vector2i getSize() const;
@@ -63,11 +63,11 @@ namespace Desdun
 		Vector2i size = {};
 		uchar* buffer = nullptr;
 
-		int channels = 0;
-		int bitsPerChannel = 8;
+		int32_t channels = 0;
+		int32_t bitsPerChannel = 8;
 
 		Ref<TextureArray> textureAlloc = nullptr;
-		uint textureLayer = 0;
+		int32_t textureLayer = 0;
 
 		void load() override;
 		void unload() override;

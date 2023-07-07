@@ -68,6 +68,7 @@ namespace Desdun
         glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
 
         glEnable(GL_BLEND);
+        glDisable(GL_DEPTH);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         char* Version = (char*)glGetString(GL_VERSION);

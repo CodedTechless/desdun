@@ -144,9 +144,9 @@ namespace Desdun
 
 		Image::Allocation texture = command.image->getAllocation();
 
-		uint32_t slotIndex = 0;
+		int32_t slotIndex = 0;
 		bool hasSlot = false;
-		for (uint32_t i = 0; i < allocatedTextureSlots; i++)
+		for (int32_t i = 0; i < allocatedTextureSlots; i++)
 		{
 			if (textures[i] == texture.Texture)
 			{
