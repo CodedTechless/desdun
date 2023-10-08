@@ -14,7 +14,7 @@ namespace Desdun
 
 			gameScene = new Scene();
 
-			Application::get()->getPrimaryWindow()->setVsyncEnabled(true);
+			Application::get()->getPrimaryWindow()->setVsyncEnabled(false);
 
 			auto* camera = gameScene->create<GameCamera>();
 			camera->targetViewportSize = { 800, 600 };
