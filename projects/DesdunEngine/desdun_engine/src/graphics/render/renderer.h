@@ -7,8 +7,8 @@
 #include <desdun_engine/src/graphics/buffers/index.h>
 #include <desdun_engine/src/graphics/buffers/frame.h>
 
-#include <desdun_engine/src/app/resource/descendants/shader.hpp>
-#include <desdun_engine/src/app/resource/descendants/image.h>
+#include <desdun_engine/src/resources/descendants/shader.hpp>
+#include <desdun_engine/src/resources/descendants/image.h>
 
 #include <desdun_engine/include/ddlib/core.hpp>
 

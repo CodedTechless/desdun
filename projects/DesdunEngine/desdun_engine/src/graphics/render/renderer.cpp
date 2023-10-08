@@ -1,6 +1,6 @@
 
 #include <desdun_engine/src/app/debug/debug.h>
-#include <desdun_engine/src/app/resource/resource.hpp>
+#include <desdun_engine/src/resources/resource.hpp>
 
 #include <desdun_engine/include/glew/glew.h>
 #include <desdun_engine/include/glfw/glfw3.h>

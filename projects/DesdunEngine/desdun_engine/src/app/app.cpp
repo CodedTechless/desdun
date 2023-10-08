@@ -1,7 +1,7 @@
 
 #include <desdun_engine/src/app/debug/debug.h>
-#include <desdun_engine/src/app/resource/resource.hpp>
-#include <desdun_engine/src/app/runtime/runtime.h>
+#include <desdun_engine/src/resources/resource.hpp>
+#include <desdun_engine/src/runtime/runtime.h>
 #include <desdun_engine/src/graphics/render/renderer.h>
 #include <desdun_engine/src/instance/index.hpp>
 

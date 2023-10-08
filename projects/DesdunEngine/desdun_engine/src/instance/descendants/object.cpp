@@ -1,5 +1,5 @@
 
-#include <desdun_engine/src/app/scene/scene.h>
+#include <desdun_engine/src/runtime/scene/scene.h>
 
 #include <desdun_engine/include/glm/gtc/matrix_transform.hpp>
 #include <desdun_engine/include/glm/gtx/matrix_interpolation.hpp>

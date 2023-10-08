@@ -2,7 +2,7 @@
 
 #include <desdun_engine/src/app/app.h>
 #include <desdun_engine/src/app/window/input.h>
-#include <desdun_engine/src/app/runtime/runtime.h>
+#include <desdun_engine/src/runtime/runtime.h>
 
 #include <desdun_engine/include/ddlib/core.hpp>
 

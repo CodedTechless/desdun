@@ -6,17 +6,17 @@
 
 // >> Resources
 
-#include <desdun_engine/src/app/resource/resource.hpp>
+#include <desdun_engine/src/resources/resource.hpp>
 
-#include <desdun_engine/src/app/resource/descendants/audio.h>
-#include <desdun_engine/src/app/resource/descendants/image.h>
-#include <desdun_engine/src/app/resource/descendants/model.h>
-#include <desdun_engine/src/app/resource/descendants/shader.hpp>
-#include <desdun_engine/src/app/resource/descendants/animation_table.hpp>
+#include <desdun_engine/src/resources/descendants/audio.h>
+#include <desdun_engine/src/resources/descendants/image.h>
+#include <desdun_engine/src/resources/descendants/model.h>
+#include <desdun_engine/src/resources/descendants/shader.hpp>
+#include <desdun_engine/src/resources/descendants/animation_table.hpp>
 
 // >> Scene and Objects
 
-#include <desdun_engine/src/app/scene/scene.h>
+#include <desdun_engine/src/runtime/scene/scene.h>
 
 // >> Input
 

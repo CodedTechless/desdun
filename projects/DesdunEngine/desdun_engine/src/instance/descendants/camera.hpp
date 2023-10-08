@@ -4,7 +4,7 @@
 an object but also sort of a wrapper class for RenderCamera
 */
 
-#include <desdun_engine/src/app/scene/scene.h>
+#include <desdun_engine/src/runtime/scene/scene.h>
 #include <desdun_engine/src/instance/descendants/object.hpp>
 #include <desdun_engine/src/instance/descendants/sprite.hpp>
 

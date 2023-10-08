@@ -417,19 +417,19 @@
     <ClCompile Include="desdun_engine\src\app\app.cpp">
       <Filter>App</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\resource\descendants\animation_table.cpp">
+    <ClCompile Include="desdun_engine\src\resources\descendants\animation_table.cpp">
       <Filter>App\Resources</Filter>
     </ClCompile>
     <ClCompile Include="desdun_engine\src\instance\descendants\animated_sprite.cpp">
       <Filter>Instances\Sprites</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\resource\descendants\image.cpp">
+    <ClCompile Include="desdun_engine\src\resources\descendants\image.cpp">
       <Filter>App\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\layer\layer.cpp">
+    <ClCompile Include="desdun_engine\src\runtime\layer\layer.cpp">
       <Filter>App\Layers</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\layer\layer_collection.cpp">
+    <ClCompile Include="desdun_engine\src\runtime\layer\layer_collection.cpp">
       <Filter>App\Layers</Filter>
     </ClCompile>
     <ClCompile Include="desdun_engine\src\instance\descendants\sprite.cpp">
@@ -441,7 +441,7 @@
     <ClCompile Include="desdun_engine\src\instance\descendants\kinetic_body.cpp">
       <Filter>Instances\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\resource\descendants\audio.cpp">
+    <ClCompile Include="desdun_engine\src\resources\descendants\audio.cpp">
       <Filter>Instances\Sound</Filter>
     </ClCompile>
     <ClCompile Include="desdun_engine\src\instance\descendants\camera.cpp">
@@ -450,10 +450,10 @@
     <ClCompile Include="desdun_engine\src\app\debug\debug.cpp">
       <Filter>App\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\resource\serial\json_object.cpp">
+    <ClCompile Include="desdun_engine\src\resources\serial\json_object.cpp">
       <Filter>App\Serialisation</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\resource\serial\json_stream.cpp">
+    <ClCompile Include="desdun_engine\src\resources\serial\json_stream.cpp">
       <Filter>App\Serialisation</Filter>
     </ClCompile>
     <ClCompile Include="desdun_engine\src\app\window\input.cpp">
@@ -471,19 +471,19 @@
     <ClCompile Include="desdun_engine\src\instance\descendants\object.cpp">
       <Filter>Instances\Basic</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\resource\resource.cpp">
+    <ClCompile Include="desdun_engine\src\resources\resource.cpp">
       <Filter>App\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\resource\descendants\model.cpp">
+    <ClCompile Include="desdun_engine\src\resources\descendants\model.cpp">
       <Filter>App\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\runtime\runtime.cpp">
+    <ClCompile Include="desdun_engine\src\runtime\runtime.cpp">
       <Filter>App\Runtime</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\runtime\base\runtime_obj.cpp">
+    <ClCompile Include="desdun_engine\src\runtime\base\runtime_obj.cpp">
       <Filter>App\Runtime</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\runtime\base\serial_obj.cpp">
+    <ClCompile Include="desdun_engine\src\runtime\base\serial_obj.cpp">
       <Filter>App\Serialisation</Filter>
     </ClCompile>
     <ClCompile Include="desdun_engine\src\graphics\buffers\vao.cpp">
@@ -492,7 +492,7 @@
     <ClCompile Include="desdun_engine\src\graphics\buffers\vertex.cpp">
       <Filter>Renderer\Buffers</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\resource\descendants\shader.cpp">
+    <ClCompile Include="desdun_engine\src\resources\descendants\shader.cpp">
       <Filter>App\Resources</Filter>
     </ClCompile>
     <ClCompile Include="desdun_engine\src\instance\descendants\sound.cpp">
@@ -501,10 +501,10 @@
     <ClCompile Include="desdun_engine\src\app\window\window.cpp">
       <Filter>App\Window</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\imgui\panel\scene_explorer.cpp">
+    <ClCompile Include="desdun_engine\src\runtime\imgui\panel\scene_explorer.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\imgui\imgui_layer.cpp">
+    <ClCompile Include="desdun_engine\src\runtime\imgui\imgui_layer.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
     <ClCompile Include="desdun_engine\src\graphics\primitives\primitive.cpp">
@@ -519,7 +519,7 @@
     <ClCompile Include="desdun_engine\src\graphics\texture\texture_array.cpp">
       <Filter>Renderer\Textures</Filter>
     </ClCompile>
-    <ClCompile Include="desdun_engine\src\app\scene\scene.cpp">
+    <ClCompile Include="desdun_engine\src\runtime\scene\scene.cpp">
       <Filter>App\Runtime</Filter>
     </ClCompile>
     <ClCompile Include="desdun_engine\include\ddlib\core.cpp">
@@ -566,19 +566,19 @@
     <ClInclude Include="desdun_engine\src\app\app.h">
       <Filter>App</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\resource\descendants\animation_table.hpp">
+    <ClInclude Include="desdun_engine\src\resources\descendants\animation_table.hpp">
       <Filter>App\Resources</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\src\instance\descendants\animated_sprite.hpp">
       <Filter>Instances\Sprites</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\resource\descendants\image.h">
+    <ClInclude Include="desdun_engine\src\resources\descendants\image.h">
       <Filter>App\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\layer\layer.h">
+    <ClInclude Include="desdun_engine\src\runtime\layer\layer.h">
       <Filter>App\Layers</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\layer\layer_collection.h">
+    <ClInclude Include="desdun_engine\src\runtime\layer\layer_collection.h">
       <Filter>App\Layers</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\src\instance\descendants\sprite.hpp">
@@ -593,7 +593,7 @@
     <ClInclude Include="desdun_engine\src\instance\descendants\camera.hpp">
       <Filter>Instances\World</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\resource\descendants\audio.h">
+    <ClInclude Include="desdun_engine\src\resources\descendants\audio.h">
       <Filter>Instances\Sound</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\src\instance\descendants\particle_emitter.hpp">
@@ -605,10 +605,10 @@
     <ClInclude Include="desdun_engine\src\app\debug\debug.h">
       <Filter>App\Debug</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\resource\serial\json_stream.h">
+    <ClInclude Include="desdun_engine\src\resources\serial\json_stream.h">
       <Filter>App\Serialisation</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\resource\serial\json_object.h">
+    <ClInclude Include="desdun_engine\src\resources\serial\json_object.h">
       <Filter>App\Serialisation</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\src\app\window\input.h">
@@ -629,19 +629,19 @@
     <ClInclude Include="desdun_engine\src\instance\instance.hpp">
       <Filter>Instances\Basic</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\resource\resource.hpp">
+    <ClInclude Include="desdun_engine\src\resources\resource.hpp">
       <Filter>App\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\resource\descendants\model.h">
+    <ClInclude Include="desdun_engine\src\resources\descendants\model.h">
       <Filter>App\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\runtime\runtime.h">
+    <ClInclude Include="desdun_engine\src\runtime\runtime.h">
       <Filter>App\Runtime</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\runtime\base\runtime_obj.h">
+    <ClInclude Include="desdun_engine\src\runtime\base\runtime_obj.h">
       <Filter>App\Runtime</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\runtime\base\serial_obj.h">
+    <ClInclude Include="desdun_engine\src\runtime\base\serial_obj.h">
       <Filter>App\Serialisation</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\src\graphics\buffers\vao.h">
@@ -650,7 +650,7 @@
     <ClInclude Include="desdun_engine\src\graphics\buffers\vertex.h">
       <Filter>Renderer\Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\resource\descendants\shader.hpp">
+    <ClInclude Include="desdun_engine\src\resources\descendants\shader.hpp">
       <Filter>App\Resources</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\src\instance\descendants\sound.hpp">
@@ -659,10 +659,10 @@
     <ClInclude Include="desdun_engine\src\app\window\window.h">
       <Filter>App\Window</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\imgui\panel\scene_explorer.h">
+    <ClInclude Include="desdun_engine\src\runtime\imgui\panel\scene_explorer.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\imgui\imgui_layer.h">
+    <ClInclude Include="desdun_engine\src\runtime\imgui\imgui_layer.h">
       <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\src\graphics\primitives\primitive.h">
@@ -680,7 +680,7 @@
     <ClInclude Include="desdun_engine\src\graphics\texture\texture_array.h">
       <Filter>Renderer\Textures</Filter>
     </ClInclude>
-    <ClInclude Include="desdun_engine\src\app\scene\scene.h">
+    <ClInclude Include="desdun_engine\src\runtime\scene\scene.h">
       <Filter>App\Runtime</Filter>
     </ClInclude>
     <ClInclude Include="desdun_engine\include\glm\detail\_features.hpp">

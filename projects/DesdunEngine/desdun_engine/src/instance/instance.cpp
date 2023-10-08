@@ -1,8 +1,8 @@
 
-#include <desdun_engine/src/app/scene/scene.h>
-#include <desdun_engine/src/app/runtime/runtime.h>
-#include <desdun_engine/src/app/resource/resource.hpp>
-#include <desdun_engine/src/app/resource/serial/json_stream.h>
+#include <desdun_engine/src/runtime/scene/scene.h>
+#include <desdun_engine/src/runtime/runtime.h>
+#include <desdun_engine/src/resources/resource.hpp>
+#include <desdun_engine/src/resources/serial/json_stream.h>
 
 #include "instance.hpp"
 

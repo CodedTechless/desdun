@@ -1,6 +1,6 @@
 #pragma once
 
-#include <desdun_engine/src/app/resource/descendants/animation_table.hpp>
+#include <desdun_engine/src/resources/descendants/animation_table.hpp>
 
 #include "sprite.hpp"
 
