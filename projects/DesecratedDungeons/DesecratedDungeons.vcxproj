@@ -58,14 +58,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)projects\DesdunEngine;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\glew;$(SolutionDir)dependencies\glfw;$(SolutionDir)dependencies\luajit;$(SolutionDir)build\DesdunEngine\Debug-x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>engine.lib;opengl32.lib;glew32s.lib;glfw3.lib;lua51.lib;luajit.lib;minilua.lib;buildvm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>engine.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
   </ItemDefinitionGroup>
@@ -77,7 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)projects\DesdunEngine;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -86,33 +86,33 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\glew;$(SolutionDir)dependencies\glfw;$(SolutionDir)dependencies\luajit;$(SolutionDir)build\DesdunEngine\Debug-x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>engine.lib;opengl32.lib;glew32s.lib;glfw3.lib;lua51.lib;luajit.lib;minilua.lib;buildvm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>engine.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="desdun\src\instance\game_camera.cpp" />
-    <ClCompile Include="desdun\src\instance\body\humanoid_body.cpp" />
-    <ClInclude Include="desdun\src\instance\body\humanoid_body.hpp" />
-    <ClCompile Include="desdun\src\instance\physics\move_phys.cpp" />
-    <ClCompile Include="desdun\src\game\item\container.cpp" />
-    <ClCompile Include="desdun\src\app\desdun_app.cpp" />
-    <ClCompile Include="desdun\src\app\layer\game.cpp" />
-    <ClCompile Include="desdun\src\instance\actor\actor.cpp" />
-    <ClCompile Include="desdun\src\instance\actor\player\player.cpp" />
-    <ClCompile Include="desdun\src\main.cpp" />
+    <ClCompile Include="src\instance\game_camera.cpp" />
+    <ClCompile Include="src\instance\body\humanoid_body.cpp" />
+    <ClInclude Include="src\instance\body\humanoid_body.hpp" />
+    <ClCompile Include="src\instance\physics\move_phys.cpp" />
+    <ClCompile Include="src\game\item\container.cpp" />
+    <ClCompile Include="src\app\desdun_app.cpp" />
+    <ClCompile Include="src\app\layer\game.cpp" />
+    <ClCompile Include="src\instance\actor\actor.cpp" />
+    <ClCompile Include="src\instance\actor\player\player.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="desdun\src\instance\physics\move_phys.hpp" />
-    <ClInclude Include="desdun\src\game\item\container.hpp" />
-    <ClInclude Include="desdun\src\game\item\item.hpp" />
-    <ClInclude Include="desdun\src\app\desdun_app.hpp" />
-    <ClInclude Include="desdun\src\app\layer\game.hpp" />
-    <ClInclude Include="desdun\src\instance\actor\actor.hpp" />
-    <ClInclude Include="desdun\src\instance\actor\player\player.hpp" />
-    <ClInclude Include="desdun\src\instance\game_camera.hpp" />
-    <ClInclude Include="desdun\src\instance\index.hpp" />
-    <ClInclude Include="desdun\src\game\item\item_slot.hpp" />
+    <ClInclude Include="src\instance\physics\move_phys.hpp" />
+    <ClInclude Include="src\game\item\container.hpp" />
+    <ClInclude Include="src\game\item\item.hpp" />
+    <ClInclude Include="src\app\desdun_app.hpp" />
+    <ClInclude Include="src\app\layer\game.hpp" />
+    <ClInclude Include="src\instance\actor\actor.hpp" />
+    <ClInclude Include="src\instance\actor\player\player.hpp" />
+    <ClInclude Include="src\instance\game_camera.hpp" />
+    <ClInclude Include="src\instance\index.hpp" />
+    <ClInclude Include="src\game\item\item_slot.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\line.shader" />

@@ -1,0 +1,24 @@
+#pragma once
+
+#include <src/instances/descendants/2d/object.hpp>
+
+namespace Desdun
+{
+
+	class Actor : public WorldObject
+	{
+	public:
+		serialisable(Actor);
+
+		float health = 100.f;
+		float maxHealth = 100.f;
+
+		void takeDamage(float amount);
+
+	protected:
+
+		void serialise(JSONObject& object) const override;
+		void deserialise(const JSONObject& object) override;
+
+	};
+}
