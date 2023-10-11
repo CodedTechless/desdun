@@ -1,43 +1,41 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.3.32922.545
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesdunRuntime", "projects\DesecratedDungeons\DesecratedDungeons.vcxproj", "{1056289C-3730-4ABB-8839-D321A00D1EF7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{22EC801D-9C79-4913-B498-FA7C12ED21E2} = {22EC801D-9C79-4913-B498-FA7C12ED21E2}
-	EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{15A0C35D-0158-05AB-6A5F-DE065636A09B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesdunEngine", "projects\DesdunEngine\DesdunEngine.vcxproj", "{22EC801D-9C79-4913-B498-FA7C12ED21E2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesdunCore", "projects\DesdunCore\DesdunCore.vcxproj", "{911BC089-7DD3-01D7-E6DA-DA32D2B19CC7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesdunEditor", "projects\DesdunEditor\DesdunEditor.vcxproj", "{5E278792-7C1E-48B9-A8A3-45B7CC3B16A0}"
-	ProjectSection(ProjectDependencies) = postProject
-		{22EC801D-9C79-4913-B498-FA7C12ED21E2} = {22EC801D-9C79-4913-B498-FA7C12ED21E2}
-	EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Software", "Software", "{77658181-6333-7587-4CC7-E5AD383451EC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesdunEditor", "projects\DesdunEditor\DesdunEditor.vcxproj", "{AFE613FE-9B49-A3A2-44CF-DB5830116F25}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesdunRuntime", "projects\DesdunRuntime\DesdunRuntime.vcxproj", "{CCE547D1-38A6-C307-01E1-0C856D6008E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Release|x64 = Release|x64
+		Debug|Win64 = Debug|Win64
+		Release|Win64 = Release|Win64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1056289C-3730-4ABB-8839-D321A00D1EF7}.Debug|x64.ActiveCfg = Debug|x64
-		{1056289C-3730-4ABB-8839-D321A00D1EF7}.Debug|x64.Build.0 = Debug|x64
-		{1056289C-3730-4ABB-8839-D321A00D1EF7}.Release|x64.ActiveCfg = Release|x64
-		{1056289C-3730-4ABB-8839-D321A00D1EF7}.Release|x64.Build.0 = Release|x64
-		{22EC801D-9C79-4913-B498-FA7C12ED21E2}.Debug|x64.ActiveCfg = Debug|x64
-		{22EC801D-9C79-4913-B498-FA7C12ED21E2}.Debug|x64.Build.0 = Debug|x64
-		{22EC801D-9C79-4913-B498-FA7C12ED21E2}.Release|x64.ActiveCfg = Release|x64
-		{22EC801D-9C79-4913-B498-FA7C12ED21E2}.Release|x64.Build.0 = Release|x64
-		{5E278792-7C1E-48B9-A8A3-45B7CC3B16A0}.Debug|x64.ActiveCfg = Debug|x64
-		{5E278792-7C1E-48B9-A8A3-45B7CC3B16A0}.Debug|x64.Build.0 = Debug|x64
-		{5E278792-7C1E-48B9-A8A3-45B7CC3B16A0}.Release|x64.ActiveCfg = Release|x64
-		{5E278792-7C1E-48B9-A8A3-45B7CC3B16A0}.Release|x64.Build.0 = Release|x64
+		{911BC089-7DD3-01D7-E6DA-DA32D2B19CC7}.Debug|Win64.ActiveCfg = Debug Win64|x64
+		{911BC089-7DD3-01D7-E6DA-DA32D2B19CC7}.Debug|Win64.Build.0 = Debug Win64|x64
+		{911BC089-7DD3-01D7-E6DA-DA32D2B19CC7}.Release|Win64.ActiveCfg = Release Win64|x64
+		{911BC089-7DD3-01D7-E6DA-DA32D2B19CC7}.Release|Win64.Build.0 = Release Win64|x64
+		{AFE613FE-9B49-A3A2-44CF-DB5830116F25}.Debug|Win64.ActiveCfg = Debug Win64|x64
+		{AFE613FE-9B49-A3A2-44CF-DB5830116F25}.Debug|Win64.Build.0 = Debug Win64|x64
+		{AFE613FE-9B49-A3A2-44CF-DB5830116F25}.Release|Win64.ActiveCfg = Release Win64|x64
+		{AFE613FE-9B49-A3A2-44CF-DB5830116F25}.Release|Win64.Build.0 = Release Win64|x64
+		{CCE547D1-38A6-C307-01E1-0C856D6008E4}.Debug|Win64.ActiveCfg = Debug Win64|x64
+		{CCE547D1-38A6-C307-01E1-0C856D6008E4}.Debug|Win64.Build.0 = Debug Win64|x64
+		{CCE547D1-38A6-C307-01E1-0C856D6008E4}.Release|Win64.ActiveCfg = Release Win64|x64
+		{CCE547D1-38A6-C307-01E1-0C856D6008E4}.Release|Win64.Build.0 = Release Win64|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {893A4BF4-5B4F-470F-8B36-E15AB5984FB4}
+	GlobalSection(NestedProjects) = preSolution
+		{911BC089-7DD3-01D7-E6DA-DA32D2B19CC7} = {15A0C35D-0158-05AB-6A5F-DE065636A09B}
+		{AFE613FE-9B49-A3A2-44CF-DB5830116F25} = {77658181-6333-7587-4CC7-E5AD383451EC}
+		{CCE547D1-38A6-C307-01E1-0C856D6008E4} = {77658181-6333-7587-4CC7-E5AD383451EC}
 	EndGlobalSection
 EndGlobal

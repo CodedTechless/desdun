@@ -5,6 +5,10 @@
 
 imgui.ini
 
+*.sln
+*.vcxproj
+*.vcxproj.filters
+
 # User-specific files
 *.rsuser
 *.suo
@@ -19,7 +23,7 @@ imgui.ini
 mono_crash.*
 
 # Build results
-build/
+bin/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
