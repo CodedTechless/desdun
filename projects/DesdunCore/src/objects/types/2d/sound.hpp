@@ -1,6 +1,6 @@
 #pragma once
 
-#include <instances/descendants/2d/object.hpp>
+#include <objects/types/2d/object.hpp>
 
 
 namespace Desdun

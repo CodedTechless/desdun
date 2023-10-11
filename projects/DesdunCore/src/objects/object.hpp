@@ -21,15 +21,15 @@ namespace Desdun
 
 	class Scene;
 
-	class Instance : public Serialisable
+	class Object : public Serialisable
 	{
 	public:
-		serialisable(Instance);
+		serialisable(Object);
 
-		String name = "Instance";
+		String name = "Object";
 
-		Instance() = default;
-		~Instance();
+		Object() = default;
+		~Object();
 
 		virtual void onAwake() {};
 		virtual void onDestroyed() {};
@@ -43,9 +43,9 @@ namespace Desdun
 		// Object operations
 
 		void saveToFile(const std::string& path) const;
-		void setParent(Instance* object);
+		void setParent(Object* object);
 
-		Instance* findChild(const std::string& name) const;
+		Object* findChild(const std::string& name) const;
 
 		template<typename T>
 		T* findChildOfType() const
@@ -62,7 +62,7 @@ namespace Desdun
 		template<typename T>
 		T* findAncestorOfType() const
 		{
-			Instance* next = getParent();
+			Object* next = getParent();
 
 			while (next and next->isA<T>() == false)
 			{
@@ -86,13 +86,13 @@ namespace Desdun
 		std::string getInstanceId() const { return id; };
 		Scene* getScene() const { return activeScene; };
 
-		const List<Instance*>& getChildren() const { return hierarchyTree.m_Container; };
-		Instance* getParent() const { return hierarchyTree.m_Parent; };
+		const List<Object*>& getChildren() const { return hierarchyTree.m_Container; };
+		Object* getParent() const { return hierarchyTree.m_Parent; };
 
-		Instance* operator[](uint idx) const { return hierarchyTree.m_Container[idx]; };
-		Instance* operator[](const std::string& name) const { return findChild(name); };
+		Object* operator[](uint idx) const { return hierarchyTree.m_Container[idx]; };
+		Object* operator[](const std::string& name) const { return findChild(name); };
 
-		Instance* clone() const;
+		Object* clone() const;
 
 	protected:
 
@@ -119,15 +119,15 @@ namespace Desdun
 			};
 
 		private:
-			Instance* m_Parent = nullptr;
-			std::vector<Instance*> m_Container = {};
+			Object* m_Parent = nullptr;
+			std::vector<Object*> m_Container = {};
 
-			friend class Instance;
+			friend class Object;
 		};
 
 		HierarchyMember hierarchyTree = {};
 
-		void removeChild(Instance* instance);
+		void removeChild(Object* instance);
 
 		friend class Scene;
 		friend class Model;

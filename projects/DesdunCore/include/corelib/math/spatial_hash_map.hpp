@@ -18,7 +18,7 @@ namespace Desdun
 
 	private:
 
-		Map<Vector2, List<Instance*>> container = {};
+		Map<Vector2, List<Object*>> container = {};
 
 	};
 

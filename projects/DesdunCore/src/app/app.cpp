@@ -3,7 +3,7 @@
 #include <resources/resource.hpp>
 #include <runtime/runtime.hpp>
 #include <graphics/render/renderer.hpp>
-#include <instances/index.hpp>
+#include <objects/index.hpp>
 
 #include "app.hpp"
 
@@ -20,9 +20,9 @@ namespace Desdun
 
         Debug::Log("Registering engine classes...", "Runtime");
 
-        Runtime::add<Instance>({ "Instance" });
+        Runtime::add<Object>({ "Object" });
         {
-            Runtime::add<WorldObject>({ "WorldObject", Runtime::get<Instance>() });
+            Runtime::add<WorldObject>({ "WorldObject", Runtime::get<Object>() });
             {
                 Runtime::add<Sound>({ "Sound", Runtime::get<WorldObject>() });
 

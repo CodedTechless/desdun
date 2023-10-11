@@ -9,7 +9,7 @@
 namespace Desdun
 {
 
-	class Instance;
+	class Object;
 	class WorldObject;
 	class Camera;
 	class Model;
@@ -28,7 +28,7 @@ namespace Desdun
 		void onInputEvent(Input::Event& event);
 		void onWindowEvent(const Window::Event& event);
 
-		Instance* instance(Model* model);
+		Object* instance(Model* model);
 
 		template<typename T>
 		T* create()
@@ -38,24 +38,24 @@ namespace Desdun
 			instance->name = Runtime::get<T>()->getName();
 			instance->id = uuid::generate();
 
-			sceneInstances.push_back((Instance*)instance);
+			sceneInstances.push_back((Object*)instance);
 
 			return instance;
 		}
 
 		Vector2 getMouseInWorld() const;
-		Instance* getRoot() const { return root; };
+		Object* getRoot() const { return root; };
 
 	private:
 		
 		Vector2f mousePos = { 0.f, 0.f };
-		Instance* root = nullptr;
+		Object* root = nullptr;
 
-		List<Instance*> sceneInstances = {};
+		List<Object*> sceneInstances = {};
 
-		void add(Instance* instance);
+		void add(Object* instance);
 
-		friend class Instance;
+		friend class Object;
 
 	};
 }

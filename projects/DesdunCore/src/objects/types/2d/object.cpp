@@ -21,7 +21,7 @@ namespace Desdun
 
 		object["interpolate"] = interpolate;
 
-		Instance::serialise(object);
+		Object::serialise(object);
 	}
 
 	void WorldObject::deserialise(const JSONObject& object)
@@ -35,7 +35,7 @@ namespace Desdun
 
 		object.at("interpolate").get_to(interpolate);
 		
-		Instance::deserialise(object);
+		Object::deserialise(object);
 	}
 
 	void WorldObject::checkDirty()
@@ -49,7 +49,7 @@ namespace Desdun
 	void WorldObject::markDirty()
 	{
 		dirtyGlobal = true;
-		Instance::markDirty();
+		Object::markDirty();
 	}
 
 	void WorldObject::markInterpDirty()

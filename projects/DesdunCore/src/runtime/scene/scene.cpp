@@ -3,11 +3,11 @@
 #include <graphics/render/renderer.hpp>
 #include <graphics/primitives/primitive.hpp>
 
-#include <instances/instance.hpp>
-#include <instances/descendants/2d/object.hpp>
-#include <instances/descendants/2d/camera.hpp>
+#include <objects/object.hpp>
+#include <objects/types/2d/object.hpp>
+#include <objects/types/2d/camera.hpp>
 
-#include <resources/descendants/model.hpp>
+#include <resources/types/model.hpp>
 #include <resources/serial/json_stream.hpp>
 
 #include <imgui/imgui.h>
@@ -21,27 +21,27 @@ namespace Desdun
 	{
 		sceneInstances.reserve(MAX_INSTANCES);
 
-		root = create<Instance>();
+		root = create<Object>();
 		root->name = "root";
 	}
 
-	void Scene::add(Instance* instance)
+	void Scene::add(Object* instance)
 	{
 		instance->activeScene = this;
 		instance->id = uuid::generate();
 
-		sceneInstances.push_back((Instance*)instance);
+		sceneInstances.push_back((Object*)instance);
 	}
 
-	Instance* Scene::instance(Model* model)
+	Object* Scene::instance(Model* model)
 	{
 		auto& stream = model->get();
-		auto* modelRoot = (Instance*)stream.makeFrom();
+		auto* modelRoot = (Object*)stream.makeFrom();
 		modelRoot->setParent(root);
 
 		for (auto* instance : stream.getSerialObjects())
 		{
-			add((Instance*)instance);
+			add((Object*)instance);
 		}
 
 		return modelRoot;
@@ -54,7 +54,7 @@ namespace Desdun
 
 	void Scene::onGameStep(const float delta)
 	{
-		for (Instance* instance : sceneInstances)
+		for (Object* instance : sceneInstances)
 		{
 			if (instance->isA<WorldObject>())
 			{
@@ -63,7 +63,7 @@ namespace Desdun
 			}
 		}
 
-		for (Instance* instance : sceneInstances)
+		for (Object* instance : sceneInstances)
 		{
 			if (instance->active == false)
 			{
@@ -95,7 +95,7 @@ namespace Desdun
 	{
 		if (!currentCamera) return;
 		
-		for (Instance* inst : sceneInstances)
+		for (Object* inst : sceneInstances)
 		{
 			if (inst->isA<WorldObject>())
 			{
@@ -109,7 +109,7 @@ namespace Desdun
 
 		renderer->begin(currentCamera->getProjectionTransform());
 
-		for (Instance* instance : sceneInstances)
+		for (Object* instance : sceneInstances)
 		{
 			if (instance->active)
 			{
@@ -126,7 +126,7 @@ namespace Desdun
 
 	void Scene::onInputEvent(Input::Event& event)
 	{
-		for (Instance* instance : sceneInstances)
+		for (Object* instance : sceneInstances)
 		{
 			instance->onInputEvent(event);
 
@@ -137,7 +137,7 @@ namespace Desdun
 
 	void Scene::onWindowEvent(const Window::Event& windowEvent)
 	{
-		for (Instance* instance : sceneInstances)
+		for (Object* instance : sceneInstances)
 		{
 			instance->onWindowEvent(windowEvent);
 		}

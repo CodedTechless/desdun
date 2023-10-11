@@ -4,11 +4,11 @@
 	base class of all Objects. every game object inherits from this one!
 */
 
-#include <instances/instance.hpp>
+#include <objects/object.hpp>
 
 namespace Desdun
 {
-	class WorldObject : public Instance
+	class WorldObject : public Object
 	{
 	public:
 		serialisable(WorldObject)

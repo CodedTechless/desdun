@@ -4,11 +4,11 @@
 #include <resources/resource.hpp>
 #include <resources/serial/json_stream.hpp>
 
-#include "instance.hpp"
+#include "object.hpp"
 
 namespace Desdun
 {
-	Instance::~Instance()
+	Object::~Object()
 	{
 		if (active)
 		{
@@ -32,7 +32,7 @@ namespace Desdun
 		}
 	}
 
-	Instance* Instance::clone() const
+	Object* Object::clone() const
 	{
 		if (!activeScene)
 		{
@@ -46,13 +46,13 @@ namespace Desdun
 
 		for (auto* instance : stream.getSerialObjects())
 		{
-			activeScene->add((Instance*)instance);
+			activeScene->add((Object*)instance);
 		}
 
-		return (Instance*)root;
+		return (Object*)root;
 	}
 	
-	void Instance::markDirty()
+	void Object::markDirty()
 	{
 		for (auto* child : getChildren())
 		{
@@ -60,10 +60,10 @@ namespace Desdun
 		}
 	}
 
-	void Instance::saveToFile(const std::string& path) const
+	void Object::saveToFile(const std::string& path) const
 	{
 		JSONStream stream;
-		stream.blueprintOf((Instance*)this);
+		stream.blueprintOf((Object*)this);
 
 		std::ofstream filestream(Resource::transformPath(path));
 		stream >> filestream;
@@ -71,30 +71,30 @@ namespace Desdun
 		filestream.close();
 	}
 
-	void Instance::serialise(JSONObject& object) const
+	void Object::serialise(JSONObject& object) const
 	{
 		object["name"] = name;
 		object["children"] = json::array();
 
-		for (Instance* child : getChildren())
+		for (Object* child : getChildren())
 		{
 			object["children"].push_back(object.getReferenceID(child));
 		}
 	};
 
-	void Instance::deserialise(const JSONObject& object)
+	void Object::deserialise(const JSONObject& object)
 	{
 		object.at("name").get_to(name);
 
 		for (auto it = object.at("children").begin(); it != object.at("children").end(); it++)
 		{
 			auto reference = it->get<uint64_t>();
-			auto* instance = (Instance*)object.getPointer(reference);
+			auto* instance = (Object*)object.getPointer(reference);
 			instance->setParent(this);
 		};
 	}
 
-	void Instance::removeChild(Instance* instance)
+	void Object::removeChild(Object* instance)
 	{
 		for (auto it = hierarchyTree.m_Container.begin(); it != hierarchyTree.m_Container.end(); ++it)
 		{
@@ -106,7 +106,7 @@ namespace Desdun
 		}
 	}
 
-	Instance* Instance::findChild(const std::string& name) const
+	Object* Object::findChild(const std::string& name) const
 	{
 		for (auto instance : getChildren())
 		{
@@ -119,7 +119,7 @@ namespace Desdun
 		return nullptr;
 	}
 
-	void Instance::setParent(Instance* instance)
+	void Object::setParent(Object* instance)
 	{
 		if (getParent())
 		{

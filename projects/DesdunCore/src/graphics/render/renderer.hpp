@@ -7,8 +7,8 @@
 #include <graphics/buffers/index.hpp>
 #include <graphics/buffers/frame.hpp>
 
-#include <resources/descendants/shader.hpp>
-#include <resources/descendants/image.hpp>
+#include <resources/types/shader.hpp>
+#include <resources/types/image.hpp>
 
 #include <corelib/core.hpp>
 

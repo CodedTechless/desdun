@@ -1,6 +1,6 @@
 #pragma once
 
-#include "base/runtime_obj.hpp"
+#include "base/runtime_object.hpp"
 
 namespace Desdun
 {

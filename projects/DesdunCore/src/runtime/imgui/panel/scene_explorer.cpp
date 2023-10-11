@@ -2,7 +2,7 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
 
-#include <instances/instance.hpp>
+#include <objects/object.hpp>
 
 #include "scene_explorer.hpp"
 
@@ -52,7 +52,7 @@ namespace Desdun
 #endif
 	}
 
-	void SceneExplorer::renderInstance(Instance* instance)
+	void SceneExplorer::renderInstance(Object* instance)
 	{
 		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
 

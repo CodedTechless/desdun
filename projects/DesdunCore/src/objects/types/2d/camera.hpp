@@ -5,8 +5,8 @@ an object but also sort of a wrapper class for RenderCamera
 */
 
 #include <runtime/scene/scene.hpp>
-#include <instances/descendants/2d/object.hpp>
-#include <instances/descendants/2d/sprite.hpp>
+#include <objects/types/2d/object.hpp>
+#include <objects/types/2d/sprite.hpp>
 
 #include <graphics/render/renderer.hpp>
 #include <graphics/render/render_camera.hpp>

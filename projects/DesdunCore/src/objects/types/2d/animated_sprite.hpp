@@ -1,6 +1,6 @@
 #pragma once
 
-#include <resources/descendants/animation_table.hpp>
+#include <resources/types/animation_table.hpp>
 
 #include "sprite.hpp"
 

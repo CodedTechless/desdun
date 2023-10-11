@@ -8,6 +8,8 @@ project "DesdunRuntime"
     targetdir   (outputDir)
     objdir      (outputDir .. "int/")
 
+    dependson "DesdunCore"
+
     files {
         "src/**.cpp",
         "src/**.hpp"

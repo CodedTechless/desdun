@@ -8,11 +8,11 @@
 
 #include <resources/resource.hpp>
 
-#include <resources/descendants/audio.hpp>
-#include <resources/descendants/image.hpp>
-#include <resources/descendants/model.hpp>
-#include <resources/descendants/shader.hpp>
-#include <resources/descendants/animation_table.hpp>
+#include <resources/types/audio.hpp>
+#include <resources/types/image.hpp>
+#include <resources/types/model.hpp>
+#include <resources/types/shader.hpp>
+#include <resources/types/animation_table.hpp>
 
 // >> Scene and Objects
 
@@ -31,11 +31,11 @@
 #include <graphics/render/renderer.hpp>
 #include <graphics/primitives/primitive.hpp>
 
-// Instance
+// Object
 
 // >> Index
 
-#include <instances/index.hpp>
+#include <objects/index.hpp>
 
 #include <runtime/imgui/panel/scene_explorer.hpp>
 
