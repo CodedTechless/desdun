@@ -1,7 +1,7 @@
 #pragma once
 
 #include <corelib/core.hpp>
-#include <resources/serial/json_object.hpp>
+#include <resources/json/json_object.hpp>
 
 namespace Desdun
 {

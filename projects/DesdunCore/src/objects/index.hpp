@@ -8,7 +8,7 @@
 
 // >> World
 
-#include "types/2d/object.hpp"
+#include "types/2d/entity.hpp"
 
 // >> Audio
 

@@ -82,7 +82,7 @@ namespace Desdun
             
             // save the id so we can clean up afterwards
             shaders.push_back(shaderId);
-            dd_log_fh("compiled {} shader {}", getPath(), object.key(), pathRaw);
+            //dd_log_fh("compiled {} shader {}", getPath(), object.key(), pathRaw);
         }
 
         glLinkProgram(internalId);

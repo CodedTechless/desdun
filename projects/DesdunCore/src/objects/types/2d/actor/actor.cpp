@@ -14,7 +14,7 @@ namespace Desdun
 		object["health"] = health;
 		object["maxHealth"] = maxHealth;
 
-		WorldObject::serialise(object);
+		Entity2D::serialise(object);
 	}
 
 	void Actor::deserialise(const JSONObject& object)
@@ -22,6 +22,6 @@ namespace Desdun
 		object.at("health").get_to(health);
 		object.at("maxHealth").get_to(maxHealth);
 
-		WorldObject::deserialise(object);
+		Entity2D::deserialise(object);
 	}
 }

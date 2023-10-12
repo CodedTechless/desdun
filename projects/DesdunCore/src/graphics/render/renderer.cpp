@@ -106,7 +106,7 @@ namespace Desdun
 				auto texture = CreateRef<TextureArray>(command.image->size, maxTextureArrayDepth);
 				command.image->allocate(texture);
 
-				dd_log_fh("allocated texture {}*{}*{}", "Renderer", command.image->size.x, command.image->size.y, texture->getDepth());
+				//dd_log_fh("allocated texture {}*{}*{}", "Renderer", command.image->size.x, command.image->size.y, texture->getDepth());
 
 				textureIndex.push_back(texture);
 			}

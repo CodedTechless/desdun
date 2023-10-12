@@ -1,17 +1,17 @@
 #pragma once
 
 #include <resources/resource.hpp>
-#include <resources/serial/json_stream.hpp>
+#include <resources/json/json_stream.hpp>
 
 #include <runtime/runtime.hpp>
 
 namespace Desdun
 {
 
-	class Model : public Resource
+	class Prefab : public Resource
 	{
 	public:
-		Model() = default;
+		Prefab() = default;
 
 		JSONStream& get();
 

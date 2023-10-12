@@ -79,7 +79,7 @@ namespace Desdun
 				else if (placeholders.find(typeId) != placeholders.end())
 				{
 					res->path = getPlaceholder<T>();
-					Debug::Log(std::format("Missing {} {}", typeId.name(), pathString), "Resource Manager");
+					//dd_log_fh("Missing {} {}", "Resource", typeId.name(), pathString)
 				}
 				else
 				{
@@ -89,7 +89,7 @@ namespace Desdun
 				res->reload();
 				resources[typeId][pathString] = res;
 
-				Debug::Log(std::format("Loaded {} {}", typeId.name(), pathString), "Resource Manager");
+				//dd_log_fh("Loaded {} {}", "Resource", typeId.name(), pathString)
 
 				return res;
 			}

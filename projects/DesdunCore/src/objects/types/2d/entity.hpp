@@ -8,10 +8,10 @@
 
 namespace Desdun
 {
-	class WorldObject : public Object
+	class Entity2D : public Object
 	{
 	public:
-		serialisable(WorldObject)
+		serialisable(Entity2D)
 
 		// Properties
 

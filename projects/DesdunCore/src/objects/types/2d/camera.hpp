@@ -5,7 +5,7 @@ an object but also sort of a wrapper class for RenderCamera
 */
 
 #include <runtime/scene/scene.hpp>
-#include <objects/types/2d/object.hpp>
+#include <objects/types/2d/entity.hpp>
 #include <objects/types/2d/sprite.hpp>
 
 #include <graphics/render/renderer.hpp>
@@ -13,10 +13,10 @@ an object but also sort of a wrapper class for RenderCamera
 
 namespace Desdun
 {
-	class Camera : public WorldObject
+	class Camera2D : public Entity2D
 	{
 	public:
-		serialisable(Camera);
+		serialisable(Camera2D);
 
 		float alpha = 0.25f;
 
@@ -30,7 +30,7 @@ namespace Desdun
 		Vector2 offset = { 0.f, 0.f };
 
 		RenderCamera renderCamera = {};
-		WorldObject* subject = nullptr;
+		Entity2D* subject = nullptr;
 
 		void onAwake() override;
 
@@ -39,7 +39,11 @@ namespace Desdun
 		void onGameStep(float delta) override;
 		void onFrameUpdate(float delta) override;
 
+		Vector2 getMouseInWorld() const;
+
 	protected:
+
+		Vector2f mousePos = { 0.f, 0.f };
 
 		Mat4 getProjectionTransform();
 

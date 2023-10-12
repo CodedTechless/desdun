@@ -4,7 +4,7 @@
 namespace Desdun
 {
 
-	void Camera::onAwake()
+	void Camera2D::onAwake()
 	{
 		interpolate = true;
 
@@ -16,7 +16,7 @@ namespace Desdun
 		Input::registerAction(action);
 	}
 
-	void Camera::onInputEvent(Input::Event& event)
+	void Camera2D::onInputEvent(Input::Event& event)
 	{
 		if (event.isAction("cameraZoom", Input::State::Changed))
 		{
@@ -24,7 +24,7 @@ namespace Desdun
 		}
 	};
 
-	void Camera::onGameStep(float delta)
+	void Camera2D::onGameStep(float delta)
 	{
 		resize((zoomLevel - getScale()) * zoomAlpha * delta);
 
@@ -38,9 +38,18 @@ namespace Desdun
 				setPosition(finalPosition);
 		}
 
+		if (getScene()->currentCamera == this)
+		{
+			Vector2f windowSize = Application::get()->getPrimaryWindow()->getSize();
+			Vector2f orthoSize = renderCamera.getOrthoSize();
+
+			Vector2f cameraPos = getPosition();
+			Vector2f mouseRatio = (Input::getMousePosition() / windowSize) - 0.5f;
+			mousePos = cameraPos + orthoSize * mouseRatio * getScale();
+		}
 	}
 
-	void Camera::onFrameUpdate(float delta)
+	void Camera2D::onFrameUpdate(float delta)
 	{
 		auto* app = Application::get();
 		Window* window = app->getPrimaryWindow();
@@ -61,13 +70,18 @@ namespace Desdun
 		}
 	}
 
-	Mat4 Camera::getProjectionTransform()
+	Mat4 Camera2D::getProjectionTransform()
 	{
 		return renderCamera.GetProjection() 
 			* glm::inverse(
 				glm::translate(getRenderTransform(), 
 				{ renderCamera.getOrthoSize() * -0.5f, 0.f })
 			);
+	}
+
+	Vector2 Camera2D::getMouseInWorld() const
+	{
+		return mousePos;
 	}
 
 }

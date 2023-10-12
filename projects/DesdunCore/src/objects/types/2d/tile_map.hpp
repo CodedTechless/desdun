@@ -1,10 +1,10 @@
 #pragma once
 
-#include <objects/types/2d/object.hpp>
+#include <objects/types/2d/entity.hpp>
 
 namespace Desdun
 {
-	class TileMap : public WorldObject
+	class TileMap : public Entity2D
 	{
 	public:
 		serialisable(TileMap)

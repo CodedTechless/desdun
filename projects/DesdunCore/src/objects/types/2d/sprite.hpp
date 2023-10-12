@@ -1,12 +1,12 @@
 #pragma once
 
-#include <objects/types/2d/object.hpp>
+#include <objects/types/2d/entity.hpp>
 
 #include <graphics/render/renderer.hpp>
 
 namespace Desdun
 {
-	class Sprite : public WorldObject
+	class Sprite : public Entity2D
 	{
 	public:
 		serialisable(Sprite)

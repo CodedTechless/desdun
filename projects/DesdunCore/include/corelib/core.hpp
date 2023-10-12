@@ -55,7 +55,7 @@
 const std::string getClassName() const override { return #T; }; \
 std::type_index getClassIndex() const override { return typeid(T); };
 
-#if _DEBUG
+#if DEBUG
 #define dd_log(str) Debug::Log(str)
 #define dd_warn(str) Debug::Warn(str)
 #define dd_error(str) Debug::Error(str)

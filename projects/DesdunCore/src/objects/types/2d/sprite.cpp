@@ -36,7 +36,7 @@ namespace Desdun
 		object["tint"] = tint;
 		object["bounds"] = bounds;
 
-		WorldObject::serialise(object);
+		Entity2D::serialise(object);
 	}
 
 	void Sprite::deserialise(const JSONObject& object)
@@ -56,7 +56,7 @@ namespace Desdun
 		object.at("tint").get_to(tint);
 		object.at("bounds").get_to(bounds);
 
-		WorldObject::deserialise(object);
+		Entity2D::deserialise(object);
 	}
 
 

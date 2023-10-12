@@ -1,11 +1,11 @@
 #pragma once
 
-#include <objects/types/2d/object.hpp>
+#include <objects/types/2d/entity.hpp>
 
 namespace Desdun
 {
 
-	class Actor : public WorldObject
+	class Actor : public Entity2D
 	{
 	public:
 		serialisable(Actor);

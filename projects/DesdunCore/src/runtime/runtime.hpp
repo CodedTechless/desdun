@@ -26,7 +26,7 @@ namespace Desdun
 			types[newType->getIndex()] = newType;
 			typeNames[newType->getName()] = newType;
 
-#if _DEBUG
+#if 0
 			String inheritsList = "";
 			for (auto* parentClass : newType->getParents())
 			{

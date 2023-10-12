@@ -2,7 +2,7 @@
 #include <runtime/scene/scene.hpp>
 #include <runtime/runtime.hpp>
 #include <resources/resource.hpp>
-#include <resources/serial/json_stream.hpp>
+#include <resources/json/json_stream.hpp>
 
 #include "object.hpp"
 

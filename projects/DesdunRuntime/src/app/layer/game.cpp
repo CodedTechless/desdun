@@ -8,13 +8,13 @@ namespace Desdun
 	{
 
 		{
-			Debug::Log("Setting up the scene...", "Game");
+			//Debug::Log("Setting up the scene...", "Game");
 
 			gameScene = new Scene();
 
 			Application::get()->getPrimaryWindow()->setVsyncEnabled(false);
 
-			auto* camera = gameScene->create<Camera>();
+			auto* camera = gameScene->create<Camera2D>();
 			camera->targetViewportSize = { 800, 600 };
 			camera->alpha = 15.f;
 			camera->setParent(gameScene->getRoot());
@@ -37,7 +37,7 @@ namespace Desdun
 		}
 #endif
 
-		Debug::Log("Initialised", "Game");
+		//Debug::Log("Initialised", "Game");
 	}
 
 	void Game::onFrameUpdate(const float delta)

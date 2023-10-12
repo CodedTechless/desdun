@@ -10,9 +10,8 @@ namespace Desdun
 {
 
 	class Object;
-	class WorldObject;
-	class Camera;
-	class Model;
+	class Camera2D;
+	class Prefab;
 
 	class Scene
 	{
@@ -20,7 +19,7 @@ namespace Desdun
 		Scene();
 		~Scene() = default;
 
-		Camera* currentCamera = nullptr;
+		Camera2D* currentCamera = nullptr;
 
 		void onFrameUpdate(const float Delta);
 		void onGameStep(const float Delta);
@@ -28,7 +27,7 @@ namespace Desdun
 		void onInputEvent(Input::Event& event);
 		void onWindowEvent(const Window::Event& event);
 
-		Object* instance(Model* model);
+		Object* instantiate(Prefab* model);
 
 		template<typename T>
 		T* create()
@@ -43,12 +42,11 @@ namespace Desdun
 			return instance;
 		}
 
-		Vector2 getMouseInWorld() const;
 		Object* getRoot() const { return root; };
 
 	private:
 		
-		Vector2f mousePos = { 0.f, 0.f };
+		
 		Object* root = nullptr;
 
 		List<Object*> sceneInstances = {};

@@ -18,23 +18,21 @@ namespace Desdun
 	{
         currentApp = this;
 
-        Debug::Log("Registering engine classes...", "Runtime");
-
         Runtime::add<Object>({ "Object" });
         {
-            Runtime::add<WorldObject>({ "WorldObject", Runtime::get<Object>() });
+            Runtime::add<Entity2D>({ "Entity2D", Runtime::get<Object>() });
             {
-                Runtime::add<Sound>({ "Sound", Runtime::get<WorldObject>() });
+                Runtime::add<Sound>({ "Sound", Runtime::get<Entity2D>() });
 
-                Runtime::add<Camera>({ "Camera", Runtime::get<WorldObject>() });
-                Runtime::add<ParticleEmitter>({ "ParticleEmitter", Runtime::get<WorldObject>() });
+                Runtime::add<Camera2D>({ "Camera2D", Runtime::get<Entity2D>() });
+                Runtime::add<ParticleEmitter>({ "ParticleEmitter", Runtime::get<Entity2D>() });
 
-                Runtime::add<Sprite>({ "Sprite", Runtime::get<WorldObject>() });
+                Runtime::add<Sprite>({ "Sprite", Runtime::get<Entity2D>() });
                 {
                     Runtime::add<AnimatedSprite>({ "AnimatedSprite", Runtime::get<Sprite>() });
                 }
 
-                Runtime::add<TileMap>({ "TileMap", Runtime::get<WorldObject>() });
+                Runtime::add<TileMap>({ "TileMap", Runtime::get<Entity2D>() });
             }
         }
 	}

@@ -130,6 +130,6 @@ namespace Desdun
 		void removeChild(Object* instance);
 
 		friend class Scene;
-		friend class Model;
+		friend class Prefab;
 	};
 }

@@ -6,18 +6,18 @@
 namespace Desdun
 {
 
-	JSONStream& Model::get()
+	JSONStream& Prefab::get()
 	{
 		return model;
 	}
 
-	void Model::load()
+	void Prefab::load()
 	{
 		std::ifstream filestream(getPath());
 		model << filestream;
 	}
 
-	void Model::unload()
+	void Prefab::unload()
 	{
 	}
 }

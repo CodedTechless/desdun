@@ -4,11 +4,11 @@
 #include <graphics/primitives/primitive.hpp>
 
 #include <objects/object.hpp>
-#include <objects/types/2d/object.hpp>
+#include <objects/types/2d/entity.hpp>
 #include <objects/types/2d/camera.hpp>
 
 #include <resources/types/model.hpp>
-#include <resources/serial/json_stream.hpp>
+#include <resources/json/json_stream.hpp>
 
 #include <imgui/imgui.h>
 
@@ -33,7 +33,7 @@ namespace Desdun
 		sceneInstances.push_back((Object*)instance);
 	}
 
-	Object* Scene::instance(Model* model)
+	Object* Scene::instantiate(Prefab* model)
 	{
 		auto& stream = model->get();
 		auto* modelRoot = (Object*)stream.makeFrom();
@@ -47,18 +47,13 @@ namespace Desdun
 		return modelRoot;
 	}
 
-	Vector2 Scene::getMouseInWorld() const
-	{
-		return mousePos;
-	}
-
 	void Scene::onGameStep(const float delta)
 	{
 		for (Object* instance : sceneInstances)
 		{
-			if (instance->isA<WorldObject>())
+			if (instance->isA<Entity2D>())
 			{
-				auto* object = (WorldObject*)instance;
+				auto* object = (Entity2D*)instance;
 				object->ageLocalTransform();
 			}
 		}
@@ -76,19 +71,12 @@ namespace Desdun
 			// we may have a problem here
 			// what if an object changes another objects position that already got recalculated??
 			// then it'd just be wrong...
-			if (instance->isA<WorldObject>())
+			if (instance->isA<Entity2D>())
 			{
-				auto* object = (WorldObject*)instance;
+				auto* object = (Entity2D*)instance;
 				object->checkDirty();
 			}
 		}
-
-		Vector2f windowSize = Application::get()->getPrimaryWindow()->getSize();
-		Vector2f orthoSize = currentCamera->renderCamera.getOrthoSize();
-
-		Vector2f cameraPos = currentCamera->position;
-		Vector2f mouseRatio = (Input::getMousePosition() / windowSize) - 0.5f;
-		mousePos = cameraPos + orthoSize * mouseRatio * currentCamera->scale;
 	}
 
 	void Scene::onFrameUpdate(const float delta)
@@ -97,9 +85,9 @@ namespace Desdun
 		
 		for (Object* inst : sceneInstances)
 		{
-			if (inst->isA<WorldObject>())
+			if (inst->isA<Entity2D>())
 			{
-				auto* object = (WorldObject*)inst;
+				auto* object = (Entity2D*)inst;
 				object->markInterpDirty();
 			}
 		}
@@ -114,7 +102,7 @@ namespace Desdun
 			if (instance->active)
 			{
 				// TODO: optimise this!! visible should be sorted into its own list
-				if (instance->isA<WorldObject>() && instance->as<WorldObject>()->visible == true)
+				if (instance->isA<Entity2D>() && instance->as<Entity2D>()->visible == true)
 				{
 					instance->onFrameUpdate(delta);
 				}
