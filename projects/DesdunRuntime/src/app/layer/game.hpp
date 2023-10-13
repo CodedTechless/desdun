@@ -8,9 +8,6 @@ namespace Desdun
 	class Game : public Layer
 	{
 	public:
-
-		Scene* gameScene = nullptr;
-
 		Game() = default;
 		Game(const std::string& name)
 			: Layer(name) {};
@@ -23,10 +20,10 @@ namespace Desdun
 		void onInputEvent(Input::Event& inputObject) override;
 		void onWindowEvent(const Window::Event& windowEvent) override;
 
+
 	private:
 
-		SceneExplorer* explorer = nullptr;
-
+		Scene* gameScene = nullptr;
 	};
 
 }
