@@ -39,13 +39,13 @@ namespace Desdun
 
 			}
 #endif
-		if (ImGui::Begin("Scene Explorer"))
+		ImGui::Begin("Scene Explorer");
 		{
 			if (scene != nullptr)
 				renderInstance(scene->getRoot());
 				
-			ImGui::End();
 		}
+		ImGui::End();
 #if 0
 			ImGui::End();
 		}

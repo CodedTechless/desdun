@@ -6,47 +6,27 @@ namespace Desdun
 
 	void Game::onAwake()
 	{
+		gameScene = new Scene();
 
-		{
-			//Debug::Log("Setting up the scene...", "Game");
+		Application::get()->getPrimaryWindow()->setVsyncEnabled(false);
 
-			gameScene = new Scene();
+		auto* camera = gameScene->create<Camera2D>();
+		camera->targetViewportSize = { 800, 600 };
+		camera->alpha = 15.f;
+		camera->setParent(gameScene->getRoot());
 
-			Application::get()->getPrimaryWindow()->setVsyncEnabled(false);
+		gameScene->currentCamera = camera;
 
-			auto* camera = gameScene->create<Camera2D>();
-			camera->targetViewportSize = { 800, 600 };
-			camera->alpha = 15.f;
-			camera->setParent(gameScene->getRoot());
-
-			gameScene->currentCamera = camera;
-
-			auto* imagetest = gameScene->create<Sprite>();
-			imagetest->image = Resource::fetch<Image>("textures:dev/stone_brick_floor.png");
-			imagetest->tiles = { 10.f, 10.f };
-			imagetest->setScale({ 10.f, 10.f });
-			imagetest->setParent(gameScene->getRoot());
-		}
-
-#if 0
-		{
-			Debug::Log("Initialising tools");
-			explorer = new SceneExplorer();
-			explorer->setContextScene(gameScene);
-
-		}
-#endif
-
-		//Debug::Log("Initialised", "Game");
+		auto* imagetest = gameScene->create<Sprite>();
+		imagetest->image = Resource::fetch<Image>("textures:dev/stone_brick_floor.png");
+		imagetest->tiles = { 10.f, 10.f };
+		imagetest->setScale({ 10.f, 10.f });
+		imagetest->setParent(gameScene->getRoot());
 	}
 
 	void Game::onFrameUpdate(const float delta)
 	{
 		gameScene->onFrameUpdate(delta);
-
-#if 0
-		explorer->onImGuiRender();
-#endif
 	}
 
 	void Game::onGameStep(const float Delta)

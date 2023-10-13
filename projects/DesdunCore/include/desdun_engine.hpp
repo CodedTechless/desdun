@@ -37,5 +37,3 @@
 
 #include <objects/index.hpp>
 
-#include <runtime/imgui/panel/scene_explorer.hpp>
-
