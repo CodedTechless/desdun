@@ -1,6 +1,7 @@
 
 
 #include <imgui/imgui.h>
+#include <imgui/imgui_internal.h>
 
 #include "editor.hpp"
 
@@ -45,6 +46,9 @@ namespace DesdunEditor
             ImGuiID dockspace_id = ImGui::GetID("editor_dockspace");
             ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 
+            ImGui::DockBuilderRemoveNode(dockspace_id);
+            ImGui::DockBuilderAddNode(dockspace_id);
+
             if (ImGui::BeginMenuBar())
             {
                 if (ImGui::BeginMenu("File"))
@@ -61,8 +65,10 @@ namespace DesdunEditor
 
                 ImGui::EndMenuBar();
             }
-
         }
+
+
+
         ImGui::End();
 
         explorer->onImGuiRender();

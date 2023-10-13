@@ -17,8 +17,7 @@ workspace "ProjectDesdun"
     }
 
     libdirs {
-        "dependencies/glew",
-        "dependencies/glfw"
+        "dependencies/*"
     }
 
 outputDir = "%{wks.location}/bin/%{prj.name}/%{cfg.platform}/%{cfg.buildcfg}/"

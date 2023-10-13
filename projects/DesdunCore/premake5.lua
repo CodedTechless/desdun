@@ -31,6 +31,7 @@ project "DesdunCore"
     links {
         "glfw3",
         "glew32s",
+        "freetype",
         "opengl32.lib"
     }
 
