@@ -3,7 +3,7 @@
 #include <objects/types/2d/entity.hpp>
 
 
-namespace Desdun
+namespace DesdunCore
 {
 	class Sound : public Entity2D
 	{

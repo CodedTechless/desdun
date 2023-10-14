@@ -2,7 +2,7 @@
 
 #include "math.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
     bool math::checkRect(glm::vec2 pos1, glm::vec2 size1, glm::vec2 pos2, glm::vec2 size2)
     {

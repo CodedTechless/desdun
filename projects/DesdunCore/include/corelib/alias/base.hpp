@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/compatibility.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	using FLAG = bool;

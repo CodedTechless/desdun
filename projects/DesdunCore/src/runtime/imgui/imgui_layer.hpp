@@ -2,7 +2,7 @@
 
 #include <runtime/layer/layer.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class ImGuiLayer : public Layer

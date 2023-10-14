@@ -1,7 +1,7 @@
 
 #include "sprite.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	void Sprite::onFrameUpdate(float_t delta)

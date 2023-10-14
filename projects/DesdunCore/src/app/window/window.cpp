@@ -6,8 +6,9 @@
 #include "window.hpp"
 #include "input.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
+
 
     Window::Window(const std::string& title, Vector2i windowSize)
         : title(title), size(windowSize)
@@ -15,7 +16,7 @@ namespace Desdun
         glfwSetErrorCallback(Debug::GLFWMessage);
 
         if (glfwInit() != GL_TRUE)
-            assert(false);
+            new Exception("Failed to initialise GLFW");
         
         // preferably be on opengl 4.2 but not the end of the world
 
@@ -29,12 +30,12 @@ namespace Desdun
         if (windowObject == nullptr)
         {
             glfwTerminate();
-            assert(false);
+            new Exception("Failed to create window object");
         }
 
         glfwMakeContextCurrent(windowObject);
         if (glewInit() != GLEW_OK)
-            assert(false);
+            new Exception("Failed to initialise GLEW");
 
 
         // set up all of the input callbacks here to interface with the input system

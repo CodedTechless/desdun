@@ -11,7 +11,7 @@ an object but also sort of a wrapper class for RenderCamera
 #include <graphics/render/renderer.hpp>
 #include <graphics/render/render_camera.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 	class Camera2D : public Entity2D
 	{

@@ -3,7 +3,7 @@
 
 #include "serial_object.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 	class BaseRuntimeClass
 	{

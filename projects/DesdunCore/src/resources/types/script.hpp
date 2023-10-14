@@ -3,7 +3,7 @@
 #include "../resource.hpp"
 
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class Script : public Resource

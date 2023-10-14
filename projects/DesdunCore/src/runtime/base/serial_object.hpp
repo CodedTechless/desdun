@@ -3,7 +3,7 @@
 #include <corelib/core.hpp>
 #include <resources/json/json_object.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class Serialisable

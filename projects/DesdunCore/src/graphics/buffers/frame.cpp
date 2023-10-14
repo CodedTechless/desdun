@@ -1,7 +1,7 @@
 
 #include "frame.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	namespace FrameBufferUtil

@@ -1,7 +1,7 @@
 
 #include "actor.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	void Actor::takeDamage(float amount)

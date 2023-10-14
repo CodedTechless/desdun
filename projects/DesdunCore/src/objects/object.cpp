@@ -6,7 +6,7 @@
 
 #include "object.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 	Object::~Object()
 	{

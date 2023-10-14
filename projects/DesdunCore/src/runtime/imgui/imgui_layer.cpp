@@ -10,7 +10,7 @@
 
 #include "imgui_layer.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	ImGuiLayer::ImGuiLayer(const String& configName)

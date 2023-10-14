@@ -3,7 +3,7 @@
 #include <corelib/core.hpp>
 
 
-namespace Desdun
+namespace DesdunCore
 {
 	class Resource;
 	using ResourceMap = Map<Type, Map<String, Resource*>>;

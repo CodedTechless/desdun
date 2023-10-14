@@ -4,7 +4,7 @@
 
 #include "image.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	void Image::load()

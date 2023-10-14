@@ -1,7 +1,7 @@
 
 #include "layer.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	Layer::Layer(const std::string& layerName)

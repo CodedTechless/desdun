@@ -15,7 +15,7 @@
 #define RENDER_QUEUE_SIZE 8192
 #define ALLOCATED_TEXTURE_SLOTS 16
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class RenderStateInvalidException : public virtual Exception

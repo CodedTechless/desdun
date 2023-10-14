@@ -4,7 +4,7 @@
 #include "json_stream.hpp"
 #include "json_object.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 

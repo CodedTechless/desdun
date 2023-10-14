@@ -6,7 +6,7 @@
 
 #include "scene_explorer.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	SceneExplorer::SceneExplorer()

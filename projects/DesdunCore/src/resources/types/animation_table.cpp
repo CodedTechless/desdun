@@ -3,7 +3,7 @@
 #include "animation_table.hpp"
 
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	void AnimationTable::unload()

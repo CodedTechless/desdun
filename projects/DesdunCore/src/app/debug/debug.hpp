@@ -4,7 +4,7 @@
 
 #include <corelib/core.hpp>
 
-namespace Desdun 
+namespace DesdunCore 
 {
 
 	struct LogMessage

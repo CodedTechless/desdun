@@ -4,7 +4,7 @@
 
 #include "sprite.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class InvalidAnimationException : public virtual Exception 

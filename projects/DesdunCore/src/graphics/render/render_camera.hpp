@@ -3,7 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <corelib/core.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class RenderCamera

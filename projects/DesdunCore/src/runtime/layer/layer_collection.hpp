@@ -4,7 +4,7 @@
 
 #include "layer.hpp"
 
-namespace Desdun 
+namespace DesdunCore 
 {
 
 

@@ -1,7 +1,7 @@
 #include "colour.hpp"
 
 
-namespace Desdun
+namespace DesdunCore
 {
 	Color4f Color::fromRGB(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
 	{

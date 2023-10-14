@@ -3,7 +3,7 @@
 
 #include "vao.hpp"
 
-namespace Desdun 
+namespace DesdunCore 
 {
 	
 	VertexArray::VertexArray() 

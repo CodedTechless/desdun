@@ -9,7 +9,7 @@ interface class for the GLFW window
 #include <glfw/glfw3.h>
 #include <corelib/core.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 	class Window
 	{

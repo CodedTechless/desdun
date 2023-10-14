@@ -2,7 +2,7 @@
 
 #include <objects/types/2d/entity.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 	class ParticleEmitter : public Entity2D
 	{

@@ -5,7 +5,7 @@
 
 #include "primitive.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	void Primitive::drawRect(Vector2 position, Vector2 size, float zIndex, float rotation, Color4 tint)

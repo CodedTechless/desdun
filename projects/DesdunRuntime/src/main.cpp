@@ -9,7 +9,7 @@ BEEEEEG YOSHI
 #include <app/desdun_app.hpp>
 #include <windows.h>
 
-using namespace Desdun;
+using namespace DesdunCore;
 
 int main()
 {

@@ -4,7 +4,7 @@
 
 #include <desdun_engine.hpp>
 
-using namespace Desdun;
+using namespace DesdunCore;
 
 namespace DesdunEditor
 {

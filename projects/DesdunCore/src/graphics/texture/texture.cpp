@@ -3,7 +3,7 @@
 
 #include "texture.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	Texture::Texture(uchar* buffer, Vector2i size)
