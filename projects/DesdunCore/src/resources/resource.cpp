@@ -14,6 +14,13 @@ namespace DesdunCore
 		unload();
 	}
 
+	json Resource::loadAsJSON() const
+	{
+		json obj;
+		std::ifstream stream(getPath());
+		stream >> obj;
+	}
+
 	void Resource::reload()
 	{
 		if (loaded) unload();

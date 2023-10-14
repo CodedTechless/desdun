@@ -29,6 +29,9 @@ namespace DesdunCore
 
 		27/04/2023
 		gay gay homosexual
+
+		14/10/2023
+		i'm gonna keep this but also add binary stream at some point
 	*/
 
 	class JSONStream

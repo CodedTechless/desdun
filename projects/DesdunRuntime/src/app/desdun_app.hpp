@@ -2,6 +2,8 @@
 
 #include <desdun_engine.hpp>
 
+using namespace DesdunCore;
+
 namespace DesdunRuntime
 {
 

@@ -6,6 +6,10 @@
 
 namespace DesdunCore
 {
+	Image::Image(Vector2 size, uchar* buf, uint channels, uint bitsPerChannel)
+		: size(size), buffer(buf), channels(channels), bitsPerChannel(bitsPerChannel)
+	{
+	}
 
 	void Image::load()
 	{

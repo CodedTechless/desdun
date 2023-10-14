@@ -24,10 +24,10 @@ namespace DesdunCore
         {
             Runtime::add<Entity2D>({ "Entity2D", Runtime::get<Object>() });
             {
-                Runtime::add<Sound>({ "Sound", Runtime::get<Entity2D>() });
+                Runtime::add<SoundEmitter2D>({ "SoundEmitter2D", Runtime::get<Entity2D>() });
 
                 Runtime::add<Camera2D>({ "Camera2D", Runtime::get<Entity2D>() });
-                Runtime::add<ParticleEmitter>({ "ParticleEmitter", Runtime::get<Entity2D>() });
+                Runtime::add<ParticleEmitter2D>({ "ParticleEmitter2D", Runtime::get<Entity2D>() });
 
                 Runtime::add<Sprite>({ "Sprite", Runtime::get<Entity2D>() });
                 {
@@ -41,23 +41,16 @@ namespace DesdunCore
 
 	Application::~Application()
 	{
-        delete gameWindow;
-
         stop();
-        gameLayers.clear();
-
-        delete renderer;
-
-        glfwTerminate();
 	}
 
 	void Application::init()
 	{
         FontFace::init();
 
-        gameWindow = new Window("Desecrated Dungeons", { 1280, 720 });
+        gameWindow = new Window("Desdun", { 1280, 720 });
         
-        auto* textureShader = Resource::fetch<Shader>("shaders:tex/tex.shader.json");
+        auto* textureShader = Resource::fetch<Shader>("shaders:tex/tex.tres");
         renderer = new Renderer(textureShader);
 
         // Start renderer
@@ -68,6 +61,14 @@ namespace DesdunCore
 	void Application::stop()
 	{
 		running = false;
+        delete gameWindow;
+
+        gameLayers.clear();
+        delete renderer;
+
+        FT_Done_FreeType(*FontFace::library);
+
+        glfwTerminate();
 	}
 
     void Application::start()

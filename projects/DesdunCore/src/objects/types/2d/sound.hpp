@@ -5,9 +5,9 @@
 
 namespace DesdunCore
 {
-	class Sound : public Entity2D
+	class SoundEmitter2D : public Entity2D
 	{
-		serialisable(Sound);
+		serialisable(SoundEmitter2D);
 	};
 }
 

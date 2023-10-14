@@ -106,6 +106,8 @@ namespace DesdunCore
 		String path = "";
 		bool loaded = false;
 
+		json loadAsJSON() const;
+
 		void reload();
 		virtual void load() {};
 		virtual void unload() {};

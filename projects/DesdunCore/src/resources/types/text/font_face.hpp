@@ -6,21 +6,29 @@
 namespace DesdunCore
 {
 
-	using FreeTypeLibrary = FT_Library;
+	struct FontCharacter
+	{
+		Image* image;
+		Vector2 size;
+		Vector2 bearing;
+		uint advance;
+	};
 
 	class FontFace : public Resource
 	{
 	public:
-
 		static void init();
 
-	protected:
+		void getGlyphs(uint size, Dictionary<char, FontCharacter>& characters);
+
+	private:
 		void load() override;
 		void unload() override;
 
+		FT_Face face;
+		
 	private:
-
-		static FreeTypeLibrary* library;
+		static FT_Library* library;
 
 		friend class Application;
 	};

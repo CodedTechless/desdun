@@ -2,10 +2,10 @@
 #include <app/layer/game.hpp>
 #include <app/desdun_app.hpp>
 
-namespace DesdunCore
+namespace DesdunRuntime
 {
 
-	void DesecratedDungeons::init()
+	void DesdunRuntimeApp::init()
 	{
 		Application::init();
 

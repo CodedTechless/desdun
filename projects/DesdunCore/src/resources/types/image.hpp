@@ -41,6 +41,8 @@ namespace DesdunCore
 	{
 	public:
 
+		Image(Vector2 size, uchar* buf = nullptr, uint channels = 4, uint bitsPerChannel = 8);
+
 		struct ImageContext
 		{
 			int32_t Channels;

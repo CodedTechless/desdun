@@ -38,6 +38,9 @@ namespace DesdunCore
 	template<typename k, typename v>
 	using Map = std::unordered_map<k, v>;
 
+	template<typename k, typename v>
+	using Dictionary = std::unordered_map<k, v>;
+
 	template<typename T>
 	using List = std::vector<T>;
 
