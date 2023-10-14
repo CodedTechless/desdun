@@ -2,10 +2,10 @@
 
 #include <desdun_engine.hpp>
 
-namespace Desdun
+namespace DesdunRuntime
 {
 
-	class DesecratedDungeons : public Application
+	class DesdunRuntimeApp : public Application
 	{
 	public:
 		void init() override;
