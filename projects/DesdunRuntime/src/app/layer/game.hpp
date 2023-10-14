@@ -2,7 +2,7 @@
 
 #include <desdun_engine.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class Game : public Layer

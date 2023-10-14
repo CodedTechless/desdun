@@ -5,7 +5,7 @@
 
 #include <corelib/core.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class VertexArray 

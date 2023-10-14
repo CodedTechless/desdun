@@ -7,12 +7,25 @@
 
 #include "renderer.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	Renderer::Renderer(Shader* shaderDefault)
 		: defaultShader(shaderDefault)
 	{
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+
+		glDebugMessageCallback(Debug::OpenGLMessage, nullptr);
+		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
+
+		glEnable(GL_BLEND);
+		glDisable(GL_DEPTH_TEST);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		char* version = (char*)glGetString(GL_VERSION);
+		dd_log_fh("using OpenGL {}", "Renderer", std::string(version));
+
 		const Color4& c = targetColour;
 		glClearColor(c.r, c.g, c.b, c.a);
 

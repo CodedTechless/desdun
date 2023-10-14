@@ -9,7 +9,7 @@
 
 #include <graphics/render/renderer.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class Application

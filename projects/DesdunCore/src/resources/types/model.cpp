@@ -3,7 +3,7 @@
 
 #include "model.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	JSONStream& Prefab::get()

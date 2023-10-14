@@ -2,7 +2,7 @@
 #include "serial_object.hpp"
 
 
-namespace Desdun
+namespace DesdunCore
 {
 	const String Serialisable::getClassName() const
 	{

@@ -6,7 +6,7 @@
 
 #include <objects/object.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 	class Entity2D : public Object
 	{

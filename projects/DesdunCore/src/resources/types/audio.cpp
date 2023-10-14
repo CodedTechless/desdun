@@ -2,7 +2,7 @@
 #include "audio.hpp"
 
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	void Audio::load()

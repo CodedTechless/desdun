@@ -21,7 +21,8 @@ project "DesdunCore"
 
     includedirs {
         "src",
-        "include"
+        "include",
+        "include/freetype"
     }
 
     defines {

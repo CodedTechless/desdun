@@ -6,7 +6,7 @@
 
 #include <corelib/core.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	// TODO: remove need for instance to be in a scene for cloning

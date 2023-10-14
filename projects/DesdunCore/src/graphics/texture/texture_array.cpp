@@ -3,7 +3,7 @@
 
 #include "texture_array.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	TextureArray::TextureArray(Vector2i SubImageSize, uint layers)

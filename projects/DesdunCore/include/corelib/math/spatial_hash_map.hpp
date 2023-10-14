@@ -6,7 +6,7 @@
 #include <object/instance.hpp>
 
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class SpatialHashMap

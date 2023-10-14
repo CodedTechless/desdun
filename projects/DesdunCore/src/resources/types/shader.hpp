@@ -5,7 +5,7 @@
 
 #include <resources/resource.hpp>
 
-namespace Desdun 
+namespace DesdunCore 
 {
 
 	class InvalidShaderTypeException : public virtual Exception

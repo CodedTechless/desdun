@@ -5,7 +5,7 @@
 
 #include "shader.hpp"
 
-namespace Desdun 
+namespace DesdunCore 
 {
 
     void Shader::bind()

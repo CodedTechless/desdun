@@ -2,7 +2,7 @@
 
 #include <runtime/scene/scene.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class SceneExplorer

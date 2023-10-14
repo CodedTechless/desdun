@@ -2,7 +2,7 @@
 
 #include <resources/resource.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 	class Audio : public Resource
 	{

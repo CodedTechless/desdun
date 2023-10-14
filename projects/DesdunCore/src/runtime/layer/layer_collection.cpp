@@ -2,7 +2,7 @@
 
 #include "layer_collection.hpp"
 
-namespace Desdun {
+namespace DesdunCore {
 
 	LayerCollection::~LayerCollection()
 	{

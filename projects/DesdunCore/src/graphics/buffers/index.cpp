@@ -2,7 +2,7 @@
 
 #include "index.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 	IndexBuffer::IndexBuffer(const uint* Data, uint Count)
 		: mCount(Count)

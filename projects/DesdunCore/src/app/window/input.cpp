@@ -3,7 +3,7 @@
 
 #include "input.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 	std::unordered_map<std::string, Input::Action> Input::registeredActions = {};
 

@@ -5,7 +5,7 @@
 
 #include <runtime/runtime.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class Prefab : public Resource

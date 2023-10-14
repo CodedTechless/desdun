@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	namespace math

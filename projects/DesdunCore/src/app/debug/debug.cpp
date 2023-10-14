@@ -1,7 +1,7 @@
 
 #include "debug.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 	std::vector<LogMessage> Debug::MessageLog = {};
 

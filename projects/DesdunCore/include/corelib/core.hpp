@@ -36,11 +36,13 @@
 
 #include <lua/lua.hpp>
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 #define SOL_ALL_SAFETIES_ON 1
 #include <sol/sol.hpp>
 
 #include <json/json.hpp>
-
 
 #define MAX_INSTANCES 8192
 #define COLLISION_MAP_SIZE 2048
@@ -91,7 +93,7 @@ std::type_index getClassIndex() const override { return typeid(T); };
 #define s_export(name) object[#name] = name
 #define s_import(name) s_wrap(name, { object.at(#name).get_to(name); })
 
-namespace Desdun
+namespace DesdunCore
 {
 	namespace fs = std::filesystem;
 	using json = nlohmann::json;
@@ -100,13 +102,13 @@ namespace Desdun
 namespace glm
 {
 
-	void to_json(Desdun::json& jsonObject, const glm::vec2& vec);
-	void to_json(Desdun::json& jsonObject, const glm::vec3& vec);
-	void to_json(Desdun::json& jsonObject, const glm::vec4& vec);
+	void to_json(DesdunCore::json& jsonObject, const glm::vec2& vec);
+	void to_json(DesdunCore::json& jsonObject, const glm::vec3& vec);
+	void to_json(DesdunCore::json& jsonObject, const glm::vec4& vec);
 
-	void from_json(const Desdun::json& j, glm::vec2& vec);
-	void from_json(const Desdun::json& j, glm::vec3& vec);
-	void from_json(const Desdun::json& j, glm::vec4& vec);
+	void from_json(const DesdunCore::json& j, glm::vec2& vec);
+	void from_json(const DesdunCore::json& j, glm::vec3& vec);
+	void from_json(const DesdunCore::json& j, glm::vec4& vec);
 
 }
 

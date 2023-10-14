@@ -6,7 +6,7 @@
 
 #define JSON_FORMAT 1
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class AlreadyMadeStreamException : public virtual Exception

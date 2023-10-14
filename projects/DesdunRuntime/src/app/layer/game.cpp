@@ -1,7 +1,7 @@
 
 #include "game.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	void Game::onAwake()

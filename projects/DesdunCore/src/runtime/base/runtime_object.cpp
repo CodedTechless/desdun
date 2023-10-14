@@ -2,7 +2,7 @@
 
 #include "runtime_object.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	BaseRuntimeClass::BaseRuntimeClass(const String& type_name, Type type_index)

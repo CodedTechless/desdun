@@ -2,7 +2,7 @@
 
 #include "runtime.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	Map<Type, BaseRuntimeClass*> Runtime::types = {};

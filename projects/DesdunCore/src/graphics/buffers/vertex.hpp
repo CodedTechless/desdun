@@ -3,7 +3,7 @@
 #include <glew/glew.h>
 #include <corelib/core.hpp>
 
-namespace Desdun 
+namespace DesdunCore 
 {
 
 	enum class LayoutType 

@@ -2,7 +2,7 @@
 #include <runtime/runtime.hpp>
 #include "json_stream.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	JSONStream::~JSONStream()

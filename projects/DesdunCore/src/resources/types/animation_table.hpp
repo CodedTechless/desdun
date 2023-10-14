@@ -3,7 +3,7 @@
 #include <resources/resource.hpp>
 #include "image.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	struct Frame

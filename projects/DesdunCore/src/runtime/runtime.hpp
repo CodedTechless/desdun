@@ -2,7 +2,7 @@
 
 #include "base/runtime_object.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	class InvalidClassFetchException : public virtual Exception

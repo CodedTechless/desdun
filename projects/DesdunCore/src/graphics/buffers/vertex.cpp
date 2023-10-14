@@ -1,7 +1,7 @@
 
 #include "vertex.hpp"
 
-namespace Desdun 
+namespace DesdunCore 
 {
 
 	VertexBuffer::VertexBuffer(unsigned int Size)

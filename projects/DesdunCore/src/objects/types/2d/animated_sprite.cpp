@@ -2,7 +2,7 @@
 #include "animated_sprite.hpp"
 
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	void AnimatedSprite::setAnimationTable(AnimationTable* anim)

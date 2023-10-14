@@ -5,14 +5,16 @@
 #include <graphics/render/renderer.hpp>
 #include <objects/index.hpp>
 
+#include <resources/types/fontface.hpp>
+
 #include "app.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
     Application* Application::currentApp = nullptr;
 }
 
-namespace Desdun
+namespace DesdunCore
 {
 	Application::Application()
 	{
@@ -51,29 +53,14 @@ namespace Desdun
 
 	void Application::init()
 	{
-        Debug::Log("initialising...", "Application");
+        FontFace::init();
 
         gameWindow = new Window("Desecrated Dungeons", { 1280, 720 });
-
-        // Start renderer
-
-
-        glEnable(GL_DEBUG_OUTPUT);
-        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-
-        glDebugMessageCallback(Debug::OpenGLMessage, nullptr);
-        glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
-
-        glEnable(GL_BLEND);
-        glDisable(GL_DEPTH_TEST);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        char* Version = (char*)glGetString(GL_VERSION);
-        Debug::Log("using OpenGL " + std::string(Version), "Application");
-
+        
         auto* textureShader = Resource::fetch<Shader>("shaders:tex/tex.shader.json");
         renderer = new Renderer(textureShader);
 
+        // Start renderer
         imguiLayer = new ImGuiLayer("config:imgui.ini");
         gameLayers.PushOverlay(imguiLayer);
 	}

@@ -14,7 +14,7 @@
 
 #include "scene.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	Scene::Scene()

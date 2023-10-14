@@ -1,7 +1,7 @@
 
 #include "camera.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	void Camera2D::onAwake()

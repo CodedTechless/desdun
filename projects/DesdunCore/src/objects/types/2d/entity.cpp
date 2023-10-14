@@ -7,7 +7,7 @@
 
 #include "entity.hpp"
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	void Entity2D::serialise(JSONObject& object) const

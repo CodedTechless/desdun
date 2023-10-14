@@ -3,7 +3,7 @@
 #include <random>
 #include <sstream>
 
-namespace Desdun
+namespace DesdunCore
 {
 	namespace uuid
 	{

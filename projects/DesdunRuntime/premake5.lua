@@ -16,6 +16,7 @@ project "DesdunRuntime"
     }
     
     includedirs {
+        "%{wks.location}/projects/DesdunCore/include/freetype",
         "%{wks.location}/projects/DesdunCore/include",
         "%{wks.location}/projects/DesdunCore/src",
         "src"

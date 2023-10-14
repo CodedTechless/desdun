@@ -2,7 +2,7 @@
 #include <app/layer/game.hpp>
 #include <app/desdun_app.hpp>
 
-namespace Desdun
+namespace DesdunCore
 {
 
 	void DesecratedDungeons::init()
