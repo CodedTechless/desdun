@@ -5,6 +5,8 @@
 
 imgui.ini
 
+Makefile
+
 *.sln
 *.vcxproj
 *.vcxproj.filters
