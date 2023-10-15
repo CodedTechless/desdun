@@ -19,6 +19,8 @@ namespace DesdunCore
 		json obj;
 		std::ifstream stream(getPath());
 		stream >> obj;
+
+		return obj;
 	}
 
 	void Resource::reload()

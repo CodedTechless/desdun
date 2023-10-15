@@ -5,7 +5,7 @@
 #include <graphics/render/renderer.hpp>
 #include <objects/index.hpp>
 
-#include <resources/types/fontface.hpp>
+#include <resources/types/text/font_face.hpp>
 
 #include "app.hpp"
 
@@ -61,13 +61,13 @@ namespace DesdunCore
 	void Application::stop()
 	{
 		running = false;
-        delete gameWindow;
 
+        delete gameWindow;
         gameLayers.clear();
         delete renderer;
 
+        // terminate libraries
         FT_Done_FreeType(*FontFace::library);
-
         glfwTerminate();
 	}
 

@@ -40,7 +40,7 @@ namespace DesdunCore
 	class Image : public Resource
 	{
 	public:
-
+		Image() = default;
 		Image(Vector2 size, uchar* buf = nullptr, uint channels = 4, uint bitsPerChannel = 8);
 
 		struct ImageContext
