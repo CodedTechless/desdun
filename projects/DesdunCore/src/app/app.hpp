@@ -19,16 +19,25 @@ namespace DesdunCore
 		Application();
 		~Application();
 		
+		struct Performance
+		{
+			uint frameRate;
+		};
+
 		LayerCollection gameLayers = {};
 
 		virtual void init();
 		void stop();
+
+		Performance performance() const;
 
 		Window* getPrimaryWindow() const;
 		float getInterpFraction() const;
 
 		Renderer* getRenderer() const;
 		static Application* get();
+
+		void showDebug();
 
 	protected:
 
@@ -44,6 +53,9 @@ namespace DesdunCore
 		float gameSpeed = (1.f / 30.f);
 		float timeScale = 1.f;
 		float stepInterpFrac = 0.f;
+
+		uint frameRate = 0;
+		float frameDelta = 0.f;
 
 		Window* gameWindow = nullptr;
 		Renderer* renderer = nullptr;

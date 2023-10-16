@@ -6,6 +6,7 @@
 #include <objects/index.hpp>
 
 #include <resources/types/text/font_face.hpp>
+#include <imgui/imgui.h>
 
 #include "app.hpp"
 
@@ -41,7 +42,15 @@ namespace DesdunCore
 
 	Application::~Application()
 	{
+        delete gameWindow;
+
         stop();
+        gameLayers.clear();
+        delete renderer;
+
+        // terminate libraries
+        FT_Done_FreeType(*FontFace::library);
+        glfwTerminate();
 	}
 
 	void Application::init()
@@ -60,15 +69,7 @@ namespace DesdunCore
 
 	void Application::stop()
 	{
-		running = false;
-
-        delete gameWindow;
-        gameLayers.clear();
-        delete renderer;
-
-        // terminate libraries
-        FT_Done_FreeType(*FontFace::library);
-        glfwTerminate();
+        running = false;
 	}
 
     void Application::start()
@@ -84,12 +85,14 @@ namespace DesdunCore
         float CurrentTime = (float)glfwGetTime();
         float Accumulator = 0.f;
 
-        size_t Frames = 0, Updates = 0;
+        uint frames = 0;
+        float frameTime = 0.f;
 
         while (running)
         {
             float NewTime = (float)glfwGetTime();
             float FrameTime = std::min(NewTime - CurrentTime, 0.25f);
+            frameDelta = NewTime - CurrentTime;
             CurrentTime = NewTime;
 
             Time += FrameTime;
@@ -117,6 +120,17 @@ namespace DesdunCore
 
             imguiLayer->end();
             gameWindow->update();
+
+            frames++;
+            frameTime += frameDelta;
+
+            if (frameTime > 1.f)
+            {
+                frameTime -= 1.f;
+
+                frameRate = frames;
+                frames = 0.f;
+            }
         }
     }
 
@@ -158,6 +172,95 @@ namespace DesdunCore
     {
         return currentApp; 
     };
+
+    void Application::showDebug()
+    {
+        ImGui::Begin("Debugger");
+        {
+            auto* app = Application::get();
+
+            if (ImGui::CollapsingHeader("Peformance"))
+            {
+                if (ImGui::BeginTable("performanceTable", 2))
+                {
+                    ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_WidthFixed);
+                    ImGui::TableSetupColumn("Stat", ImGuiTableColumnFlags_WidthFixed);
+                    ImGui::TableHeadersRow();
+
+                    ImGui::TableNextColumn();
+                    ImGui::Text("FPS");
+                    ImGui::TableNextColumn();
+                    ImGui::Text(std::to_string((uint)frameRate).c_str());
+
+                    ImGui::TableNextColumn();
+                    ImGui::Text("Frame time");
+                    ImGui::TableNextColumn();
+                    ImGui::Text((std::to_string(frameDelta * 1000.f) + "ms").c_str());
+
+                    ImGui::EndTable();
+                }
+            };
+
+            if (ImGui::CollapsingHeader("Graphics"))
+            {
+                if (ImGui::BeginTable("graphicsTable", 2))
+                {
+                    ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_WidthFixed);
+                    ImGui::TableSetupColumn("Stat", ImGuiTableColumnFlags_WidthFixed);
+                    ImGui::TableHeadersRow();
+
+                    auto frameData = getRenderer()->performance();
+
+                    ImGui::TableNextColumn();
+                    ImGui::Text("Draw calls");
+                    ImGui::TableNextColumn();
+                    ImGui::Text(std::to_string(frameData.drawCalls).c_str());
+
+                    ImGui::TableNextColumn();
+                    ImGui::Text("Vertex count");
+                    ImGui::TableNextColumn();
+                    ImGui::Text(std::to_string(frameData.vertexCount).c_str());
+
+                    auto* window = Application::get()->getPrimaryWindow();
+                    auto size = window->getSize();
+
+                    ImGui::TableNextColumn();
+                    ImGui::Text("Window resolution");
+                    ImGui::TableNextColumn();
+                    ImGui::Text(std::string(std::to_string((uint)size.x) + "x" + std::to_string((uint)size.y)).c_str());
+
+                    ImGui::EndTable();
+                }
+            };
+
+            if (ImGui::CollapsingHeader("Layer Stack"))
+            {
+                for (auto* layer : app->gameLayers)
+                {
+                    ImGui::Text(layer->name().c_str());
+                }
+            }
+
+            if (ImGui::CollapsingHeader("Resources"))
+            {
+                for (auto& [typeIndex, resourceCollection] : Resource::getResources())
+                {
+                    if (ImGui::TreeNodeEx(typeIndex.name(), ImGuiTreeNodeFlags_OpenOnArrow))
+                    {
+                        for (auto& [path, _] : resourceCollection)
+                        {
+                            ImGui::Text(path.c_str());
+                        }
+
+                        ImGui::TreePop();
+                    }
+                }
+            };
+
+        }
+        ImGui::End();
+
+    }
 }
 
 

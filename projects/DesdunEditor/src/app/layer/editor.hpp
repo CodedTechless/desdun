@@ -21,11 +21,17 @@ namespace DesdunEditor
 		void onAwake() override;
 
 		void onFrameUpdate(const float delta) override;
+		void onGameStep(const float delta) override;
+
+		void onInputEvent(Input::Event& event) override;
+		void onWindowEvent(const Window::Event& event) override;
 
 	private:
 
 		Scene* editorScene = nullptr;
 		SceneExplorer* explorer = nullptr;
+
+		bool setup = false;
 
 	};
 

@@ -156,13 +156,13 @@ namespace DesdunCore
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void FrameBuffer::Bind()
+	void FrameBuffer::bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, RenderID);
 		glViewport(0, 0, Specification.Size.x, Specification.Size.y);
 	}
 
-	void FrameBuffer::Unbind()
+	void FrameBuffer::unbind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}

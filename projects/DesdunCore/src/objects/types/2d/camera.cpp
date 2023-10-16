@@ -52,17 +52,27 @@ namespace DesdunCore
 	void Camera2D::onFrameUpdate(float delta)
 	{
 		auto* app = Application::get();
-		Window* window = app->getPrimaryWindow();
-		Vector2 windowSize = window->getSize();
+
+		Vector2 viewportSize = {};
+
+		if (viewport == nullptr)
+		{
+			Window* window = app->getPrimaryWindow();
+			Vector2 windowSize = window->getSize();
+		}
+		else
+		{
+			viewportSize = viewport->GetSpecification().Size;
+		}
 
 		if (getScene()->currentCamera == this)
 		{
-			app->getRenderer()->setViewportSize(windowSize);
+			app->getRenderer()->setViewportSize(viewportSize);
 		}
 
 		if (adjustToAspectRatio)
 		{
-			renderCamera.setOrthoSize(Vector2(windowSize.x / windowSize.y, 1.f) * targetViewportSize.y * getLocalInterpScale());
+			renderCamera.setOrthoSize(Vector2(viewportSize.x / viewportSize.y, 1.f) * targetViewportSize.y * getLocalInterpScale());
 		}
 		else
 		{

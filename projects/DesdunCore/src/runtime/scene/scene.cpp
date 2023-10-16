@@ -95,6 +95,12 @@ namespace DesdunCore
 		auto* app = Application::get();
 		auto* renderer = app->getRenderer();
 
+		if (currentCamera->viewport != nullptr)
+		{
+			currentCamera->viewport->bind();
+			renderer->clear();
+		}
+
 		renderer->begin(currentCamera->getProjectionTransform());
 
 		for (Object* instance : sceneInstances)
@@ -110,6 +116,13 @@ namespace DesdunCore
 		}
 
 		renderer->end();
+
+		if (currentCamera->viewport != nullptr)
+		{
+			currentCamera->viewport->unbind();
+		}
+
+		
 	}
 
 	void Scene::onInputEvent(Input::Event& event)

@@ -21,6 +21,7 @@ namespace DesdunCore
 		bool SwapChainTarget = false;
 	};
 
+	// todo: clean this up
 	class FrameBuffer
 	{
 	public:
@@ -31,8 +32,8 @@ namespace DesdunCore
 		void Invalidate();
 		void Resize(const glm::u32vec2& Size);
 
-		void Bind();
-		void Unbind();
+		void bind();
+		void unbind();
 
 		inline FrameBufferSpecification& GetSpecification() { return Specification; };
 		inline uint GetColourAttachmentRendererID(size_t index = 0) { return ColourRenderAttachments[index]; };

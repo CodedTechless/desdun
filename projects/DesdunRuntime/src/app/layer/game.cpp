@@ -20,7 +20,7 @@ namespace DesdunCore
 		auto* imagetest = gameScene->create<Sprite>();
 		imagetest->image = Resource::fetch<Image>("textures:dev/stone_brick_floor.png");
 		imagetest->tiles = { 10.f, 10.f };
-		imagetest->setScale({ 10.f, 10.f });
+		imagetest->setScale({ 1.f, 1.f });
 		imagetest->setParent(gameScene->getRoot());
 	}
 
@@ -36,7 +36,7 @@ namespace DesdunCore
 
 	void Game::onInputEvent(Input::Event& event)
 	{
-		return gameScene->onInputEvent(event);
+		gameScene->onInputEvent(event);
 	}
 
 	void Game::onWindowEvent(const Window::Event& event)

@@ -26,6 +26,8 @@ namespace DesdunCore
 		bool smoothFollow = true;
 		bool adjustToAspectRatio = true;
 		
+		Ref<FrameBuffer> viewport = nullptr;
+
 		Vector2 targetViewportSize = { 800.f, 600.f };
 		Vector2 offset = { 0.f, 0.f };
 
