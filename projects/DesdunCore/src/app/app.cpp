@@ -173,6 +173,11 @@ namespace DesdunCore
         return currentApp; 
     };
 
+    ImGuiLayer* Application::getImGuiLayer() const
+    {
+        return imguiLayer;
+    }
+
     void Application::showDebug()
     {
         ImGui::Begin("Debugger");

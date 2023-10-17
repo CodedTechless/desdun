@@ -29,13 +29,13 @@ namespace DesdunCore
 		virtual void init();
 		void stop();
 
-		Performance performance() const;
-
 		Window* getPrimaryWindow() const;
 		float getInterpFraction() const;
 
 		Renderer* getRenderer() const;
 		static Application* get();
+
+		ImGuiLayer* getImGuiLayer() const;
 
 		void showDebug();
 

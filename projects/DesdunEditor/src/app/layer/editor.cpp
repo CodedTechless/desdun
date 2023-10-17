@@ -12,10 +12,9 @@ namespace DesdunEditor
     {
         editorScene = new Scene();
 
-        Application::get()->getPrimaryWindow()->setVsyncEnabled(true);
-
-        explorer = new SceneExplorer();
-        explorer->setContextScene(editorScene);
+        auto* app = Application::get();
+        app->getPrimaryWindow()->setVsyncEnabled(true);
+        app->getImGuiLayer()->absorbInputs = false;
 
         FrameBufferSpecification fbrSpec;
         fbrSpec.Attachments = { FrameBufferFormat::RGBA8 };
@@ -42,11 +41,11 @@ namespace DesdunEditor
         static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
-        const ImGuiViewport* viewport = ImGui::GetMainViewport();
+        const ImGuiViewport* imviewport = ImGui::GetMainViewport();
         {
-            ImGui::SetNextWindowPos(viewport->WorkPos);
-            ImGui::SetNextWindowSize(viewport->WorkSize);
-            ImGui::SetNextWindowViewport(viewport->ID);
+            ImGui::SetNextWindowPos(imviewport->WorkPos);
+            ImGui::SetNextWindowSize(imviewport->WorkSize);
+            ImGui::SetNextWindowViewport(imviewport->ID);
             ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
             ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
@@ -62,82 +61,12 @@ namespace DesdunEditor
 
         ImGui::Begin("Editor", nullptr, window_flags);
         ImGui::PopStyleVar(3);
-        {
-            if (ImGui::BeginMenuBar())
-            {
-                if (ImGui::BeginMenu("File"))
-                {
+        
+        buildMenuBar();
+        buildDockspace(dockspace_flags);
 
-                    ImGui::EndMenu();
-                }
-
-                if (ImGui::BeginMenu("Edit"))
-                {
-
-                    ImGui::EndMenu();
-                }
-
-                ImGui::EndMenuBar();
-            }
-
-            ImGuiID id = ImGui::GetID("editor_dockspace");
-            ImGui::DockSpace(id, ImVec2(0.0f, 0.0f), dockspace_flags);
-
-            if (not setup)
-            {
-
-                ImGui::DockBuilderRemoveNode(id);
-                ImGui::DockBuilderAddNode(id, dockspace_flags | ImGuiDockNodeFlags_DockSpace);
-
-                ImGui::DockBuilderSetNodeSize(id, viewport->Size);
-
-                ImGuiID center = NULL;
-
-                // left panel
-                ImGuiID left = ImGui::DockBuilderSplitNode(id, ImGuiDir_Left, 0.2f, nullptr, &id);
-                ImGuiID down = ImGui::DockBuilderSplitNode(id, ImGuiDir_Down, 0.2f, nullptr, &id);
-
-                ImGuiID leftDown = ImGui::DockBuilderSplitNode(left, ImGuiDir_Down, 0.5f, nullptr, &left);
-
-                // center panel
-                
-
-                ImGui::DockBuilderDockWindow("Scene Explorer", left);
-                ImGui::DockBuilderDockWindow("Inspector", leftDown);
-                ImGui::DockBuilderDockWindow("Viewport", id);
-                ImGui::DockBuilderDockWindow("Debugger", down);
-                ImGui::DockBuilderDockWindow("Output", down);
-
-                ImGui::DockBuilderFinish(id);
-
-                setup = true;
-            }
-        }
-
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-
-        ImGui::Begin("Viewport");
-        ImGui::PopStyleVar();
-        {
-            //ViewportFocused = ImGui::IsWindowFocused() && ImGui::IsWindowHovered();
-            //ActiveEditorScene->ActiveCameraScript->AcceptingInput = ImGui::IsWindowFocused();
-
-            ImVec2 region = ImGui::GetContentRegionAvail();
-            Vector2 viewportSize = { region.x, region.y };
-
-            auto& camViewport = editorScene->currentCamera->viewport;
-            camViewport->Resize(viewportSize);
-            editorScene->onFrameUpdate(delta);
-
-            //ImGui::PushID("ViewportDropZone");
-
-            uint32_t rid = camViewport->GetColourAttachmentRendererID();
-
-            //ImVec2 CursorScreenPos = ImGui::GetCursorScreenPos();
-            //c_Camera.SetViewportPosition({ CursorScreenPos.x, CursorScreenPos.y });
-            ImGui::Image((ImTextureID)rid, ImVec2{ (float)viewportSize.x, (float)viewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-        }
-        ImGui::End();
+        sceneFocused = SceneViewport::render(editorScene, delta);
+        SceneExplorer::render(editorScene);
 
         ImGui::Begin("Inspector");
         ImGui::End();
@@ -145,13 +74,11 @@ namespace DesdunEditor
         ImGui::Begin("Output");
         ImGui::End();
 
-
-        ImGui::End();
-
         Application::get()->showDebug();
 
-        explorer->onImGuiRender();
+        ImGui::End();
 	}
+
 
     void EditorLayer::onGameStep(const float Delta)
     {
@@ -160,7 +87,10 @@ namespace DesdunEditor
 
     void EditorLayer::onInputEvent(Input::Event& event)
     {
-        editorScene->onInputEvent(event);
+        if (sceneFocused)
+        {
+            editorScene->onInputEvent(event);
+        }
     }
 
     void EditorLayer::onWindowEvent(const Window::Event& event)
@@ -168,4 +98,65 @@ namespace DesdunEditor
         editorScene->onWindowEvent(event);
     }
 
+    void EditorLayer::buildMenuBar()
+    {
+        if (ImGui::BeginMenuBar())
+        {
+            if (ImGui::BeginMenu("File"))
+            {
+                ImGui::MenuItem("Save", "Ctrl+S");
+                ImGui::MenuItem("Load", "Ctrl+L");
+
+
+                ImGui::EndMenu();
+            }
+
+            if (ImGui::BeginMenu("Edit"))
+            {
+
+                ImGui::EndMenu();
+            }
+
+            ImGui::EndMenuBar();
+        }
+    }
+
+    void EditorLayer::buildDockspace(ImGuiDockNodeFlags flags)
+    {
+        const ImGuiViewport* imviewport = ImGui::GetMainViewport();
+
+        ImGuiID id = ImGui::GetID("editor_dockspace");
+        ImGui::DockSpace(id, ImVec2(0.0f, 0.0f), flags);
+
+        static bool setup = false;
+        if (not setup)
+        {
+
+            ImGui::DockBuilderRemoveNode(id);
+            ImGui::DockBuilderAddNode(id, flags | ImGuiDockNodeFlags_DockSpace);
+
+            ImGui::DockBuilderSetNodeSize(id, imviewport->Size);
+
+            ImGuiID center = NULL;
+
+            // left panel
+            ImGuiID left = ImGui::DockBuilderSplitNode(id, ImGuiDir_Left, 0.2f, nullptr, &id);
+            ImGuiID down = ImGui::DockBuilderSplitNode(id, ImGuiDir_Down, 0.2f, nullptr, &id);
+
+            ImGuiID leftDown = ImGui::DockBuilderSplitNode(left, ImGuiDir_Down, 0.5f, nullptr, &left);
+
+            // center panel
+
+
+            ImGui::DockBuilderDockWindow("Scene Explorer", left);
+            ImGui::DockBuilderDockWindow("Inspector", leftDown);
+            ImGui::DockBuilderDockWindow("Viewport", id);
+            ImGui::DockBuilderDockWindow("Debugger", down);
+            ImGui::DockBuilderDockWindow("Output", down);
+
+            ImGui::DockBuilderFinish(id);
+
+            setup = true;
+        }
+    }
 }

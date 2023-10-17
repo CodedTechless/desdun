@@ -6,19 +6,10 @@
 
 #include "scene_explorer.hpp"
 
-namespace DesdunCore
+namespace DesdunEditor
 {
 
-	SceneExplorer::SceneExplorer()
-	{
-	}
-
-	void SceneExplorer::setContextScene(Scene* inst)
-	{
-		scene = inst;
-	}
-
-	void SceneExplorer::onImGuiRender()
+	void SceneExplorer::render(Scene* scene)
 	{
 		ImGui::Begin("Scene Explorer");
 		

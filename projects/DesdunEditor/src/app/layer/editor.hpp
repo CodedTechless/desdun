@@ -1,6 +1,9 @@
 
 
 #include <app/panel/scene_explorer.hpp>
+#include <app/panel/scene_viewport.hpp>
+
+#include <imgui/imgui.h>
 
 #include <desdun_engine.hpp>
 
@@ -12,8 +15,6 @@ namespace DesdunEditor
 	class EditorLayer : public Layer
 	{
 	public:
-
-
 		EditorLayer() = default;
 		EditorLayer(const std::string& name)
 			: Layer(name) {};
@@ -26,12 +27,13 @@ namespace DesdunEditor
 		void onInputEvent(Input::Event& event) override;
 		void onWindowEvent(const Window::Event& event) override;
 
+		void buildMenuBar();
+		void buildDockspace(ImGuiDockNodeFlags flags = 0);
+
 	private:
-
 		Scene* editorScene = nullptr;
-		SceneExplorer* explorer = nullptr;
 
-		bool setup = false;
+		bool sceneFocused = false;
 
 	};
 

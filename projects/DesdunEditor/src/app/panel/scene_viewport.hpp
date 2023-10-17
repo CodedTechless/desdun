@@ -7,14 +7,10 @@ using namespace DesdunCore;
 namespace DesdunEditor
 {
 
-	class SceneExplorer
+	class SceneViewport
 	{
 	public:
-		static void render(Scene* scene);
-
-	private:
-		static void renderInstance(Object* instance);
+		static bool render(Scene* scene, const float delta);
 	};
-
 
 }
