@@ -36,8 +36,6 @@ namespace DesdunCore
 
 		void onAwake() override;
 
-		void onInputEvent(Input::Event& event) override;
-
 		void onGameStep(float delta) override;
 		void onFrameUpdate(float delta) override;
 

@@ -2,6 +2,8 @@
 
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
+#include <objects/editor/editor_camera.hpp>
+
 
 #include "editor.hpp"
 
@@ -20,7 +22,7 @@ namespace DesdunEditor
         fbrSpec.Attachments = { FrameBufferFormat::RGBA8 };
         fbrSpec.Size = { 800.f, 600.f };
 
-        auto* camera = editorScene->create<Camera2D>();
+        auto* camera = editorScene->create<EditorCamera2D>();
         camera->name = "EditorCamera";
         camera->targetViewportSize = { 800, 600 };
         camera->alpha = 15.f;
@@ -141,7 +143,7 @@ namespace DesdunEditor
 
             // left panel
             ImGuiID left = ImGui::DockBuilderSplitNode(id, ImGuiDir_Left, 0.2f, nullptr, &id);
-            ImGuiID down = ImGui::DockBuilderSplitNode(id, ImGuiDir_Down, 0.2f, nullptr, &id);
+            ImGuiID down = ImGui::DockBuilderSplitNode(id, ImGuiDir_Down, 0.3f, nullptr, &id);
 
             ImGuiID leftDown = ImGui::DockBuilderSplitNode(left, ImGuiDir_Down, 0.5f, nullptr, &left);
 

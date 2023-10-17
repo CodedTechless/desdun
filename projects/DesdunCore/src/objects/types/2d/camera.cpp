@@ -7,22 +7,7 @@ namespace DesdunCore
 	void Camera2D::onAwake()
 	{
 		interpolate = true;
-
-		Input::Action action = {};
-		action.name = "cameraZoom";
-		action.type = Input::Type::MouseScrolling;
-		action.state = Input::State::Changed;
-
-		Input::registerAction(action);
 	}
-
-	void Camera2D::onInputEvent(Input::Event& event)
-	{
-		if (event.isAction("cameraZoom", Input::State::Changed))
-		{
-			zoomLevel *= -event.action.delta.y * 0.1f + 1;
-		}
-	};
 
 	void Camera2D::onGameStep(float delta)
 	{

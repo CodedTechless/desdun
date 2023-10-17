@@ -8,6 +8,7 @@
 #include <runtime/imgui/imgui_layer.hpp>
 
 #include <graphics/render/renderer.hpp>
+#include <runtime/scripting/lua_engine.hpp>
 
 namespace DesdunCore
 {
@@ -28,16 +29,17 @@ namespace DesdunCore
 
 		virtual void init();
 		void stop();
+		void showDebug();
 
 		Window* getPrimaryWindow() const;
-		float getInterpFraction() const;
+		LuaScriptEngine* getScriptEngine() const;
 
 		Renderer* getRenderer() const;
-		static Application* get();
-
 		ImGuiLayer* getImGuiLayer() const;
 
-		void showDebug();
+		float getInterpFraction() const;
+
+		static Application* get();
 
 	protected:
 
@@ -60,6 +62,7 @@ namespace DesdunCore
 		Window* gameWindow = nullptr;
 		Renderer* renderer = nullptr;
 		ImGuiLayer* imguiLayer = nullptr;
+		LuaScriptEngine* scriptEngine = nullptr;
 
 		static Application* currentApp;
 

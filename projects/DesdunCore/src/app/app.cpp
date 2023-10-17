@@ -59,10 +59,14 @@ namespace DesdunCore
 
         gameWindow = new Window("Desdun", { 1280, 720 });
         
+        // Start renderer
         auto* textureShader = Resource::fetch<Shader>("shaders:tex/tex.tres");
         renderer = new Renderer(textureShader);
 
-        // Start renderer
+        // initialise script engine
+        scriptEngine = new LuaScriptEngine();
+
+        // push imgui layer
         imguiLayer = new ImGuiLayer("config:imgui.ini");
         gameLayers.PushOverlay(imguiLayer);
 	}
@@ -156,7 +160,12 @@ namespace DesdunCore
     Window* Application::getPrimaryWindow() const 
     {
         return gameWindow;
-    };
+    }
+
+    LuaScriptEngine* Application::getScriptEngine() const
+    {
+        return scriptEngine;
+    }
     
     float Application::getInterpFraction() const 
     { 
