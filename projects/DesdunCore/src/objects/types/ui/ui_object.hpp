@@ -24,7 +24,7 @@ namespace DesdunCore
 	class UIObject : public Object
 	{
 	public:
-		serialisable(UIObject);
+		dd_serialisable(UIObject);
 
 		UDim2f position = {};
 		UDim2f scale = { { 0.f, 40.f }, { 0.f, 40.f } };

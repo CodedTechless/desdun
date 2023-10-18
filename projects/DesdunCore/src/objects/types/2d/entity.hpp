@@ -11,7 +11,7 @@ namespace DesdunCore
 	class Entity2D : public Object
 	{
 	public:
-		serialisable(Entity2D)
+		dd_serialisable(Entity2D)
 
 		// Properties
 

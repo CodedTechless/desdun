@@ -10,6 +10,10 @@
 #include <graphics/render/renderer.hpp>
 #include <runtime/scripting/lua_engine.hpp>
 
+#define dd_define(object, ...) state.new_usertype<object>(#object, __VA_ARGS__)
+#define dd_define_type(object, ...) Runtime::add<object>({ #object }); state.new_usertype<object>(#object, __VA_ARGS__)
+#define dd_define_type_inheritence(object, inheritence, ...) Runtime::add<object>({ #object, inheritence }); state.new_usertype<object>(#object, __VA_ARGS__)
+
 namespace DesdunCore
 {
 

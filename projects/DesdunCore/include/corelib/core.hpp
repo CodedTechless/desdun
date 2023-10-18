@@ -53,7 +53,7 @@
 #define dd_class(T) Runtime::add<T>({ #T })
 #define dd_class_child(bT, iT) Runtime::add<bT>({ #bT, Runtime::get<iT>() })
 
-#define serialisable(T) public: \
+#define dd_serialisable(T) public: \
 const std::string getClassName() const override { return #T; }; \
 std::type_index getClassIndex() const override { return typeid(T); };
 

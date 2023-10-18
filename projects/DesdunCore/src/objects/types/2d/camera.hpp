@@ -16,7 +16,7 @@ namespace DesdunCore
 	class Camera2D : public Entity2D
 	{
 	public:
-		serialisable(Camera2D);
+		dd_serialisable(Camera2D);
 
 		float alpha = 0.25f;
 

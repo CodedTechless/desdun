@@ -10,21 +10,6 @@ namespace DesdunCore
 	{
 	}
 
-	void BaseRuntimeClass::addParameter(ParameterType type, String name, void* location)
-	{
-
-	}
-
-	void BaseRuntimeClass::addMethod(String name, void* location)
-	{
-
-	}
-
-	void BaseRuntimeClass::addInheritors(InitList<BaseRuntimeClass*> inheritence)
-	{
-
-	};
-
 	const String BaseRuntimeClass::getName() const
 	{
 		return typeName;

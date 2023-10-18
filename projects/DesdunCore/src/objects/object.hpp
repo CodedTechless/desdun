@@ -24,7 +24,7 @@ namespace DesdunCore
 	class Object : public Serialisable
 	{
 	public:
-		serialisable(Object);
+		dd_serialisable(Object);
 
 		String name = "Object";
 

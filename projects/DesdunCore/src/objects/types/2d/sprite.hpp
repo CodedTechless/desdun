@@ -9,7 +9,7 @@ namespace DesdunCore
 	class Sprite : public Entity2D
 	{
 	public:
-		serialisable(Sprite)
+		dd_serialisable(Sprite)
 
 		Image* image = nullptr;
 		Shader* shader = nullptr;

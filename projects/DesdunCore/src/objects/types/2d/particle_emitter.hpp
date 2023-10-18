@@ -7,6 +7,6 @@ namespace DesdunCore
 	class ParticleEmitter2D : public Entity2D
 	{
 	public:
-		serialisable(ParticleEmitter2D)
+		dd_serialisable(ParticleEmitter2D)
 	};
 }

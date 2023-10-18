@@ -8,7 +8,7 @@ namespace DesdunCore
 	class Actor : public Entity2D
 	{
 	public:
-		serialisable(Actor);
+		dd_serialisable(Actor);
 
 		float health = 100.f;
 		float maxHealth = 100.f;

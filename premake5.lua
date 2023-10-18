@@ -20,6 +20,9 @@ workspace "ProjectDesdun"
         "dependencies/*"
     }
 
+    filter "action:vs*"
+        buildoptions { "/bigobj" }
+
 outputDir = "%{wks.location}/bin/%{prj.name}/%{cfg.platform}/%{cfg.buildcfg}/"
 
 group "Core"

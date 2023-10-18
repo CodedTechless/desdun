@@ -37,8 +37,6 @@ namespace DesdunCore
         glfwTerminate();
 	}
 
-#define dd_define_type(object, ...) Runtime::add<object>({ #object }); state.new_usertype<object>(#object, __VA_ARGS__)
-#define dd_define_type_inheritence(object, inheritence, ...) Runtime::add<object>({ #object, inheritence }); state.new_usertype<object>(#object, __VA_ARGS__)
 
 
 	void Application::init()
@@ -52,6 +50,130 @@ namespace DesdunCore
 
         auto& state = scriptEngine->getState();
 
+        dd_define(Vector2,
+            sol::constructors<Vector2(), Vector2(float, float)>(),
+            
+            "x", &Vector2::x,
+            "y", &Vector2::y,
+
+            "magnitude", [](Vector2& vec) -> float
+            {
+                return glm::length(vec);
+            },
+
+            "abs", [](Vector2& vec) -> Vector2
+            {
+                return glm::abs(vec);
+            },
+
+            sol::meta_function::addition, sol::overload(
+                [](Vector2 A, Vector2 B) -> Vector2 { return A + B; },
+                [](Vector2 A, float B) -> Vector2 { return A + B; },
+                [](float A, Vector2 B) -> Vector2 { return A + B; }
+            ),
+            sol::meta_function::subtraction, sol::overload(
+                [](Vector2 A, Vector2 B) -> Vector2 { return A - B; },
+                [](Vector2 A, float B) -> Vector2 { return A - B; },
+                [](float A, Vector2 B) -> Vector2 { return A - B; }
+            ),
+            sol::meta_function::multiplication, sol::overload(
+                [](Vector2 A, Vector2 B) -> Vector2 { return A * B; },
+                [](Vector2 A, float B) -> Vector2 { return A * B; },
+                [](float A, Vector2 B) -> Vector2 { return A * B; }
+            ),
+            sol::meta_function::division, sol::overload(
+                [](Vector2 A, Vector2 B) -> Vector2 { return A / B; },
+                [](Vector2 A, float B) -> Vector2 { return A / B; },
+                [](float A, Vector2 B) -> Vector2 { return A / B; }
+            ),
+
+            sol::meta_function::unary_minus, [](Vector2 A) -> Vector2 { return -A; }
+
+        );
+
+        dd_define(Vector3,
+            sol::constructors<Vector3(), Vector3(float, float, float)>(),
+
+            "x", & Vector3::x,
+            "y", & Vector3::y,
+            "z", & Vector3::z,
+
+            "magnitude", [](Vector3& vec) -> float
+            {
+                return glm::length(vec);
+            },
+
+            "abs", [](Vector3& vec) -> Vector3
+            {
+                return glm::abs(vec);
+            },
+
+            sol::meta_function::addition, sol::overload(
+                [](Vector3 A, Vector3 B) -> Vector3 { return A + B; },
+                [](Vector3 A, float B) -> Vector3 { return A + B; },
+                [](float A, Vector3 B) -> Vector3 { return A + B; }
+            ),
+            sol::meta_function::subtraction, sol::overload(
+                [](Vector3 A, Vector3 B) -> Vector3 { return A - B; },
+                [](Vector3 A, float B) -> Vector3 { return A - B; },
+                [](float A, Vector3 B) -> Vector3 { return A - B; }
+            ),
+            sol::meta_function::multiplication, sol::overload(
+                [](Vector3 A, Vector3 B) -> Vector3 { return A * B; },
+                [](Vector3 A, float B) -> Vector3 { return A * B; },
+                [](float A, Vector3 B) -> Vector3 { return A * B; }
+            ),
+            sol::meta_function::division, sol::overload(
+                [](Vector3 A, Vector3 B) -> Vector3 { return A / B; },
+                [](Vector3 A, float B) -> Vector3 { return A / B; },
+                [](float A, Vector3 B) -> Vector3 { return A / B; }
+            ),
+
+            sol::meta_function::unary_minus, [](Vector3 A) -> Vector3 { return -A; }
+        );
+
+        dd_define(Vector4, 
+            sol::constructors<Vector4(), Vector4(float, float, float, float)>(),
+
+            "x", &Vector4::x,
+            "y", &Vector4::y,
+            "z", &Vector4::z,
+            "w", &Vector4::w,
+
+            "magnitude", [](Vector4& vec) -> float
+            { 
+                return glm::length(vec); 
+            },
+
+            "abs", [](Vector4& vec) -> Vector4
+            { 
+                return glm::abs(vec);
+            },
+
+            sol::meta_function::addition, sol::overload(
+                [](Vector4 A, Vector4 B) -> Vector4 { return A + B; },
+                [](Vector4 A, float B) -> Vector4 { return A + B; },
+                [](float A, Vector4 B) -> Vector4 { return A + B; }
+            ),
+            sol::meta_function::subtraction, sol::overload(
+                [](Vector4 A, Vector4 B) -> Vector4 { return A - B; },
+                [](Vector4 A, float B) -> Vector4 { return A - B; },
+                [](float A, Vector4 B) -> Vector4 { return A - B; }
+            ),
+            sol::meta_function::multiplication, sol::overload(
+                [](Vector4 A, Vector4 B) -> Vector4 { return A * B; },
+                [](Vector4 A, float B) -> Vector4 { return A * B; },
+                [](float A, Vector4 B) -> Vector4 { return A * B; }
+            ),
+            sol::meta_function::division, sol::overload(
+                [](Vector4 A, Vector4 B) -> Vector4 { return A / B; },
+                [](Vector4 A, float B) -> Vector4 { return A / B; },
+                [](float A, Vector4 B) -> Vector4 { return A / B; }
+            ),
+
+            sol::meta_function::unary_minus, [](Vector4 A) -> Vector4 { return -A; }
+        );
+
         dd_define_type(Object,
             sol::no_constructor,
             "parent", sol::property(&Object::getParent, &Object::setParent),
@@ -62,6 +184,8 @@ namespace DesdunCore
         
         dd_define_type_inheritence(Entity2D, { Runtime::get<Object>() },
             sol::no_constructor,
+            sol::base_classes, sol::bases<Object>(),
+
             "zIndex", &Entity2D::zIndex,
             "visible", &Entity2D::visible,
             "interpolate", &Entity2D::interpolate,
@@ -76,29 +200,50 @@ namespace DesdunCore
 
             "translate", &Entity2D::translate,
             "resize", &Entity2D::resize,
-            "rotate", &Entity2D::rotate,
+            "rotate", &Entity2D::rotate
         );
 
         // todo: figure out a way to get these values into the inspector
         // for now we can just pull it through lua but that'd be inefficient due to marshalling
-        dd_define_type_inheritence(Camera2D, { Runtime::get<Object>() },
+        dd_define_type_inheritence(Camera2D, { Runtime::get<Entity2D>() },
             sol::no_constructor,
+            sol::base_classes, sol::bases<Entity2D>(),
+
             "subject", &Camera2D::subject,
             "offset", &Camera2D::offset,
+
             "targetViewportSize", &Camera2D::targetViewportSize,
-            "getMouseInWorld", &Camera2D::getMouseInWorld,
             "smoothFollow", &Camera2D::smoothFollow,
-            "adjustToAspectRatio", &Camera2D::adjustToAspectRatio
+            "adjustToAspectRatio", &Camera2D::adjustToAspectRatio,
+
+            "getMouseInWorld", &Camera2D::getMouseInWorld
         );
 
+        dd_define_type_inheritence(SoundEmitter2D, { Runtime::get<Entity2D>() },
+            sol::no_constructor,
+            sol::base_classes, sol::bases<Entity2D>()
+        );
 
-        Runtime::add<SoundEmitter2D>({ "SoundEmitter2D" });
-        Runtime::add<Camera2D>({ "Camera2D" });
-        Runtime::add<ParticleEmitter2D>({ "ParticleEmitter2D" });
-        Runtime::add<Sprite>({ "Sprite" });
-        Runtime::add<AnimatedSprite>({ "AnimatedSprite" });
-        Runtime::add<TileMap>({ "TileMap" });
-        
+        dd_define_type_inheritence(ParticleEmitter2D, { Runtime::get<Entity2D>() },
+            sol::no_constructor,
+            sol::base_classes, sol::bases<Entity2D>()
+        );
+
+        dd_define_type_inheritence(Sprite, { Runtime::get<Entity2D>() },
+            sol::no_constructor,
+            sol::base_classes, sol::bases<Entity2D>()
+        );
+
+        dd_define_type_inheritence(AnimatedSprite, { Runtime::get<Sprite>() },
+            sol::no_constructor,
+            sol::base_classes, sol::bases<Sprite>()
+        );
+
+        dd_define_type_inheritence(TileMap, { Runtime::get<Entity2D>() },
+            sol::no_constructor,
+            sol::base_classes, sol::bases<Entity2D>()
+        );
+
         // Start renderer
         auto* textureShader = Resource::fetch<Shader>("shaders:tex/tex.tres");
         renderer = new Renderer(textureShader);
@@ -170,7 +315,7 @@ namespace DesdunCore
                 frameTime -= 1.f;
 
                 frameRate = frames;
-                frames = 0.f;
+                frames = 0;
             }
         }
     }

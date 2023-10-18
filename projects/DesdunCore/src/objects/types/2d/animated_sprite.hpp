@@ -17,7 +17,7 @@ namespace DesdunCore
 	class AnimatedSprite : public Sprite
 	{
 	public:
-		serialisable(AnimatedSprite)
+		dd_serialisable(AnimatedSprite)
 		
 		float playbackSpeed = 1.f;
 

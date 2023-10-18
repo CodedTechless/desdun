@@ -7,6 +7,6 @@ namespace DesdunCore
 	class TileMap : public Entity2D
 	{
 	public:
-		serialisable(TileMap)
+		dd_serialisable(TileMap)
 	};
 }
