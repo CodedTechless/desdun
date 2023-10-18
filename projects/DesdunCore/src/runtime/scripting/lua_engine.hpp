@@ -10,7 +10,7 @@ namespace DesdunCore
 	public:
 		LuaScriptEngine();
 
-
+		sol::state& getState() { return vm; };
 		sol::load_result loadScript(const String& path);
 
 	private:

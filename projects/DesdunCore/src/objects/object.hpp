@@ -81,6 +81,11 @@ namespace DesdunCore
 			return Runtime::get(getClassIndex())->isA<T>();
 		}
 
+		bool isA(String type) const
+		{
+			return Runtime::get(type)->isA(type);
+		}
+
 		// Getters
 
 		std::string getInstanceId() const { return id; };

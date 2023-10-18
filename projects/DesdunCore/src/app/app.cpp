@@ -21,23 +21,7 @@ namespace DesdunCore
 	{
         currentApp = this;
 
-        Runtime::add<Object>({ "Object" });
-        {
-            Runtime::add<Entity2D>({ "Entity2D", Runtime::get<Object>() });
-            {
-                Runtime::add<SoundEmitter2D>({ "SoundEmitter2D", Runtime::get<Entity2D>() });
 
-                Runtime::add<Camera2D>({ "Camera2D", Runtime::get<Entity2D>() });
-                Runtime::add<ParticleEmitter2D>({ "ParticleEmitter2D", Runtime::get<Entity2D>() });
-
-                Runtime::add<Sprite>({ "Sprite", Runtime::get<Entity2D>() });
-                {
-                    Runtime::add<AnimatedSprite>({ "AnimatedSprite", Runtime::get<Sprite>() });
-                }
-
-                Runtime::add<TileMap>({ "TileMap", Runtime::get<Entity2D>() });
-            }
-        }
 	}
 
 	Application::~Application()
@@ -53,18 +37,71 @@ namespace DesdunCore
         glfwTerminate();
 	}
 
+#define dd_define_type(object, ...) Runtime::add<object>({ #object }); state.new_usertype<object>(#object, __VA_ARGS__)
+#define dd_define_type_inheritence(object, inheritence, ...) Runtime::add<object>({ #object, inheritence }); state.new_usertype<object>(#object, __VA_ARGS__)
+
+
 	void Application::init()
 	{
         FontFace::init();
 
         gameWindow = new Window("Desdun", { 1280, 720 });
+
+        // initialise script engine
+        scriptEngine = new LuaScriptEngine();
+
+        auto& state = scriptEngine->getState();
+
+        dd_define_type(Object,
+            sol::no_constructor,
+            "parent", sol::property(&Object::getParent, &Object::setParent),
+            "clone", &Object::clone,
+            "scene", sol::property(&Object::getScene),
+            "instanceId", sol::property(&Object::getInstanceId)
+        );
+        
+        dd_define_type_inheritence(Entity2D, { Runtime::get<Object>() },
+            sol::no_constructor,
+            "zIndex", &Entity2D::zIndex,
+            "visible", &Entity2D::visible,
+            "interpolate", &Entity2D::interpolate,
+
+            "position", sol::property(&Entity2D::getPosition, &Entity2D::setPosition),
+            "scale", sol::property(&Entity2D::getScale, &Entity2D::setScale),
+            "rotation", sol::property(&Entity2D::getRotation, &Entity2D::setRotation),
+
+            "globalPosition", sol::property(&Entity2D::getGlobalPosition),
+            "globalScale", sol::property(&Entity2D::getGlobalScale),
+            "globalRotation", sol::property(&Entity2D::getGlobalRotation),
+
+            "translate", &Entity2D::translate,
+            "resize", &Entity2D::resize,
+            "rotate", &Entity2D::rotate,
+        );
+
+        // todo: figure out a way to get these values into the inspector
+        // for now we can just pull it through lua but that'd be inefficient due to marshalling
+        dd_define_type_inheritence(Camera2D, { Runtime::get<Object>() },
+            sol::no_constructor,
+            "subject", &Camera2D::subject,
+            "offset", &Camera2D::offset,
+            "targetViewportSize", &Camera2D::targetViewportSize,
+            "getMouseInWorld", &Camera2D::getMouseInWorld,
+            "smoothFollow", &Camera2D::smoothFollow,
+            "adjustToAspectRatio", &Camera2D::adjustToAspectRatio
+        );
+
+
+        Runtime::add<SoundEmitter2D>({ "SoundEmitter2D" });
+        Runtime::add<Camera2D>({ "Camera2D" });
+        Runtime::add<ParticleEmitter2D>({ "ParticleEmitter2D" });
+        Runtime::add<Sprite>({ "Sprite" });
+        Runtime::add<AnimatedSprite>({ "AnimatedSprite" });
+        Runtime::add<TileMap>({ "TileMap" });
         
         // Start renderer
         auto* textureShader = Resource::fetch<Shader>("shaders:tex/tex.tres");
         renderer = new Renderer(textureShader);
-
-        // initialise script engine
-        scriptEngine = new LuaScriptEngine();
 
         // push imgui layer
         imguiLayer = new ImGuiLayer("config:imgui.ini");

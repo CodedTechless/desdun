@@ -20,6 +20,29 @@ namespace DesdunCore
 		const String getName() const;
 		Type getIndex() const;
 
+		bool isA(String type) const
+		{
+			if (inheritsFrom.empty() == false)
+			{
+				if (typeName == type)
+				{
+					return true;
+				}
+				else
+				{
+					for (auto* parentClass : inheritsFrom)
+					{
+						if (parentClass->isA(type) == true)
+						{
+							return true;
+						}
+					}
+				}
+			}
+
+			return false;
+		}
+		
 		template<typename T>
 		bool isA() const
 		{

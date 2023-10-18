@@ -8,12 +8,22 @@ namespace DesdunCore
 	BaseRuntimeClass::BaseRuntimeClass(const String& type_name, Type type_index)
 		: typeName(type_name), typeIndex(type_index), inheritsFrom({}) 
 	{
-	};
-	
-	BaseRuntimeClass::BaseRuntimeClass(const String& type_name, Type type_index, InitList<BaseRuntimeClass*> inherits_from)
-		: typeName(type_name), typeIndex(type_index), inheritsFrom(inherits_from) 
-	{
 	}
+
+	void BaseRuntimeClass::addParameter(ParameterType type, String name, void* location)
+	{
+
+	}
+
+	void BaseRuntimeClass::addMethod(String name, void* location)
+	{
+
+	}
+
+	void BaseRuntimeClass::addInheritors(InitList<BaseRuntimeClass*> inheritence)
+	{
+
+	};
 
 	const String BaseRuntimeClass::getName() const
 	{
