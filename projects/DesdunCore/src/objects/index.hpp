@@ -5,6 +5,7 @@
 */
 
 #include "object.hpp"
+#include "types/script.hpp"
 
 // >> World
 

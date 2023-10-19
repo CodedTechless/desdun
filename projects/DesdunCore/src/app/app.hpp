@@ -9,9 +9,9 @@
 
 #include <graphics/render/renderer.hpp>
 
-#define dd_define(object, ...) state.new_usertype<object>(#object, __VA_ARGS__)
-#define dd_define_type(object, ...) Runtime::add<object>({ #object }); state.new_usertype<object>(#object, __VA_ARGS__)
-#define dd_define_type_inheritence(object, inheritence, ...) Runtime::add<object>({ #object, inheritence }); state.new_usertype<object>(#object, __VA_ARGS__)
+#define dd_define(object, ...) vm.new_usertype<object>(#object, __VA_ARGS__)
+#define dd_define_type(object, ...) Runtime::add<object>({ #object }); vm.new_usertype<object>(#object, __VA_ARGS__)
+#define dd_define_type_inheritence(object, inheritence, ...) Runtime::add<object>({ #object, inheritence }); vm.new_usertype<object>(#object, __VA_ARGS__)
 
 namespace DesdunCore
 {
@@ -64,6 +64,9 @@ namespace DesdunCore
 		Window* gameWindow = nullptr;
 		Renderer* renderer = nullptr;
 		ImGuiLayer* imguiLayer = nullptr;
+
+		sol::state vm = {};
+		List<String> environmentLibs;
 
 		static Application* currentApp;
 
