@@ -8,7 +8,6 @@
 #include <runtime/imgui/imgui_layer.hpp>
 
 #include <graphics/render/renderer.hpp>
-#include <runtime/scripting/lua_engine.hpp>
 
 #define dd_define(object, ...) state.new_usertype<object>(#object, __VA_ARGS__)
 #define dd_define_type(object, ...) Runtime::add<object>({ #object }); state.new_usertype<object>(#object, __VA_ARGS__)
@@ -36,7 +35,6 @@ namespace DesdunCore
 		void showDebug();
 
 		Window* getPrimaryWindow() const;
-		LuaScriptEngine* getScriptEngine() const;
 
 		Renderer* getRenderer() const;
 		ImGuiLayer* getImGuiLayer() const;
@@ -66,7 +64,6 @@ namespace DesdunCore
 		Window* gameWindow = nullptr;
 		Renderer* renderer = nullptr;
 		ImGuiLayer* imguiLayer = nullptr;
-		LuaScriptEngine* scriptEngine = nullptr;
 
 		static Application* currentApp;
 
