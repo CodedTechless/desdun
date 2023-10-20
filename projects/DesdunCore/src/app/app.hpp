@@ -4,17 +4,21 @@
 #include <glfw/glfw3.h>
 
 #include <app/window/window.hpp>
+
+#include <app/layer/script_layer.hpp>
+
 #include <runtime/layer/layer_collection.hpp>
 #include <runtime/imgui/imgui_layer.hpp>
 
 #include <graphics/render/renderer.hpp>
 
-#define dd_define(object, ...) vm.new_usertype<object>(#object, __VA_ARGS__)
-#define dd_define_type(object, ...) Runtime::add<object>({ #object }); vm.new_usertype<object>(#object, __VA_ARGS__)
-#define dd_define_type_inheritence(object, inheritence, ...) Runtime::add<object>({ #object, inheritence }); vm.new_usertype<object>(#object, __VA_ARGS__)
-
 namespace DesdunCore
 {
+
+	class Service
+	{
+
+	};
 
 	class Application
 	{
@@ -33,6 +37,9 @@ namespace DesdunCore
 		virtual void init();
 		void stop();
 		void showDebug();
+
+		void addService(const String& id, Service* service);
+		Service* getService(const String& id);
 
 		Window* getPrimaryWindow() const;
 
@@ -63,10 +70,9 @@ namespace DesdunCore
 
 		Window* gameWindow = nullptr;
 		Renderer* renderer = nullptr;
-		ImGuiLayer* imguiLayer = nullptr;
 
-		sol::state vm = {};
-		List<String> environmentLibs;
+		ImGuiLayer* imguiLayer = nullptr;
+		ScriptLayer* scriptLayer = nullptr;
 
 		static Application* currentApp;
 

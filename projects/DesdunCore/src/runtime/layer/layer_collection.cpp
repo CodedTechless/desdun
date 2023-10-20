@@ -11,52 +11,52 @@ namespace DesdunCore {
 
 	void LayerCollection::clear()
 	{
-		for (auto* Layer : Layers)
+		for (auto* layer : layers)
 		{
-			Layer->onDestroyed();
-			delete Layer;
+			layer->onDestroyed();
+			delete layer;
 		}
 
-		Layers.clear();
+		layers.clear();
 	}
 
-	void LayerCollection::PushLayer(Layer* Layer)
+	void LayerCollection::pushLayer(Layer* Layer)
 	{
-		Layers.emplace(Layers.begin() + LayerInsertIndex, Layer);
-		LayerInsertIndex++;
+		layers.emplace(layers.begin() + layerInsertIndex, Layer);
+		layerInsertIndex++;
 
 		Layer->onAwake();
 	}
 
-	void LayerCollection::PopLayer(Layer* Layer)
+	void LayerCollection::popLayer(Layer* layer)
 	{
-		auto Loc = Layers.begin() + LayerInsertIndex;
+		auto location = layers.begin() + layerInsertIndex;
 
-		auto Iterator = std::find(Layers.begin(), Loc, Layer);
-		if (Iterator != Loc) 
+		auto it = std::find(layers.begin(), location, layer);
+		if (it != location)
 		{
-			Layer->onDestroyed();
-			Layers.erase(Iterator);
+			layer->onDestroyed();
+			layers.erase(it);
 
-			LayerInsertIndex--;
+			layerInsertIndex--;
 		}
 	}
 
-	void LayerCollection::PushOverlay(Layer* Overlay)
+	void LayerCollection::pushOverlay(Layer* overlay)
 	{
-		Layers.emplace_back(Overlay);
-		Overlay->onAwake();
+		layers.emplace_back(overlay);
+		overlay->onAwake();
 	}
 
-	void LayerCollection::PopOverlay(Layer* Overlay)
+	void LayerCollection::popOverlay(Layer* overlay)
 	{
-		auto Loc = Layers.begin() + LayerInsertIndex;
+		auto location = layers.begin() + layerInsertIndex;
 
-		auto Iterator = std::find(Loc, Layers.end(), Overlay);
-		if (Iterator != Layers.end()) 
+		auto Iterator = std::find(location, layers.end(), overlay);
+		if (Iterator != layers.end())
 		{
-			Overlay->onDestroyed();
-			Layers.erase(Iterator);
+			overlay->onDestroyed();
+			layers.erase(Iterator);
 		}
 	}
 }

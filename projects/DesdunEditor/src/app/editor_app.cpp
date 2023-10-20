@@ -18,7 +18,7 @@ namespace DesdunEditor
 		);
 
 		Layer* newLayer = new EditorLayer();
-		gameLayers.PushLayer(newLayer);
+		gameLayers.pushLayer(newLayer);
 
 		start();
 	};

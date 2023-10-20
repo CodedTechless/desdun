@@ -14,22 +14,23 @@ namespace DesdunCore
 		LayerCollection() = default;
 		~LayerCollection();
 
-		void PushLayer(Layer* Layer);
-		void PushOverlay(Layer* Overlay);
-		void PopLayer(Layer* Layer);
-		void PopOverlay(Layer* Overlay);
+		void pushLayer(Layer* Layer);
+		void pushOverlay(Layer* Overlay);
+		void popLayer(Layer* Layer);
+		void popOverlay(Layer* Overlay);
 
 		void clear();
 
-		std::vector<Layer*>::iterator begin() { return Layers.begin(); };
-		std::vector<Layer*>::iterator end() { return Layers.end(); };
+		List<Layer*>::iterator begin() { return layers.begin(); };
+		List<Layer*>::iterator end() { return layers.end(); };
 
-		std::vector<Layer*>::reverse_iterator rbegin() { return Layers.rbegin(); };
-		std::vector<Layer*>::reverse_iterator rend() { return Layers.rend(); };
+		List<Layer*>::reverse_iterator rbegin() { return layers.rbegin(); };
+		List<Layer*>::reverse_iterator rend() { return layers.rend(); };
 
 	private:
-		std::vector<Layer*> Layers;
-		unsigned short int LayerInsertIndex = 0; // this is the index that layers will be inserted
+		List<Layer*> layers = {};
+
+		uint layerInsertIndex = 0; // this is the index that layers will be inserted
 
 		friend class Core;
 	};

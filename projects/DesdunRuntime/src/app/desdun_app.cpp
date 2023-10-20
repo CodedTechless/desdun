@@ -10,7 +10,7 @@ namespace DesdunRuntime
 		Application::init();
 
 		Layer* newLayer = new Game();
-		gameLayers.PushLayer(newLayer);
+		gameLayers.pushLayer(newLayer);
 
 		start();
 	};
